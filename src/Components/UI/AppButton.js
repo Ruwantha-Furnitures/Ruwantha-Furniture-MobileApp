@@ -1,15 +1,18 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-const AppButton = ({ onPress, title }) => {
+const AppButton = ({ onPress, title, size }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
-      <Text style={styles.textContainer}>{title}</Text>
+    <TouchableOpacity
+      onPress={onPress}
+      style={size === "lg" ? styles.buttonLg : styles.buttonMd}
+    >
+      <Text style={size === "lg" ? styles.textLg : styles.textMd}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  buttonLg: {
     elevation: 8,
     backgroundColor: "#FB9F3C",
     borderRadius: 10,
@@ -17,12 +20,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     width: 120,
   },
-  textContainer: {
+  buttonMd: {
+    backgroundColor: "#FB9F3C",
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 2,
+    elevation: 6,
+    width: 80,
+  },
+  textLg: {
     fontSize: 10,
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",
     marginLeft: 20,
+  },
+  textMd: {
+    color: "#fff",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    fontSize: 8,
+    marginLeft: 10,
   },
 });
 export default AppButton;
