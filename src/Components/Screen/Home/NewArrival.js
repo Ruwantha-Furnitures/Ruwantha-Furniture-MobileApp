@@ -16,6 +16,18 @@ const NewArrival = () => {
       name: "Molteni Chair",
       price: "Rs.1000",
     },
+    {
+      id: 3,
+      url: require("../../../../assets/Molteni-Outline-Chair-3D-Model.jpeg"),
+      name: "Monay Chair",
+      price: "Rs.500",
+    },
+    {
+      id: 4,
+      url: require("../../../../assets/newImg.jpg"),
+      name: "Molteni Chair",
+      price: "Rs.1000",
+    },
   ];
   const renderItem = ({ item }) => {
     return (
@@ -38,6 +50,7 @@ const NewArrival = () => {
         <Text style={styles.subHeader}>New Arrivals</Text>
         <FlatList
           horizontal
+          showsHorizontalScrollIndicator={false}
           data={data}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
