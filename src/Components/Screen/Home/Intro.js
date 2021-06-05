@@ -1,15 +1,58 @@
-import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  ScrollView,
+} from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 
 const Intro = () => {
+  const images = [
+    require("../../../../assets/download_ar.jpg"),
+    require("../../../../assets/download.jpg"),
+  ];
+
+  const [active, setActive] = useState(0);
+
   return (
     <Card size="lg">
-      <Image
-        source={require("../../../../assets/download_ar.jpg")}
-        style={styles.image}
-      />
+      <ScrollView horizontal>
+        {images.map((image, index) => {
+          return (
+            <>
+              <Image key={index} source={image} style={styles.image} />
+              <View
+                style={{
+                  flexDirection: "row",
+                  position: "absolute",
+                  alignSelf: "center",
+                  bottom: 0,
+                  marginLeft: 90,
+                }}
+              >
+                {images.map((i, k) => {
+                  return (
+                    <Text
+                      style={{
+                        color: "white",
+                        marginLeft: 3,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ⬤
+                    </Text>
+                  );
+                })}
+              </View>
+            </>
+          );
+        })}
+      </ScrollView>
+
       <View style={styles.detailContainer}>
         <Text style={styles.subHeader}>Best Furniture</Text>
         <Text style={{ marginLeft: 15, fontSize: 15, marginVertical: 10 }}>
@@ -31,7 +74,7 @@ const Intro = () => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 210,
+    width: 220,
     height: 280,
     borderRadius: 10,
   },

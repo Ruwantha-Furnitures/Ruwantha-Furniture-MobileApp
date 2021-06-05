@@ -29,9 +29,7 @@ export default function App() {
     // </NavigationContainer>
 
     <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={HomeNavigation} />
-      </Drawer.Navigator>
+      <BottomNavigator />
     </NavigationContainer>
   );
 }
