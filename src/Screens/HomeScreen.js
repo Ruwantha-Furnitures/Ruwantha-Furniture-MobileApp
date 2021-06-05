@@ -6,6 +6,12 @@ import NewArrival from "../Components/Screen/Home/NewArrival";
 const HomeScreen = ({ navigation: { navigate } }) => {
   return (
     <View style={styles.viewContainer}>
+      <Button
+        title="Move to Login Page"
+        onPress={() => {
+          navigate("Login");
+        }}
+      />
       <Header />
       <Intro />
       <NewArrival />

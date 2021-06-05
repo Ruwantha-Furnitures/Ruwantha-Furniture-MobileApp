@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View, FlatList, Image } from "react-native";
+import SubHeader from "../../Header/SubHeader";
 import AppButton from "../../UI/AppButton";
 import Card from "../../UI/Card";
 const NewArrival = () => {
@@ -47,7 +48,7 @@ const NewArrival = () => {
   return (
     <Card size="lg">
       <View style={styles.newArrivalContainer}>
-        <Text style={styles.subHeader}>New Arrivals</Text>
+        <SubHeader title="New Arrivals" />
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -64,16 +65,6 @@ const styles = StyleSheet.create({
   newArrivalContainer: {
     display: "flex",
     alignItems: "center",
-  },
-  subHeader: {
-    letterSpacing: 2,
-    marginTop: 15,
-    marginBottom: 10,
-    fontSize: 22,
-    marginLeft: 100,
-    fontWeight: "bold",
-    alignSelf: "center",
-    width: 200,
   },
   itemName: {
     marginTop: 10,

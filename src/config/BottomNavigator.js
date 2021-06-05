@@ -9,7 +9,7 @@ import ProductsScreen from "../Screens/ProductsScreen";
 import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import MyPurchasesScreen from "../Screens/MyPurchasesScreen";
 import AboutUsScreen from "../Screens/AboutUsScreen";
-
+import HomeStackNav from "./HomeStackNav";
 const Tab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {
   return (
@@ -20,7 +20,7 @@ const BottomNavigator = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackNav}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (

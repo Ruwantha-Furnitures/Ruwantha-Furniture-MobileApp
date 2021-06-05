@@ -23,8 +23,8 @@ const Intro = () => {
       <ScrollView horizontal>
         {images.map((image, index) => {
           return (
-            <>
-              <Image key={index} source={image} style={styles.image} />
+            <View key={index}>
+              <Image source={image} style={styles.image} />
               <View
                 style={{
                   flexDirection: "row",
@@ -48,7 +48,7 @@ const Intro = () => {
                   );
                 })}
               </View>
-            </>
+            </View>
           );
         })}
       </ScrollView>
