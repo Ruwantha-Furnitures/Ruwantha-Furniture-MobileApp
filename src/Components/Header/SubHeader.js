@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     fontWeight: "bold",
     alignSelf: "center",
-    width: 200,
+    width: 250,
   },
 });
 export default SubHeader;

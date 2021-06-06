@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   signUpForm: {
     width: 415,
-    height: 580,
+    height: 620,
     backgroundColor: "#E7E5E9",
     elevation: 10,
     marginLeft: 20,
