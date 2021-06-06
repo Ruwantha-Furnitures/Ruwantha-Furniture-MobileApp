@@ -1,18 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 const Form = (props) => {
-  const { type } = props;
-  return (
-    <View style={type === "login" ? styles.loginForm : styles.signUpForm}>
-      {props.children}
-    </View>
-  );
+  const { width, height } = props;
+  const dimension = {
+    width,
+    height,
+  };
+  return <View style={[styles.form, dimension]}>{props.children}</View>;
 };
 
 const styles = StyleSheet.create({
-  loginForm: {
-    width: 415,
-    height: 380,
+  form: {
     backgroundColor: "#E7E5E9",
     elevation: 10,
     marginLeft: 20,

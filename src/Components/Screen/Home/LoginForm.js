@@ -8,12 +8,12 @@ import Input from "../../UI/Input";
 
 const LoginForm = ({ navigation }) => {
   return (
-    <Form type="login">
+    <Form type="login" width={415} height={380}>
       <SubHeader title="Login Form" />
       <Input placeholder="email or username" type="email" />
       <Input placeholder="password" type="password" />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Log In" />
+        <FormAppButton title="Login" />
       </View>
       <TouchableOpacity
         style={{ alignSelf: "center", fontSize: 18 }}
