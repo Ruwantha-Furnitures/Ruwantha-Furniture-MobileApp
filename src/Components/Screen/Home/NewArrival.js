@@ -32,7 +32,7 @@ const NewArrival = () => {
   ];
   const renderItem = ({ item }) => {
     return (
-      <Card size="md">
+      <Card width={170} height={120} ml={25} pd={7} bg="white">
         <Image
           source={item.url}
           style={{ width: 70, height: 70, borderRadius: 40 }}
@@ -46,7 +46,7 @@ const NewArrival = () => {
     );
   };
   return (
-    <Card size="lg">
+    <Card width={415} height={280} ml={20}>
       <View style={styles.newArrivalContainer}>
         <SubHeader title="New Arrivals" />
         <FlatList

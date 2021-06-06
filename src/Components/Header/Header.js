@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <View style={styles.headerContainer}>
       <Image
-        source={require("../../../assets/logo.png")}
+        source={require("../../../assets/logo.jpeg")}
         style={styles.imageHeader}
       />
       <Text style={styles.title}>Ruwantha Furniture</Text>
@@ -15,21 +15,25 @@ const Header = () => {
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
-    marginVertical: 8,
+    marginVertical: 12,
     marginHorizontal: 3,
     opacity: 0.9,
+    marginLeft: 50,
   },
   imageHeader: {
-    width: 200,
-    height: 130,
-    marginLeft: 5,
-    marginRight: -20,
+    width: 80,
+    height: 80,
+    marginTop: 15,
+    marginRight: 20,
+    marginLeft: 10,
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 35,
     fontWeight: "bold",
     letterSpacing: 5,
-    marginTop: 20,
+    marginTop: 10,
+    height: 100,
   },
 });
 

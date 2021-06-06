@@ -15,7 +15,7 @@ const HomeStackNav = () => {
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: {
-          backgroundColor: "#B89068",
+          backgroundColor: "#291B1B",
         },
         headerTintColor: "#fff",
       }}

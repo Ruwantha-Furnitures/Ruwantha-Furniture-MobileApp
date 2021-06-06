@@ -10,7 +10,7 @@ import {
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 
-const Intro = () => {
+function Intro() {
   const images = [
     require("../../../../assets/download_ar.jpg"),
     require("../../../../assets/download.jpg"),
@@ -19,7 +19,7 @@ const Intro = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <Card size="lg">
+    <Card width={415} height={280} ml={20} pd={0}>
       <ScrollView horizontal>
         {images.map((image, index) => {
           return (
@@ -56,9 +56,9 @@ const Intro = () => {
       <View style={styles.detailContainer}>
         <Text style={styles.subHeader}>Best Furniture</Text>
         <Text style={{ marginLeft: 15, fontSize: 15, marginVertical: 10 }}>
-          Bye Your Favourite furniture products from us,make an aspring
-          decision.Bye Your Favourite furniture products from us,make an aspring
-          decision.
+          Bye Your Favourite furniture products from us,make an aspiring
+          decision.We provide you with the best furnitures which would enlighten
+          your house.
         </Text>
         <View style={{ marginLeft: 45, marginTop: 7.5 }}>
           <AppButton
@@ -70,7 +70,7 @@ const Intro = () => {
       </View>
     </Card>
   );
-};
+}
 
 const styles = StyleSheet.create({
   image: {
