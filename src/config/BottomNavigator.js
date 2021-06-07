@@ -10,6 +10,7 @@ import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import MyPurchasesScreen from "../Screens/MyPurchasesScreen";
 import AboutUsScreen from "../Screens/AboutUsScreen";
 import HomeStackNav from "./HomeStackNav";
+import ProductStackNav from "./ProductStackNav";
 const Tab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {
   return (
@@ -30,7 +31,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="Products"
-        component={ProductsScreen}
+        component={ProductStackNav}
         options={{
           tabBarLabel: "Products",
           tabBarIcon: ({ color }) => (

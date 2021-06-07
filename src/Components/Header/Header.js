@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <View style={styles.headerContainer}>
       <Image
-        source={require("../../../assets/logo.jpeg")}
+        source={require("../../../assets/logo.png")}
         style={styles.imageHeader}
       />
       <Text style={styles.title}>Ruwantha Furniture</Text>
@@ -21,9 +21,8 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   imageHeader: {
-    width: 80,
-    height: 80,
-    marginTop: 15,
+    width: 120,
+    height: 120,
     marginRight: 20,
     marginLeft: 10,
     backgroundColor: "#fff",

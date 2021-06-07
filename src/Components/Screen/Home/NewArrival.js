@@ -46,7 +46,7 @@ const NewArrival = () => {
     );
   };
   return (
-    <Card width={415} height={280} ml={20}>
+    <Card width={415} height={280} ml={20} bg="#E7E5E9">
       <View style={styles.newArrivalContainer}>
         <SubHeader title="New Arrivals" />
         <FlatList
