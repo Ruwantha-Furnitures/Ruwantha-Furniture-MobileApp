@@ -21,7 +21,14 @@ const LoginForm = ({ navigation }) => {
       >
         <Text style={styles.signUp}>Don't have an account</Text>
       </TouchableOpacity>
-      <Text style={{ alignSelf: "center", fontSize: 15 }}>Forgot Password</Text>
+      <TouchableOpacity
+        style={{ alignSelf: "center", fontSize: 18 }}
+        onPress={() => navigation.navigate("Forgot Password")}
+      >
+        <Text style={{ alignSelf: "center", fontSize: 15 }}>
+          Forgot Password
+        </Text>
+      </TouchableOpacity>
     </Form>
   );
 };

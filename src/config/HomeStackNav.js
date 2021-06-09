@@ -8,6 +8,7 @@ import MyPurchasesScreen from "../Screens/MyPurchasesScreen";
 import AboutUsScreen from "../Screens/AboutUsScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
+import ForgotPasswordScreen from "../Screens/ForgotPasswordScreen";
 const HomeStack = createStackNavigator();
 const HomeStackNav = () => {
   return (
@@ -27,6 +28,10 @@ const HomeStackNav = () => {
       <HomeStack.Screen name="AboutsUs" component={AboutUsScreen} />
       <HomeStack.Screen name="Login" component={LoginScreen} />
       <HomeStack.Screen name="Sign Up" component={SignUpScreen} />
+      <HomeStack.Screen
+        name="Forgot Password"
+        component={ForgotPasswordScreen}
+      />
     </HomeStack.Navigator>
   );
 };
