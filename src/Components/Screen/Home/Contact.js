@@ -7,14 +7,14 @@ import Input from "../../UI/Input";
 
 const Contact = () => {
   return (
-    <Form width={415} height={520}>
-      <SubHeader title="Contact Us" />
+    <Form width={415} height={550}>
+      <SubHeader title="Customize Your Product" width={400} />
       <Input placeholder="Name" type="string" />
       <Input placeholder="Telephone" type="number" />
       <Input placeholder="Email" type="string" />
       <Input placeholder="Description" name="textarea" type="string" />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Submit" />
+        <FormAppButton title="Submit" width={110} />
       </View>
     </Form>
   );

@@ -1,7 +1,10 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
-const SubHeader = ({ title }) => {
-  return <Text style={styles.subHeader}>{title}</Text>;
+const SubHeader = ({ title,width}) => {
+  const dimensions={
+    width
+  }
+  return <Text style={[styles.subHeader,dimensions]}>{title}</Text>;
 };
 
 const styles = StyleSheet.create({
