@@ -32,7 +32,7 @@ const NewArrival = () => {
   ];
   const renderItem = ({ item }) => {
     return (
-      <Card width={170} height={120} ml={25} pd={7} bg="white">
+      <Card width={170} height={120} ml={25} pd={7} fd="row" bg="white">
         <Image
           source={item.url}
           style={{ width: 70, height: 70, borderRadius: 40 }}

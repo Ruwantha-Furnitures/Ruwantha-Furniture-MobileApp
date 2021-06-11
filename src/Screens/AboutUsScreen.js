@@ -1,20 +1,30 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import Header from "../Components/Header/Header";
+import Contact from "../Components/Screen/AboutUs/Contact";
 import Info from "../Components/Screen/AboutUs/Info";
 import Card from "../Components/UI/Card";
 const AboutUsScreen = ({ navigation: { navigate } }) => {
   return (
-    <View style={styles.viewContainer}>
-      <TouchableOpacity
-        style={styles.LoginHeader}
-        onPress={() => navigate("Login")}
-      >
-        <Text style={styles.Login}>Log In</Text>
-      </TouchableOpacity>
-      <Header />
-      <Info />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.viewContainer}>
+        <TouchableOpacity
+          style={styles.LoginHeader}
+          onPress={() => navigate("Login")}
+        >
+          <Text style={styles.Login}>Log In</Text>
+        </TouchableOpacity>
+        <Header />
+        <Info />
+        <Contact />
+      </View>
+    </ScrollView>
   );
 };
 
