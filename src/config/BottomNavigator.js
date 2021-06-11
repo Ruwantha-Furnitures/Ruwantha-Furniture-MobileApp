@@ -4,11 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
-import HomeScreen from "../Screens/HomeScreen";
-import ProductsScreen from "../Screens/ProductsScreen";
 import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import MyPurchasesScreen from "../Screens/MyPurchasesScreen";
-import AboutUsScreen from "../Screens/AboutUsScreen";
+import AboutUsStackNav from "./AboutUsStackNav";
 import HomeStackNav from "./HomeStackNav";
 import ProductStackNav from "./ProductStackNav";
 const Tab = createMaterialBottomTabNavigator();
@@ -51,7 +49,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="AboutUs"
-        component={AboutUsScreen}
+        component={AboutUsStackNav}
         options={{
           tabBarLabel: "About Us",
           tabBarIcon: ({ color }) => (

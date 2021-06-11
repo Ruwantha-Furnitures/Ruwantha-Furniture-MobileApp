@@ -1,8 +1,11 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-const FormAppButton = ({ onPress, title }) => {
+const FormAppButton = ({ onPress, title, width }) => {
+  const dimensions = {
+    width,
+  };
   return (
-    <TouchableOpacity onPress={onPress} style={styles.buttonLg}>
+    <TouchableOpacity onPress={onPress} style={[styles.buttonLg, dimensions]}>
       <Text style={styles.textLg}>{title}</Text>
     </TouchableOpacity>
   );
@@ -15,7 +18,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 8,
     paddingHorizontal: 10,
-    width: 120,
   },
   textLg: {
     fontSize: 15,

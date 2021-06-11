@@ -17,7 +17,7 @@ const ForgotPassword = () => {
       </View>
       <Input placeholder="enter yout email address" type="email" />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Recover Password" />
+        <FormAppButton title="Recover Password" width={200} />
       </View>
     </Form>
   );

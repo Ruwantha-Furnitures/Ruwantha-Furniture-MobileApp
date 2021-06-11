@@ -9,7 +9,7 @@ import Input from "../../UI/Input";
 const SignUpForm = () => {
   return (
     <Form type="SignUp" width={415} height={620}>
-      <SubHeader title="Create Account" />
+      <SubHeader title="Create Account" width={300} />
       <Input placeholder="Name" type="string" />
       <Input placeholder="UserName" type="string" />
       <Input placeholder="Email" type="email" />
@@ -17,7 +17,7 @@ const SignUpForm = () => {
       <Input placeholder="Password" type="password" />
       <Input placeholder="Confirm Password" type="password" />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Sign Up" />
+        <FormAppButton title="Sign Up" width={120} />
       </View>
     </Form>
   );
