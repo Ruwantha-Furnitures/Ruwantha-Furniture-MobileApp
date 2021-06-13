@@ -34,9 +34,10 @@ function Intro() {
                   marginLeft: 90,
                 }}
               >
-                {images.map((i, k) => {
+                {images.map((i, k, index) => {
                   return (
                     <Text
+                      key={index}
                       style={{
                         color: "white",
                         marginLeft: 3,

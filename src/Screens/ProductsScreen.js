@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import Searchbar from "../Components/UI/SearchBar";
 import Header from "../Components/Header/Header";
+import Products from "../Components/Screen/Products/Products";
 
 const ProductScreen = ({ navigation: { navigate } }) => {
   return (
@@ -14,6 +15,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <Header />
       <Searchbar placeholder="Search" />
+      <Products />
     </View>
   );
 };
