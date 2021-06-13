@@ -9,7 +9,7 @@ import {
 import Header from "../Components/Header/Header";
 import Contact from "../Components/Screen/AboutUs/Contact";
 import Info from "../Components/Screen/AboutUs/Info";
-import Card from "../Components/UI/Card";
+import Map from "../Components/Screen/AboutUs/Map";
 const AboutUsScreen = ({ navigation: { navigate } }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -23,6 +23,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
         <Header />
         <Info />
         <Contact />
+        <Map />
       </View>
     </ScrollView>
   );
