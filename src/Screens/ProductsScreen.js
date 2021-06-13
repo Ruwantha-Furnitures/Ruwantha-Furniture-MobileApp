@@ -1,22 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import Searchbar from "../Components/UI/SearchBar";
 import Header from "../Components/Header/Header";
 import Products from "../Components/Screen/Products/Products";
 
 const ProductScreen = ({ navigation: { navigate } }) => {
   return (
-    <View style={styles.viewContainer}>
-      <TouchableOpacity
-        style={styles.LoginHeader}
-        onPress={() => navigate("Login")}
-      >
-        <Text style={styles.Login}>Log In</Text>
-      </TouchableOpacity>
-      <Header />
-      <Searchbar placeholder="Search" />
-      <Products />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.viewContainer}>
+        <TouchableOpacity
+          style={styles.LoginHeader}
+          onPress={() => navigate("Login")}
+        >
+          <Text style={styles.Login}>Log In</Text>
+        </TouchableOpacity>
+        <Header />
+        <Searchbar placeholder="Search" />
+        <Products />
+      </View>
+    </ScrollView>
   );
 };
 
