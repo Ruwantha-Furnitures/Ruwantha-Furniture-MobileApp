@@ -1,14 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../Screens/HomeScreen";
 import ProductsScreen from "../Screens/ProductsScreen";
 import ViewProductARScreen from "../Screens/ViewProductARScreen";
-import MyPurchasesScreen from "../Screens/MyPurchasesScreen";
-import AboutUsScreen from "../Screens/AboutUsScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
 import SingleProductScreen from "../Screens/SingleProductScreen";
+import MoreDetailsScreen from "../Screens/MoreDetailsScreen";
 const ProductStack = createStackNavigator();
 const ProductStackNav = () => {
   return (
@@ -22,6 +19,7 @@ const ProductStackNav = () => {
       }}
     >
       <ProductStack.Screen name="Products" component={ProductsScreen} />
+      <ProductStack.Screen name="More Details" component={MoreDetailsScreen} />
       <ProductStack.Screen name="ProductsAR" component={ViewProductARScreen} />
       <ProductStack.Screen name="Login" component={LoginScreen} />
       <ProductStack.Screen name="Sign Up" component={SignUpScreen} />

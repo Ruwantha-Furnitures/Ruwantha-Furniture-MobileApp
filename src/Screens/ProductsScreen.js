@@ -22,7 +22,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
         </TouchableOpacity>
         <Header />
         <Searchbar placeholder="Search" />
-        <Products />
+        <Products navigate={navigate} />
       </View>
     </ScrollView>
   );

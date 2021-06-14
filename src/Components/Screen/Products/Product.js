@@ -1,16 +1,24 @@
 import React from "react";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
-import { Image, View, Text, StyleSheet } from "react-native";
+import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const Product = ({ item }) => {
+const Product = ({ item, navigate }) => {
   return (
     <Card key={item.id} width={405} height={200} ml={20} bg="#E7E5E9">
       <View style={styles.productContainer}>
-        <Image source={item.image} style={styles.productImage} />
+        <TouchableOpacity
+          onPress={() => {
+            navigate("More Details", { item });
+          }}
+        >
+          <Image source={item.image} style={styles.productImage} />
+        </TouchableOpacity>
         <View>
-          <Text style={styles.productName}>{item.name}</Text>
+          <TouchableOpacity>
+            <Text style={styles.productName}>{item.name}</Text>
+          </TouchableOpacity>
           <Text style={styles.productDescription}>{item.description}</Text>
           <Text style={styles.productPrice}>{`Rs. ${item.price}/=`}</Text>
           <View style={styles.btnContainer}>
