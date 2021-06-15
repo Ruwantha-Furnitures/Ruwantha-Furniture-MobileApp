@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Card from "../Components/UI/Card";
 import AppButton from "../Components/UI/AppButton";
 const MoreDetailsScreen = ({ route }) => {
   const { item } = route.params;
+  const [quantity, SetQuantity] = useState(1);
   return (
     <View style={styles.viewContainer}>
       <Image source={item.image} style={styles.imgLarge} />
@@ -12,14 +13,35 @@ const MoreDetailsScreen = ({ route }) => {
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.content}>{item.content}</Text>
           <View style={styles.imageContainer}>
-            <Image source={item.image} style={styles.imgSmaller} />
-            <Image source={item.image} style={styles.imgSmaller} />
-            <Image source={item.image} style={styles.imgSmaller} />
+            <Image
+              source={item.image}
+              style={[styles.imgSmaller, { transform: [{ rotate: "90deg" }] }]}
+            />
+            <Image
+              source={item.image}
+              style={[styles.imgSmaller, { transform: [{ rotate: "180deg" }] }]}
+            />
+            <Image
+              source={item.image}
+              style={[styles.imgSmaller, { transform: [{ rotate: "270deg" }] }]}
+            />
           </View>
           <Text style={styles.price}>{`Rs.${item.price}/=`}</Text>
           <View style={styles.bottomContainer}>
             <Text style={styles.quantityTitle}>Quantity</Text>
-            <View style={styles.quantityContainer}></View>
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity onPress={() => SetQuantity(quantity - 1)}>
+                <Text style={styles.quantityText}>-</Text>
+              </TouchableOpacity>
+              <View style={styles.hr} />
+              <Text style={[styles.quantityText, { marginTop: -2 }]}>
+                {quantity}
+              </Text>
+              <View style={styles.hr} />
+              <TouchableOpacity onPress={() => SetQuantity(quantity + 1)}>
+                <Text style={styles.quantityText}>+</Text>
+              </TouchableOpacity>
+            </View>
             <View style={{ marginLeft: 260, marginTop: -35 }}>
               <AppButton
                 size="lg"
@@ -90,9 +112,21 @@ const styles = StyleSheet.create({
     width: 120,
     height: 40,
     marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   bottomContainer: {
     marginLeft: 20,
+  },
+  hr: {
+    borderBottomColor: "black",
+    borderRightWidth: 2,
+  },
+  quantityText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "center",
+    marginTop: 4,
   },
 });
 export default MoreDetailsScreen;
