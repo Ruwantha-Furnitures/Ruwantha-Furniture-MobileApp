@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import ViewProductARScreen from "../Screens/ViewProductARScreen";
-import MyPurchasesScreen from "../Screens/MyPurchasesScreen";
+import UserProfileStackNav from "./UserProfileStackNav";
 import AboutUsStackNav from "./AboutUsStackNav";
 import HomeStackNav from "./HomeStackNav";
 import ProductStackNav from "./ProductStackNav";
@@ -58,10 +58,10 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="MyPurchases"
-        component={MyPurchasesScreen}
+        name="My Profile"
+        component={UserProfileStackNav}
         options={{
-          tabBarLabel: "My Purchases",
+          tabBarLabel: "My Profile",
           tabBarIcon: ({ color }) => (
             <EvilIcons name="user" color={color} size={26} />
           ),
