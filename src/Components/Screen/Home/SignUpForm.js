@@ -11,8 +11,8 @@ const SignUpForm = () => {
     <Form type="SignUp" width={415} height={620}>
       <SubHeader title="Create Account" width={300} />
       <Input placeholder="Name" type="string" />
-      <Input placeholder="UserName" type="string" />
       <Input placeholder="Email" type="email" />
+      <Input placeholder="Address" type="string" />
       <Input placeholder="Contact No" type="string" />
       <Input placeholder="Password" type="password" />
       <Input placeholder="Confirm Password" type="password" />

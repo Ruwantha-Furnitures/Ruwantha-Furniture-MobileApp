@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Header from "../Components/Header/Header";
 import NavProfile from "../Components/Screen/UserProfile/NavProfile";
-
+import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
 
@@ -21,6 +21,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <Header />
       <NavProfile navigate={navigate} currentView={currentView} />
+      <ViewProfile />
     </View>
   );
 };
