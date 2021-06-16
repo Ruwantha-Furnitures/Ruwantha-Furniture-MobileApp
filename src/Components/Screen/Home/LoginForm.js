@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import SubHeader from "../../Header/SubHeader";
-import AppButton from "../../UI/AppButton";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
