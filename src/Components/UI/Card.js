@@ -22,16 +22,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 20,
   },
-  // md_card: {
-  //   width: 170,
-  //   height: 120,
-  //   backgroundColor: "#FFF",
-  //   elevation: 10,
-  //   marginLeft: 25,
-  //   borderRadius: 10,
-  //   flexDirection: "row",
-  //   marginVertical: 20,
-  //   padding: 7,
-  // },
 });
 export default Card;

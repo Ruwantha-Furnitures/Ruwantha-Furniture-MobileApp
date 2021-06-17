@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-const NavProfile = ({ navigate, currentView }) => {
+const NavProfile = ({ onChangeNav, currentView }) => {
   return (
     <View style={styles.nav}>
       <View style={styles.navContainer}>
@@ -10,6 +10,7 @@ const NavProfile = ({ navigate, currentView }) => {
               ? styles.selectedNav
               : styles.indicatorNav
           }
+          onPress={() => onChangeNav("My Profile")}
         >
           <Text
             style={
@@ -21,17 +22,28 @@ const NavProfile = ({ navigate, currentView }) => {
             My Profile
           </Text>
         </TouchableOpacity>
-        {currentView !== "My Profile" && <View style={styles.hr} />}
+        {currentView !== "My Profile" && currentView !== "Edit Profile" && (
+          <View style={styles.hr} />
+        )}
         <TouchableOpacity
           style={
             currentView === "Edit Profile"
               ? styles.selectedNav
               : styles.indicatorNav
           }
+          onPress={() => onChangeNav("Edit Profile")}
         >
-          <Text style={styles.navHeader}>Edit Profile</Text>
+          <Text
+            style={
+              currentView === "Edit Profile"
+                ? styles.selectedNavHeader
+                : styles.navHeader
+            }
+          >
+            Edit Profile
+          </Text>
         </TouchableOpacity>
-        {(currentView !== "Edit Profile" || currentView !== "My Purchases") && (
+        {currentView !== "Edit Profile" && currentView !== "My Purchases" && (
           <View style={styles.hr} />
         )}
         <TouchableOpacity
@@ -40,8 +52,17 @@ const NavProfile = ({ navigate, currentView }) => {
               ? styles.selectedNav
               : styles.indicatorNav
           }
+          onPress={() => onChangeNav("My Purchases")}
         >
-          <Text style={styles.navHeader}>My Purchases</Text>
+          <Text
+            style={
+              currentView === "My Purchases"
+                ? styles.selectedNavHeader
+                : styles.navHeader
+            }
+          >
+            My Purchases
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -64,6 +85,7 @@ const styles = StyleSheet.create({
   navHeader: {
     fontSize: 15,
     letterSpacing: 2,
+    color: "#000",
   },
   selectedNavHeader: {
     fontSize: 15,

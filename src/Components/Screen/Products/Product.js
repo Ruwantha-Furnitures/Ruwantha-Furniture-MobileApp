@@ -6,7 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
   return (
-    <Card key={item.id} width={405} height={200} ml={20} bg="#E7E5E9">
+    <Card width={405} height={200} ml={20} bg="#E7E5E9">
       <View style={styles.productContainer}>
         <TouchableOpacity
           onPress={() => {
