@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import Header from "../Components/Header/Header";
 import NavProfile from "../Components/Screen/UserProfile/NavProfile";
 import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
+import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
+
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
 
-  //   const changeView = (requestedView) => {
-  //     console.log(requestedView);
-  //     setCurrentView(requestedView);
-  //   };
+  const onChangeNav = (header) => {
+    setCurrentView(header);
+  };
 
   return (
-    <View style={styles.viewContainer}>
-      <TouchableOpacity
-        style={styles.LoginHeader}
-        onPress={() => navigate("Login")}
-      >
-        <Text style={styles.Login}>Log In</Text>
-      </TouchableOpacity>
-      <Header />
-      <NavProfile navigate={navigate} currentView={currentView} />
-      <ViewProfile />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.viewContainer}>
+        <TouchableOpacity
+          style={styles.LoginHeader}
+          onPress={() => navigate("Login")}
+        >
+          <Text style={styles.Login}>Log In</Text>
+        </TouchableOpacity>
+        <Header />
+        <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
+        {currentView === "My Profile" && <ViewProfile />}
+        {currentView === "My Purchases" && <MyPurchases />}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -30,6 +40,7 @@ const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
     backgroundColor: "#FFF",
+    minHeight: 1000,
   },
   Login: {
     alignSelf: "flex-end",
