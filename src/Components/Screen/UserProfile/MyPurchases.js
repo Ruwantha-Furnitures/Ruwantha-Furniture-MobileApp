@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
+import PurchaseDetailTable from "./PurchaseDetailTable";
 
 const MyPurchases = () => {
   const productList = [
@@ -37,24 +38,14 @@ const MyPurchases = () => {
         keyExtractor={(product) => product.orderID}
         renderItem={({ item }) => (
           <View style={styles.purchases}>
-            <Card width={405} height={220} ml={20} bg="#E7E5E9">
+            <Card width={405} height={300} ml={20} bg="#E7E5E9">
               <View style={styles.productContainer}>
+                <Text style={styles.purchaseItemName}>{item.name}</Text>
                 <Image source={item.image} style={styles.productImage} />
-                <View style={styles.purchaseItemDeatils}>
-                  <Text style={styles.purchaseItemName}>{item.name}</Text>
-                  <Text>{`Order ID : ${item.orderID}`}</Text>
-                  <Text>{`Paid Amount : Rs.${item.price}/=`}</Text>
-                  <Text>{`Purchased Date :${item.date}`}</Text>
-                  <Text>{`Order Status : ${
-                    item.orderStatus === true ? "Completed" : "Pending"
-                  }`}</Text>
-                  <Text>{`Payment Status : ${
-                    item.paymentStatus === true ? "Completed" : "Pending"
-                  }`}</Text>
-                  <View style={styles.btnContainer}>
-                    <AppButton title="Provide Ratings" size="lg" />
-                    <AppButton title="More Info" size="lg" />
-                  </View>
+                <PurchaseDetailTable item={item} />
+                <View style={styles.btnContainer}>
+                  <AppButton title="Provide Ratings" size="lg" />
+                  <AppButton title="More Info" size="lg" />
                 </View>
               </View>
             </Card>
@@ -70,9 +61,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   productContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
   },
-  productImage: { width: 60, height: 60, borderRadius: 40, marginTop: 10 },
+  productImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 40,
+    alignSelf: "center",
+  },
   purchaseItemDeatils: {
     marginLeft: 30,
     justifyContent: "space-evenly",
@@ -81,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     letterSpacing: 2,
-    marginLeft: 35,
+    marginLeft: 85,
     marginBottom: 15,
     marginTop: 5,
   },
@@ -91,8 +87,9 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "row",
-    marginTop: 15,
-    justifyContent: "space-between",
+    marginTop: 0,
+    justifyContent: "space-evenly",
+    marginLeft: 5,
   },
 });
 export default MyPurchases;
