@@ -1,10 +1,12 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Card from "../../UI/Card";
-import AppButton from "../../UI/AppButton";
+import FormAppButton from "../../UI/FormAppButton";
 import PurchaseDetailTable from "./PurchaseDetailTable";
-
+import RatingsForm from "./RatingsForm";
 const MyPurchases = () => {
+  const [ratingDisplay, setRatingDisplay] = useState(false);
+
   const productList = [
     {
       orderID: 1,
@@ -30,6 +32,10 @@ const MyPurchases = () => {
       paymentStatus: true,
     },
   ];
+
+  const ratingFormHandler = () => {
+    setRatingDisplay((prevState) => !prevState);
+  };
   return (
     <View>
       <FlatList
@@ -38,16 +44,29 @@ const MyPurchases = () => {
         keyExtractor={(product) => product.orderID}
         renderItem={({ item }) => (
           <View style={styles.purchases}>
-            <Card width={405} height={300} ml={20} bg="#E7E5E9">
+            <Card
+              width={415}
+              height={ratingDisplay ? 530 : 300}
+              ml={20}
+              bg="#E7E5E9"
+            >
               <View style={styles.productContainer}>
                 <Text style={styles.purchaseItemName}>{item.name}</Text>
                 <Image source={item.image} style={styles.productImage} />
                 <PurchaseDetailTable item={item} />
-                <View style={styles.btnContainer}>
-                  <AppButton title="Provide Ratings" size="lg" />
-                  <AppButton title="More Info" size="lg" />
-                </View>
+                {!ratingDisplay && (
+                  <View style={styles.btnContainer}>
+                    <FormAppButton
+                      title="Provide Ratings"
+                      onPress={ratingFormHandler}
+                      width={200}
+                    />
+                  </View>
+                )}
               </View>
+              {ratingDisplay && (
+                <RatingsForm ratingFormHandler={ratingFormHandler} />
+              )}
             </Card>
           </View>
         )}
@@ -58,7 +77,7 @@ const MyPurchases = () => {
 
 const styles = StyleSheet.create({
   purchases: {
-    marginTop: 10,
+    marginTop: 2,
   },
   productContainer: {
     flexDirection: "column",
@@ -89,7 +108,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 0,
     justifyContent: "space-evenly",
-    marginLeft: 5,
+    alignSelf: "flex-end",
+    marginRight: 15,
   },
 });
 export default MyPurchases;

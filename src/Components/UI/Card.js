@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 const Card = (props) => {
-  const { width, height, ml, pd, bg, fd } = props;
+  const { width, height, ml, pd, bg, fd, mh } = props;
   const dimensions = {
     width,
     height,
@@ -9,6 +9,7 @@ const Card = (props) => {
     padding: pd,
     backgroundColor: bg,
     flexDirection: fd,
+    maxHeight: mh,
   };
   return <View style={[styles.card, dimensions]}>{props.children}</View>;
 };
