@@ -7,18 +7,32 @@ const db = mysql.createPool({
 });
 
 const getCustomersController = (req, res) => {
-  // response.sendStatus(200);
-  console.log(req.body.data);
+  const name = req.body.data.name;
   const email = req.body.data.email;
   const password = req.body.data.password;
+  const address = req.body.data.address;
+  const contactNo = req.body.data.contactNo;
   const userLevel = "Customer";
   const accountRegQuery =
     "INSERT INTO account(email,password,userlevel) VALUES(?,?,?)";
-  db.query(accountRegQuery, [email, password, userLevel], (err, result) => {
+  const customerRegQuery =
+    "INSERT INTO customer(aid,name,address,telephone) VALUES(?,?,?,?)";
+  db.query(accountRegQuery, [email, password, userLevel], (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
+      const accountID = res.insertId;
+      db.query(
+        customerRegQuery,
+        [accountID, name, address, contactNo],
+        (error, result) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Successfully Registered");
+          }
+        }
+      );
     }
   });
 };
