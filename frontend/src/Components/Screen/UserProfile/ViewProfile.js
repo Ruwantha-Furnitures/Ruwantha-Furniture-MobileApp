@@ -5,7 +5,7 @@ import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 
-const ViewProfile = () => {
+const ViewProfile = ({ onChangeNav }) => {
   return (
     <View style={styles.viewProfile}>
       <Form width={415} height={500}>
@@ -14,8 +14,19 @@ const ViewProfile = () => {
         <Input placeholder="ayomalpraveen33@gmail.com" type="email" />
         <Input placeholder="No.54,Negombo road,Dankotuwa" type="string" />
         <Input placeholder="0776054853" type="string" />
-        <View style={{ alignSelf: "center", marginVertical: 20 }}>
-          <FormAppButton title="Edit Profile" width={180} />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            marginTop: 35,
+          }}
+        >
+          <FormAppButton title="Delete Profile" width={180} />
+          <FormAppButton
+            title="Edit Profile"
+            onPress={() => onChangeNav("Edit Profile")}
+            width={180}
+          />
         </View>
       </Form>
     </View>

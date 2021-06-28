@@ -10,7 +10,7 @@ import Header from "../Components/Header/Header";
 import NavProfile from "../Components/Screen/UserProfile/NavProfile";
 import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
-
+import EditProfile from "../Components/Screen/UserProfile/EditProfile";
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
 
@@ -29,8 +29,11 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         </TouchableOpacity>
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
-        {currentView === "My Profile" && <ViewProfile />}
+        {currentView === "My Profile" && (
+          <ViewProfile onChangeNav={onChangeNav} />
+        )}
         {currentView === "My Purchases" && <MyPurchases />}
+        {currentView === "Edit Profile" && <EditProfile />}
       </View>
     </ScrollView>
   );
