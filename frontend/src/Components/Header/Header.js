@@ -4,10 +4,10 @@ const Header = () => {
   return (
     <View style={styles.headerContainer}>
       <Image
-        source={require("../../../assets/logo.png")}
+        source={require("../../../assets/nlogo.png")}
         style={styles.imageHeader}
       />
-      <Text style={styles.title}>Ruwantha Furniture</Text>
+      <Text style={styles.title}>AR Magic</Text>
     </View>
   );
 };
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   imageHeader: {
-    width: 120,
-    height: 120,
+    width: 90,
+    height: 90,
     marginRight: 20,
     marginLeft: 10,
     backgroundColor: "#fff",
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontWeight: "bold",
     letterSpacing: 5,
-    marginTop: 10,
-    height: 100,
+    marginTop: 25,
+    width: 300,
   },
 });
 
