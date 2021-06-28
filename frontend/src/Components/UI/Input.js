@@ -7,6 +7,7 @@ const Input = ({
   name,
   backgroundColor,
   height,
+  value,
 }) => {
   const cusStyles = {
     backgroundColor,
@@ -14,8 +15,8 @@ const Input = ({
   };
   return (
     <TextInput
+      value={value}
       secureTextEntry={type === "password" ? true : false}
-      autoCompleteType="password"
       style={name === "textarea" ? [styles.textArea, cusStyles] : styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
