@@ -7,9 +7,16 @@ const db = mysql.createPool({
 });
 
 const getCustomersController = (req, res) => {
-  db.query("SELECT * FROM customer", (error, result, fields) => {
-    if (error) {
-      console.log(error);
+  // response.sendStatus(200);
+  console.log(req.body.data);
+  const email = req.body.data.email;
+  const password = req.body.data.password;
+  const userLevel = "Customer";
+  const accountRegQuery =
+    "INSERT INTO account(email,password,userlevel) VALUES(?,?,?)";
+  db.query(accountRegQuery, [email, password, userLevel], (err, result) => {
+    if (err) {
+      console.log(err);
     } else {
       console.log(result);
     }

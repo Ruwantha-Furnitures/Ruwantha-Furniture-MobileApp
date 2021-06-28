@@ -1,10 +1,9 @@
-const express=require('express');
+const express = require("express");
 const mysql = require("mysql");
 
-const router=express.Router();
-const {getCustomersController}=require('../controllers/CustomerController')
+const router = express.Router();
+const { getCustomersController } = require("../controllers/CustomerController");
 
+router.post("/signup", getCustomersController);
 
-router.get('/',getCustomersController)
-
-module.exports ={customerRouter:router};
+module.exports = { customerRouter: router };

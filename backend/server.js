@@ -2,7 +2,7 @@
 
 const express = require("express");
 const app = express();
-
+const cors = require("cors");
 const mysql = require("mysql");
 const connection = mysql.createConnection({
   host: "localhost",
@@ -13,10 +13,11 @@ const connection = mysql.createConnection({
 
 const { customerRouter } = require("./routes/customers");
 
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/customer", customerRouter);
+app.use("/api/customer", customerRouter);
 
 async function connectDB() {
   try {
