@@ -12,6 +12,7 @@ import Header from "../Components/Header/Header";
 import Contact from "../Components/Screen/Home/Contact";
 import Intro from "../Components/Screen/Home/Intro";
 import NewArrival from "../Components/Screen/Home/NewArrival";
+import CustomIntro from "../Components/Screen/Home/CustomIntro";
 const HomeScreen = ({ navigation: { navigate } }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -25,6 +26,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         <Header />
         <Intro />
         <NewArrival />
+        <CustomIntro />
         <Contact />
       </View>
     </ScrollView>
