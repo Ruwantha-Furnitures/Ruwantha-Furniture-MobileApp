@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Header from "../Components/Header/Header";
 import Card from "../Components/UI/Card";
 import LoginForm from "../Components/Screen/Home/LoginForm";
 import axios from "axios";
 const LoginScreen = ({ navigation }) => {
+  const [errorMessage, setErrorMessage] = useState("");
   const loginHandler = async (data) => {
     try {
-      await axios.post("http://192.168.8.175:3000/api/customer/signup", {
-        data,
-      });
+      let response = await axios.post(
+        "http://192.168.8.175:3000/api/customer/login",
+        {
+          data,
+        }
+      );
+
+      const result = response.json();
+      console.log(result);
     } catch (error) {
-      console.error(error);
+      console.error(error.data.errorMessage);
     }
   };
+  // const loginHandler = (data) => {
+  //   axios
+  //     .post("http://192.168.8.175:3000/api/customer/login", {
+  //       data,
+  //     })
+  //     .then((response) => {
+  //       if (response.data.errorMessage) {
+  //         console.log(response.data.errorMessage);
+  //       } else {
+  //         console.log("No Message");
+  //       }
+  //     });
+  // };
 
   return (
     <View style={styles.viewContainer}>
