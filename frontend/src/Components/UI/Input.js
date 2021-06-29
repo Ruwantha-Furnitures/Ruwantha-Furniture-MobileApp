@@ -17,7 +17,7 @@ const Input = ({
     <TextInput
       value={value}
       secureTextEntry={type === "password" ? true : false}
-      style={name === "textarea" ? [styles.textArea, cusStyles] : styles.input}
+      style={name === "textarea" ? styles.textArea : styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
     />

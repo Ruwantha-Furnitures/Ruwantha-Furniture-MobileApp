@@ -22,9 +22,9 @@ const Product = ({ item, navigate }) => {
           <Text style={styles.productDescription}>{item.description}</Text>
           <Text style={styles.productPrice}>{`Rs. ${item.price}/=`}</Text>
           <View style={styles.btnContainer}>
+            <AppButton title="Preview AR" />
             <AppButton
               title="Add to cart"
-              size="lg"
               onPress={() => console.log("Clicked")}
             />
           </View>
@@ -63,8 +63,10 @@ const styles = StyleSheet.create({
     color: "#FB9F3C",
   },
   btnContainer: {
-    marginLeft: 130,
+    marginLeft: 10,
     marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   ratingContainer: { marginTop: -30, flexDirection: "row", marginLeft: 8 },
 });

@@ -8,7 +8,7 @@ import SubHeader from "../../Header/SubHeader";
 const ForgotPassword = () => {
   return (
     <Form width={415} height={360}>
-      <SubHeader title="Forgot Password" />
+      <SubHeader title="Password Recovery" width={300} />
       <View style={styles.textContainer}>
         <Text>
           Please enter your login email address below and we will send you the
