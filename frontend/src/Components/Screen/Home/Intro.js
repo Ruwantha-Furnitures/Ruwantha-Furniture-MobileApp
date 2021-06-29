@@ -19,7 +19,7 @@ function Intro() {
   const [active, setActive] = useState(0);
 
   return (
-    <Card width={415} height={280} ml={20} pd={0} fd="row" bg="#E7E5E9">
+    <Card width={415} height={280} ml={20} pd={0} fd="row" bg="#fff">
       <ScrollView horizontal>
         {images.map((image, index) => {
           return (

@@ -20,26 +20,31 @@ const Input = ({
       style={name === "textarea" ? styles.textArea : styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
+      multilinenumberOfLines={4}
     />
   );
 };
 
 const styles = StyleSheet.create({
   input: {
-    height: 60,
-    backgroundColor: "white",
+    height: 50,
+    backgroundColor: "#E7E5E9",
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     marginHorizontal: 20,
-    padding: 10,
+    paddingHorizontal: 30,
+    letterSpacing: 1,
+    paddingVertical: 10,
+    fontSize: 18,
   },
   textArea: {
     height: 110,
-    backgroundColor: "white",
+    backgroundColor: "#E7E5E9",
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     marginHorizontal: 20,
-    padding: 10,
+    paddingTop: -20,
+    paddingHorizontal: 25,
   },
 });
 export default Input;

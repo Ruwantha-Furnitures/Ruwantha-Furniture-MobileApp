@@ -6,7 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
   return (
-    <Card width={405} height={200} ml={20} bg="#E7E5E9">
+    <Card width={405} height={200} ml={20} bg="#fff">
       <View style={styles.productContainer}>
         <TouchableOpacity
           onPress={() => {
@@ -35,7 +35,7 @@ const Product = ({ item, navigate }) => {
         <AntDesign name="star" size={24} color="#FB9F3C" />
         <AntDesign name="star" size={24} color="#FB9F3C" />
         <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#fff" />
+        <AntDesign name="star" size={24} color="#E7E5E9" />
       </View>
     </Card>
   );

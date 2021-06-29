@@ -15,7 +15,7 @@ const BottomNavigator = () => {
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#E7E5E9"
-      barStyle={{ backgroundColor: "#291B1B" }}
+      barStyle={{ backgroundColor: "#B89068" }}
     >
       <Tab.Screen
         name="Home"
@@ -43,7 +43,7 @@ const BottomNavigator = () => {
         options={{
           tabBarLabel: "Camera",
           tabBarIcon: ({ color }) => (
-            <Feather name="camera" color={color} size={26} />
+            <Feather name="camera" color={color} size={24} />
           ),
         }}
       />
@@ -63,7 +63,7 @@ const BottomNavigator = () => {
         options={{
           tabBarLabel: "My Profile",
           tabBarIcon: ({ color }) => (
-            <EvilIcons name="user" color={color} size={26} />
+            <EvilIcons name="user" color={color} size={29} />
           ),
         }}
       />

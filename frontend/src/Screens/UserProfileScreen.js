@@ -25,7 +25,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
           style={styles.LoginHeader}
           onPress={() => navigate("Login")}
         >
-          <Text style={styles.Login}>Log In</Text>
+          <Text style={styles.Login}>Logout</Text>
         </TouchableOpacity>
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
@@ -42,7 +42,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: "#E7E5E9",
     minHeight: 1000,
   },
   Login: {

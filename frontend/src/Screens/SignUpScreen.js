@@ -33,7 +33,7 @@ const SignUpScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: "#E7E5E9",
   },
   Login: {
     alignSelf: "flex-end",

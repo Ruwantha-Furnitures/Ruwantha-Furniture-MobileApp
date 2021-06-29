@@ -10,7 +10,7 @@ const UserProfileStackNav = () => {
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: {
-          backgroundColor: "#291B1B",
+          backgroundColor: "#B89068",
         },
         headerTintColor: "#fff",
       }}
