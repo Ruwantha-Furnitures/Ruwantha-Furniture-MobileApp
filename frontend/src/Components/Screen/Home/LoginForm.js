@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 
-const LoginForm = ({ navigation }) => {
+const LoginForm = ({ navigation, loginHandler }) => {
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandler = () => {
+    loginHandler({ userEmail, password });
+  };
+
   return (
     <Form width={415} height={380}>
       <SubHeader title="LogIn" width={100} />
-      <Input placeholder="email or username" type="email" />
-      <Input placeholder="password" type="password" />
+      <Input
+        value={userEmail}
+        onChangeText={(userEmail) => setUserEmail(userEmail)}
+        placeholder="email"
+        type="email"
+      />
+      <Input
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+        placeholder="password"
+        type="password"
+      />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Login" width={120} />
+        <FormAppButton title="Login" width={120} onPress={submitHandler} />
       </View>
       <TouchableOpacity
         style={{ alignSelf: "center", fontSize: 18 }}
