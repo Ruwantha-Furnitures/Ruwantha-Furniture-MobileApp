@@ -19,7 +19,7 @@ const SignUpForm = ({ signUpHandler }) => {
   };
 
   return (
-    <Form type="SignUp" width={415} height={625}>
+    <Form type="SignUp" width={415} height={585}>
       <SubHeader title="Create Account" width={300} />
       <Input
         placeholder="Name"

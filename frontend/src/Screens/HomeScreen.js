@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
           style={styles.LoginHeader}
           onPress={() => navigate("Login")}
         >
-          <Text style={styles.Login}>Log In</Text>
+          <Text style={styles.Login}>LogIn</Text>
         </TouchableOpacity>
         <Header />
         <Intro />
@@ -34,7 +34,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: "#E7E5E9",
   },
   Login: {
     alignSelf: "flex-end",

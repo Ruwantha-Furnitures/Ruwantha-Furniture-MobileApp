@@ -33,7 +33,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
 
 const styles = StyleSheet.create({
   viewContainer: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#E7E5E9",
   },
   Login: {
     alignSelf: "flex-end",

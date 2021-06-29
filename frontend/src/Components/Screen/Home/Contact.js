@@ -7,7 +7,7 @@ import Input from "../../UI/Input";
 
 const Contact = () => {
   return (
-    <Form width={415} height={550}>
+    <Form width={415} height={520}>
       <SubHeader title="Customize Your Product" width={400} />
       <Input placeholder="Name" type="string" />
       <Input placeholder="Telephone" type="number" />

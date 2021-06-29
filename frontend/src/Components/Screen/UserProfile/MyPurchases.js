@@ -46,9 +46,9 @@ const MyPurchases = () => {
           <View style={styles.purchases}>
             <Card
               width={415}
-              height={ratingDisplay ? 530 : 300}
+              height={ratingDisplay ? 560 : 300}
               ml={20}
-              bg="#E7E5E9"
+              bg="#fff"
             >
               <View style={styles.productContainer}>
                 <Text style={styles.purchaseItemName}>{item.name}</Text>

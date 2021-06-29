@@ -8,7 +8,7 @@ import Input from "../../UI/Input";
 const LoginForm = ({ navigation }) => {
   return (
     <Form width={415} height={380}>
-      <SubHeader title="Login Form" />
+      <SubHeader title="LogIn" width={100} />
       <Input placeholder="email or username" type="email" />
       <Input placeholder="password" type="password" />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>

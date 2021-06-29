@@ -6,7 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
   return (
-    <Card width={405} height={200} ml={20} bg="#E7E5E9">
+    <Card width={405} height={200} ml={20} bg="#fff">
       <View style={styles.productContainer}>
         <TouchableOpacity
           onPress={() => {
@@ -22,9 +22,9 @@ const Product = ({ item, navigate }) => {
           <Text style={styles.productDescription}>{item.description}</Text>
           <Text style={styles.productPrice}>{`Rs. ${item.price}/=`}</Text>
           <View style={styles.btnContainer}>
+            <AppButton title="Preview AR" />
             <AppButton
               title="Add to cart"
-              size="lg"
               onPress={() => console.log("Clicked")}
             />
           </View>
@@ -35,7 +35,7 @@ const Product = ({ item, navigate }) => {
         <AntDesign name="star" size={24} color="#FB9F3C" />
         <AntDesign name="star" size={24} color="#FB9F3C" />
         <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#fff" />
+        <AntDesign name="star" size={24} color="#E7E5E9" />
       </View>
     </Card>
   );
@@ -63,8 +63,10 @@ const styles = StyleSheet.create({
     color: "#FB9F3C",
   },
   btnContainer: {
-    marginLeft: 130,
+    marginLeft: 10,
     marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   ratingContainer: { marginTop: -30, flexDirection: "row", marginLeft: 8 },
 });

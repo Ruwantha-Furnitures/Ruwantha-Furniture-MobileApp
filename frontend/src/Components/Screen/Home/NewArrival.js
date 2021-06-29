@@ -32,7 +32,7 @@ const NewArrival = () => {
   ];
   const renderItem = ({ item }) => {
     return (
-      <Card width={170} height={120} ml={25} pd={7} fd="row" bg="white">
+      <Card width={170} height={120} ml={25} pd={7} fd="row" bg="#E7E5E9">
         <Image
           source={item.url}
           style={{ width: 70, height: 70, borderRadius: 40 }}
@@ -46,7 +46,7 @@ const NewArrival = () => {
     );
   };
   return (
-    <Card width={415} height={280} ml={20} bg="#E7E5E9">
+    <Card width={415} height={280} ml={20} bg="#fff">
       <View style={styles.newArrivalContainer}>
         <SubHeader title="New Arrivals" width={200} />
         <FlatList
