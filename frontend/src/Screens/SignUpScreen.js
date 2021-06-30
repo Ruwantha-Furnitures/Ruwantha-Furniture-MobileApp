@@ -5,12 +5,18 @@ import SignUpForm from "../Components/Screen/Home/SignUpForm";
 import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {
+
   const signUpHandler = async (data) => {
     try {
-      await axios.post("http://192.168.8.175:3000/api/customer/signup", {
+      let response=await axios.post("http://192.168.8.175:3000/api/customer/signup", {
         data,
       });
-      console.log("Request Successful");
+      console.log(response.data.state);
+      if(response.data.state === "Successful"){
+        navigation.navigate("Home")
+      }else{
+        console.log(response.data.message);
+      }
     } catch (error) {
       console.log(error);
     }

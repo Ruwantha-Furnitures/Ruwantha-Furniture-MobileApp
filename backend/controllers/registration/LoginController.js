@@ -21,9 +21,14 @@ const LoginController = (req, res) => {
       console.log(hash);
       if (result.lenght > 0) {
         console.log(result);
+        res.send({
+          state:"Successful",
+          message:"Login Succcessful"
+        })
       } else {
         console.log("No User");
         res.send({
+          state:"Error",
           errorMessage:
             "There isn't any existing user with that login credentials, please enter your email and password again",
         });
