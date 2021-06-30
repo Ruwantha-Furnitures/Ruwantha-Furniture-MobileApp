@@ -11,9 +11,9 @@ const connection = mysql.createConnection({
   database: "armagic",
 });
 
-const { customerRouter } = require("./routes/customers");
+const { customerRouter } = require("./routes/customers.js");
 
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
