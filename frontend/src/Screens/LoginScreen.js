@@ -1,29 +1,39 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity,ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import Header from "../Components/Header/Header";
 import Card from "../Components/UI/Card";
 import LoginForm from "../Components/Screen/Home/LoginForm";
+import ErrorModal from "../Components/UI/ErrorModal";
 import axios from "axios";
+
 const LoginScreen = ({ navigation }) => {
-  
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading,setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginHandler = async (data) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       let response = await axios.post(
         "http://192.168.8.175:3000/api/customer/login",
         {
           data,
         }
       );
-      if(response.data.state === 'Successful'){
-        setIsLoading(false)
-        navigation.navigate("Home")
-      }else{
-        let errorMessage =response.data.errorMessage
+      if (response.data.state === "Successful") {
+        setIsLoading(false);
+        setErrorMessage("");
+        navigation.navigate("Home");
+      } else {
+        setIsLoading(false);
+        let errorMessage = response.data.errorMessage;
         setErrorMessage(errorMessage);
+        console.log(errorMessage);
       }
     } catch (error) {
       console.error(error);
@@ -32,6 +42,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.viewContainer}>
+      {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
       <TouchableOpacity
         style={styles.SignUpHeader}
         onPress={() => navigation.navigate("Sign Up")}
@@ -39,7 +50,6 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.SignUp}>Sign Up</Text>
       </TouchableOpacity>
       <Header />
-      {/* {errorMessage && <Text>{errorMessage}</Text>} */}
       {isLoading && <ActivityIndicator size="large" color="green" />}
       <LoginForm navigation={navigation} loginHandler={loginHandler} />
     </View>

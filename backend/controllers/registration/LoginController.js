@@ -11,26 +11,21 @@ const db = mysql.createPool({
 
 const LoginController = (req, res) => {
   const { password, userEmail } = req.body.data;
-  // res.send({
-  //   errorMessage:
-  //     "There isn't any existing user with that login credentials, please enter your email and password again",
-  // });
-  bcrypt.hash(password, 10, (err, hash) => {
-    const selectQuery = "SELECT * FROM account WHERE email=? AND password=?";
-    db.query(selectQuery, [userEmail, hash], (error, result) => {
-      console.log(hash);
-      if (result.lenght > 0) {
-        console.log(result);
+
+  const selectQuery = "SELECT * FROM account WHERE email=?";
+  db.query(selectQuery, [userEmail], (error, result) => {
+    const hashedPassword = result[0].password;
+    bcrypt.compare(password, hashedPassword, (errdecrypt, resultdecrypt) => {
+      if (resultdecrypt) {
         res.send({
-          state:"Successful",
-          message:"Login Succcessful"
-        })
+          state: "Successful",
+          message: "Login Succcessful",
+        });
       } else {
-        console.log("No User");
         res.send({
-          state:"Error",
+          state: "Error",
           errorMessage:
-            "There isn't any existing user with that login credentials, please enter your email and password again",
+            "We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.",
         });
       }
     });
