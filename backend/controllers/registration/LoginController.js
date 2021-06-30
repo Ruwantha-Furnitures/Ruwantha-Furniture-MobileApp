@@ -11,6 +11,10 @@ const db = mysql.createPool({
 
 const LoginController = (req, res) => {
   const { password, userEmail } = req.body.data;
+  // res.send({
+  //   errorMessage:
+  //     "There isn't any existing user with that login credentials, please enter your email and password again",
+  // });
   bcrypt.hash(password, 10, (err, hash) => {
     const selectQuery = "SELECT * FROM account WHERE email=? AND password=?";
     db.query(selectQuery, [userEmail, hash], (error, result) => {

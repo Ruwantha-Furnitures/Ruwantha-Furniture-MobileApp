@@ -14,26 +14,13 @@ const LoginScreen = ({ navigation }) => {
           data,
         }
       );
-
-      const result = response.json();
-      console.log(result);
+      let errorMessage =response.data.errorMessage
+      setErrorMessage(errorMessage);
+      console.log("Error Message is "+errorMessage)
     } catch (error) {
-      console.error(error.data.errorMessage);
+      console.error(error);
     }
   };
-  // const loginHandler = (data) => {
-  //   axios
-  //     .post("http://192.168.8.175:3000/api/customer/login", {
-  //       data,
-  //     })
-  //     .then((response) => {
-  //       if (response.data.errorMessage) {
-  //         console.log(response.data.errorMessage);
-  //       } else {
-  //         console.log("No Message");
-  //       }
-  //     });
-  // };
 
   return (
     <View style={styles.viewContainer}>
@@ -44,6 +31,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.SignUp}>Sign Up</Text>
       </TouchableOpacity>
       <Header />
+      {errorMessage && <Text>{errorMessage}</Text>}
       <LoginForm navigation={navigation} loginHandler={loginHandler} />
     </View>
   );
