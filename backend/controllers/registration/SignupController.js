@@ -20,20 +20,24 @@ const SignUpController = (req, res) => {
     if (err) {
       console.log("error");
     } else {
-      console.log(hash);
-      db.query(accountRegQuery, [email, hash, userLevel], (err, res) => {
-        if (err) {
-          console.log(err);
+      db.query(accountRegQuery, [email, hash, userLevel], (errorAcc, resultAcc) => {
+        if (errorAcc) {
+          console.log(errorAcc);
         } else {
-          const accountID = res.insertId;
+          const accountID = resultAcc.insertId;
           db.query(
             customerRegQuery,
             [accountID, name, address, contactNo],
-            (error, result) => {
-              if (error) {
-                console.log(error);
+            (errorCus, resultCus) => {
+              if (errorCus) {
+                res.send({
+                  state:"Unsuccessful",
+                  message:"An Error Occured",
+                })
               } else {
-                console.log("Successfully Registered");
+                res.send({
+                  state:"Successful",
+                })
               }
             }
           );
