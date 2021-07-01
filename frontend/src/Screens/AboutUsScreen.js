@@ -10,6 +10,7 @@ import Header from "../Components/Header/Header";
 import Contact from "../Components/Screen/AboutUs/Contact";
 import Info from "../Components/Screen/AboutUs/Info";
 import Map from "../Components/Screen/AboutUs/Map";
+
 const AboutUsScreen = ({ navigation: { navigate } }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

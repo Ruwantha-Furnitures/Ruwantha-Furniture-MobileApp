@@ -57,12 +57,30 @@ const SignUpForm = ({ signUpHandler }) => {
         placeholder="Confirm Password"
         type="password"
       />
-      <View style={{ alignSelf: "center", marginVertical: 15 }}>
-        <FormAppButton title="Sign Up" onPress={submitHandler} width={120} />
+      <View style={styles.btnContainer}>
+        <FormAppButton
+          type="Cancel"
+          title="Cancel"
+          onPress={submitHandler}
+          width={120}
+        />
+        <FormAppButton
+          type="Submit"
+          title="Submit"
+          onPress={submitHandler}
+          width={120}
+        />
       </View>
     </Form>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btnContainer: {
+    flexDirection: "row",
+    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 export default SignUpForm;

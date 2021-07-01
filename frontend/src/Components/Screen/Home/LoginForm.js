@@ -28,8 +28,19 @@ const LoginForm = ({ navigation, loginHandler }) => {
         placeholder="password"
         type="password"
       />
-      <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Login" width={120} onPress={submitHandler} />
+      <View style={styles.btnContainer}>
+        <FormAppButton
+          title="Cancel"
+          type="Cancel"
+          width={120}
+          onPress={submitHandler}
+        />
+        <FormAppButton
+          title="Submit"
+          type="Submit"
+          width={120}
+          onPress={submitHandler}
+        />
       </View>
       <TouchableOpacity
         style={{ alignSelf: "center", fontSize: 18 }}
@@ -54,6 +65,12 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
     width: 200,
+  },
+  btnContainer: {
+    flexDirection: "row",
+    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 export default LoginForm;

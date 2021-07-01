@@ -13,13 +13,20 @@ const Contact = () => {
       <Input placeholder="Telephone" type="number" />
       <Input placeholder="Email" type="string" />
       <Input placeholder="Description" name="textarea" type="string" />
-      <View style={{ alignSelf: "center", marginVertical: 20 }}>
-        <FormAppButton title="Submit" width={110} />
+      <View style={styles.btnContainer}>
+        <FormAppButton title="Cancel" width={110} />
+        <FormAppButton type="Submit" title="Submit" width={110} />
       </View>
     </Form>
   );
 };
 
-export default Contact;
+const styles = StyleSheet.create({
+  btnContainer: {
+    justifyContent: "center",
+    marginVertical: 20,
+    flexDirection: "row",
+  },
+});
 
-const styles = StyleSheet.create({});
+export default Contact;

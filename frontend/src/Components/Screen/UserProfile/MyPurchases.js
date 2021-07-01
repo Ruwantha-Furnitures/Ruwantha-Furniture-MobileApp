@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Card from "../../UI/Card";
-import FormAppButton from "../../UI/FormAppButton";
+import AppButton from "../../UI/AppButton";
 import PurchaseDetailTable from "./PurchaseDetailTable";
 import RatingsForm from "./RatingsForm";
 const MyPurchases = () => {
@@ -56,7 +56,8 @@ const MyPurchases = () => {
                 <PurchaseDetailTable item={item} />
                 {!ratingDisplay && (
                   <View style={styles.btnContainer}>
-                    <FormAppButton
+                    <AppButton
+                      size="lg"
                       title="Provide Ratings"
                       onPress={ratingFormHandler}
                       width={200}

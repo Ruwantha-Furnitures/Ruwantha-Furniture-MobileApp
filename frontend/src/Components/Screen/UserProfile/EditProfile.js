@@ -17,12 +17,12 @@ const EditProfile = () => {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
             marginTop: 35,
           }}
         >
           <FormAppButton title="Cancel" width={120} />
-          <FormAppButton title="Submit" width={120} />
+          <FormAppButton type="Submit" title="Submit" width={120} />
         </View>
       </Form>
     </View>
