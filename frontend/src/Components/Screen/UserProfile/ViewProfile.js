@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
-
+import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 const ViewProfile = ({ onChangeNav }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const deleteHandler = () => {
+    setShowModal((prevState) => !prevState);
+  };
   return (
     <View style={styles.viewProfile}>
       <Form width={415} height={500}>
@@ -21,7 +26,11 @@ const ViewProfile = ({ onChangeNav }) => {
             marginTop: 35,
           }}
         >
-          <FormAppButton title="Delete Profile" width={175} />
+          <FormAppButton
+            title="Delete Profile"
+            width={175}
+            onPress={deleteHandler}
+          />
           <FormAppButton
             type="Submit"
             title="Edit Profile"
@@ -30,6 +39,9 @@ const ViewProfile = ({ onChangeNav }) => {
           />
         </View>
       </Form>
+      <PopUpConfirmationModal visible={showModal}>
+        <Text>This is the Modal</Text>
+      </PopUpConfirmationModal>
     </View>
   );
 };
