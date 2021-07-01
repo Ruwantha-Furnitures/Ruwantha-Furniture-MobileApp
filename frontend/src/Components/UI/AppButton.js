@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 8,
     paddingHorizontal: 2,
-    width: 120,
+    width: 170,
   },
   buttonMd: {
     backgroundColor: "#FB9F3C",
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     width: 80,
   },
   textLg: {
-    fontSize: 10,
+    fontSize: 15,
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",

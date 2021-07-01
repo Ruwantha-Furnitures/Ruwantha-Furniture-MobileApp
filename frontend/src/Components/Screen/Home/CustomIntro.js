@@ -7,7 +7,7 @@ const CustomIntro = () => {
       <Image
         source={require("../../../../assets/customization.png")}
         style={{ width: 417, height: 310, borderSize: 10 }}
-        resizeMode="contain"
+        resizeMode="stretch"
       />
     </Card>
   );

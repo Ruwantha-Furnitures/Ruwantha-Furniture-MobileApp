@@ -31,8 +31,16 @@ const RatingsForm = ({ ratingFormHandler }) => {
         backgroundColor="#E7E5E9"
         height={80}
       />
-      <View style={{ alignItems: "flex-end", marginRight: 30 }}>
-        <FormAppButton width={110} title="Submit" />
+      <View
+        style={{
+          justifyContent: "center",
+          marginRight: 30,
+          flexDirection: "row",
+          marginTop: 3,
+        }}
+      >
+        <FormAppButton width={110} title="Cancel" />
+        <FormAppButton width={110} type="Submit" title="Submit" />
       </View>
     </View>
   );

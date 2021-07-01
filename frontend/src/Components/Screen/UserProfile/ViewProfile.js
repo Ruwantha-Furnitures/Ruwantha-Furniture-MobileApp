@@ -17,15 +17,16 @@ const ViewProfile = ({ onChangeNav }) => {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
             marginTop: 35,
           }}
         >
-          <FormAppButton title="Delete Profile" width={180} />
+          <FormAppButton title="Delete Profile" width={175} />
           <FormAppButton
+            type="Submit"
             title="Edit Profile"
             onPress={() => onChangeNav("Edit Profile")}
-            width={180}
+            width={160}
           />
         </View>
       </Form>

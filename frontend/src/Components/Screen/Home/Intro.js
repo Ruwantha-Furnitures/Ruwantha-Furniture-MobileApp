@@ -20,7 +20,7 @@ function Intro() {
 
   return (
     <Card width={415} height={280} ml={20} pd={0} fd="row" bg="#fff">
-      <ScrollView horizontal>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {images.map((image, index) => {
           return (
             <View key={index}>
@@ -61,7 +61,7 @@ function Intro() {
           decision.We provide you with the best furnitures which would enlighten
           your house.
         </Text>
-        <View style={{ marginLeft: 45, marginTop: 7.5 }}>
+        <View style={{ marginLeft: 10, marginTop: 7.5 }}>
           <AppButton
             title="View Products"
             size="lg"
@@ -75,9 +75,11 @@ function Intro() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 220,
+    width: 230,
     height: 280,
-    borderRadius: 10,
+    marginLeft: -10,
+    borderTopLeftRadius: 10,
+    resizeMode: "stretch",
   },
   detailContainer: {
     marginHorizontal: 8,
