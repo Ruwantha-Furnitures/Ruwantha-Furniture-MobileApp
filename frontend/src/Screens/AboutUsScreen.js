@@ -10,6 +10,8 @@ import Header from "../Components/Header/Header";
 import Contact from "../Components/Screen/AboutUs/Contact";
 import Info from "../Components/Screen/AboutUs/Info";
 import Map from "../Components/Screen/AboutUs/Map";
+import Intro from "../Components/Screen/AboutUs/Intro";
+import WebMobileAppIntro from "../Components/Screen/AboutUs/WebMobileAppIntro";
 
 const AboutUsScreen = ({ navigation: { navigate } }) => {
   return (
@@ -22,6 +24,8 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
           <Text style={styles.Login}>Log In</Text>
         </TouchableOpacity>
         <Header />
+        <Intro />
+        <WebMobileAppIntro />
         <Info />
         <Contact />
         <Map />
