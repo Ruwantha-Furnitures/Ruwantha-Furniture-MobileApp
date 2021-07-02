@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
-import Card from "../../UI/Card";
-import AppButton from "../../UI/AppButton";
-import PurchaseDetailTable from "./PurchaseDetailTable";
-import RatingsForm from "./RatingsForm";
+import { View, StyleSheet, FlatList } from "react-native";
+import PurchasedProduct from "./PurchasedProduct";
 const MyPurchases = () => {
   const [ratingDisplay, setRatingDisplay] = useState(false);
 
@@ -42,35 +39,7 @@ const MyPurchases = () => {
         showsVerticalScrollIndicator={false}
         data={productList}
         keyExtractor={(product) => product.orderID}
-        renderItem={({ item }) => (
-          <View style={styles.purchases}>
-            <Card
-              width={415}
-              height={ratingDisplay ? 560 : 300}
-              ml={20}
-              bg="#fff"
-            >
-              <View style={styles.productContainer}>
-                <Text style={styles.purchaseItemName}>{item.name}</Text>
-                <Image source={item.image} style={styles.productImage} />
-                <PurchaseDetailTable item={item} />
-                {!ratingDisplay && (
-                  <View style={styles.btnContainer}>
-                    <AppButton
-                      size="lg"
-                      title="Provide Ratings"
-                      onPress={ratingFormHandler}
-                      width={200}
-                    />
-                  </View>
-                )}
-              </View>
-              {ratingDisplay && (
-                <RatingsForm ratingFormHandler={ratingFormHandler} />
-              )}
-            </Card>
-          </View>
-        )}
+        renderItem={({ item }) => <PurchasedProduct item={item} />}
       />
     </View>
   );

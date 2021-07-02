@@ -5,6 +5,8 @@ import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
+import { AntDesign } from "@expo/vector-icons";
+
 const ViewProfile = ({ onChangeNav }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -40,7 +42,20 @@ const ViewProfile = ({ onChangeNav }) => {
         </View>
       </Form>
       <PopUpConfirmationModal visible={showModal}>
-        <Text>This is the Modal</Text>
+        <AntDesign
+          name="closecircleo"
+          size={24}
+          color="#F00"
+          style={styles.closeIcon}
+          onPress={deleteHandler}
+        />
+        <Text style={styles.confirmationText}>
+          Are you sure that you want to delete your account?
+        </Text>
+        <View style={styles.btnContainer}>
+          <FormAppButton title="Cancel" width={120} onPress={deleteHandler} />
+          <FormAppButton title="Submit" type="Submit" width={120} />
+        </View>
       </PopUpConfirmationModal>
     </View>
   );
@@ -49,6 +64,23 @@ const ViewProfile = ({ onChangeNav }) => {
 const styles = StyleSheet.create({
   viewProfile: {
     marginTop: 20,
+  },
+  closeIcon: {
+    alignSelf: "flex-end",
+    marginTop: -18,
+    marginRight: 5,
+    marginBottom: 0,
+  },
+  confirmationText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    marginTop: 25,
+  },
+  btnContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: 30,
+    marginBottom: 10,
   },
 });
 export default ViewProfile;

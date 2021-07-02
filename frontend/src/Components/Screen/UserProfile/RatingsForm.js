@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
@@ -11,7 +11,7 @@ const RatingsForm = ({ ratingFormHandler }) => {
       <AntDesign
         name="closecircleo"
         size={24}
-        color="#FB9F3C"
+        color="#F00"
         style={styles.closeIcon}
         onPress={ratingFormHandler}
       />
@@ -39,7 +39,7 @@ const RatingsForm = ({ ratingFormHandler }) => {
           marginTop: 3,
         }}
       >
-        <FormAppButton width={110} title="Cancel" />
+        <FormAppButton width={110} title="Cancel" onPress={ratingFormHandler} />
         <FormAppButton width={110} type="Submit" title="Submit" />
       </View>
     </View>
