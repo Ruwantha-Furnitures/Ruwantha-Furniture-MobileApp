@@ -3,14 +3,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const mysql = require("mysql");
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "armagic",
-});
-
+const db = require("./models");
 const { customerRouter } = require("./routes/customers.js");
 
 app.use(cors());
@@ -18,17 +11,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/customer", customerRouter);
+connectDB();
 
 async function connectDB() {
   try {
-    await connection.connect();
-    console.log("Connected to Database");
+    await db.sequelize.sync();
+    app.listen(3000, () => {
+      console.log("Application is running on the port 3000");
+    });
   } catch (error) {
     console.log("error");
   }
 }
-
-app.listen(3000, () => {
-  console.log("Application is running on the port 3000");
-  connectDB();
-});
