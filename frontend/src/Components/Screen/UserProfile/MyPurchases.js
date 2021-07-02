@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React from "react";
+import { View, FlatList } from "react-native";
 import PurchasedProduct from "./PurchasedProduct";
 const MyPurchases = () => {
-  const [ratingDisplay, setRatingDisplay] = useState(false);
-
   const productList = [
     {
       orderID: 1,
@@ -30,9 +28,6 @@ const MyPurchases = () => {
     },
   ];
 
-  const ratingFormHandler = () => {
-    setRatingDisplay((prevState) => !prevState);
-  };
   return (
     <View>
       <FlatList
@@ -45,41 +40,4 @@ const MyPurchases = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  purchases: {
-    marginTop: 2,
-  },
-  productContainer: {
-    flexDirection: "column",
-  },
-  productImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 40,
-    alignSelf: "center",
-  },
-  purchaseItemDeatils: {
-    marginLeft: 30,
-    justifyContent: "space-evenly",
-  },
-  purchaseItemName: {
-    fontWeight: "bold",
-    fontSize: 20,
-    letterSpacing: 2,
-    marginLeft: 85,
-    marginBottom: 15,
-    marginTop: 5,
-  },
-  purchasePrice: {
-    fontSize: 16,
-    marginLeft: 8,
-  },
-  btnContainer: {
-    flexDirection: "row",
-    marginTop: 0,
-    justifyContent: "space-evenly",
-    alignSelf: "flex-end",
-    marginRight: 15,
-  },
-});
 export default MyPurchases;
