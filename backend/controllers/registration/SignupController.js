@@ -1,48 +1,38 @@
+const { Customer, Account } = require("../../models");
 const mysql = require("mysql");
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "armagic",
-});
-
-const SignUpController = (req, res) => {
+const SignUpController = async (req, res) => {
   const { name, email, password, address, contactNo } = req.body.data;
-  const userLevel = 1;
-  const accountRegQuery =
-    "INSERT INTO account(email,password,userlevel) VALUES(?,?,?)";
-  const customerRegQuery =
-    "INSERT INTO customer(aid,name,address,telephone) VALUES(?,?,?,?)";
-  bcrypt.hash(password, saltrounds, (err, hash) => {
+  const userlevel = 1;
+
+  bcrypt.hash(password, saltrounds, async (err, hash) => {
     if (err) {
-      console.log("error");
+      console.log(err);
     } else {
-      db.query(accountRegQuery, [email, hash, userLevel], (errorAcc, resultAcc) => {
-        if (errorAcc) {
-          console.log(errorAcc);
-        } else {
-          const accountID = resultAcc.insertId;
-          db.query(
-            customerRegQuery,
-            [accountID, name, address, contactNo],
-            (errorCus, resultCus) => {
-              if (errorCus) {
-                res.send({
-                  state:"Unsuccessful",
-                  message:"An Error Occured",
-                })
-              } else {
-                res.send({
-                  state:"Successful",
-                })
-              }
-            }
-          );
-        }
-      });
+      const accountData = {
+        email,
+        password: hash,
+        userlevel,
+      };
+
+      try {
+        const AccountDetails = await Account.create(accountData);
+        const aid = AccountDetails.aid;
+
+        const customerData = {
+          aid,
+          name,
+          address,
+          telephone: contactNo,
+        };
+
+        const CustomerDetails = await Customer.create(customerData);
+        console.log(CustomerDetails.name);
+      } catch (error) {
+        console.log(error);
+      }
     }
   });
 };
