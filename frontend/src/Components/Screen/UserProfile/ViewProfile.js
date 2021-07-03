@@ -53,8 +53,8 @@ const ViewProfile = ({ onChangeNav }) => {
           Are you sure that you want to delete your account?
         </Text>
         <View style={styles.btnContainer}>
-          <FormAppButton title="Cancel" width={120} onPress={deleteHandler} />
-          <FormAppButton title="Submit" type="Submit" width={120} />
+          <FormAppButton title="No" width={100} onPress={deleteHandler} />
+          <FormAppButton title="Yes" type="Submit" width={100} />
         </View>
       </PopUpConfirmationModal>
     </View>

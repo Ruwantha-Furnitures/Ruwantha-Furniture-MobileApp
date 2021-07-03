@@ -11,6 +11,17 @@ import HomeStackNav from "./HomeStackNav";
 import ProductStackNav from "./ProductStackNav";
 const Tab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {
+  const getTabBarVisibility = (route) => {
+    const routeName = route.state
+      ? route.state.routes[route.state.index].name
+      : "";
+
+    if (routeName === "ArView") {
+      return false;
+    }
+
+    return true;
+  };
   return (
     <Tab.Navigator
       initialRouteName="Home"

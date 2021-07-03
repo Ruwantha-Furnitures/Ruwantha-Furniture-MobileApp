@@ -6,49 +6,36 @@ import Card from "../../UI/Card";
 import SubHeader from "../../Header/SubHeader";
 const Info = () => {
   return (
-    <Card width={415} height={550} ml={20} pd={0} bg="#fff">
+    <Card width={415} height={1050} ml={20} pd={0} bg="#fff">
       <View style={{ flexDirection: "column" }}>
-        <View style={styles.textHeader}>
-          <SubHeader title="About Us" width={200} />
-        </View>
         <Image
-          source={require("../../../../assets/shop.jpg")}
+          source={require("../../../../assets/visionmission.jpg")}
           style={styles.imageStyle}
         />
-        <View style={{ flexDirection: "row" }}>
-          <Card width={195} height={250} ml={8} pd={0} bg="#E7E5E9" fd="column">
-            <Text style={styles.title}>Our Mission</Text>
-            <AntDesign
-              name="Trophy"
-              style={{ alignSelf: "center" }}
-              size={35}
-              color="black"
-            />
-            <Text style={styles.paragraph}>
-              Our Mission is to provide you with the best furniture and the best
-              services as possible.And make your expectations come true with
-              those superior Produts
+        <View style={{ marginTop: 20 }}>
+          <Card width={350} height={200} ml={30} pd={0} bg="#E7E5E9">
+            <SubHeader title="Our Vision" width={200} />
+            <Text style={styles.textStyle}>
+              To be the best in providing furniture with the latest designs
+              along with the highest userbase at affordable prices and to give
+              the best-augmented reality shopping experience to our customers.
             </Text>
           </Card>
-          <Card
-            width={195}
-            height={250}
-            ml={10}
-            pd={0}
-            bg="#E7E5E9"
-            fd="column"
-          >
-            <Text style={styles.title}>Our Story</Text>
-            <Entypo
-              name="newsletter"
-              style={{ alignSelf: "center" }}
-              size={35}
-              color="black"
-            />
-            <Text style={styles.paragraph}>
-              Ruwantha Furnitur was founded by Mr. Hasitha Fernando who is an
-              integral part of the Sri Lankan Furniture Industry.He is been
-              regarded as a pioneer in the furniture Industry
+          <Card width={350} height={200} ml={30} pd={0} bg="#E7E5E9">
+            <SubHeader title="Our Mission" width={200} />
+            <Text style={styles.textStyle}>
+              Recognize our clients' needs and wants and satisfy them with great
+              attention and commitment to producing standard furniture and give
+              value to the money you spent.
+            </Text>
+          </Card>
+          <Card width={350} height={200} ml={30} pd={0} bg="#E7E5E9">
+            <SubHeader title="Our Achievements" width={300} />
+            <Text style={styles.textStyle}>
+              More than 5000+ customers reached our website throughout the last
+              two months beginning from the month of May. We were able to
+              achieve our estimated revenue for the year 2021 in the middle of
+              the year.
             </Text>
           </Card>
         </View>
@@ -63,8 +50,10 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width: 415,
-    height: 180,
-    borderRadius: 10,
+    height: 270,
+    resizeMode: "stretch",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   title: {
     fontSize: 20,
@@ -77,6 +66,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginLeft: 5,
     padding: 5,
+  },
+  textStyle: {
+    marginHorizontal: 20,
+    fontSize: 16,
   },
 });
 export default Info;

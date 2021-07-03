@@ -4,7 +4,6 @@ import ProductsScreen from "../Screens/ProductsScreen";
 import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
-import SingleProductScreen from "../Screens/SingleProductScreen";
 import MoreDetailsScreen from "../Screens/MoreDetailsScreen";
 const ProductStack = createStackNavigator();
 const ProductStackNav = () => {
@@ -23,10 +22,6 @@ const ProductStackNav = () => {
       <ProductStack.Screen name="ProductsAR" component={ViewProductARScreen} />
       <ProductStack.Screen name="Login" component={LoginScreen} />
       <ProductStack.Screen name="Sign Up" component={SignUpScreen} />
-      <ProductStack.Screen
-        name="Single Product"
-        component={SingleProductScreen}
-      />
     </ProductStack.Navigator>
   );
 };
