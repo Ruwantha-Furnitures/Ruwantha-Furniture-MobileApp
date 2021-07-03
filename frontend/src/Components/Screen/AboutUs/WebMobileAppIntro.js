@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
     width: 415,
     height: 290,
     resizeMode: "stretch",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   textStyle: {
     marginHorizontal: 25,
