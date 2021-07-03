@@ -25,8 +25,8 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
         </TouchableOpacity>
         <Header />
         <Intro />
-        <WebMobileAppIntro />
         <Info />
+        <WebMobileAppIntro />
         <Contact />
         <Map />
       </View>
