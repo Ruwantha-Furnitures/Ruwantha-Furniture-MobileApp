@@ -56,6 +56,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ color }) => (
             <Feather name="camera" color={color} size={24} />
           ),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
@@ -76,6 +77,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ color }) => (
             <EvilIcons name="user" color={color} size={29} />
           ),
+          unmountOnBlur: true,
         }}
       />
     </Tab.Navigator>
