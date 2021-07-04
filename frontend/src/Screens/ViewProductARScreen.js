@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
+import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
+import { Renderer } from "expo-three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { Asset } from "expo-asset";
 
 const ViewProductARScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
+      const asset = Asset.fromModule(
+        "../../assets/objects/bed 1/Bed Classic LH N050521/Bed Classic LH N050521.obj"
+      );
+
+      await asset.downloadAsync();
+
+      const uri = asset.localUri;
+      console.log(uri);
     })();
   }, []);
 
@@ -20,7 +33,16 @@ const ViewProductARScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}></Camera>
+      <Camera style={styles.camera} type={type}>
+        <GLView
+          style={{ flex: 1 }}
+          onContextCreate={(gl: ExpoWebGLRenderingContext) => {
+            // Create a WebGLRenderer without a DOM element
+            const renderer = new Renderer({ gl });
+            renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+          }}
+        />
+      </Camera>
     </View>
   );
 };
