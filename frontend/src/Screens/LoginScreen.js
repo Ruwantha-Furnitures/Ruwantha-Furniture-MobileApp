@@ -20,12 +20,12 @@ const LoginScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       let response = await axios.post(
-        "http://192.168.8.175:3000/api/customer/login",
+        "http://192.168.8.210:3000/armagic/api/customer/login",
         {
           data,
         }
       );
-      if (response.data.state === "Successful") {
+      if (response.data.auth) {
         setIsLoading(false);
         setErrorMessage("");
         navigation.navigate("Home");
@@ -33,7 +33,6 @@ const LoginScreen = ({ navigation }) => {
         setIsLoading(false);
         let errorMessage = response.data.errorMessage;
         setErrorMessage(errorMessage);
-        console.log(errorMessage);
       }
     } catch (error) {
       console.error(error);

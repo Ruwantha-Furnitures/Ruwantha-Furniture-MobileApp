@@ -8,7 +8,7 @@ const SignUpScreen = ({ navigation }) => {
 
   const signUpHandler = async (data) => {
     try {
-      let response=await axios.post("http://192.168.8.175:3000/api/customer/signup", {
+      let response=await axios.post("http://192.168.8.210:3000/armagic/api/customer/signup", {
         data,
       });
       console.log(response.data.state);

@@ -18,7 +18,6 @@ const Input = ({
     height,
   };
 
-  console.log("hii" + mobileHeight);
   return (
     <TextInput
       value={value}

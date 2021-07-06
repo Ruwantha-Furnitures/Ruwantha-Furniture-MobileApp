@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/customer", customerRouter);
+app.use("/armagic/api/customer", customerRouter);
 connectDB();
 
 async function connectDB() {

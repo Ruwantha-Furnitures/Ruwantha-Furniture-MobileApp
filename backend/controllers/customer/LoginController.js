@@ -1,6 +1,6 @@
 const { Account } = require("../../models");
-const mysql = require("mysql");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
 const saltrounds = 10;
 
 const LoginController = async (req, res) => {
@@ -11,8 +11,8 @@ const LoginController = async (req, res) => {
   try {
     const account = await Account.findOne({ data });
     if (account === null) {
-      res.send({
-        state: "Error",
+      res.json({
+        auth: false,
         errorMessage:
           "We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.",
       });
@@ -20,13 +20,12 @@ const LoginController = async (req, res) => {
       const existingPassword = account.password;
       bcrypt.compare(password, existingPassword, (error, result) => {
         if (result) {
-          res.send({
-            state: "Successful",
-            message: "Login Succcessful",
-          });
+          const userId=account.aid;
+          const token=jwt.sign(userId,'jwtSecret')
+          res.json({auth:true, token})
         } else {
-          res.send({
-            state: "Error",
+          res.json({
+            auth:false,
             errorMessage:
               "We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.",
           });
