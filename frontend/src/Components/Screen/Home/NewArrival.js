@@ -6,10 +6,14 @@ import {
   FlatList,
   Image,
   Animated,
+  Dimensions,
 } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import AppButton from "../../UI/AppButton";
 import Card from "../../UI/Card";
+
+const mobileWidth = Dimensions.get("window").width;
+
 const NewArrival = () => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const data = [
@@ -66,7 +70,7 @@ const NewArrival = () => {
     );
   };
   return (
-    <Card width={415} height={280} ml={20} bg="#fff">
+    <Card width={mobileWidth - 40} height={280} ml={20} bg="#fff">
       <View style={styles.newArrivalContainer}>
         <SubHeader title="New Arrivals" width={200} />
         <Animated.FlatList
@@ -82,7 +86,7 @@ const NewArrival = () => {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true }
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           scrollEventThrottle={16}
           renderItem={renderItem}
         />

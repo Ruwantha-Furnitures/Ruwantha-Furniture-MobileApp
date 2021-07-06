@@ -1,12 +1,24 @@
 import React from "react";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
-import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Image,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
+  const mobileWidth = Dimensions.get("window").width;
+  const mobileHeight = Dimensions.get("window").height;
+
+  console.log(mobileWidth - 20);
+
   return (
-    <Card width={405} height={200} ml={20} bg="#fff">
+    <Card width={mobileWidth - 40} height={200} ml={20} bg="#fff">
       <View style={styles.productContainer}>
         <TouchableOpacity
           onPress={() => {

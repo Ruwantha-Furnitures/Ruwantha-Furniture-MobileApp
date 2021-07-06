@@ -173,7 +173,7 @@ const Products = ({ navigate }) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={list}
-          keyExtractor={(product) => product.id}
+          keyExtractor={(product) => product.id.toString()}
           renderItem={({ item }) => <Product item={item} navigate={navigate} />}
         />
       </>

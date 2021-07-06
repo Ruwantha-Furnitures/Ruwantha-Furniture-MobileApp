@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textLg: {
-    fontSize: 15,
+    fontSize: 14,
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",

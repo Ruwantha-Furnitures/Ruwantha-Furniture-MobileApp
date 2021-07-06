@@ -33,7 +33,7 @@ const MyPurchases = () => {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={productList}
-        keyExtractor={(product) => product.orderID}
+        keyExtractor={(product) => product.orderID.toString()}
         renderItem={({ item }) => <PurchasedProduct item={item} />}
       />
     </View>

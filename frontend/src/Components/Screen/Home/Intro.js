@@ -6,25 +6,39 @@ import {
   Button,
   Image,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 
+const mobileWidth = Dimensions.get("window").width;
+const cardWidth = mobileWidth - 40;
+const imageWidth = (cardWidth + 20) / 2;
+const detailsWidth = (cardWidth - 20) / 2;
+
 function Intro() {
   const images = [
-    require("../../../../assets/download_ar.jpg"),
-    require("../../../../assets/download.jpg"),
+    {
+      imageId: 1,
+      textId: 2,
+      imgUri: require("../../../../assets/download_ar.jpg"),
+    },
+    {
+      imageId: 2,
+      textId: 3,
+      imgUri: require("../../../../assets/download.jpg"),
+    },
   ];
 
   const [active, setActive] = useState(0);
 
   return (
-    <Card width={415} height={280} ml={20} pd={0} fd="row" bg="#fff">
+    <Card width={cardWidth} height={280} ml={20} pd={0} fd="row" bg="#fff">
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {images.map((image, index) => {
           return (
-            <View key={index}>
-              <Image source={image} style={styles.image} />
+            <View key={image.imageId}>
+              <Image source={image.imgUri} style={styles.image} />
               <View
                 style={{
                   flexDirection: "row",
@@ -34,10 +48,10 @@ function Intro() {
                   marginLeft: 90,
                 }}
               >
-                {images.map((i, k, index) => {
+                {images.map((image) => {
                   return (
                     <Text
-                      key={index}
+                      key={image.textId}
                       style={{
                         color: "white",
                         marginLeft: 3,
@@ -75,15 +89,15 @@ function Intro() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 230,
+    width: imageWidth,
     height: 280,
-    marginLeft: -10,
-    borderTopLeftRadius: 10,
+    marginLeft: -5,
+    borderTopLeftRadius: 7.5,
     resizeMode: "stretch",
   },
   detailContainer: {
     marginHorizontal: 8,
-    width: 187.5,
+    width: detailsWidth,
   },
   subHeader: {
     letterSpacing: 2,

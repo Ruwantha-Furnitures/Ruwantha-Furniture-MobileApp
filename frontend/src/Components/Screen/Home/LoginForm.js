@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
@@ -13,8 +19,13 @@ const LoginForm = ({ navigation, loginHandler }) => {
     loginHandler({ userEmail, password });
   };
 
+  const mobileWidth = Dimensions.get("window").width;
+  const mobileHeight = Dimensions.get("window").height;
+
+  console.log(mobileWidth);
+
   return (
-    <Form width={415} height={380}>
+    <Form width={mobileWidth - 40} height={380}>
       <SubHeader title="LogIn" width={100} />
       <Input
         value={userEmail}
