@@ -4,45 +4,172 @@ import { Camera } from "expo-camera";
 import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
 import { Renderer } from "expo-three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Asset } from "expo-asset";
+import {
+  AmbientLight,
+  PerspectiveCamera,
+  PointLight,
+  Scene,
+  SpotLight,
+} from "three";
 
 const ViewProductARScreen = () => {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  // const [hasPermission, setHasPermission] = useState(null);
+  // const [type, setType] = useState(Camera.Constants.Type.back);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-      const asset = Asset.fromModule(
-        "../../assets/objects/bed 1/Bed Classic LH N050521/Bed Classic LH N050521.obj"
-      );
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Camera.requestPermissionsAsync();
+  //     setHasPermission(status === "granted");
+  //   })();
+  // }, []);
 
-      await asset.downloadAsync();
+  // if (hasPermission === null) {
+  //   return <View />;
+  // }
+  // if (hasPermission === false) {
+  //   return <Text>No access to camera</Text>;
+  // // }
 
-      const uri = asset.localUri;
-      console.log(uri);
-    })();
-  }, []);
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
+  // useEffect(async () => {
+  //   // Create an Asset from a resource
+  //   const loader = new OBJLoader();
+  //   const asset = Asset.fromModule(
+  //     require("./assets/Bed_Classic_LH_N050521.obj")
+  //   );
+  //   try {
+  //     await asset.downloadAsync();
+  //     loader.load(asset.uri, (group) => {
+  //       console.log("Moddel Loaded");
+  //     });
+  //   } catch (error) {}
+  // }, []);
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <GLView
-          style={{ flex: 1 }}
-          onContextCreate={(gl: ExpoWebGLRenderingContext) => {
-            // Create a WebGLRenderer without a DOM element
-            const renderer = new Renderer({ gl });
-            renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
-          }}
-        />
-      </Camera>
+      {/* <Camera style={styles.camera} type={type}> */}
+      <GLView
+        style={{ flex: 1 }}
+        onContextCreate={async (gl: ExpoWebGLRenderingContext) => {
+          // Create a WebGLRenderer without a DOM element
+          console.log("run");
+
+          const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
+
+          const renderer = new Renderer({ gl });
+          renderer.setSize(width, height);
+          const asset = Asset.fromModule(
+            require("./assets/Bed_Classic_LH_N050521.obj")
+          );
+
+          try {
+            await asset.downloadAsync();
+            console.log("downloaded");
+            const scene = new Scene();
+            const ambientLight = new AmbientLight(0x101010);
+            scene.add(ambientLight);
+
+            const camera = new PerspectiveCamera(
+              120,
+              width / height,
+              0.01,
+              1000
+            );
+            camera.position.z = 5;
+            camera.position.y = 1.5;
+
+            const pointLight = new PointLight(0xffffff, 2, 1000, 1);
+            pointLight.position.set(0, 200, 200);
+            scene.add(pointLight);
+
+            const spotLight = new SpotLight(0xffffff, 0.5);
+            spotLight.position.set(0, 500, 100);
+            spotLight.lookAt(scene.position);
+            scene.add(spotLight);
+
+            const loader = new OBJLoader();
+            console.log("running");
+            console.log(asset.uri);
+            loader.load(
+              asset.uri,
+              (model) => {
+                scene.add(model);
+                console.log("Model Loaded");
+                renderer.render(scene, camera);
+                console.log("renderer finished");
+              },
+              (xhr) => {},
+              (err) => {
+                console.log("error" + err);
+              }
+            );
+            // return asset.localUri;
+          } catch (error) {
+            console.log(error);
+          }
+
+          // try {
+          //   const asset = Asset.fromModule(
+          //     "../../assets/objects/bed 1/Bed Classic LH N050521/Bed Classic LH N050521.obj"
+          //   );
+          //   await asset.downloadAsync();
+          //   console.log("asset added 1");
+          // const scene = new Scene();
+
+          // const ambientLight = new AmbientLight(0x101010);
+          // scene.add(ambientLight);
+          // console.log("asset added 2");
+
+          // const pointLight = new PointLight(0xffffff, 2, 1000, 1);
+          // pointLight.position.set(0, 200, 200);
+          // scene.add(pointLight);
+          // console.log("asset added 3");
+
+          // const spotLight = new SpotLight(0xffffff, 0.5);
+          // spotLight.position.set(0, 500, 100);
+          // spotLight.lookAt(scene.position);
+          // scene.add(spotLight);
+
+          // const loader = new OBJLoader();
+
+          // loader.load(
+          //   asset.uri || "",
+          //   (group) => {
+          //     model = group.scene;
+          //     scene.add(model);
+          //   },
+          //   (xhr) => {
+          //     console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
+          //   },
+          //   (error) => {
+          //     console.error("An error happened", error);
+          //   }
+          // );
+
+          // renderer.render(scene, camera);
+          // } catch (error) {
+          //   console.log("error" + error);
+          // }
+
+          // try {
+          //   await assetGlbModel.downloadAsync();
+          //   const glbLoader = new GLTFLoader();
+          //   glbLoader.load(assetGlbModel.localUri, (gltf) => {
+          //     scene.add(gltf.scene);
+          //     console.log("Model Loaded!");
+          //   });
+          // } catch (error) {
+          //   const loader = new OBJLoader();
+          //   loader.load(asset.localUri, (group) => {
+          //     // Model loaded...
+          //     console.log(group);
+          //     const renderer = new Renderer({ gl });
+          //     renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+          //   });
+          // }
+        }}
+      />
+      {/* </Camera> */}
     </View>
   );
 };
