@@ -6,7 +6,6 @@ import Input from "../../UI/Input";
 import SubHeader from "../../Header/SubHeader";
 
 const mobileWidth = Dimensions.get("window").width;
-const mobileHeight = Dimensions.get("window").height;
 const ForgotPassword = () => {
   console.log(mobileWidth + "mobile");
   return (

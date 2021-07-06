@@ -13,8 +13,8 @@ import AppButton from "../../UI/AppButton";
 
 const mobileWidth = Dimensions.get("window").width;
 const cardWidth = mobileWidth - 40;
-const imageWidth = (cardWidth + 20) / 2;
-const detailsWidth = (cardWidth - 20) / 2;
+const imageWidth = (cardWidth + 10) / 2;
+const detailsWidth = (cardWidth - 10) / 2;
 
 function Intro() {
   const images = [
@@ -70,8 +70,15 @@ function Intro() {
 
       <View style={styles.detailContainer}>
         <Text style={styles.subHeader}>Best Furniture</Text>
-        <Text style={{ marginLeft: 15, fontSize: 15, marginVertical: 10 }}>
-          Bye Your Favourite furniture products from us,make an aspiring
+        <Text
+          style={{
+            marginLeft: 8,
+            fontSize: 15,
+            marginVertical: 10,
+            width: 180,
+          }}
+        >
+          By Your Favourite furniture products from us,make an aspiring
           decision.We provide you with the best furnitures which would enlighten
           your house.
         </Text>
@@ -100,11 +107,12 @@ const styles = StyleSheet.create({
     width: detailsWidth,
   },
   subHeader: {
-    letterSpacing: 2,
+    letterSpacing: 0.5,
     marginTop: 15,
     marginBottom: 10,
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: "bold",
+    width: 220,
   },
 });
 export default Intro;

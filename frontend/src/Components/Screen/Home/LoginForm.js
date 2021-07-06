@@ -22,8 +22,6 @@ const LoginForm = ({ navigation, loginHandler }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
 
-  console.log(mobileWidth);
-
   return (
     <Form width={mobileWidth - 40} height={380}>
       <SubHeader title="LogIn" width={100} />

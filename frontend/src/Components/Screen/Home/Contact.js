@@ -1,14 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 
+const mobileWidth = Dimensions.get("window").width;
+
 const Contact = () => {
   return (
-    <Form width={415} height={520}>
-      <SubHeader title="Customize Your Product" width={400} />
+    <Form width={mobileWidth - 40} height={520}>
+      <SubHeader title="Customize Your Furniture" width={mobileWidth - 40} />
       <Input placeholder="Name" type="string" />
       <Input placeholder="Telephone" type="number" />
       <Input placeholder="Email" type="string" />

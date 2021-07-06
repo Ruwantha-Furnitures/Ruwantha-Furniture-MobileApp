@@ -1,12 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 
 const ProductPrice = () => {
+  const mobileWidth = Dimensions.get("window").width;
+  const mobileHeight = Dimensions.get("window").height;
+
   return (
     <View style={styles.priceContainer}>
-      <Card width={455} height={245} pd={7} fd="row" bg="#343899">
+      <Card width={mobileWidth} pd={7} fd="row" bg="#343899">
         <View style={styles.products}>
           <Text style={styles.subHeader}>Selected Items</Text>
           <View style={styles.productDetail}>
@@ -22,7 +25,7 @@ const ProductPrice = () => {
             <Text style={styles.productPrice}>Rs.3000 /=</Text>
           </View>
           <View style={styles.checkoutButton}>
-            <AppButton title="Checkout" size="lg" />
+            <AppButton title="Checkout" size="lg" width={130} />
           </View>
         </View>
       </Card>
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
   },
   checkoutButton: {
     marginTop: 10,
-    marginLeft: 260,
+    marginLeft: 300,
   },
 });
 

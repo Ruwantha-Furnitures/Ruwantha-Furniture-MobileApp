@@ -6,17 +6,20 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  StatusBar,
 } from "react-native";
 
 import Searchbar from "../Components/UI/SearchBar";
 import Header from "../Components/Header/Header";
 import Products from "../Components/Screen/Products/Products";
 
+let ScreenHeight = Dimensions.get("window").height;
+let StatusBarHeight = StatusBar.currentHeight;
+
 const ProductScreen = ({ navigation: { navigate } }) => {
-  let ScreenHeight = Dimensions.get("window").height;
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={[styles.viewContainer]}>
+      <View style={styles.viewContainer}>
         <TouchableOpacity
           style={styles.LoginHeader}
           onPress={() => navigate("Login")}
@@ -34,6 +37,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   viewContainer: {
     backgroundColor: "#E7E5E9",
+    minHeight: ScreenHeight - StatusBarHeight,
   },
   Login: {
     alignSelf: "flex-end",
