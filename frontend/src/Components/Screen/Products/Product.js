@@ -1,19 +1,32 @@
 import React from "react";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
-import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Image,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
+  const mobileWidth = Dimensions.get("window").width;
+  const mobileHeight = Dimensions.get("window").height;
+  const cardWidth = mobileWidth - 40;
+
   return (
-    <Card width={405} height={200} ml={20} bg="#fff">
+    <Card width={cardWidth} height={200} ml={20} bg="#fff">
       <View style={styles.productContainer}>
         <TouchableOpacity
           onPress={() => {
             navigate("More Details", { item });
           }}
         >
-          <Image source={item.image} style={styles.productImage} />
+          <View style={styles.imgBorder}>
+            <Image source={item.image} style={styles.productImage} />
+          </View>
         </TouchableOpacity>
         <View>
           <TouchableOpacity>
@@ -42,7 +55,15 @@ const Product = ({ item, navigate }) => {
 };
 const styles = StyleSheet.create({
   productContainer: { flexDirection: "row", marginTop: 10, marginLeft: 10 },
-  productImage: { width: 100, height: 100, borderRadius: 40, marginTop: 10 },
+  productImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 40,
+    marginTop: 10,
+  },
+  overlay: {
+    backgroundColor: "red",
+  },
   productName: {
     fontWeight: "bold",
     marginLeft: 30,
@@ -69,5 +90,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   ratingContainer: { marginTop: -30, flexDirection: "row", marginLeft: 8 },
+  imgBorder: {
+    borderWidth: 1,
+    borderColor: "#000",
+    borderRadius: 60,
+    padding: 5,
+  },
 });
 export default Product;

@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-const AppButton = ({ onPress, title, size }) => {
+const AppButton = ({ onPress, title, size, width }) => {
+  const newStyle = {
+    width,
+  };
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={size === "lg" ? styles.buttonLg : styles.buttonMd}
-    >
+    <TouchableOpacity onPress={onPress} style={[styles.buttonLg, newStyle]}>
       <Text style={size === "lg" ? styles.textLg : styles.textMd}>{title}</Text>
     </TouchableOpacity>
   );
@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FB9F3C",
     borderRadius: 10,
     paddingVertical: 8,
-    paddingHorizontal: 2,
-    width: 170,
+    paddingHorizontal: 5,
   },
   buttonMd: {
     backgroundColor: "#FB9F3C",

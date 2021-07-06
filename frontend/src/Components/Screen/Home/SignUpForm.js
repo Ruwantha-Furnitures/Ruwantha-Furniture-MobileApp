@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import AppButton from "../../UI/AppButton";
 import Form from "../../UI/Form";
@@ -18,8 +18,11 @@ const SignUpForm = ({ signUpHandler }) => {
     signUpHandler({ name, email, address, contactNo, password });
   };
 
+  const mobileWidth = Dimensions.get("window").width;
+  const mobileHeight = Dimensions.get("window").height;
+
   return (
-    <Form type="SignUp" width={415} height={585}>
+    <Form type="SignUp" width={mobileWidth - 40} height={mobileHeight - 310}>
       <SubHeader title="Create Account" width={300} />
       <Input
         placeholder="Name"
@@ -78,7 +81,7 @@ const SignUpForm = ({ signUpHandler }) => {
 const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "row",
-    marginVertical: 20,
+    marginVertical: 12,
     alignItems: "center",
     justifyContent: "center",
   },

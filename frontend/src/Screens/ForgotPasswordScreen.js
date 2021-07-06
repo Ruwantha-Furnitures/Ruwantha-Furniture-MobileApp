@@ -14,7 +14,7 @@ const ForgotPasswordScreen = () => {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: "#E7E5E9",
   },
 });
 

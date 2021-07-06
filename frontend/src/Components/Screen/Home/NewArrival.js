@@ -6,11 +6,17 @@ import {
   FlatList,
   Image,
   Animated,
+  Dimensions,
 } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import AppButton from "../../UI/AppButton";
 import Card from "../../UI/Card";
+
+const mobileWidth = Dimensions.get("window").width;
+const newItemWidth = (mobileWidth - 104) / 2;
+
 const NewArrival = () => {
+  console.log(mobileWidth + "mm");
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const data = [
     {
@@ -52,7 +58,14 @@ const NewArrival = () => {
   ];
   const renderItem = ({ item }) => {
     return (
-      <Card width={175} height={135} ml={22} pd={7} fd="row" bg="#E7E5E9">
+      <Card
+        width={newItemWidth}
+        height={135}
+        ml={22}
+        pd={7}
+        fd="row"
+        bg="#E7E5E9"
+      >
         <Image
           source={item.url}
           style={{ width: 70, height: 70, borderRadius: 40 }}
@@ -66,7 +79,7 @@ const NewArrival = () => {
     );
   };
   return (
-    <Card width={415} height={280} ml={20} bg="#fff">
+    <Card width={mobileWidth - 40} height={280} ml={20} bg="#fff">
       <View style={styles.newArrivalContainer}>
         <SubHeader title="New Arrivals" width={200} />
         <Animated.FlatList
@@ -74,7 +87,7 @@ const NewArrival = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           data={data}
-          snapToInterval={197}
+          snapToInterval={newItemWidth + 22}
           decelerationRate={0}
           snapToAlignment={"center"}
           bounce={false}
@@ -82,7 +95,7 @@ const NewArrival = () => {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true }
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           scrollEventThrottle={16}
           renderItem={renderItem}
         />

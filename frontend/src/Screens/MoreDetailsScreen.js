@@ -42,9 +42,9 @@ const MoreDetailsScreen = ({ route }) => {
                 <Text style={styles.quantityText}>+</Text>
               </TouchableOpacity>
             </View>
-            <View style={{ marginLeft: 260, marginTop: -35 }}>
+            <View style={{ marginLeft: 230, marginTop: -35 }}>
               <AppButton
-                size="lg"
+                width="250"
                 title="Add to cart"
                 onPress={() => console.log("Clicked")}
               />
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   imgLarge: {
     width: 455,
     height: 350,
+    resizeMode: "stretch",
   },
   imgSmaller: {
     width: 80,

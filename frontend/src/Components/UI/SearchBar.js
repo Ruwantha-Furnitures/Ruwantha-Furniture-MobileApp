@@ -17,7 +17,6 @@ const SearchBar = ({ onChangeText, placeholder }) => {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flex: 1,
     flexDirection: "row",
     marginRight: 40,
     marginTop: 20,

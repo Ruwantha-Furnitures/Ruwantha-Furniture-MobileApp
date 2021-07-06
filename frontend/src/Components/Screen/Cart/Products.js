@@ -22,7 +22,7 @@ const Products = () => {
     <View style={styles.productContainer}>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <Product item={item} />}
       />
     </View>

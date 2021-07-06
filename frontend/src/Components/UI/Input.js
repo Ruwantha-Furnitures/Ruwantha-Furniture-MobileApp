@@ -1,5 +1,9 @@
 import React from "react";
-import { TextInput, StyleSheet } from "react-native";
+import { TextInput, StyleSheet, Dimensions } from "react-native";
+
+const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
+
 const Input = ({
   onChangeText,
   placeholder,
@@ -13,6 +17,8 @@ const Input = ({
     backgroundColor,
     height,
   };
+
+  console.log("hii" + mobileHeight);
   return (
     <TextInput
       value={value}
@@ -27,7 +33,7 @@ const Input = ({
 
 const styles = StyleSheet.create({
   input: {
-    height: 50,
+    height: mobileHeight > 900 ? 50 : 45,
     backgroundColor: "#E7E5E9",
     marginVertical: 10,
     borderRadius: 20,

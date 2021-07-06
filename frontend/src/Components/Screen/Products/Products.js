@@ -121,7 +121,7 @@ const Products = ({ navigate }) => {
               productType === "Chairs" ? styles.textIndicator : styles.textStyle
             }
           >
-            Chairss
+            Chairs
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -173,7 +173,7 @@ const Products = ({ navigate }) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={list}
-          keyExtractor={(product) => product.id}
+          keyExtractor={(product) => product.id.toString()}
           renderItem={({ item }) => <Product item={item} navigate={navigate} />}
         />
       </>
@@ -183,6 +183,7 @@ const Products = ({ navigate }) => {
 
 const styles = StyleSheet.create({
   navStyles: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginLeft: -2,
@@ -191,20 +192,20 @@ const styles = StyleSheet.create({
   selectedIndicator: {
     backgroundColor: "#FB9F3C",
     borderRadius: 20,
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
     paddingVertical: 8,
     marginTop: -8,
   },
   defaultIndicator: {
     backgroundColor: "#FFF",
     borderRadius: 20,
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
     paddingVertical: 8,
     marginTop: -8,
   },
   textIndicator: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
     color: "#fff",
     letterSpacing: 1,
   },

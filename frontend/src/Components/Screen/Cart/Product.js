@@ -1,11 +1,28 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import Card from "../../UI/Card";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Product = ({ item }) => {
+  const mobileWidth = Dimensions.get("window").width;
+  const mobileHeight = Dimensions.get("window").height;
+
   return (
-    <Card width={380} height={155} ml={30} pd={7} fd="row" bg="#FFF">
+    <Card
+      width={mobileWidth - 60}
+      height={mobileHeight / 6}
+      ml={30}
+      pd={7}
+      fd="row"
+      bg="#FFF"
+    >
       <View style={styles.productContainer}>
         <Image source={item.url} style={styles.itemImage} />
         <View style={styles.itemDetailsContainer}>
