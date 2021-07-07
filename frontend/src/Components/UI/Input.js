@@ -18,7 +18,6 @@ const Input = ({
     height,
   };
 
-  console.log("hii" + mobileHeight);
   return (
     <TextInput
       value={value}
@@ -26,7 +25,8 @@ const Input = ({
       style={name === "textarea" ? styles.textArea : styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
-      multilinenumberOfLines={4}
+      multiline={true}
+      numberOfLines={name === "textarea" ? 7 : 1}
     />
   );
 };
@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   textArea: {
-    height: 110,
     backgroundColor: "#E7E5E9",
     marginVertical: 10,
     borderRadius: 20,
     marginHorizontal: 20,
-    paddingTop: -20,
-    paddingHorizontal: 25,
+    paddingHorizontal: 10,
+    paddingTop: 20,
+    textAlignVertical: "top",
   },
 });
 export default Input;
