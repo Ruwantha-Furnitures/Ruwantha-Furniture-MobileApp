@@ -10,6 +10,8 @@ import Header from "../Components/Header/Header";
 import Card from "../Components/UI/Card";
 import LoginForm from "../Components/Screen/Home/LoginForm";
 import ErrorModal from "../Components/UI/ErrorModal";
+import { AuthContext } from "../Components/Context/AuthContext";
+import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
 const LoginScreen = ({ navigation }) => {
@@ -35,6 +37,9 @@ const LoginScreen = ({ navigation }) => {
       if (response.data.auth) {
         setIsLoading(false);
         setErrorMessage("");
+        await SecureStore.setItemAsync("user_token", response.data.accessToken);
+        const getToken = await SecureStore.getItemAsync("user_token");
+        console.log(getToken);
         navigation.navigate("Home");
       } else {
         setIsLoading(false);
