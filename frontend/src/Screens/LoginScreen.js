@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -15,6 +15,13 @@ import axios from "axios";
 const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorMessage]);
 
   const loginHandler = async (data) => {
     try {

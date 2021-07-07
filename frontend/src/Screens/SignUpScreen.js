@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Header from "../Components/Header/Header";
 import SignUpForm from "../Components/Screen/Home/SignUpForm";
+import ErrorModal from "../Components/UI/ErrorModal";
 import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorMessage]);
+
   const signUpHandler = async (data) => {
     try {
+      setIsLoading(true);
       let response = await axios.post(
         "http://192.168.8.193:3002/armagic/api/customer/signup",
         {
           data,
         }
       );
-      console.log(response.data.state);
       if (response.data.state === "Successful") {
         navigation.navigate("Home");
       } else {
+        setErrorMessage(response.data.message);
         console.log(response.data.message);
       }
     } catch (error) {
@@ -26,6 +38,7 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.viewContainer}>
+      {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
       <TouchableOpacity
         style={styles.LoginHeader}
         onPress={() => navigation.navigate("Login")}
