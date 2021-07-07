@@ -5,11 +5,11 @@ const router = express.Router();
 
 const {
   LoginController,
-} = require("../controllers/registration/LoginController");
+} = require("../controllers/customer/LoginController");
 
 const {
   SignUpController,
-} = require("../controllers/registration/SignupController");
+} = require("../controllers/customer/SignupController");
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
 

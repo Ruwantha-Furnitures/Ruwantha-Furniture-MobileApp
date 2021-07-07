@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -16,16 +16,23 @@ const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorMessage]);
+
   const loginHandler = async (data) => {
     try {
       setIsLoading(true);
       let response = await axios.post(
-        "http://192.168.8.175:3000/api/customer/login",
+        "http://192.168.8.193:3002/armagic/api/customer/login",
         {
           data,
         }
       );
-      if (response.data.state === "Successful") {
+      if (response.data.auth) {
         setIsLoading(false);
         setErrorMessage("");
         navigation.navigate("Home");
@@ -33,7 +40,6 @@ const LoginScreen = ({ navigation }) => {
         setIsLoading(false);
         let errorMessage = response.data.errorMessage;
         setErrorMessage(errorMessage);
-        console.log(errorMessage);
       }
     } catch (error) {
       console.error(error);

@@ -10,14 +10,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/customer", customerRouter);
+app.use("/armagic/api/customer", customerRouter);
 connectDB();
 
 async function connectDB() {
   try {
     await db.sequelize.sync();
-    app.listen(3000, () => {
-      console.log("Application is running on the port 3000");
+    app.listen(3002, () => {
+      console.log("Application is running on the port 3002");
     });
   } catch (error) {
     console.log("error");
