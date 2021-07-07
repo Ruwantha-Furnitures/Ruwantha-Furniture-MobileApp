@@ -1,9 +1,9 @@
 const { Customer, Account } = require("../../models");
-const mysql = require("mysql");
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
 const SignUpController = async (req, res) => {
+  console.log("req");
   const { name, email, password, address, contactNo } = req.body.data;
   const userlevel = 1;
 
@@ -18,18 +18,29 @@ const SignUpController = async (req, res) => {
       };
 
       try {
-        const AccountDetails = await Account.create(accountData);
-        const aid = AccountDetails.aid;
+        const existingStatus = await Account.findOne({ where: { email } });
+        if (existingStatus) {
+          console.log("User Exists");
+          res.json({ message: "Your User Account has been already exists" });
+        } else {
+          console.log("User doesn't exist");
 
-        const customerData = {
-          aid,
-          name,
-          address,
-          telephone: contactNo,
-        };
+          const AccountDetails = await Account.create(accountData);
+          const aid = AccountDetails.aid;
 
-        const CustomerDetails = await Customer.create(customerData);
-        console.log(CustomerDetails.name);
+          const customerData = {
+            aid,
+            name,
+            address,
+            telephone: contactNo,
+          };
+
+          const CustomerDetails = await Customer.create(customerData);
+          res.json({
+            state: "Successful",
+            message: "User has been successfully registered",
+          });
+        }
       } catch (error) {
         console.log(error);
       }

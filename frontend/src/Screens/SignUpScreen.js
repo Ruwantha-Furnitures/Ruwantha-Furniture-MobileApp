@@ -5,16 +5,18 @@ import SignUpForm from "../Components/Screen/Home/SignUpForm";
 import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {
-
   const signUpHandler = async (data) => {
     try {
-      let response=await axios.post("http://192.168.8.210:3000/armagic/api/customer/signup", {
-        data,
-      });
+      let response = await axios.post(
+        "http://192.168.8.193:3002/armagic/api/customer/signup",
+        {
+          data,
+        }
+      );
       console.log(response.data.state);
-      if(response.data.state === "Successful"){
-        navigation.navigate("Home")
-      }else{
+      if (response.data.state === "Successful") {
+        navigation.navigate("Home");
+      } else {
         console.log(response.data.message);
       }
     } catch (error) {

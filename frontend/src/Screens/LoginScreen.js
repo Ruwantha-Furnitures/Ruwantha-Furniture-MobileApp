@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       let response = await axios.post(
-        "http://192.168.8.210:3000/armagic/api/customer/login",
+        "http://192.168.8.193:3002/armagic/api/customer/login",
         {
           data,
         }
