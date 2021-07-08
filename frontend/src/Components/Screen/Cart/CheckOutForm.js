@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+  ScrollView,
+} from "react-native";
 import Card from "../../UI/Card";
 import UserDetails from "./UserDetails";
 
@@ -11,7 +18,7 @@ const CheckOutForm = () => {
   return (
     <Card
       width={mobileWidth - 40}
-      height={mobileHeight / 1.4}
+      height={mobileHeight / 1.1}
       ml={20}
       bg="#fff"
     >

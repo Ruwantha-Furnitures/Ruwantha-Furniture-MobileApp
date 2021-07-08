@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingHorizontal: 10,
     paddingTop: 20,
+    fontSize: 15,
     textAlignVertical: "top",
   },
 });
