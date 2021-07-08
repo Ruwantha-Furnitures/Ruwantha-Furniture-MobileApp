@@ -85,6 +85,7 @@ function Intro() {
         <View style={{ marginLeft: 10, marginTop: 7.5 }}>
           <AppButton
             title="View Products"
+            width={170}
             size="lg"
             onPress={() => console.log("Clicked")}
           />

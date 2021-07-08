@@ -14,6 +14,7 @@ import Intro from "../Components/Screen/Home/Intro";
 import NewArrival from "../Components/Screen/Home/NewArrival";
 import CustomIntro from "../Components/Screen/Home/CustomIntro";
 import { AuthContext } from "../Components/Context/AuthContext";
+import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
 
@@ -26,10 +27,17 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         {userToken === null ? <TouchableOpacity
           style={styles.LoginHeader}
           onPress={() => navigate("Login")}>
-          <Text style={styles.Login}>LogIn</Text></TouchableOpacity>:<TouchableOpacity
+          <Text style={styles.Login}>LogIn</Text></TouchableOpacity>:<View style={styles.upperContainer}><TouchableOpacity onPress={() => navigate("Cart")}>
+            <AntDesign
+              style={styles.cart}
+              name="shoppingcart"
+              size={35}
+              color="black" 
+          />
+          </TouchableOpacity><TouchableOpacity
           style={styles.LoginHeader}
-          onPress={() => navigate("Home")}>
-          <Text style={styles.Login}>LogOut</Text></TouchableOpacity>}
+          onPress={() => setUserToken(null)}>
+          <Text style={styles.Login}>Logout</Text></TouchableOpacity></View>}
         
         <Header />
         <Intro />
@@ -55,6 +63,13 @@ const styles = StyleSheet.create({
   },
   LoginHeader: {
     marginTop: 5,
+  },cart: {
+    marginRight: 15,
+    marginTop: 8,
+  },upperContainer: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    marginTop: 15,
   },
 });
 
