@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -13,16 +13,45 @@ import Contact from "../Components/Screen/Home/Contact";
 import Intro from "../Components/Screen/Home/Intro";
 import NewArrival from "../Components/Screen/Home/NewArrival";
 import CustomIntro from "../Components/Screen/Home/CustomIntro";
+import { AuthContext } from "../Components/Context/AuthContext";
+import { AntDesign } from "@expo/vector-icons";
+
 const HomeScreen = ({ navigation: { navigate } }) => {
+  const { userToken, setUserToken } = useContext(AuthContext);
+
+  const LogOut = (
+    <View style={styles.upperContainer}>
+      <TouchableOpacity onPress={() => navigate("Cart")}>
+        <AntDesign
+          style={styles.cart}
+          name="shoppingcart"
+          size={35}
+          color="black"
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.LoginHeader}
+        onPress={() => setUserToken(null)}
+      >
+        <Text style={styles.Login}>Logout</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const Login = (
+    <TouchableOpacity
+      style={styles.LoginHeader}
+      onPress={() => navigate("Login")}
+    >
+      <Text style={styles.Login}>LogIn</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        <TouchableOpacity
-          style={styles.LoginHeader}
-          onPress={() => navigate("Login")}
-        >
-          <Text style={styles.Login}>LogIn</Text>
-        </TouchableOpacity>
+        {userToken === null ? Login : LogOut}
+
         <Header />
         <Intro />
         <NewArrival />
@@ -47,6 +76,15 @@ const styles = StyleSheet.create({
   },
   LoginHeader: {
     marginTop: 5,
+  },
+  cart: {
+    marginRight: 15,
+    marginTop: 8,
+  },
+  upperContainer: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    marginTop: 15,
   },
 });
 

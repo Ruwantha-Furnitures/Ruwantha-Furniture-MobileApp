@@ -73,7 +73,7 @@ const NewArrival = () => {
         <View style={styles.detailContainer}>
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>{`${item.price}/=`}</Text>
-          <AppButton title="More Details" size="md" />
+          <AppButton title="More Details" width={80} />
         </View>
       </Card>
     );

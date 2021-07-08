@@ -25,7 +25,6 @@ const Input = ({
       style={name === "textarea" ? styles.textArea : styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
-      multiline={true}
       numberOfLines={name === "textarea" ? 7 : 1}
     />
   );

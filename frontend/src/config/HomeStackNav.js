@@ -7,6 +7,9 @@ import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
 import ForgotPasswordScreen from "../Screens/ForgotPasswordScreen";
+import CartScreen from '../Screens/CartScreen';
+import CheckOutScreen from "../Screens/CheckOutScreen";
+
 const HomeStack = createStackNavigator();
 
 const HomeStackNav = () => {
@@ -28,6 +31,14 @@ const HomeStackNav = () => {
       <HomeStack.Screen
         name="Forgot Password"
         component={ForgotPasswordScreen}
+      />
+      <HomeStack.Screen
+        name="Cart"
+        component={CartScreen}
+      />
+      <HomeStack.Screen
+        name="CheckOut"
+        component={CheckOutScreen}
       />
     </HomeStack.Navigator>
   );

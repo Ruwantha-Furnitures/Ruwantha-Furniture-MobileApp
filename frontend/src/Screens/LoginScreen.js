@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import axios from "axios";
 const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const {userToken,setUserToken} = useContext(AuthContext);
 
   useEffect(() => {
     let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
@@ -29,7 +30,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       let response = await axios.post(
-        "http://192.168.8.193:3002/armagic/api/customer/login",
+        "http://192.168.8.210:3002/armagic/api/customer/login",
         {
           data,
         }
@@ -40,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
         await SecureStore.setItemAsync("user_token", response.data.accessToken);
         const getToken = await SecureStore.getItemAsync("user_token");
         console.log(getToken);
+        setUserToken(getToken)
         navigation.navigate("Home");
       } else {
         setIsLoading(false);
@@ -51,6 +53,9 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
+  // console.log(userToken)
+  
+  
   return (
     <View style={styles.viewContainer}>
       {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}

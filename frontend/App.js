@@ -5,16 +5,21 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BottomNavigator from "./src/config/BottomNavigator";
+import LoggedInNavigator from "./src/config/LoggedInNavigator";
 import { AuthContext } from "./src/Components/Context/AuthContext";
 const { Navigator, Screen } = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [userToken, setUserToken] = useState(null);
+  const value ={
+    userToken,
+    setUserToken
+  }
 
   const authContext = useMemo(() => {
     signIn: () => {
-      setUserToken("Ayo");
+      setUserToken("Abc");
     };
     signOut: () => {
       setUserToken(null);
@@ -22,9 +27,9 @@ export default function App() {
   });
 
   return (
-    <AuthContext.Provider value={authContext}>
+    <AuthContext.Provider value={value}>
       <NavigationContainer>
-        <BottomNavigator />
+        {userToken === null ? <BottomNavigator /> : <LoggedInNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
   );
