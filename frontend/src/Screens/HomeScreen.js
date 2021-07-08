@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import {
   View,
   Text,
@@ -13,16 +13,24 @@ import Contact from "../Components/Screen/Home/Contact";
 import Intro from "../Components/Screen/Home/Intro";
 import NewArrival from "../Components/Screen/Home/NewArrival";
 import CustomIntro from "../Components/Screen/Home/CustomIntro";
+import { AuthContext } from "../Components/Context/AuthContext";
+
 const HomeScreen = ({ navigation: { navigate } }) => {
+
+  const {userToken,setUserToken} = useContext(AuthContext);
+
+  console.log(userToken)
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        <TouchableOpacity
+        {userToken === null ? <TouchableOpacity
           style={styles.LoginHeader}
-          onPress={() => navigate("Login")}
-        >
-          <Text style={styles.Login}>LogIn</Text>
-        </TouchableOpacity>
+          onPress={() => navigate("Login")}>
+          <Text style={styles.Login}>LogIn</Text></TouchableOpacity>:<TouchableOpacity
+          style={styles.LoginHeader}
+          onPress={() => navigate("Home")}>
+          <Text style={styles.Login}>LogOut</Text></TouchableOpacity>}
+        
         <Header />
         <Intro />
         <NewArrival />

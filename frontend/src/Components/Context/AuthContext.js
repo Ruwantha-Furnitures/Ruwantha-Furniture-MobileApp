@@ -1,2 +1,5 @@
 import React from "react";
-export const AuthContext = React.createContext({ access_token: null });
+export const AuthContext = React.createContext({
+    userToken:null,
+    setUserToken:()=>{}
+});

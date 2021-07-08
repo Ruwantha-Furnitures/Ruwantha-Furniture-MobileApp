@@ -12,6 +12,10 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [userToken, setUserToken] = useState(null);
+  const value ={
+    userToken,
+    setUserToken
+  }
 
   const authContext = useMemo(() => {
     signIn: () => {
@@ -23,7 +27,7 @@ export default function App() {
   });
 
   return (
-    <AuthContext.Provider value={authContext}>
+    <AuthContext.Provider value={value}>
       <NavigationContainer>
         {userToken === null ? <BottomNavigator /> : <LoggedInNavigator />}
       </NavigationContainer>
