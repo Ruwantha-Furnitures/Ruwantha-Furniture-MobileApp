@@ -21,7 +21,7 @@ const FormAppButton = ({ onPress, title, width, type }) => {
 const styles = StyleSheet.create({
   buttonSubmit: {
     elevation: 8,
-    backgroundColor: "#0F0",
+    backgroundColor: "#00bd37",
     borderRadius: 10,
     paddingVertical: 8,
     paddingHorizontal: 10,

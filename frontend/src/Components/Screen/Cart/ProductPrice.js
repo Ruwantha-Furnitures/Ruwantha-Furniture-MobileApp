@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 
-const ProductPrice = () => {
+const ProductPrice = ({ navigation }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
 
@@ -25,7 +25,12 @@ const ProductPrice = () => {
             <Text style={styles.productPrice}>Rs.3000 /=</Text>
           </View>
           <View style={styles.checkoutButton}>
-            <AppButton title="Checkout" size="lg" width={130} />
+            <AppButton
+              title="Checkout"
+              size="lg"
+              width={130}
+              onPress={() => navigation.navigate("CheckOut")}
+            />
           </View>
         </View>
       </Card>
