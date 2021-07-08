@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import axios from "axios";
 const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const userToken = useContext(AuthContext);
 
   useEffect(() => {
     let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
@@ -51,6 +52,7 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
+  console.log(userToken);
   return (
     <View style={styles.viewContainer}>
       {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}

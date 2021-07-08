@@ -69,7 +69,7 @@ const BottomNavigator = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="My Profile"
         component={UserProfileStackNav}
         options={{
@@ -79,7 +79,7 @@ const BottomNavigator = () => {
           ),
           unmountOnBlur: true,
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
