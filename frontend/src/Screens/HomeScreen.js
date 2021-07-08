@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -17,28 +17,41 @@ import { AuthContext } from "../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
+  const { userToken, setUserToken } = useContext(AuthContext);
 
-  const {userToken,setUserToken} = useContext(AuthContext);
+  const LogOut = (
+    <View style={styles.upperContainer}>
+      <TouchableOpacity onPress={() => navigate("Cart")}>
+        <AntDesign
+          style={styles.cart}
+          name="shoppingcart"
+          size={35}
+          color="black"
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.LoginHeader}
+        onPress={() => setUserToken(null)}
+      >
+        <Text style={styles.Login}>Logout</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
-  console.log(userToken)
+  const Login = (
+    <TouchableOpacity
+      style={styles.LoginHeader}
+      onPress={() => navigate("Login")}
+    >
+      <Text style={styles.Login}>LogIn</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        {userToken === null ? <TouchableOpacity
-          style={styles.LoginHeader}
-          onPress={() => navigate("Login")}>
-          <Text style={styles.Login}>LogIn</Text></TouchableOpacity>:<View style={styles.upperContainer}><TouchableOpacity onPress={() => navigate("Cart")}>
-            <AntDesign
-              style={styles.cart}
-              name="shoppingcart"
-              size={35}
-              color="black" 
-          />
-          </TouchableOpacity><TouchableOpacity
-          style={styles.LoginHeader}
-          onPress={() => setUserToken(null)}>
-          <Text style={styles.Login}>Logout</Text></TouchableOpacity></View>}
-        
+        {userToken === null ? Login : LogOut}
+
         <Header />
         <Intro />
         <NewArrival />
@@ -63,10 +76,12 @@ const styles = StyleSheet.create({
   },
   LoginHeader: {
     marginTop: 5,
-  },cart: {
+  },
+  cart: {
     marginRight: 15,
     marginTop: 8,
-  },upperContainer: {
+  },
+  upperContainer: {
     alignSelf: "flex-end",
     flexDirection: "row",
     marginTop: 15,
