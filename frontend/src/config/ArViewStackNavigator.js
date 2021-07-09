@@ -11,6 +11,7 @@ const ArViewStackNavigator = () => {
           backgroundColor: "#291B1B",
         },
         headerTintColor: "#fff",
+        headerShown: false,
       }}
     >
       <ArViewStack.Screen name="ArView" component={ViewProductARScreen} />

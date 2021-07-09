@@ -17,6 +17,7 @@ const UserProfileStackNav = () => {
         },
         headerTintColor: "#fff",
         initialRouteName: "User Profile",
+        headerTitle: "",
       }}
     >
       <UserProfileStack.Screen

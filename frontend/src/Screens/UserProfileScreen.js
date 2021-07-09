@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -12,33 +12,39 @@ import NavProfile from "../Components/Screen/UserProfile/NavProfile";
 import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../Components/Screen/UserProfile/EditProfile";
+import { AuthContext } from "../Components/Context/AuthContext";
 
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
+  const { userToken, setUserToken } = useContext(AuthContext);
 
   const onChangeNav = (header) => {
     setCurrentView(header);
   };
 
+  const LogOut = (
+    <View style={styles.upperContainer}>
+      <TouchableOpacity onPress={() => navigate("Cart")}>
+        <AntDesign
+          style={styles.cart}
+          name="shoppingcart"
+          size={35}
+          color="black"
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonLg}
+        onPress={() => setUserToken(null)}
+      >
+        <Text style={styles.Login}>Logout</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        <View style={styles.upperContainer}>
-          <TouchableOpacity onPress={() => navigate("Cart")}>
-            <AntDesign
-              style={styles.cart}
-              name="shoppingcart"
-              size={35}
-              color="black"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.LoginHeader}
-            onPress={() => navigate("Home")}
-          >
-            <Text style={styles.Login}>Logout</Text>
-          </TouchableOpacity>
-        </View>
+        {LogOut}
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
         {currentView === "My Profile" && (
@@ -58,9 +64,8 @@ const styles = StyleSheet.create({
     minHeight: 1000,
   },
   Login: {
-    color: "#FB9F3C",
+    color: "#FFF",
     fontSize: 28,
-    marginRight: 20,
     letterSpacing: 5,
   },
   LoginHeader: {
@@ -70,10 +75,19 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     flexDirection: "row",
     marginTop: 15,
+    marginRight: 10,
   },
   cart: {
     marginRight: 15,
     marginTop: 8,
+  },
+  buttonLg: {
+    backgroundColor: "black",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
   },
 });
 export default UserProfileScreen;
