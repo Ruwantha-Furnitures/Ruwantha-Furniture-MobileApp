@@ -10,9 +10,10 @@ const AboutUsStackNav = () => {
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: {
-          backgroundColor: "#291B1B",
+          backgroundColor: "#B89068",
         },
         headerTintColor: "#fff",
+        headerTitle: "",
       }}
     >
       <AboutUsStack.Screen name="About Us" component={AboutUsScreen} />

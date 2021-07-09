@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.LoginHeader}
+        style={styles.buttonLg}
         onPress={() => setUserToken(null)}
       >
         <Text style={styles.Login}>Logout</Text>
@@ -39,12 +39,15 @@ const HomeScreen = ({ navigation: { navigate } }) => {
   );
 
   const Login = (
-    <TouchableOpacity
-      style={styles.LoginHeader}
-      onPress={() => navigate("Login")}
-    >
-      <Text style={styles.Login}>LogIn</Text>
-    </TouchableOpacity>
+    <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
+      <TouchableOpacity
+        style={styles.LoginHeader}
+        style={styles.buttonLg}
+        onPress={() => navigate("Login")}
+      >
+        <Text style={styles.Login}>LogIn</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -69,9 +72,8 @@ const styles = StyleSheet.create({
   },
   Login: {
     alignSelf: "flex-end",
-    color: "#FB9F3C",
+    color: "#FFF",
     fontSize: 28,
-    marginRight: 20,
     letterSpacing: 5,
   },
   LoginHeader: {
@@ -85,6 +87,14 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     flexDirection: "row",
     marginTop: 15,
+    marginRight: 10,
+  },
+  buttonLg: {
+    backgroundColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
   },
 });
 

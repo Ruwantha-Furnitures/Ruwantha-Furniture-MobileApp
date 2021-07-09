@@ -5,6 +5,9 @@ import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
 import MoreDetailsScreen from "../Screens/MoreDetailsScreen";
+import CartScreen from "../Screens/CartScreen";
+import CheckOutScreen from "../Screens/CheckOutScreen";
+
 const ProductStack = createStackNavigator();
 const ProductStackNav = () => {
   return (
@@ -15,6 +18,7 @@ const ProductStackNav = () => {
           backgroundColor: "#B89068",
         },
         headerTintColor: "#fff",
+        headerTitle: "",
       }}
     >
       <ProductStack.Screen name="Products" component={ProductsScreen} />
@@ -22,6 +26,8 @@ const ProductStackNav = () => {
       <ProductStack.Screen name="ProductsAR" component={ViewProductARScreen} />
       <ProductStack.Screen name="Login" component={LoginScreen} />
       <ProductStack.Screen name="Sign Up" component={SignUpScreen} />
+      <ProductStack.Screen name="Cart" component={CartScreen} />
+      <ProductStack.Screen name="CheckOut" component={CheckOutScreen} />
     </ProductStack.Navigator>
   );
 };

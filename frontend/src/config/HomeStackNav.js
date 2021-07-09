@@ -7,8 +7,11 @@ import ViewProductARScreen from "../Screens/ViewProductARScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
 import ForgotPasswordScreen from "../Screens/ForgotPasswordScreen";
-import CartScreen from '../Screens/CartScreen';
+import CartScreen from "../Screens/CartScreen";
 import CheckOutScreen from "../Screens/CheckOutScreen";
+
+import { FontAwesome } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
 const HomeStack = createStackNavigator();
 
@@ -21,6 +24,7 @@ const HomeStackNav = () => {
           backgroundColor: "#B89068",
         },
         headerTintColor: "#fff",
+        headerTitle: "",
       }}
     >
       <HomeStack.Screen name="Home" component={HomeScreen} />
@@ -32,14 +36,8 @@ const HomeStackNav = () => {
         name="Forgot Password"
         component={ForgotPasswordScreen}
       />
-      <HomeStack.Screen
-        name="Cart"
-        component={CartScreen}
-      />
-      <HomeStack.Screen
-        name="CheckOut"
-        component={CheckOutScreen}
-      />
+      <HomeStack.Screen name="Cart" component={CartScreen} />
+      <HomeStack.Screen name="CheckOut" component={CheckOutScreen} />
     </HomeStack.Navigator>
   );
 };
