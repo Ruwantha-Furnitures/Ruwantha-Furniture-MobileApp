@@ -35,8 +35,9 @@ const Product = ({ item, navigate }) => {
           <Text style={styles.productDescription}>{item.description}</Text>
           <Text style={styles.productPrice}>{`Rs. ${item.price}/=`}</Text>
           <View style={styles.btnContainer}>
-            <AppButton title="Preview AR" />
+            <AppButton title="Preview AR" width={80} />
             <AppButton
+              width={80}
               title="Add to cart"
               onPress={() => console.log("Clicked")}
             />

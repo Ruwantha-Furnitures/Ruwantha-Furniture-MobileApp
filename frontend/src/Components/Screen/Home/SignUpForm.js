@@ -22,7 +22,7 @@ const SignUpForm = ({ signUpHandler }) => {
   const mobileHeight = Dimensions.get("window").height;
 
   return (
-    <Form type="SignUp" width={mobileWidth - 40} height={mobileHeight - 310}>
+    <Form type="SignUp" width={mobileWidth - 40} height={mobileHeight - 330}>
       <SubHeader title="Create Account" width={300} />
       <Input
         placeholder="Name"

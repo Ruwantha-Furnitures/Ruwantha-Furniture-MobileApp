@@ -20,7 +20,7 @@ const SignUpScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       let response = await axios.post(
-        "http://192.168.8.210 :3002/armagic/api/customer/signup",
+        "http://192.168.8.210:3002/armagic/api/customer/signup",
         {
           data,
         }
@@ -39,12 +39,15 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <View style={styles.viewContainer}>
       {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
-      <TouchableOpacity
-        style={styles.LoginHeader}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <Text style={styles.Login}>Login</Text>
-      </TouchableOpacity>
+      <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
+        <TouchableOpacity
+          style={styles.LoginHeader}
+          style={styles.buttonLg}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.Login}>Login</Text>
+        </TouchableOpacity>
+      </View>
       <Header />
       <SignUpForm navigation={navigation} signUpHandler={signUpHandler} />
     </View>
@@ -58,13 +61,27 @@ const styles = StyleSheet.create({
   },
   Login: {
     alignSelf: "flex-end",
-    color: "#FB9F3C",
+    color: "#FFF",
     fontSize: 28,
     marginRight: 20,
     letterSpacing: 5,
   },
   LoginHeader: {
     marginTop: 10,
+  },
+
+  upperContainer: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    marginTop: 25,
+    marginRight: 10,
+  },
+  buttonLg: {
+    backgroundColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
   },
 });
 
