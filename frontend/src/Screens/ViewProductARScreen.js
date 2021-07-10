@@ -70,13 +70,14 @@ const ViewProductARScreen = () => {
         camera.position.z = 3;
         camera.position.y = 1;
         camera.position.x = 1;
+
         scene.add(spotLight);
 
         const loader = new OBJLoader();
         loader.load(
           asset.uri,
           (object) => {
-            // object.position.y += 30;
+            object.scale.set(10, 10, 10);
             scene.add(object);
           },
           (xhr) => {},
