@@ -49,7 +49,7 @@ const RatingsForm = ({ ratingFormHandler }) => {
 const styles = StyleSheet.create({
   container: {
     width: 380,
-    height: 315,
+    height: 355,
     backgroundColor: "#fff",
     borderRadius: 10,
     alignSelf: "center",

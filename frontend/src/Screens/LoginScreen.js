@@ -17,7 +17,7 @@ import axios from "axios";
 const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const {userToken,setUserToken} = useContext(AuthContext);
+  const { userToken, setUserToken } = useContext(AuthContext);
 
   useEffect(() => {
     let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation }) => {
         await SecureStore.setItemAsync("user_token", response.data.accessToken);
         const getToken = await SecureStore.getItemAsync("user_token");
         console.log(getToken);
-        setUserToken(getToken)
+        setUserToken(getToken);
         navigation.navigate("Home");
       } else {
         setIsLoading(false);
@@ -54,17 +54,19 @@ const LoginScreen = ({ navigation }) => {
   };
 
   // console.log(userToken)
-  
-  
+
   return (
     <View style={styles.viewContainer}>
       {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
-      <TouchableOpacity
-        style={styles.SignUpHeader}
-        onPress={() => navigation.navigate("Sign Up")}
-      >
-        <Text style={styles.SignUp}>Sign Up</Text>
-      </TouchableOpacity>
+      <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
+        <TouchableOpacity
+          style={styles.LoginHeader}
+          style={styles.buttonLg}
+          onPress={() => navigation.navigate("Sign Up")}
+        >
+          <Text style={styles.Login}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
       <Header />
       {isLoading && <ActivityIndicator size="large" color="green" />}
       <LoginForm navigation={navigation} loginHandler={loginHandler} />
@@ -86,6 +88,25 @@ const styles = StyleSheet.create({
   },
   SignUpHeader: {
     marginTop: 10,
+  },
+  upperContainer: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    marginTop: 25,
+    marginRight: 10,
+  },
+  buttonLg: {
+    backgroundColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+  },
+  Login: {
+    alignSelf: "flex-end",
+    color: "#FFF",
+    fontSize: 28,
+    letterSpacing: 5,
   },
 });
 

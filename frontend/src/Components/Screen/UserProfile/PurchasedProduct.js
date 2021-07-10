@@ -14,7 +14,7 @@ const PurchasedProduct = ({ item }) => {
 
   return (
     <View style={styles.purchases}>
-      <Card width={415} height={ratingDisplay ? 560 : 300} ml={20} bg="#fff">
+      <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
         <View style={styles.productContainer}>
           <Text style={styles.purchaseItemName}>{item.name}</Text>
           <Image source={item.image} style={styles.productImage} />
