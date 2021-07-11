@@ -1,4 +1,5 @@
 const { Customer, Account } = require("../../models");
+const sendEmail = require("../../common/sendEmail");
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
@@ -37,6 +38,7 @@ const SignUpController = async (req, res) => {
           };
 
           const CustomerDetails = await Customer.create(customerData);
+          sendEmail(email);
           res.json({
             state: "Successful",
             message: "User has been successfully registered",
