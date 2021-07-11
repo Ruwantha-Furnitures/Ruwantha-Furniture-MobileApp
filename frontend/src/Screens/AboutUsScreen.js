@@ -14,9 +14,22 @@ import Intro from "../Components/Screen/AboutUs/Intro";
 import WebMobileAppIntro from "../Components/Screen/AboutUs/WebMobileAppIntro";
 import { AuthContext } from "../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
 
 const AboutUsScreen = ({ navigation: { navigate } }) => {
   const { userToken, setUserToken } = useContext(AuthContext);
+
+  const contactUsHandler = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://192.168.8.210:3002/armagic/api/contactus/",
+        { data }
+      );
+      console.log(response.data.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const LogOut = (
     <View style={styles.upperContainer}>
@@ -57,7 +70,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
         <Intro />
         <Info />
         <WebMobileAppIntro />
-        <Contact />
+        <Contact contactUsHandler={contactUsHandler} />
         <Map />
       </View>
     </ScrollView>
