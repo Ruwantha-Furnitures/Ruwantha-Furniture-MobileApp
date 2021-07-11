@@ -1,0 +1,13 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl st_wood
+Ns 70.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.913700 0.815700 0.647100
+Ks 0.630000 0.630000 0.630000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\Acer\\Desktop\\fc7aa5ae213a36b476571257c986d7dc\\Locker KARE Visual Delight commode N080421\\wood_5.jpg
