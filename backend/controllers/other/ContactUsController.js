@@ -5,7 +5,7 @@ const contactUsController = async (req, res) => {
   try {
     const messageSubmit = await Message.create(messageData);
     if (messageSubmit) {
-      res.json({ status: "Completed" });
+      res.json({ status: "Successful" });
     } else {
       res.json({ status: "Unsuccessful" });
     }

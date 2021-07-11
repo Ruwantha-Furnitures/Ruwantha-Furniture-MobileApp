@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -12,12 +12,14 @@ import Info from "../Components/Screen/AboutUs/Info";
 import Map from "../Components/Screen/AboutUs/Map";
 import Intro from "../Components/Screen/AboutUs/Intro";
 import WebMobileAppIntro from "../Components/Screen/AboutUs/WebMobileAppIntro";
+import PopUpConfirmationModal from "../Components/UI/PopUpConfirmationModal";
 import { AuthContext } from "../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 
 const AboutUsScreen = ({ navigation: { navigate } }) => {
   const { userToken, setUserToken } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
 
   const contactUsHandler = async (data) => {
     try {
@@ -26,9 +28,16 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
         { data }
       );
       console.log(response.data.status);
+      if (response.data.status === "Successful") {
+        setShowModal(true);
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const deleteHandler = () => {
+    setShowModal((prevState) => !prevState);
   };
 
   const LogOut = (
@@ -71,6 +80,18 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
         <Info />
         <WebMobileAppIntro />
         <Contact contactUsHandler={contactUsHandler} />
+        <PopUpConfirmationModal visible={showModal}>
+          <AntDesign
+            name="closecircleo"
+            size={24}
+            color="#F00"
+            style={styles.closeIcon}
+            onPress={deleteHandler}
+          />
+          <Text style={styles.confirmationText}>
+            Thank you for your contacting us, Your message has been recorderd.
+          </Text>
+        </PopUpConfirmationModal>
         <Map />
       </View>
     </ScrollView>
@@ -116,6 +137,17 @@ const styles = StyleSheet.create({
     color: "#fff",
     letterSpacing: 1,
     width: 75,
+  },
+  closeIcon: {
+    alignSelf: "flex-end",
+    marginTop: -18,
+    marginRight: 5,
+    marginBottom: 0,
+  },
+  confirmationText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    marginTop: 25,
   },
 });
 

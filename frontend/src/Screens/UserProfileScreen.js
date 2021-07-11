@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,14 +13,47 @@ import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../Components/Screen/UserProfile/EditProfile";
 import { AuthContext } from "../Components/Context/AuthContext";
+import * as SecureStore from "expo-secure-store";
+import axios from "axios";
 
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
   const { userToken, setUserToken } = useContext(AuthContext);
+  const [userData, setUserData] = useState();
 
   const onChangeNav = (header) => {
     setCurrentView(header);
   };
+
+  useEffect(() => {
+    let accID;
+    let email;
+    const result = async () => {
+      try {
+        email = await SecureStore.getItemAsync("user_email");
+        accID = await SecureStore.getItemAsync("user_accountID");
+      } catch (err) {
+        console.log(err);
+      }
+
+      try {
+        console.log(email);
+        console.log(accID);
+        const data = { accID };
+        let response = await axios.get(
+          "http://192.168.8.210:3002/armagic/api/customer/viewprofile",
+          { data }
+        );
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    result();
+    // return () => result;
+  }, []);
+
+  const getUserData = () => {};
 
   const LogOut = (
     <View style={styles.upperContainer}>
@@ -48,7 +81,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
         {currentView === "My Profile" && (
-          <ViewProfile onChangeNav={onChangeNav} />
+          <ViewProfile onChangeNav={onChangeNav} userData={getUserData} />
         )}
         {currentView === "My Purchases" && <MyPurchases />}
         {currentView === "Edit Profile" && <EditProfile />}
