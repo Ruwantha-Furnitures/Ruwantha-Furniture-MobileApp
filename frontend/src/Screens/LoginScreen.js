@@ -97,16 +97,19 @@ const styles = StyleSheet.create({
   },
   buttonLg: {
     backgroundColor: "black",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 15,
+    borderRadius: 20,
+    paddingRight: 13,
+    paddingLeft: 20,
+    paddingVertical: 12,
+    marginTop: 3,
+    justifyContent: "center",
   },
   Login: {
-    alignSelf: "flex-end",
-    color: "#FFF",
-    fontSize: 28,
-    letterSpacing: 5,
+    fontWeight: "bold",
+    fontSize: 15,
+    color: "#fff",
+    letterSpacing: 1,
+    width: 75,
   },
 });
 
