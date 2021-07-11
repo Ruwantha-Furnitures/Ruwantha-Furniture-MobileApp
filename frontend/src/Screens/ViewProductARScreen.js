@@ -1,6 +1,6 @@
 import React from "react";
+import ReactDom from "react-dom";
 import * as THREE from "three";
-import ExpoGraphics from "expo-graphics";
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
 import { GLView } from "expo-gl";
 import { Renderer } from "expo-three";
@@ -77,7 +77,6 @@ const ViewProductARScreen = () => {
         loader.load(
           asset.uri,
           (object) => {
-            object.scale.set(10, 10, 10);
             scene.add(object);
           },
           (xhr) => {},

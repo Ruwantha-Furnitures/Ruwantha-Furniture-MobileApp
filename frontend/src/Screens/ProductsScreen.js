@@ -70,12 +70,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#E7E5E9",
     minHeight: ScreenHeight - StatusBarHeight,
   },
-  Login: {
-    alignSelf: "flex-end",
-    color: "#FFF",
-    fontSize: 28,
-    letterSpacing: 5,
-  },
+  // Login: {
+  //   alignSelf: "flex-end",
+  //   color: "#FFF",
+  //   fontSize: 28,
+  //   letterSpacing: 5,
+  // },
   LoginHeader: {
     marginTop: 5,
   },
@@ -91,11 +91,19 @@ const styles = StyleSheet.create({
   },
   buttonLg: {
     backgroundColor: "black",
+    borderRadius: 20,
+    paddingRight: 13,
+    paddingLeft: 20,
+    paddingVertical: 12,
+    marginTop: 3,
     justifyContent: "center",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 15,
+  },
+  Login: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: "#fff",
+    letterSpacing: 1,
+    width: 75,
   },
 });
 
