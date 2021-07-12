@@ -46,7 +46,16 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     // return () => result;
   }, []);
 
-  const getUserData = () => {};
+  const editProfileHandler = async (data) => {
+    try {
+      let accID = await SecureStore.getItemAsync("user_accountID");
+      let res = await axios.put(
+        `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`,
+        { data }
+      );
+      console.log(res);
+    } catch (error) {}
+  };
 
   const LogOut = (
     <View style={styles.upperContainer}>
@@ -77,7 +86,12 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
           <ViewProfile onChangeNav={onChangeNav} userData={userData} />
         )}
         {currentView === "My Purchases" && <MyPurchases />}
-        {currentView === "Edit Profile" && <EditProfile userData={userData} />}
+        {currentView === "Edit Profile" && (
+          <EditProfile
+            userData={userData}
+            editProfileHandler={editProfileHandler}
+          />
+        )}
       </View>
     </ScrollView>
   );

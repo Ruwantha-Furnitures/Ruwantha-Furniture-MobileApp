@@ -5,7 +5,7 @@ import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 
-const EditProfile = ({ userData }) => {
+const EditProfile = ({ userData, editProfileHandler }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -19,6 +19,10 @@ const EditProfile = ({ userData }) => {
       setTelephone(() => userData.telephone);
     }
   }, [userData]);
+
+  const submitHandler = () => {
+    editProfileHandler({ email, name, address, telephone });
+  };
 
   return (
     <View style={styles.viewProfile}>
@@ -52,7 +56,12 @@ const EditProfile = ({ userData }) => {
           }}
         >
           <FormAppButton title="Cancel" width={120} />
-          <FormAppButton type="Submit" title="Submit" width={120} />
+          <FormAppButton
+            type="Submit"
+            title="Submit"
+            onPress={submitHandler}
+            width={120}
+          />
         </View>
       </Form>
     </View>
