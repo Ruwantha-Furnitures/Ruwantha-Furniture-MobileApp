@@ -10,7 +10,9 @@ const LoginController = async (req, res) => {
   const data = { email: userEmail, userlevel };
 
   try {
-    const account = await Account.findOne({ data });
+    const account = await Account.findOne({
+      where: { email: data.email, userlevel: 1 },
+    });
     if (account === null) {
       res.json({
         auth: false,
@@ -19,13 +21,14 @@ const LoginController = async (req, res) => {
       });
     } else {
       const existingPassword = account.password;
+      const accountId = account.aid;
       bcrypt.compare(password, existingPassword, (error, result) => {
         if (result) {
           const accessToken = createTokens(account);
           res.cookie("access-token", accessToken, {
             maxAge: 60 * 60 * 24 * 30 * 1000,
           });
-          res.json({ auth: true, accessToken });
+          res.json({ auth: true, accessToken, userEmail, accountId });
         } else {
           res.json({
             auth: false,

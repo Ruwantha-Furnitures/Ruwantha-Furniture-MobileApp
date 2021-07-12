@@ -40,8 +40,15 @@ const LoginScreen = ({ navigation }) => {
         setErrorMessage("");
         await SecureStore.setItemAsync("user_token", response.data.accessToken);
         const getToken = await SecureStore.getItemAsync("user_token");
-        console.log(getToken);
+        await SecureStore.setItemAsync("user_email", response.data.userEmail);
+        const getEmail = await SecureStore.getItemAsync("user_email");
+        await SecureStore.setItemAsync(
+          "user_accountID",
+          JSON.stringify(response.data.accountId)
+        );
+        const getAccID = await SecureStore.getItemAsync("user_accountID");
         setUserToken(getToken);
+        console.log(getAccID);
         navigation.navigate("Home");
       } else {
         setIsLoading(false);
