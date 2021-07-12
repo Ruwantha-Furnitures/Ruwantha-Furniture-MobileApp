@@ -22,7 +22,12 @@ const CustomIntro = () => {
     },
     {
       id: 5,
-      imgUri: require("../../../../assets/5.jpeg"),
+      imgUri: require("../../../../assets/pexels-max-vakhtbovych-6969827.jpg"),
+    },
+
+    {
+      id: 6,
+      imgUri: require("../../../../assets/pexels-max-vakhtbovych-6969830.jpg"),
     },
   ];
 

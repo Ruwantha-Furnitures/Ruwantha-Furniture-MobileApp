@@ -54,7 +54,12 @@ const BottomNavigator = () => {
         options={{
           tabBarLabel: "Camera",
           tabBarIcon: ({ color }) => (
-            <Feather name="camera" color={color} size={24} />
+            <Feather
+              name="camera"
+              style={{ fontWeight: "bold" }}
+              color={color}
+              size={24}
+            />
           ),
           unmountOnBlur: true,
         }}

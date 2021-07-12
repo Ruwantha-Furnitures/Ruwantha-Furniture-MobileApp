@@ -125,8 +125,7 @@ const styles = StyleSheet.create({
   buttonLg: {
     backgroundColor: "black",
     borderRadius: 20,
-    paddingRight: 13,
-    paddingLeft: 20,
+    paddingLeft: 17,
     paddingVertical: 12,
     marginTop: 3,
     justifyContent: "center",

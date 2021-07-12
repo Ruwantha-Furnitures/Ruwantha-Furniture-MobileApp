@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  LogBox,
 } from "react-native";
 import Product from "./Product";
 
@@ -75,6 +76,8 @@ const productList = [
     type: "Tables",
   },
 ];
+
+LogBox.ignoreLogs(["Warning: ..."]);
 
 const Products = ({ navigate }) => {
   const [productType, setProductType] = useState("All");
