@@ -30,10 +30,10 @@ const ViewProfile = ({ onChangeNav, userData }) => {
     <View style={styles.viewProfile}>
       <Form width={415} height={500}>
         <SubHeader title="User Profile" width={200} />
-        <Input value={name} type="email" />
-        <Input value={email} type="email" />
-        <Input value={address} type="string" />
-        <Input value={telephone.toString()} type="string" />
+        <Input editable={false} value={name} type="email" />
+        <Input editable={false} value={email} type="email" />
+        <Input editable={false} value={address} type="string" />
+        <Input editable={false} value={telephone.toString()} type="string" />
         <View
           style={{
             flexDirection: "row",
