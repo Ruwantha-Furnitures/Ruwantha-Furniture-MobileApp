@@ -33,7 +33,11 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         let response = await axios.get(
           `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`
         );
-        console.log(response.data);
+        if (response.data.auth === true) {
+          const { name, address, telephone } = response.data;
+          const data = { email, name, address, telephone };
+          setUserData(data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -70,7 +74,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
         {currentView === "My Profile" && (
-          <ViewProfile onChangeNav={onChangeNav} userData={getUserData} />
+          <ViewProfile onChangeNav={onChangeNav} userData={userData} />
         )}
         {currentView === "My Purchases" && <MyPurchases />}
         {currentView === "Edit Profile" && <EditProfile />}

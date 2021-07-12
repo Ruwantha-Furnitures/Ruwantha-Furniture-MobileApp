@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
@@ -7,8 +7,21 @@ import Input from "../../UI/Input";
 import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import { AntDesign } from "@expo/vector-icons";
 
-const ViewProfile = ({ onChangeNav }) => {
+const ViewProfile = ({ onChangeNav, userData }) => {
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [telephone, setTelephone] = useState("");
+
+  useEffect(() => {
+    if (userData) {
+      setEmail(() => userData.email);
+      setName(() => userData.name);
+      setAddress(() => userData.address);
+      setTelephone(() => userData.telephone);
+    }
+  }, [userData]);
 
   const deleteHandler = () => {
     setShowModal((prevState) => !prevState);
@@ -17,10 +30,10 @@ const ViewProfile = ({ onChangeNav }) => {
     <View style={styles.viewProfile}>
       <Form width={415} height={500}>
         <SubHeader title="User Profile" width={200} />
-        <Input placeholder="Ayomal Praveen" type="email" />
-        <Input placeholder="ayomalpraveen33@gmail.com" type="email" />
-        <Input placeholder="No.54,Negombo road,Dankotuwa" type="string" />
-        <Input placeholder="0776054853" type="string" />
+        <Input value={name} type="email" />
+        <Input value={email} type="email" />
+        <Input value={address} type="string" />
+        <Input value={telephone.toString()} type="string" />
         <View
           style={{
             flexDirection: "row",
