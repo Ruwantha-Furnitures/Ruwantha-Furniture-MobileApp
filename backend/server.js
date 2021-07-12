@@ -4,13 +4,17 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("./models");
+
 const { customerRouter } = require("./routes/customers.js");
+const { contactUsRouter } = require("./routes/contactus.js");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/armagic/api/customer", customerRouter);
+app.use("/armagic/api/contactus", contactUsRouter);
+
 connectDB();
 
 async function connectDB() {

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,13 +13,56 @@ import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../Components/Screen/UserProfile/EditProfile";
 import { AuthContext } from "../Components/Context/AuthContext";
+import * as SecureStore from "expo-secure-store";
+import axios from "axios";
 
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
   const { userToken, setUserToken } = useContext(AuthContext);
+  const [userData, setUserData] = useState();
 
   const onChangeNav = (header) => {
     setCurrentView(header);
+  };
+
+  useEffect(() => {
+    const result = async () => {
+      try {
+        let email = await SecureStore.getItemAsync("user_email");
+        let accID = await SecureStore.getItemAsync("user_accountID");
+        let response = await axios.get(
+          `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`
+        );
+        if (response.data.auth === true) {
+          const { name, address, telephone } = response.data;
+          const data = { email, name, address, telephone };
+          setUserData(data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    result();
+    // return () => result;
+  }, []);
+
+  const editProfileHandler = async (data) => {
+    try {
+      let accID = await SecureStore.getItemAsync("user_accountID");
+      let email = await SecureStore.getItemAsync("user_email");
+      let res = await axios.put(
+        `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`,
+        { data }
+      );
+      if (res.data.status === "Successful") {
+        const { name, address, telephone } = res.data;
+        const updatedUserDetails = { email, name, address, telephone };
+        setUserData(() => updatedUserDetails);
+        console.log(userData);
+      } else {
+        console.log("Data has not been updated");
+      }
+    } catch (error) {}
   };
 
   const LogOut = (
@@ -48,10 +91,15 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
         {currentView === "My Profile" && (
-          <ViewProfile onChangeNav={onChangeNav} />
+          <ViewProfile onChangeNav={onChangeNav} userData={userData} />
         )}
         {currentView === "My Purchases" && <MyPurchases />}
-        {currentView === "Edit Profile" && <EditProfile />}
+        {currentView === "Edit Profile" && (
+          <EditProfile
+            userData={userData}
+            editProfileHandler={editProfileHandler}
+          />
+        )}
       </View>
     </ScrollView>
   );

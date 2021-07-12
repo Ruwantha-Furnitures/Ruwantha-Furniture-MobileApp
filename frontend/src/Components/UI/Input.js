@@ -12,6 +12,7 @@ const Input = ({
   backgroundColor,
   height,
   value,
+  editable,
 }) => {
   const cusStyles = {
     backgroundColor,
@@ -25,6 +26,7 @@ const Input = ({
       style={name === "textarea" ? styles.textArea : styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
+      editable={editable}
       numberOfLines={name === "textarea" ? 7 : 1}
     />
   );
