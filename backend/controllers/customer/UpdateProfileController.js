@@ -13,9 +13,9 @@ const UpdateProfileController = async (req, res) => {
     );
     // res.json({});
     if (update >= 1) {
-      res.json({ status: "Successful" });
+      res.json({ status: "Successful", name, address, telephone });
     } else {
-      res.json({ status: "UnSuccessful" });
+      res.json({ status: "Unsuccessful" });
     }
     // console.log(update + " updated");
   } catch (error) {

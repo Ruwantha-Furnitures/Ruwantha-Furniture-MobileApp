@@ -53,7 +53,12 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`,
         { data }
       );
-      console.log(res);
+      if (res.data.state === "Successful") {
+        const { name, address, telephone } = res.data;
+        console.log(name, address, telephone);
+      } else {
+        console.log("Data has not been updated");
+      }
     } catch (error) {}
   };
 
