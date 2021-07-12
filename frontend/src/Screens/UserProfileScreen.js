@@ -49,13 +49,16 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const editProfileHandler = async (data) => {
     try {
       let accID = await SecureStore.getItemAsync("user_accountID");
+      let email = await SecureStore.getItemAsync("user_email");
       let res = await axios.put(
         `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`,
         { data }
       );
-      if (res.data.state === "Successful") {
+      if (res.data.status === "Successful") {
         const { name, address, telephone } = res.data;
-        console.log(name, address, telephone);
+        const updatedUserDetails = { email, name, address, telephone };
+        setUserData(() => updatedUserDetails);
+        console.log(userData);
       } else {
         console.log("Data has not been updated");
       }
