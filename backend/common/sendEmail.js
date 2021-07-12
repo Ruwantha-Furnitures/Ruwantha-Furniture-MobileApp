@@ -11,8 +11,8 @@ module.exports = async (email) => {
   const options = {
     from: "armagic24@outlook.com",
     to: email,
-    subject: "Create Account",
-    html: "<h1>Thank you for creating your account</h1>",
+    subject: "Account has been created",
+    html: `<h1>Thank you for creating new account,we are lookig forwar to having you and providing with you the best of services.</h1>`,
   };
 
   try {
