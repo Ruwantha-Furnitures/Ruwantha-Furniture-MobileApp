@@ -16,7 +16,7 @@ const cardWidth = mobileWidth - 40;
 const imageWidth = (cardWidth + 10) / 2;
 const detailsWidth = (cardWidth - 10) / 2;
 
-function Intro() {
+function Intro({ navigate }) {
   const images = [
     {
       imageId: 1,
@@ -87,7 +87,7 @@ function Intro() {
             title="View Products"
             width={170}
             size="lg"
-            onPress={() => console.log("Clicked")}
+            onPress={() => navigate("Products")}
           />
         </View>
       </View>
