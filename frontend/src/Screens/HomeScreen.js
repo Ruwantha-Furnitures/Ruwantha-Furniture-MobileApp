@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         {userToken === null ? Login : LogOut}
 
         <Header />
-        <Intro />
+        <Intro navigate={navigate} />
         <NewArrival />
         <CustomIntro />
         <Contact />
