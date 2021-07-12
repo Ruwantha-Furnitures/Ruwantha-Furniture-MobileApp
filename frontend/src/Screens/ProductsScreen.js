@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
+  LogBox,
 } from "react-native";
 
 import Searchbar from "../Components/UI/SearchBar";
@@ -20,6 +21,7 @@ let StatusBarHeight = StatusBar.currentHeight;
 
 const ProductScreen = ({ navigation: { navigate } }) => {
   const { userToken, setUserToken } = useContext(AuthContext);
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   const LogOut = (
     <View style={styles.upperContainer}>

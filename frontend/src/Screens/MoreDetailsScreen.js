@@ -5,6 +5,7 @@ import AppButton from "../Components/UI/AppButton";
 const MoreDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const [quantity, SetQuantity] = useState(1);
+  console.log("More Screen");
   return (
     <View style={styles.viewContainer}>
       <Image source={item.image} style={styles.imgLarge} />
@@ -42,9 +43,9 @@ const MoreDetailsScreen = ({ route }) => {
                 <Text style={styles.quantityText}>+</Text>
               </TouchableOpacity>
             </View>
-            <View style={{ marginLeft: 230, marginTop: -35 }}>
+            <View style={{ marginLeft: 265, marginTop: -35 }}>
               <AppButton
-                width="250"
+                width={100}
                 title="Add to cart"
                 onPress={() => console.log("Clicked")}
               />
@@ -131,3 +132,51 @@ const styles = StyleSheet.create({
   },
 });
 export default MoreDetailsScreen;
+
+// <View style={styles.viewContainer}>
+//   <Image source={item.image} style={styles.imgLarge} />
+//   <Card width={435} height={440} ml={10} bg="#fff">
+//     <View style={styles.body}>
+//       <Text style={styles.itemName}>{item.name}</Text>
+//       <Text style={styles.content}>{item.content}</Text>
+//       <View style={styles.imageContainer}>
+//         <Image
+//           source={item.image}
+//           style={[styles.imgSmaller, { transform: [{ rotate: "90deg" }] }]}
+//         />
+//         <Image
+//           source={item.image}
+//           style={[styles.imgSmaller, { transform: [{ rotate: "180deg" }] }]}
+//         />
+//         <Image
+//           source={item.image}
+//           style={[styles.imgSmaller, { transform: [{ rotate: "270deg" }] }]}
+//         />
+//       </View>
+//       <Text style={styles.price}>{`Rs.${item.price}/=`}</Text>
+//       <View style={styles.bottomContainer}>
+//         <Text style={styles.quantityTitle}>Quantity</Text>
+//         <View style={styles.quantityContainer}>
+//           <TouchableOpacity onPress={() => SetQuantity(quantity - 1)}>
+//             <Text style={styles.quantityText}>-</Text>
+//           </TouchableOpacity>
+//           <View style={styles.hr} />
+//           <Text style={[styles.quantityText, { marginTop: -2 }]}>
+//             {quantity}
+//           </Text>
+//           <View style={styles.hr} />
+//           <TouchableOpacity onPress={() => SetQuantity(quantity + 1)}>
+//             <Text style={styles.quantityText}>+</Text>
+//           </TouchableOpacity>
+//         </View>
+//         <View style={{ marginLeft: 230, marginTop: -35 }}>
+//           <AppButton
+//             width="250"
+//             title="Add to cart"
+//             onPress={() => console.log("Clicked")}
+//           />
+//         </View>
+//       </View>
+//     </View>
+//   </Card>
+// </View>
