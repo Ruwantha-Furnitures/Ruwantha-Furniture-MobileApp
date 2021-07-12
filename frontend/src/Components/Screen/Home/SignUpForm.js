@@ -13,9 +13,15 @@ const SignUpForm = ({ signUpHandler }) => {
   const [contactNo, setContactNo] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const submitHandler = () => {
-    signUpHandler({ name, email, address, contactNo, password });
+    if (confirmPassword !== password) {
+      setErrorMessage(true);
+    } else {
+      setErrorMessage(false);
+      signUpHandler({ name, email, address, contactNo, password });
+    }
   };
 
   const mobileWidth = Dimensions.get("window").width;
@@ -60,6 +66,11 @@ const SignUpForm = ({ signUpHandler }) => {
         placeholder="Confirm Password"
         type="password"
       />
+      {errorMessage && (
+        <Text style={styles.errorMessage}>
+          Entered two passwords does not match,with each other.please try again
+        </Text>
+      )}
       <View style={styles.btnContainer}>
         <FormAppButton
           type="Cancel"
@@ -84,6 +95,12 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     alignItems: "center",
     justifyContent: "center",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 20,
+    width: 370,
   },
 });
 export default SignUpForm;
