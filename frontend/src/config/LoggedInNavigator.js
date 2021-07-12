@@ -44,7 +44,7 @@ const BottomNavigator = () => {
         options={{
           tabBarLabel: "Products",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="sofa" color={color} size={26} />
+            <MaterialCommunityIcons name="sofa" color={color} size={24} />
           ),
         }}
       />
@@ -54,7 +54,12 @@ const BottomNavigator = () => {
         options={{
           tabBarLabel: "Camera",
           tabBarIcon: ({ color }) => (
-            <Feather name="camera" color={color} size={24} />
+            <Feather
+              style={{ fontWeight: "bold" }}
+              name="camera"
+              color={color}
+              size={24}
+            />
           ),
           unmountOnBlur: true,
         }}
@@ -75,7 +80,12 @@ const BottomNavigator = () => {
         options={{
           tabBarLabel: "My Profile",
           tabBarIcon: ({ color }) => (
-            <EvilIcons name="user" color={color} size={29} />
+            <EvilIcons
+              style={{ fontWeight: "bold" }}
+              name="user"
+              color={color}
+              size={29}
+            />
           ),
           unmountOnBlur: true,
         }}

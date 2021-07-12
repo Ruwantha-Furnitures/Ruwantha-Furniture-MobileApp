@@ -13,6 +13,8 @@ import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../Components/Screen/UserProfile/EditProfile";
 import { AuthContext } from "../Components/Context/AuthContext";
+import PopUpConfirmationModal from "../Components/UI/PopUpConfirmationModal";
+import FormAppButton from "../Components/UI/FormAppButton";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
@@ -59,11 +61,16 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         const { name, address, telephone } = res.data;
         const updatedUserDetails = { email, name, address, telephone };
         setUserData(() => updatedUserDetails);
+        setShowModal((prevState) => !prevState);
         console.log(userData);
       } else {
         console.log("Data has not been updated");
       }
     } catch (error) {}
+  };
+
+  const editConfirmationHandler = () => {
+    setShowModal((prevState) => !prevState);
   };
 
   const LogOut = (
@@ -101,6 +108,26 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
             editProfileHandler={editProfileHandler}
           />
         )}
+        <PopUpConfirmationModal visible={showModal}>
+          <AntDesign
+            name="closecircleo"
+            size={24}
+            color="#F00"
+            style={styles.closeIcon}
+            onPress={editConfirmationHandler}
+          />
+          <Text style={styles.confirmationText}>
+            Your Account Details have been successfully updated
+          </Text>
+          <View style={styles.btnContainer}>
+            <FormAppButton
+              title="OK"
+              type="Submit"
+              width={100}
+              onPress={editConfirmationHandler}
+            />
+          </View>
+        </PopUpConfirmationModal>
       </View>
     </ScrollView>
   );
@@ -145,6 +172,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     letterSpacing: 1,
     width: 75,
+  },
+  closeIcon: {
+    alignSelf: "flex-end",
+    marginTop: -18,
+    marginRight: 5,
+    marginBottom: 0,
+  },
+  confirmationText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    marginTop: 25,
+  },
+  btnContainer: {
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    marginTop: 20,
   },
 });
 export default UserProfileScreen;
