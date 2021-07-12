@@ -21,7 +21,7 @@ function Intro() {
     {
       imageId: 1,
       textId: 2,
-      imgUri: require("../../../../assets/download_ar.jpg"),
+      imgUri: require("../../../../assets/pexels-tima-miroshnichenko-6474485.jpg"),
     },
     {
       imageId: 2,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: 280,
     marginLeft: -5,
     borderTopLeftRadius: 7.5,
-    resizeMode: "stretch",
+    resizeMode: "cover",
   },
   detailContainer: {
     marginHorizontal: 8,
