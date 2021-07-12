@@ -30,13 +30,10 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
       try {
         let email = await SecureStore.getItemAsync("user_email");
         let accID = await SecureStore.getItemAsync("user_accountID");
-        console.log(accID);
-        const data = { email };
-        console.log(data);
         let response = await axios.get(
           `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`
         );
-        console.log(response);
+        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
