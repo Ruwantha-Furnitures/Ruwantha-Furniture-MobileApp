@@ -20,6 +20,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
   const { userToken, setUserToken } = useContext(AuthContext);
   const [userData, setUserData] = useState();
+  const [showModal, setShowModal] = useState(false);
 
   const onChangeNav = (header) => {
     setCurrentView(header);
