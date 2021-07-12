@@ -26,27 +26,19 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   };
 
   useEffect(() => {
-    let accID;
-    let email;
     const result = async () => {
       try {
-        email = await SecureStore.getItemAsync("user_email");
-        accID = await SecureStore.getItemAsync("user_accountID");
-      } catch (err) {
-        console.log(err);
-      }
-
-      try {
-        console.log(email);
+        let email = await SecureStore.getItemAsync("user_email");
+        let accID = await SecureStore.getItemAsync("user_accountID");
         console.log(accID);
-        const data = { accID };
+        const data = { email };
+        console.log(data);
         let response = await axios.get(
-          "http://192.168.8.210:3002/armagic/api/customer/viewprofile",
-          { data }
+          `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`
         );
         console.log(response);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err);
       }
     };
     result();

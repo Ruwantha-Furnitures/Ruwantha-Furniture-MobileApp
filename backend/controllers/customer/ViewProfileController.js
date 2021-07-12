@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
 const ViewProfileController = async (req, res) => {
-  console.log(req.body);
+  console.log(req.params.accID);
   //   console.log(typeOf(req.body.accID));
 };
 

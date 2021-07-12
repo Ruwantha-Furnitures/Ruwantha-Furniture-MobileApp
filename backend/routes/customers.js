@@ -15,6 +15,6 @@ const {
 
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
-router.get("/viewprofile", ViewProfileController);
+router.get("/viewprofile:accID", ViewProfileController);
 
 module.exports = { customerRouter: router };
