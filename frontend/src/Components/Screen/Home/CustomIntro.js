@@ -27,9 +27,17 @@ const CustomIntro = () => {
 
   return (
     <Card width={415} height={310} ml={20} bg="#fff">
-      <Image
-        source={require("../../../../assets/customization.png")}
-        style={{ width: 417, height: 310 }}
+      <FlatList
+        data={Images}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={{ width: 415, height: 310 }}>
+            <Image
+              source={item.imgUri}
+              style={[StyleSheet.absoluteFillObject]}
+            />{" "}
+          </View>
+        )}
         resizeMode="stretch"
       />
     </Card>
