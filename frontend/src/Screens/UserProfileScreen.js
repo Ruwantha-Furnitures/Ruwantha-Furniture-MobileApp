@@ -77,7 +77,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
           <ViewProfile onChangeNav={onChangeNav} userData={userData} />
         )}
         {currentView === "My Purchases" && <MyPurchases />}
-        {currentView === "Edit Profile" && <EditProfile />}
+        {currentView === "Edit Profile" && <EditProfile userData={userData} />}
       </View>
     </ScrollView>
   );

@@ -13,8 +13,13 @@ const {
   ViewProfileController,
 } = require("../controllers/customer/ViewProfileController");
 
+const {
+  UpdateProfileController,
+} = require("../controllers/customer/UpdateProfileController");
+
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
 router.get("/viewprofile/:accID", ViewProfileController);
+router.put("/viewprofile/:accID", UpdateProfileController);
 
 module.exports = { customerRouter: router };
