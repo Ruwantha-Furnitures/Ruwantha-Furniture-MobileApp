@@ -37,6 +37,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
           value={email}
           onChangeText={(email) => setEmail(email)}
           type="email"
+          editable={false}
         />
         <Input
           value={address}

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   buttonLg: {
     backgroundColor: "black",
     borderRadius: 20,
-    paddingRight: 13,
+    paddingRight: 0,
     paddingLeft: 20,
     paddingVertical: 12,
     marginTop: 3,

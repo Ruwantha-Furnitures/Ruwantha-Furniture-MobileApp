@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import ViewProductARScreen from "../Screens/ViewProductARScreen";
+import CameraScreen from "../Screens/CameraScreen";
 import UserProfileStackNav from "./UserProfileStackNav";
 import AboutUsStackNav from "./AboutUsStackNav";
 import HomeStackNav from "./HomeStackNav";
@@ -49,8 +50,8 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ProductsAR"
-        component={ViewProductARScreen}
+        name="Camera"
+        component={CameraScreen}
         options={{
           tabBarLabel: "Camera",
           tabBarIcon: ({ color }) => (
