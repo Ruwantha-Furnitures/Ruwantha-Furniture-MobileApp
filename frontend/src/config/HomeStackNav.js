@@ -9,6 +9,7 @@ import SignUpScreen from "../Screens/SignUpScreen";
 import ForgotPasswordScreen from "../Screens/ForgotPasswordScreen";
 import CartScreen from "../Screens/CartScreen";
 import CheckOutScreen from "../Screens/CheckOutScreen";
+import ProductStackNav from "./ProductStackNav";
 
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";

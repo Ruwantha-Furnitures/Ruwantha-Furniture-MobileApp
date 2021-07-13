@@ -9,6 +9,8 @@ import UserProfileStackNav from "./UserProfileStackNav";
 import AboutUsStackNav from "./AboutUsStackNav";
 import HomeStackNav from "./HomeStackNav";
 import ProductStackNav from "./ProductStackNav";
+import CameraScreen from "../Screens/CameraScreen";
+
 const Tab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {
   const getTabBarVisibility = (route) => {
@@ -49,8 +51,8 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ProductsAR"
-        component={ViewProductARScreen}
+        name="Camera"
+        component={CameraScreen}
         options={{
           tabBarLabel: "Camera",
           tabBarIcon: ({ color }) => (

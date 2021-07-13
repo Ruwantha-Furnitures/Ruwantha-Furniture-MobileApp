@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 import {
@@ -9,12 +9,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import { AuthContext } from "../../Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const cardWidth = mobileWidth - 40;
+  const { userToken, setUserToken } = useContext(AuthContext);
 
   return (
     <Card width={cardWidth} height={200} ml={20} bg="#fff">
@@ -35,12 +37,18 @@ const Product = ({ item, navigate }) => {
           <Text style={styles.productDescription}>{item.description}</Text>
           <Text style={styles.productPrice}>{`Rs. ${item.price}/=`}</Text>
           <View style={styles.btnContainer}>
-            <AppButton title="Preview AR" width={80} />
             <AppButton
+              title="Preview AR"
               width={80}
-              title="Add to cart"
-              onPress={() => console.log("Clicked")}
+              onPress={() => navigate("ProductsAR")}
             />
+            {userToken !== null && (
+              <AppButton
+                width={80}
+                title="Add to cart"
+                onPress={() => console.log("Clicked")}
+              />
+            )}
           </View>
         </View>
       </View>

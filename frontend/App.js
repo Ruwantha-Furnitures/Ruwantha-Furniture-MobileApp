@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, Text, View, StatusBar, LogBox } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -12,10 +12,12 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [userToken, setUserToken] = useState(null);
-  const value ={
+  const value = {
     userToken,
-    setUserToken
-  }
+    setUserToken,
+  };
+
+  LogBox.ignoreAllLogs();
 
   const authContext = useMemo(() => {
     signIn: () => {
