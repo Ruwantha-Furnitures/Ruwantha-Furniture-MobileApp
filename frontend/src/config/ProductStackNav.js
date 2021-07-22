@@ -1,12 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ProductsScreen from "../Screens/ProductsScreen";
-import ViewProductARScreen from "../Screens/ViewProductARScreen";
-import LoginScreen from "../Screens/LoginScreen";
-import SignUpScreen from "../Screens/SignUpScreen";
-import MoreDetailsScreen from "../Screens/MoreDetailsScreen";
-import CartScreen from "../Screens/CartScreen";
-import CheckOutScreen from "../Screens/CheckOutScreen";
+import ProductsScreen from "../Screens/Customer/ProductsScreen";
+import ViewProductARScreen from "../Screens/Customer/ViewProductARScreen";
+import LoginScreen from "../Screens/Customer/LoginScreen";
+import SignUpScreen from "../Screens/Customer/SignUpScreen";
+import MoreDetailsScreen from "../Screens/Customer/MoreDetailsScreen";
+import CartScreen from "../Screens/Customer/CartScreen";
+import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
 
 const ProductStack = createStackNavigator();
 const ProductStackNav = () => {

@@ -1,14 +1,14 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../Screens/HomeScreen";
-import ProductsScreen from "../Screens/ProductsScreen";
-import ViewProductARScreen from "../Screens/ViewProductARScreen";
+import HomeScreen from "../Screens/Customer/HomeScreen";
+import ProductsScreen from "../Screens/Customer/ProductsScreen";
+import ViewProductARScreen from "../Screens/Customer/ViewProductARScreen";
 
-import LoginScreen from "../Screens/LoginScreen";
-import SignUpScreen from "../Screens/SignUpScreen";
-import ForgotPasswordScreen from "../Screens/ForgotPasswordScreen";
-import CartScreen from "../Screens/CartScreen";
-import CheckOutScreen from "../Screens/CheckOutScreen";
+import LoginScreen from "../Screens/Customer/LoginScreen";
+import SignUpScreen from "../Screens/Customer/SignUpScreen";
+import ForgotPasswordScreen from "../Screens/Customer/ForgotPasswordScreen";
+import CartScreen from "../Screens/Customer/CartScreen";
+import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
 import ProductStackNav from "./ProductStackNav";
 
 import { FontAwesome } from "@expo/vector-icons";

@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Header from "../Components/Header/Header";
-import Contact from "../Components/Screen/AboutUs/Contact";
-import Info from "../Components/Screen/AboutUs/Info";
-import Map from "../Components/Screen/AboutUs/Map";
-import Intro from "../Components/Screen/AboutUs/Intro";
-import WebMobileAppIntro from "../Components/Screen/AboutUs/WebMobileAppIntro";
-import PopUpConfirmationModal from "../Components/UI/PopUpConfirmationModal";
-import { AuthContext } from "../Components/Context/AuthContext";
+import Header from "../../Components/Header/Header";
+import Contact from "../../Components/Screen/AboutUs/Contact";
+import Info from "../../Components/Screen/AboutUs/Info";
+import Map from "../../Components/Screen/AboutUs/Map";
+import Intro from "../../Components/Screen/AboutUs/Intro";
+import WebMobileAppIntro from "../../Components/Screen/AboutUs/WebMobileAppIntro";
+import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
+import { AuthContext } from "../../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 

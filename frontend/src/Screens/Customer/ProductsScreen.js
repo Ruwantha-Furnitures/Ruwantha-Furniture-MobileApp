@@ -10,10 +10,10 @@ import {
   LogBox,
 } from "react-native";
 
-import Searchbar from "../Components/UI/SearchBar";
-import Header from "../Components/Header/Header";
-import Products from "../Components/Screen/Products/Products";
-import { AuthContext } from "../Components/Context/AuthContext";
+import Searchbar from "../../Components/UI/SearchBar";
+import Header from "../../Components/Header/Header";
+import Products from "../../Components/Screen/Products/Products";
+import { AuthContext } from "../../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 
 let ScreenHeight = Dimensions.get("window").height;

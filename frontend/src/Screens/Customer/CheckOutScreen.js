@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import Header from "../Components/Header/Header";
-import CheckOutForm from "../Components/Screen/Cart/CheckOutForm";
+import Header from "../../Components/Header/Header";
+import CheckOutForm from "../../Components/Screen/Cart/CheckOutForm";
 
 const CheckOutScreen = () => {
   return (

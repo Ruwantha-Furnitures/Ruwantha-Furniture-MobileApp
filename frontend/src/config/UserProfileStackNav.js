@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import UserProfileScreen from "../Screens/UserProfileScreen";
 import HomeScreen from "../Screens/HomeScreen";
-import CartScreen from "../Screens/CartScreen";
-import CheckOutScreen from "../Screens/CheckOutScreen";
+import CartScreen from "../Screens/Customer/CartScreen";
+import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
 
 const UserProfileStack = createStackNavigator();
 

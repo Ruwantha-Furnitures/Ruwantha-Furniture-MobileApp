@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import Header from "../Components/Header/Header";
-import Card from "../Components/UI/Card";
-import LoginForm from "../Components/Screen/Home/LoginForm";
-import ErrorModal from "../Components/UI/ErrorModal";
-import { AuthContext } from "../Components/Context/AuthContext";
+import Header from "../../Components/Header/Header";
+import Card from "../../Components/UI/Card";
+import LoginForm from "../../Components/Screen/Home/LoginForm";
+import ErrorModal from "../../Components/UI/ErrorModal";
+import { AuthContext } from "../../Components/Context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 

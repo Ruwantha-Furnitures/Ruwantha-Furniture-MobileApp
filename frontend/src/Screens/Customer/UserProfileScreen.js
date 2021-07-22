@@ -7,14 +7,14 @@ import {
   ScrollView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import Header from "../Components/Header/Header";
-import NavProfile from "../Components/Screen/UserProfile/NavProfile";
-import ViewProfile from "../Components/Screen/UserProfile/ViewProfile";
-import MyPurchases from "../Components/Screen/UserProfile/MyPurchases";
-import EditProfile from "../Components/Screen/UserProfile/EditProfile";
-import { AuthContext } from "../Components/Context/AuthContext";
-import PopUpConfirmationModal from "../Components/UI/PopUpConfirmationModal";
-import FormAppButton from "../Components/UI/FormAppButton";
+import Header from "../../Components/Header/Header";
+import NavProfile from "../../Components/Screen/UserProfile/NavProfile";
+import ViewProfile from "../../Components/Screen/UserProfile/ViewProfile";
+import MyPurchases from "../../Components/Screen/UserProfile/MyPurchases";
+import EditProfile from "../../Components/Screen/UserProfile/EditProfile";
+import { AuthContext } from "../../Components/Context/AuthContext";
+import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
+import FormAppButton from "../../Components/UI/FormAppButton";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 

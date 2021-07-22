@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Header from "../Components/Header/Header";
-import SignUpForm from "../Components/Screen/Home/SignUpForm";
-import ErrorModal from "../Components/UI/ErrorModal";
+import Header from "../../Components/Header/Header";
+import SignUpForm from "../../Components/Screen/Home/SignUpForm";
+import ErrorModal from "../../Components/UI/ErrorModal";
 import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import Card from "../Components/UI/Card";
-import AppButton from "../Components/UI/AppButton";
+import Card from "../../Components/UI/Card";
+import AppButton from "../../Components/UI/AppButton";
 const MoreDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const [quantity, SetQuantity] = useState(1);

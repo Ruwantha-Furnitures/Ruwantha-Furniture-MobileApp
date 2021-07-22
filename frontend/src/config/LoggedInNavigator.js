@@ -9,7 +9,7 @@ import UserProfileStackNav from "./UserProfileStackNav";
 import AboutUsStackNav from "./AboutUsStackNav";
 import HomeStackNav from "./HomeStackNav";
 import ProductStackNav from "./ProductStackNav";
-import CameraScreen from "../Screens/CameraScreen";
+import CameraScreen from "../Screens/Customer/CameraScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {

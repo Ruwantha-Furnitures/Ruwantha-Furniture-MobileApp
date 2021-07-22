@@ -8,17 +8,16 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Header from "../Components/Header/Header";
-import Contact from "../Components/Screen/Home/Contact";
-import Intro from "../Components/Screen/Home/Intro";
-import NewArrival from "../Components/Screen/Home/NewArrival";
-import CustomIntro from "../Components/Screen/Home/CustomIntro";
-import { AuthContext } from "../Components/Context/AuthContext";
+import Header from "../../Components/Header/Header";
+import Contact from "../../Components/Screen/Home/Contact";
+import Intro from "../../Components/Screen/Home/Intro";
+import NewArrival from "../../Components/Screen/Home/NewArrival";
+import CustomIntro from "../../Components/Screen/Home/CustomIntro";
+import { AuthContext } from "../../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const { userToken, setUserToken } = useContext(AuthContext);
-
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>

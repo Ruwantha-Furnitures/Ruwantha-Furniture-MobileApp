@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ViewProductARScreen from "../Screens/ViewProductARScreen";
+import ViewProductARScreen from "../Screens/Customer/ViewProductARScreen";
 const ArViewStack = createStackNavigator();
 const ArViewStackNavigator = () => {
   return (
