@@ -6,12 +6,11 @@ const { createTokens, validateTokens } = require("../../middleware/auth");
 
 const LoginController = async (req, res) => {
   const { password, userEmail } = req.body.data;
-  const userlevel = 1;
-  const data = { email: userEmail, userlevel };
+  const data = { email: userEmail};
 
   try {
     const account = await Account.findOne({
-      where: { email: data.email, userlevel: 1 },
+      where: { email: data.email},
     });
     if (account === null) {
       res.json({
