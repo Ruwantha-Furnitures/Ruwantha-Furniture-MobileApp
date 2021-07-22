@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
 import Header from "../../Components/Header/Header";
 import Contact from "../../Components/Screen/Home/Contact";
 import Intro from "../../Components/Screen/Home/Intro";
@@ -18,9 +19,9 @@ import { AuthContext } from "../../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
-  const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
 
-  console.log(API_URL)
+  //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
@@ -33,13 +34,14 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
-        onPress={() => setUserToken(null)}
+        onPress={() => loginContext.loginDispatch({ type: "logout" })}
       >
         <Text style={styles.Login}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
 
+  //header for the not loggedin users
   const Login = (
     <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
       <TouchableOpacity
@@ -51,12 +53,10 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
     </View>
   );
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        {userToken === null ? Login : LogOut}
-
+        {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Intro navigate={navigate} />
         <NewArrival />

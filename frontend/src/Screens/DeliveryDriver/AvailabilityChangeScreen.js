@@ -2,7 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const AvailabilityChangeScreen = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text>Availability</Text>
+    </View>
+  );
 };
 const styles = StyleSheet.create({});
 

@@ -19,29 +19,17 @@ const LoginController = async (req, res) => {
           "We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.",
       });
     } else {
-      const existingPassword = account.password;
+      const hashedPassword =account.password;
       const accountId = account.aid;
-      bcrypt.compare(password, existingPassword,async (error, result) => {
-        if (result) {
-          try {
-            const accessToken = await JWT.sign({userEmail,accountId},process.env.TOKEN_SECRET)
-            res.cookie("access-token", accessToken, {
-              maxAge: 60 * 60 * 24 * 30 * 1000,
-            });
-            console.log("Login successful")
-            console.log(accessToken)
-            res.json({ auth: true, accessToken, userEmail, accountId });
-          } catch (error) {
-            console.log(error)
-          }
-        } else {
-          res.json({
-            auth: false,
-            errorMessage:
-              "We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.",
-          });
-        }
-      });
+      const userLevel = account.userlevel;
+      console.log(userLevel)
+      const passwordMatched=await bcrypt.compare(password,hashedPassword);
+      if(!passwordMatched){
+        return res.json({auth:false,errorMessage:"We couldn’t find an account matching the email and password you entered. Please check your email and password and try again."})
+      }else{
+        const accessToken = await JWT.sign({userEmail,accountId},process.env.TOKEN_SECRET)
+        return res.status(200).json({ auth: true, accessToken, userEmail, accountId,userLevel})
+      }
     }
   } catch (error) {
     console.log(error);

@@ -8,10 +8,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Header from "../../Components/Header/Header";
-import Card from "../../Components/UI/Card";
 import LoginForm from "../../Components/Screen/Home/LoginForm";
 import ErrorModal from "../../Components/UI/ErrorModal";
 import { AuthContext } from "../../Components/Context/AuthContext";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
@@ -19,6 +19,7 @@ const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
 
   useEffect(() => {
     let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
@@ -30,27 +31,26 @@ const LoginScreen = ({ navigation }) => {
   const loginHandler = async (data) => {
     try {
       setIsLoading(true);
-      console.log(API_URL)
-      let response = await axios.post(
-        `${API_URL}customer/login`,
-        {
-          data,
-        }
-      );
+      console.log(API_URL);
+      let response = await axios.post(`${API_URL}customer/login`, {
+        data,
+      });
       if (response.data.auth) {
         setIsLoading(false);
         setErrorMessage("");
-        await SecureStore.setItemAsync("user_token", response.data.accessToken);
-        const getToken = await SecureStore.getItemAsync("user_token");
-        await SecureStore.setItemAsync("user_email", response.data.userEmail);
-        const getEmail = await SecureStore.getItemAsync("user_email");
+        await SecureStore.setItemAsync("user_token", response.data.accessToken); //setting the user token in Secure Storage
+        await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
         await SecureStore.setItemAsync(
           "user_accountID",
           JSON.stringify(response.data.accountId)
         );
-        const getAccID = await SecureStore.getItemAsync("user_accountID");
-        setUserToken(getToken);
-        console.log(getAccID);
+        loginContext.loginDispatch({
+          type: "login",
+          payload: {
+            userLevel: response.data.userLevel,
+            userToken: response.data.accessToken,
+          },
+        });
         navigation.navigate("Home");
       } else {
         setIsLoading(false);
