@@ -18,7 +18,7 @@ const ViewProductARScreen = () => {
       onContextCreate={async (gl: ExpoWebGLRenderingContext) => {
         console.log("run");
         const asset = Asset.fromModule(
-          require("../../assets/objects/chair1.obj")
+          require("../../../assets/objects/chair1.obj")
         );
 
         try {

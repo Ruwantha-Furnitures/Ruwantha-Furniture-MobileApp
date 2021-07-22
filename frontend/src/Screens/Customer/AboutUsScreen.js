@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import Contact from "../../Components/Screen/AboutUs/Contact";
 import Info from "../../Components/Screen/AboutUs/Info";
@@ -24,7 +25,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
   const contactUsHandler = async (data) => {
     try {
       const response = await axios.post(
-        "http://192.168.8.210:3002/armagic/api/contactus/",
+        `${API_URL}contactus/`,
         { data }
       );
       console.log(response.data.status);

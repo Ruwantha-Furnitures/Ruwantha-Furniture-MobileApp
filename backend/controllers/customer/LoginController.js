@@ -28,6 +28,7 @@ const LoginController = async (req, res) => {
           res.cookie("access-token", accessToken, {
             maxAge: 60 * 60 * 24 * 30 * 1000,
           });
+          console.log("Login successful")
           res.json({ auth: true, accessToken, userEmail, accountId });
         } else {
           res.json({

@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import NavProfile from "../../Components/Screen/UserProfile/NavProfile";
 import ViewProfile from "../../Components/Screen/UserProfile/ViewProfile";
@@ -34,7 +35,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         let email = await SecureStore.getItemAsync("user_email");
         let accID = await SecureStore.getItemAsync("user_accountID");
         let response = await axios.get(
-          `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`
+          `${API_URL}customer/viewprofile/${accID}`
         );
         if (response.data.auth === true) {
           const { name, address, telephone } = response.data;

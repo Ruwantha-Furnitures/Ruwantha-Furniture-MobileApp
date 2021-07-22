@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { API_URL } from "react-native-dotenv";
 import {
   View,
   Text,
@@ -29,8 +30,9 @@ const LoginScreen = ({ navigation }) => {
   const loginHandler = async (data) => {
     try {
       setIsLoading(true);
+      console.log(API_URL)
       let response = await axios.post(
-        "http://192.168.8.210:3002/armagic/api/customer/login",
+        `${API_URL}customer/login`,
         {
           data,
         }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import SignUpForm from "../../Components/Screen/Home/SignUpForm";
 import ErrorModal from "../../Components/UI/ErrorModal";
@@ -20,7 +21,7 @@ const SignUpScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       let response = await axios.post(
-        "http://192.168.8.210:3002/armagic/api/customer/signup",
+        `${API_URL}customer/signup`,
         {
           data,
         }

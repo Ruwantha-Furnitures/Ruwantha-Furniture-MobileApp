@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { API_URL } from "react-native-dotenv";
 import {
   View,
   Text,
@@ -18,6 +19,8 @@ import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const { userToken, setUserToken } = useContext(AuthContext);
+
+  console.log(API_URL)
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
