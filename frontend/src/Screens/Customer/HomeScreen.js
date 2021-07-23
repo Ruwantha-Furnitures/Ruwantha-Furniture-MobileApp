@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { API_URL1 } from "react-native-dotenv";
 import {
   View,
   Text,
@@ -8,17 +9,19 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Header from "../Components/Header/Header";
-import Contact from "../Components/Screen/Home/Contact";
-import Intro from "../Components/Screen/Home/Intro";
-import NewArrival from "../Components/Screen/Home/NewArrival";
-import CustomIntro from "../Components/Screen/Home/CustomIntro";
-import { AuthContext } from "../Components/Context/AuthContext";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
+import Header from "../../Components/Header/Header";
+import Contact from "../../Components/Screen/Home/Contact";
+import Intro from "../../Components/Screen/Home/Intro";
+import NewArrival from "../../Components/Screen/Home/NewArrival";
+import CustomIntro from "../../Components/Screen/Home/CustomIntro";
+import { AuthContext } from "../../Components/Context/AuthContext";
 import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
-  const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
 
+  //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
@@ -31,13 +34,14 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
-        onPress={() => setUserToken(null)}
+        onPress={() => loginContext.loginDispatch({ type: "logout" })}
       >
         <Text style={styles.Login}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
 
+  //header for the not loggedin users
   const Login = (
     <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
       <TouchableOpacity
@@ -49,12 +53,10 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
     </View>
   );
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        {userToken === null ? Login : LogOut}
-
+        {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Intro navigate={navigate} />
         <NewArrival />

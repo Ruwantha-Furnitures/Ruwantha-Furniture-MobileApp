@@ -1,4 +1,5 @@
 //this is the server file
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -15,12 +16,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/armagic/api/customer", customerRouter);
 app.use("/armagic/api/contactus", contactUsRouter);
 
+const PORT=process.env.PORT
+
 connectDB();
+
 
 async function connectDB() {
   try {
     await db.sequelize.sync();
-    app.listen(3002, () => {
+    app.listen(PORT, () => {
       console.log("Application is running on the port 3002");
     });
   } catch (error) {

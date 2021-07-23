@@ -6,27 +6,25 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Header from "../Components/Header/Header";
-import Contact from "../Components/Screen/AboutUs/Contact";
-import Info from "../Components/Screen/AboutUs/Info";
-import Map from "../Components/Screen/AboutUs/Map";
-import Intro from "../Components/Screen/AboutUs/Intro";
-import WebMobileAppIntro from "../Components/Screen/AboutUs/WebMobileAppIntro";
-import PopUpConfirmationModal from "../Components/UI/PopUpConfirmationModal";
-import { AuthContext } from "../Components/Context/AuthContext";
+import { API_URL1 } from "react-native-dotenv";
+import Header from "../../Components/Header/Header";
+import Contact from "../../Components/Screen/AboutUs/Contact";
+import Info from "../../Components/Screen/AboutUs/Info";
+import Map from "../../Components/Screen/AboutUs/Map";
+import Intro from "../../Components/Screen/AboutUs/Intro";
+import WebMobileAppIntro from "../../Components/Screen/AboutUs/WebMobileAppIntro";
+import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 
 const AboutUsScreen = ({ navigation: { navigate } }) => {
-  const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
   const [showModal, setShowModal] = useState(false);
 
   const contactUsHandler = async (data) => {
     try {
-      const response = await axios.post(
-        "http://192.168.8.210:3002/armagic/api/contactus/",
-        { data }
-      );
+      const response = await axios.post(`${API_URL1}contactus/`, { data });
       console.log(response.data.status);
       if (response.data.status === "Successful") {
         setShowModal(true);
@@ -52,7 +50,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
-        onPress={() => setUserToken(null)}
+        onPress={() => loginContext.loginDispatch({ type: "logout" })}
       >
         <Text style={styles.Login}>Logout</Text>
       </TouchableOpacity>
@@ -74,7 +72,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        {userToken === null ? Login : LogOut}
+        {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Intro />
         <Info />

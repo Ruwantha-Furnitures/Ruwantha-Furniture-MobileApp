@@ -10,17 +10,18 @@ import {
   LogBox,
 } from "react-native";
 
-import Searchbar from "../Components/UI/SearchBar";
-import Header from "../Components/Header/Header";
-import Products from "../Components/Screen/Products/Products";
-import { AuthContext } from "../Components/Context/AuthContext";
+import Searchbar from "../../Components/UI/SearchBar";
+import Header from "../../Components/Header/Header";
+import Products from "../../Components/Screen/Products/Products";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { AntDesign } from "@expo/vector-icons";
 
 let ScreenHeight = Dimensions.get("window").height;
 let StatusBarHeight = StatusBar.currentHeight;
 
 const ProductScreen = ({ navigation: { navigate } }) => {
-  const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
+
   LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   const LogOut = (
@@ -35,7 +36,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
-        onPress={() => setUserToken(null)}
+        onPress={() => loginContext.loginDispatch({ type: "logout" })}
       >
         <Text style={styles.Login}>Logout</Text>
       </TouchableOpacity>
@@ -57,8 +58,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
-        {userToken === null ? Login : LogOut}
-
+        {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Searchbar placeholder="Search" />
         <Products navigate={navigate} />

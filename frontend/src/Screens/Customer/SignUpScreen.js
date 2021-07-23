@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Header from "../Components/Header/Header";
-import SignUpForm from "../Components/Screen/Home/SignUpForm";
-import ErrorModal from "../Components/UI/ErrorModal";
+import { API_URL1 } from "react-native-dotenv";
+import Header from "../../Components/Header/Header";
+import SignUpForm from "../../Components/Screen/Home/SignUpForm";
+import ErrorModal from "../../Components/UI/ErrorModal";
 import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {
@@ -19,12 +20,9 @@ const SignUpScreen = ({ navigation }) => {
   const signUpHandler = async (data) => {
     try {
       setIsLoading(true);
-      let response = await axios.post(
-        "http://192.168.8.210:3002/armagic/api/customer/signup",
-        {
-          data,
-        }
-      );
+      let response = await axios.post(`${API_URL1}customer/signup`, {
+        data,
+      });
       if (response.data.state === "Successful") {
         navigation.navigate("Home");
       } else {

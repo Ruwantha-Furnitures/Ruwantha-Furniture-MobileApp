@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Header from "../Components/Header/Header";
-import Products from "../Components/Screen/Cart/Products";
-import ProductPrice from "../Components/Screen/Cart/ProductPrice";
+import Header from "../../Components/Header/Header";
+import Products from "../../Components/Screen/Cart/Products";
+import ProductPrice from "../../Components/Screen/Cart/ProductPrice";
 
 const CartScreen = ({ navigation }) => {
   return (
@@ -13,7 +13,6 @@ const CartScreen = ({ navigation }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   viewContainer: {
