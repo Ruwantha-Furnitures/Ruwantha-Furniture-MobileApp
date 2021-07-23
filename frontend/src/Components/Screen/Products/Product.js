@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import { AuthContext } from "../../Context/AuthContext";
+
 import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
