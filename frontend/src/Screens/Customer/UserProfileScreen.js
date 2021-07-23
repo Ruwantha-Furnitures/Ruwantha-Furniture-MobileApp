@@ -7,13 +7,13 @@ import {
   ScrollView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { API_URL } from "react-native-dotenv";
+import { API_URL1 } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import NavProfile from "../../Components/Screen/UserProfile/NavProfile";
 import ViewProfile from "../../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../../Components/Screen/UserProfile/EditProfile";
-import { AuthContext } from "../../Components/Context/AuthContext";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
 import FormAppButton from "../../Components/UI/FormAppButton";
 import * as SecureStore from "expo-secure-store";
@@ -21,7 +21,7 @@ import axios from "axios";
 
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
-  const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
   const [userData, setUserData] = useState();
   const [showModal, setShowModal] = useState(false);
 
@@ -35,7 +35,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         let email = await SecureStore.getItemAsync("user_email");
         let accID = await SecureStore.getItemAsync("user_accountID");
         let response = await axios.get(
-          `${API_URL}customer/viewprofile/${accID}`
+          `${API_URL1}customer/viewprofile/${accID}`
         );
         if (response.data.auth === true) {
           const { name, address, telephone } = response.data;
@@ -86,7 +86,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
-        onPress={() => setUserToken(null)}
+        onPress={() => loginContext.loginDispatch({ type: "logout" })}
       >
         <Text style={styles.Login}>Logout</Text>
       </TouchableOpacity>

@@ -7,7 +7,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import BottomNavigator from "./src/config/BottomNavigator";
 import DeliveryDriverBottomNavigator from "./src/config/DeliveryDriverBottomNavigator";
 import LoggedInNavigator from "./src/config/LoggedInNavigator";
-import { AuthContext } from "./src/Components/Context/AuthContext";
 import {
   loginReducer,
   LoginContext,
@@ -40,21 +39,19 @@ export default function App() {
   LogBox.ignoreAllLogs();
 
   return (
-    <AuthContext.Provider value={value}>
-      <loginContext.Provider value={{ userDetails, loginDispatch: dispatch }}>
-        <NavigationContainer>
-          {userDetails.userLevel === 1 ? (
-            userDetails.userToken === null ? (
-              <BottomNavigator />
-            ) : (
-              <LoggedInNavigator />
-            )
+    <loginContext.Provider value={{ userDetails, loginDispatch: dispatch }}>
+      <NavigationContainer>
+        {userDetails.userLevel === 1 ? (
+          userDetails.userToken === null ? (
+            <BottomNavigator />
           ) : (
-            <DeliveryDriverBottomNavigator />
-          )}
-        </NavigationContainer>
-      </loginContext.Provider>
-    </AuthContext.Provider>
+            <LoggedInNavigator />
+          )
+        ) : (
+          <DeliveryDriverBottomNavigator />
+        )}
+      </NavigationContainer>
+    </loginContext.Provider>
   );
 }
 
