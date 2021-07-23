@@ -13,21 +13,8 @@ import {
 } from "./src/Components/Reducers/loginReducer";
 
 const initialState = { userLevel: 1, userToken: null };
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "login":
-//       return {
-//         userToken: action.payload.userToken,
-//         userLevel: action.payload.userLevel,
-//       };
-//     case "logout":
-//       return {
-//         userToken: null,
-//         userLevel: 1,
-//       };
-//   }
-// };
 const loginContext = LoginContext;
+
 export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [userDetails, dispatch] = useReducer(loginReducer, initialState);

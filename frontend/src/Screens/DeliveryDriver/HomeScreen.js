@@ -1,12 +1,10 @@
-//checking the availability change of driver
-
+//This is the landing page
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-
-const AvailabilityChangeScreen = () => {
+const HomeScreen = () => {
   return (
     <View style={styles.viewContainer}>
-      <Text>Availability</Text>
+      <Text>This is the Home Page</Text>
     </View>
   );
 };
@@ -16,4 +14,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default AvailabilityChangeScreen;
+export default HomeScreen;

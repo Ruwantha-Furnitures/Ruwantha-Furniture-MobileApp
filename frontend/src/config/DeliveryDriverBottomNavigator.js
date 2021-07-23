@@ -4,25 +4,43 @@ import AvailabilityChangeScreen from "../Screens/DeliveryDriver/AvailabilityChan
 import ViewOrdersScreen from "../Screens/DeliveryDriver/ViewOrdersScreen";
 import AvailabilityStackNav from "./DeliveryDriver/AvailabilityStackNav";
 import ViewOrderStackNav from "./DeliveryDriver/ViewOrderStackNav";
+import HomeStackNav from "./DeliveryDriver/HomeStackNav";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createMaterialBottomTabNavigator();
 const DeliveryDriverBottomNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="ViewOrders"
+      initialRouteName="Home"
       activeColor="#E7E5E9"
       barStyle={{ backgroundColor: "#B89068" }}
     >
       <Tab.Screen
+        name="Home"
+        component={HomeStackNav}
+        options={{
+          tabBarLabel: "Dashboard",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="tablet-dashboard"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="ViewOrders"
         component={ViewOrderStackNav}
         options={{
-          tabBarLabel: "ViewOrders",
+          tabBarLabel: "View Orders",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="truck-delivery"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -32,7 +50,7 @@ const DeliveryDriverBottomNavigator = () => {
         options={{
           tabBarLabel: "changeAvailability",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialIcons name="event-available" color={color} size={26} />
           ),
         }}
       />

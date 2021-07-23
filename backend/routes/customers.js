@@ -3,19 +3,19 @@ const mysql = require("mysql");
 
 const router = express.Router();
 
-const { LoginController } = require("../controllers/customer/LoginController");
+const { LoginController } = require("../controllers/customer/login.controller");
 
 const {
   SignUpController,
-} = require("../controllers/customer/SignupController");
+} = require("../controllers/customer/signup.controller");
 
 const {
   ViewProfileController,
-} = require("../controllers/customer/ViewProfileController");
+} = require("../controllers/customer/viewprofile.controller");
 
 const {
   UpdateProfileController,
-} = require("../controllers/customer/UpdateProfileController");
+} = require("../controllers/customer/updateprofile.controller");
 
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
