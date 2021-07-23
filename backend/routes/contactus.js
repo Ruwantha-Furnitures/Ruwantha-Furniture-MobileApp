@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
-const contactUsController = require("../controllers/other/ContactUsController");
+const contactUsController = require("../controllers/other/contactus.controller");
 const router = express.Router();
 
 router.post("/", contactUsController);

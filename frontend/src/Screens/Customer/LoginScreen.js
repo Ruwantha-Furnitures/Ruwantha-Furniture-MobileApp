@@ -10,7 +10,6 @@ import {
 import Header from "../../Components/Header/Header";
 import LoginForm from "../../Components/Screen/Home/LoginForm";
 import ErrorModal from "../../Components/UI/ErrorModal";
-import { AuthContext } from "../../Components/Context/AuthContext";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
@@ -18,7 +17,6 @@ import axios from "axios";
 const LoginScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { userToken, setUserToken } = useContext(AuthContext);
   const loginContext = useContext(LoginContext);
 
   useEffect(() => {

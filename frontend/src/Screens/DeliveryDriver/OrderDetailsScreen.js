@@ -1,19 +1,19 @@
-//checking the availability change of driver
+//More details on the order
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-
-const AvailabilityChangeScreen = () => {
+const OrderDetailsScreen = () => {
   return (
     <View style={styles.viewContainer}>
-      <Text>Availability</Text>
+      <Text>View the Order Details</Text>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
     alignItems: "center",
   },
 });
-export default AvailabilityChangeScreen;
+export default OrderDetailsScreen;

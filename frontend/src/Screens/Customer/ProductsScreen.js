@@ -14,6 +14,7 @@ import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
+import { API_URL1 } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
 
 let ScreenHeight = Dimensions.get("window").height;
