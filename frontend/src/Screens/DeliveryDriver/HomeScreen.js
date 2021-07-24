@@ -24,6 +24,8 @@ const HomeScreen = () => {
         </View>
     </View>
     </Card>
+
+    
  
   );
 };
