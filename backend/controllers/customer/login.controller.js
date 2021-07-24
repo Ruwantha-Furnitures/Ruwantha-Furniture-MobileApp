@@ -5,6 +5,7 @@ const JWT = require("jsonwebtoken");
 const { createTokens, validateTokens } = require("../../middleware/auth");
 
 const LoginController = async (req, res) => {
+  console.log('run')
   const { password, userEmail } = req.body.data;
   const data = { email: userEmail};
 
