@@ -14,7 +14,7 @@ import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
-import { API_URL1 } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 
@@ -29,7 +29,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${API_URL1}products/`);
+        const response = await axios.get(`${API_URL}products/`);
         const products = response.data;
         setProducts(products);
         console.log(products);

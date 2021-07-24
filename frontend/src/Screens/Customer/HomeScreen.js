@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { API_URL1 } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import {
   View,
   Text,
