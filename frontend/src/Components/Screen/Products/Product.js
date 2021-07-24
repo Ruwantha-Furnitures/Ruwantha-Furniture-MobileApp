@@ -9,14 +9,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-
+import { LoginContext } from "../../Reducers/loginReducer";
 import { AntDesign } from "@expo/vector-icons";
 
 const Product = ({ item, navigate }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const cardWidth = mobileWidth - 40;
-  const { userToken, setUserToken } = useContext(AuthContext);
+  const loginContext = useContext(LoginContext);
 
   return (
     <Card width={cardWidth} height={200} ml={20} bg="#fff">
@@ -42,7 +42,7 @@ const Product = ({ item, navigate }) => {
               width={80}
               onPress={() => navigate("ProductsAR")}
             />
-            {userToken !== null && (
+            {loginContext.userDetails.userToken !== null && (
               <AppButton
                 width={80}
                 title="Add to cart"

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,16 +14,31 @@ import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
-import { API_URL1 } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
 
 let ScreenHeight = Dimensions.get("window").height;
 let StatusBarHeight = StatusBar.currentHeight;
 
 const ProductScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
-
+  const [products, setProducts] = useState([]);
   LogBox.ignoreAllLogs(); //Ignore all log notifications
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${API_URL}products/`);
+        const products = response.data;
+        setProducts(products);
+        console.log(products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const LogOut = (
     <View style={styles.upperContainer}>

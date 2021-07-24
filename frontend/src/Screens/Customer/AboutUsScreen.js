@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { API_URL1 } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import Contact from "../../Components/Screen/AboutUs/Contact";
 import Info from "../../Components/Screen/AboutUs/Info";
@@ -24,7 +24,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
 
   const contactUsHandler = async (data) => {
     try {
-      const response = await axios.post(`${API_URL1}contactus/`, { data });
+      const response = await axios.post(`${API_URL}contactus/`, { data });
       console.log(response.data.status);
       if (response.data.status === "Successful") {
         setShowModal(true);
