@@ -26,9 +26,51 @@ const HomeScreen = () => {
         bg="#FFF"
       >
         <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>Item Name</Text>
-          <Text style={styles.itemPrice}>Rs. 2000 /=</Text>
-          <Text style={styles.itemQuantity}>1</Text>
+          <Text style={styles.itemName}>Today Sales</Text>
+          <Text style={styles.itemPrice}>Rs. 1000 /=</Text>
+        </View>
+      </Card>
+
+
+      <Card
+        width={mobileWidth - 60}
+        height={mobileHeight / 6}
+        ml={30}
+        pd={7}
+        fd="row"
+        bg="#FFF"
+      >
+        <View style={styles.itemDetailsContainer}>
+          <Text style={styles.itemName}>Sale items</Text>
+          <Text style={styles.itemPrice}>Rs. 1000 /=</Text>
+        </View>
+      </Card>
+
+      <Card
+        width={mobileWidth - 60}
+        height={mobileHeight / 6}
+        ml={30}
+        pd={7}
+        fd="row"
+        bg="#FFF"
+      >
+        <View style={styles.itemDetailsContainer}>
+          <Text style={styles.itemName}>Daily income</Text>
+          <Text style={styles.itemPrice}>Rs. 1000 /=</Text>
+        </View>
+      </Card>
+
+      <Card
+        width={mobileWidth - 60}
+        height={mobileHeight / 6}
+        ml={30}
+        pd={7}
+        fd="row"
+        bg="#FFF"
+      >
+        <View style={styles.itemDetailsContainer}>
+          <Text style={styles.itemName}>Today income</Text>
+          <Text style={styles.itemPrice}>Rs. 1000 /=</Text>
         </View>
       </Card>
     </View>
@@ -42,6 +84,14 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 40,
   },
+
+  itemName: {
+    fontWeight: "bold",
+    fontSize: 20,
+    width: 180,
+    letterSpacing: 2,
+  },
+  
   productContainer: {
     flexDirection: "row",
     marginTop: 10,
