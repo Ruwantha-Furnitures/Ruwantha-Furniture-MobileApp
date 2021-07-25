@@ -30,7 +30,8 @@ const LoginScreen = ({ navigation }) => {
     try {
       console.log('login');
       setIsLoading(true);
-      console.log(API_URL);
+      console.log(API_URL1);
+
       let response = await axios.post(`${API_URL}customer/login`, {
         data,
       });
