@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { API_URL} from "react-native-dotenv";
+import { API_URL2 } from "react-native-dotenv";
 import {
   View,
   Text,
@@ -28,14 +28,10 @@ const LoginScreen = ({ navigation }) => {
 
   const loginHandler = async (data) => {
     try {
-      console.log('login');
+      console.log("login");
       setIsLoading(true);
-<<<<<<< HEAD
-=======
-      console.log(API_URL1);
-
->>>>>>> a14cdebc00519ece17eb7de3c16efd3c8fb7d41e
-      let response = await axios.post(`${API_URL}customer/login`, {
+      console.log(API_URL2);
+      let response = await axios.post(`${API_URL2}customer/login`, {
         data,
       });
       if (response.data.auth) {

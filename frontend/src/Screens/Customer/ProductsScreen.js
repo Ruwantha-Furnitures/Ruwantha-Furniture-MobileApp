@@ -14,7 +14,7 @@ import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
-import { API_URL } from "react-native-dotenv";
+import { API_URL2 } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 
@@ -29,10 +29,9 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${API_URL}products/`);
-        const products = response.data;
-        setProducts(products);
-        console.log(products);
+        const response = await axios.get(`${API_URL2}products/`);
+        const productsResult = response.data;
+        setProducts(productsResult.data);
       } catch (error) {
         console.log(error);
       }
@@ -77,7 +76,11 @@ const ProductScreen = ({ navigation: { navigate } }) => {
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Searchbar placeholder="Search" />
-        <Products navigate={navigate} />
+        {products.isEmpty ? (
+          <Text>Loading...</Text>
+        ) : (
+          <Products navigate={navigate} products={products} />
+        )}
       </View>
     </ScrollView>
   );

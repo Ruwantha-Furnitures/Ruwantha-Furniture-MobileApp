@@ -18,11 +18,7 @@ const HomeScreen = () => {
     <View style={styles.productContainer}>
       <Header />
       <Card
-<<<<<<< HEAD
-        width={mobileWidth - 60}
-=======
         width={mobileWidth - 40}
->>>>>>> a14cdebc00519ece17eb7de3c16efd3c8fb7d41e
         height={mobileHeight / 6}
         ml={30}
         pd={7}
@@ -30,17 +26,10 @@ const HomeScreen = () => {
         bg="#FFF"
       >
         <View style={styles.itemDetailsContainer}>
-<<<<<<< HEAD
-          <Text style={styles.itemName}>Item Name</Text>
-          <Text style={styles.itemPrice}>Rs. 2000 /=</Text>
-          <Text style={styles.itemQuantity}>1</Text>
-=======
           <Text style={styles.itemName}>Today Deliveries</Text>
           <Text style={styles.itemPrice}>02</Text>
         </View>
       </Card>
-
-
       <Card
         width={mobileWidth - 40}
         height={mobileHeight / 6}
@@ -80,11 +69,9 @@ const HomeScreen = () => {
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>Total income</Text>
           <Text style={styles.itemPrice}>Rs.25,000 /=</Text>
->>>>>>> a14cdebc00519ece17eb7de3c16efd3c8fb7d41e
         </View>
       </Card>
     </View>
-
   );
 };
 
@@ -94,8 +81,6 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 40,
   },
-<<<<<<< HEAD
-=======
 
   itemName: {
     fontWeight: "bold",
@@ -104,7 +89,6 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
 
->>>>>>> a14cdebc00519ece17eb7de3c16efd3c8fb7d41e
   productContainer: {
     flexDirection: "row",
     marginTop: 10,
@@ -123,8 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
 export default HomeScreen;
-=======
-export default HomeScreen;
->>>>>>> a14cdebc00519ece17eb7de3c16efd3c8fb7d41e

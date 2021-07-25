@@ -79,9 +79,11 @@ const productList = [
 
 LogBox.ignoreLogs(["Warning: ..."]);
 
-const Products = ({ navigate }) => {
+const Products = ({ navigate, products }) => {
   const [productType, setProductType] = useState("All");
   const [list, setList] = useState(productList);
+
+  console.log(products);
 
   return (
     <View style={{ marginTop: 25, marginBottom: 0 }}>
@@ -175,8 +177,8 @@ const Products = ({ navigate }) => {
       <>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={list}
-          keyExtractor={(product) => product.id.toString()}
+          data={products}
+          keyExtractor={(product) => product.itemid.toString()}
           renderItem={({ item }) => <Product item={item} navigate={navigate} />}
         />
       </>
