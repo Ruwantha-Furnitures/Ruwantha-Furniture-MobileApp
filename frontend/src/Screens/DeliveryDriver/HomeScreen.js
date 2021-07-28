@@ -26,7 +26,7 @@ const HomeScreen = () => {
         bg="#FFF"
       >
         <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>Today Deliveries</Text>
+          <Text style={styles.itemName}>Today Availability</Text>
           <Text style={styles.itemPrice}>02</Text>
         </View>
       </Card>
@@ -41,7 +41,7 @@ const HomeScreen = () => {
         bg="#FFF"
       >
         <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>All Deliveries</Text>
+          <Text style={styles.itemName}>Tomorrow Availability</Text>
           <Text style={styles.itemPrice}>50</Text>
         </View>
       </Card>
