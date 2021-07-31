@@ -29,6 +29,20 @@ const AvailabilityChangeScreen = () => {
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>Today Availability</Text>  
         </View>
+        <View style={styles.btnContainer}>
+            <AppButton
+              title="Available"
+              width={80}
+        
+            />
+            {loginContext.userDetails.userToken !== null && (
+              <AppButton
+                width={80}
+                title="Not available"
+               
+              />
+            )}
+          </View>
       </Card>
       <Card
         width={mobileWidth - 40}
@@ -41,6 +55,20 @@ const AvailabilityChangeScreen = () => {
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>Tomorrow Availability</Text> 
         </View>
+        <View style={styles.btnContainer}>
+            <AppButton
+              title="Available"
+              width={80}
+        
+            />
+            {loginContext.userDetails.userToken !== null && (
+              <AppButton
+                width={80}
+                title="Not available"
+               
+              />
+            )}
+          </View>
       </Card>
   </View>
 
@@ -71,6 +99,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
 
+  btnContainer: {
+    marginLeft: 10,
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
  
 });
 
