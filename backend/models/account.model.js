@@ -1,12 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
-  const Account = sequelize.define(
-    "Account",
+  const Accounts = sequelize.define(
+    "Accounts",
     {
-      aid: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -15,16 +10,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      userlevel: {
+      user_level: {
         type: DataTypes.INTEGER,
         allowNull: false,
+      },
+      verified: {
+        type: DataTypes.BOOLEAN,
+      },
+      is_deleted: {
+        type: DataTypes.BOOLEAN,
       },
     },
     {
       freezeTableName: true,
-      tableName: "Account",
+      tableName: "Accounts",
     }
   );
 
-  return Account;
+  return Accounts;
 };
