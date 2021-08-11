@@ -36,75 +36,70 @@ const SignUpForm = ({ signUpHandler }) => {
   const mobileHeight = Dimensions.get("window").height;
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <Form type="SignUp" width={mobileWidth - 40}>
-        <SubHeader title="Create Account" width={300} />
-        <Input
-          placeholder="First Name"
-          type="string"
-          value={firstName}
-          onChangeText={(firstName) => setFirstName(firstName)}
+    <Form type="SignUp" width={mobileWidth - 40}>
+      <SubHeader title="Create Account" width={300} />
+      <Input
+        placeholder="First Name"
+        type="string"
+        value={firstName}
+        onChangeText={(firstName) => setFirstName(firstName)}
+      />
+      <Input
+        placeholder="Last Name"
+        type="string"
+        value={lastName}
+        onChangeText={(lastName) => setLastName(lastName)}
+      />
+      <Input
+        value={email}
+        onChangeText={(email) => setEmail(email)}
+        placeholder="Email"
+        type="email"
+      />
+      <Input
+        value={address}
+        onChangeText={(address) => setAddress(address)}
+        placeholder="Address"
+        type="string"
+      />
+      <Input
+        value={contactNo}
+        onChangeText={(contact) => setContactNo(contact)}
+        placeholder="Contact No"
+        type="string"
+      />
+      <Input
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+        placeholder="Password"
+        type="password"
+      />
+      <Input
+        value={confirmPassword}
+        onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+        placeholder="Confirm Password"
+        type="password"
+      />
+      {errorMessage && (
+        <Text style={styles.errorMessage}>
+          Entered two passwords does not match,with each other.please try again
+        </Text>
+      )}
+      <View style={styles.btnContainer}>
+        <FormAppButton
+          type="Cancel"
+          title="Cancel"
+          onPress={submitHandler}
+          width={120}
         />
-        <Input
-          placeholder="Last Name"
-          type="string"
-          value={lastName}
-          onChangeText={(lastName) => setLastName(lastName)}
+        <FormAppButton
+          type="Submit"
+          title="Submit"
+          onPress={submitHandler}
+          width={120}
         />
-        <Input
-          value={email}
-          onChangeText={(email) => setEmail(email)}
-          placeholder="Email"
-          type="email"
-        />
-        <Input
-          value={address}
-          onChangeText={(address) => setAddress(address)}
-          placeholder="Address"
-          type="string"
-        />
-        <Input
-          value={contactNo}
-          onChangeText={(contact) => setContactNo(contact)}
-          placeholder="Contact No"
-          type="string"
-        />
-        <Input
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          placeholder="Password"
-          type="password"
-        />
-        <Input
-          value={confirmPassword}
-          onChangeText={(confirmPassword) =>
-            setConfirmPassword(confirmPassword)
-          }
-          placeholder="Confirm Password"
-          type="password"
-        />
-        {errorMessage && (
-          <Text style={styles.errorMessage}>
-            Entered two passwords does not match,with each other.please try
-            again
-          </Text>
-        )}
-        <View style={styles.btnContainer}>
-          <FormAppButton
-            type="Cancel"
-            title="Cancel"
-            onPress={submitHandler}
-            width={120}
-          />
-          <FormAppButton
-            type="Submit"
-            title="Submit"
-            onPress={submitHandler}
-            width={120}
-          />
-        </View>
-      </Form>
-    </ScrollView>
+      </View>
+    </Form>
   );
 };
 

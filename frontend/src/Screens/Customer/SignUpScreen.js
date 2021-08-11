@@ -42,18 +42,20 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.viewContainer}>
-      {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
-      <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
-        <TouchableOpacity
-          style={styles.LoginHeader}
-          style={styles.buttonLg}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.Login}>Login</Text>
-        </TouchableOpacity>
-      </View>
-      <Header />
-      <SignUpForm navigation={navigation} signUpHandler={signUpHandler} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
+        <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
+          <TouchableOpacity
+            style={styles.LoginHeader}
+            style={styles.buttonLg}
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text style={styles.Login}>Login</Text>
+          </TouchableOpacity>
+        </View>
+        <Header />
+        <SignUpForm navigation={navigation} signUpHandler={signUpHandler} />
+      </ScrollView>
     </View>
   );
 };
