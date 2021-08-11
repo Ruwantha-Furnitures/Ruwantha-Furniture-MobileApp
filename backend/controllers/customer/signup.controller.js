@@ -1,4 +1,4 @@
-const { Customer, Accounts, Online_Customer } = require("../../models");
+const { Customers, Accounts, online_customers } = require("../../models");
 const sendEmail = require("../../common/sendEmail");
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
@@ -29,7 +29,7 @@ const SignUpController = async (req, res) => {
           });
         } else {
           const AccountDetails = await Accounts.create(accountData);
-          const aid = AccountDetails.aid;
+          const aid = AccountDetails.id;
 
           //customer data for the customer table
           const customerData = {
@@ -39,14 +39,14 @@ const SignUpController = async (req, res) => {
             contact_number: contactNo,
           };
 
-          const CustomerDetails = await Customer.create(customerData);
+          const CustomerDetails = await Customers.create(customerData);
 
           //online customer details data for online customer table
           const onlineCustomerData = {
             customer_id: CustomerDetails.id,
             account_id: aid,
           };
-          const onlineCustomerDetails = await Online_Customer.create(
+          const onlineCustomerDetails = await online_customers.create(
             onlineCustomerData
           );
           sendEmail(email);

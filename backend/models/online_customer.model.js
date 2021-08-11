@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Online_Customer = sequelize.define(
+  const online_customers = sequelize.define(
     "online_customers",
     {
       id: {
@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       is_deleted: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
       },
     },
     {
@@ -26,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return Online_Customer;
+  return online_customers;
 };
