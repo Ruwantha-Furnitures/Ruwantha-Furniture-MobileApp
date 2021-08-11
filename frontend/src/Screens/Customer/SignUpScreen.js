@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import SignUpForm from "../../Components/Screen/Home/SignUpForm";

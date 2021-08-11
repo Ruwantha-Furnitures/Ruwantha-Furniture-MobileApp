@@ -1,18 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define(
-    "Customer",
+    "Customers",
     {
-      custid: {
+      id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      aid: {
-        type: DataTypes.INTEGER,
+      firstName: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      name: {
+      lastName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -20,14 +20,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      telephone: {
+      contact_number: {
         type: DataTypes.BIGINT(10),
+        allowNull: false,
+      },
+      is_deleted: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
     },
     {
       freezeTableName: true,
-      tableName: "Customer",
+      tableName: "Customers",
     }
   );
 

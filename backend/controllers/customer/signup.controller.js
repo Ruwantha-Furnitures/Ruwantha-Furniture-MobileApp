@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
 const SignUpController = async (req, res) => {
-  console.log("req");
-  const { name, email, password, address, contactNo } = req.body.data;
+  const { firstName, lastName, email, password, address, contactNo } =
+    req.body.data;
   const userlevel = 1;
 
   bcrypt.hash(password, saltrounds, async (err, hash) => {
