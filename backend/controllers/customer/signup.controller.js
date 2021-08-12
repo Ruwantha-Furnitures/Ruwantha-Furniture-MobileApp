@@ -23,7 +23,7 @@ const SignUpController = async (req, res) => {
         const existingStatus = await Accounts.findOne({ where: { email } });
         if (existingStatus) {
           console.log(existingStatus);
-          res.status(400).json({
+          res.status(409).json({
             message:
               "Account already exists,please try to Login with that account",
           });

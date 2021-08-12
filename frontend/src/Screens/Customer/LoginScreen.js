@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import Header from "../../Components/Header/Header";
 import LoginForm from "../../Components/Screen/Home/LoginForm";
@@ -65,19 +66,21 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.viewContainer}>
-      {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
-      <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
-        <TouchableOpacity
-          style={styles.LoginHeader}
-          style={styles.buttonLg}
-          onPress={() => navigation.navigate("Sign Up")}
-        >
-          <Text style={styles.Login}>Sign Up</Text>
-        </TouchableOpacity>
-      </View>
-      <Header />
-      {isLoading && <ActivityIndicator size="large" color="green" />}
-      <LoginForm navigation={navigation} loginHandler={loginHandler} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
+        <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
+          <TouchableOpacity
+            style={styles.LoginHeader}
+            style={styles.buttonLg}
+            onPress={() => navigation.navigate("Sign Up")}
+          >
+            <Text style={styles.Login}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+        <Header />
+        {isLoading && <ActivityIndicator size="large" color="green" />}
+        <LoginForm navigation={navigation} loginHandler={loginHandler} />
+      </ScrollView>
     </View>
   );
 };

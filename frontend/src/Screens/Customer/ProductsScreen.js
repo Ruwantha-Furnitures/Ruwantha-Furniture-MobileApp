@@ -24,18 +24,32 @@ let StatusBarHeight = StatusBar.currentHeight;
 const ProductScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   LogBox.ignoreAllLogs(); //Ignore all log notifications
 
+  //fetching the products
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`${API_URL2}products/`);
+      const productsResult = response.data;
+      setProducts(productsResult.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //fetching the categories
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${API_URL}products/categories`);
+      const categoryResult = response.data;
+      setCategories(categoryResult.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(`${API_URL2}products/`);
-        const productsResult = response.data;
-        setProducts(productsResult.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchProducts();
   }, []);
 

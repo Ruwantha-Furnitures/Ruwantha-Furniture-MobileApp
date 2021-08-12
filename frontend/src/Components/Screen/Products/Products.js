@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   LogBox,
 } from "react-native";
 import Product from "./Product";
+import axios from "axios";
 
 const productList = [
   {
@@ -84,6 +85,15 @@ const Products = ({ navigate, products }) => {
   const [list, setList] = useState(productList);
 
   console.log(products);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await axios.get("http://localhost:3002/");
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
 
   return (
     <View style={{ marginTop: 25, marginBottom: 0 }}>
