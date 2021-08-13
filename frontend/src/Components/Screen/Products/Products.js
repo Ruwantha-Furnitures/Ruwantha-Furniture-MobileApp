@@ -80,20 +80,27 @@ const productList = [
 
 LogBox.ignoreLogs(["Warning: ..."]);
 
-const Products = ({ navigate, products }) => {
+const Products = ({ navigate, products, categories }) => {
   const [productType, setProductType] = useState("All");
   const [list, setList] = useState(productList);
 
-  console.log(products);
+  // const fetchAllProducts=async(() =>{
+  //   try {
+  //     await
+  //   } catch (error) {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await axios.get("http://localhost:3002/");
-      } catch (error) {}
-    };
-    fetchData();
-  }, []);
+  //   }
+  // })
+
+  // const fetchTypeProduct = async () => {
+  //   try {
+  //     await axios.get("http://localhost:3002/");
+  //   } catch (error) {}
+  // };
+
+  // useEffect(() => {
+
+  // }, [productType]);
 
   return (
     <View style={{ marginTop: 25, marginBottom: 0 }}>
@@ -117,72 +124,32 @@ const Products = ({ navigate, products }) => {
             All Types
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            productType === "Chairs"
-              ? styles.selectedIndicator
-              : styles.defaultIndicator
-          }
-          onPress={() => {
-            setProductType("Chairs");
-            const newList = productList.filter(
-              (product) => product.type === "Chairs"
-            );
-            setList(newList);
-          }}
-        >
-          <Text
+        {categories.map((category) => (
+          <TouchableOpacity
             style={
-              productType === "Chairs" ? styles.textIndicator : styles.textStyle
+              productType === category.name
+                ? styles.selectedIndicator
+                : styles.defaultIndicator
             }
+            onPress={() => {
+              setProductType(category.name);
+              const newList = productList.filter(
+                (product) => product.type === category.name
+              );
+              setList(newList);
+            }}
           >
-            Chairs
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            productType === "Sofars"
-              ? styles.selectedIndicator
-              : styles.defaultIndicator
-          }
-          onPress={() => {
-            setProductType("Sofars");
-            const newList = productList.filter(
-              (product) => product.type === "Sofars"
-            );
-            setList(newList);
-          }}
-        >
-          <Text
-            style={
-              productType === "Sofars" ? styles.textIndicator : styles.textStyle
-            }
-          >
-            Sofars
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            productType === "Tables"
-              ? styles.selectedIndicator
-              : styles.defaultIndicator
-          }
-          onPress={() => {
-            setProductType("Tables");
-            const newList = productList.filter(
-              (product) => product.type === "Tables"
-            );
-            setList(newList);
-          }}
-        >
-          <Text
-            style={
-              productType === "Tables" ? styles.textIndicator : styles.textStyle
-            }
-          >
-            Tables
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={
+                productType === category.name
+                  ? styles.textIndicator
+                  : styles.textStyle
+              }
+            >
+              {category.name}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
       <>
         <FlatList

@@ -42,9 +42,9 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(`${API_URL}products/categories`);
-      const categoryResult = response.data;
-      console.log(categoryResult);
+      const categoryResult = response.data.result;
       setCategories(categoryResult);
+      console.log(categoryResult);
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +95,11 @@ const ProductScreen = ({ navigation: { navigate } }) => {
         {products.isEmpty ? (
           <Text>Loading...</Text>
         ) : (
-          <Products navigate={navigate} products={products} />
+          <Products
+            navigate={navigate}
+            products={products}
+            categories={categories}
+          />
         )}
       </View>
     </ScrollView>
