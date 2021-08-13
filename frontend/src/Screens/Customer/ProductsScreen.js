@@ -14,7 +14,7 @@ import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
-import { API_URL2 } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 
@@ -30,7 +30,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   //fetching the products
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${API_URL2}products/`);
+      const response = await axios.get(`${API_URL}products/`);
       const productsResult = response.data;
       setProducts(productsResult.data);
     } catch (error) {
@@ -43,7 +43,8 @@ const ProductScreen = ({ navigation: { navigate } }) => {
     try {
       const response = await axios.get(`${API_URL}products/categories`);
       const categoryResult = response.data;
-      setCategories(categoryResult.data);
+      console.log(categoryResult);
+      setCategories(categoryResult);
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +52,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const LogOut = (
