@@ -11,13 +11,20 @@ import {
   loginReducer,
   LoginContext,
 } from "./src/Components/Reducers/loginReducer";
+import {
+  cartReducer,
+  CartContext,
+} from "./src/Components/Reducers/cartReducer";
 
 const initialState = { userLevel: 1, userToken: null };
+const initialCartState = { items: [] };
 const loginContext = LoginContext;
+const cartContext = CartContext;
 
 export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [userDetails, dispatch] = useReducer(loginReducer, initialState);
+  const [cartDetails, dispatchCart] = useReducer(cartReducer, initialCartState);
   const value = {
     userToken,
     setUserToken,
@@ -32,7 +39,9 @@ export default function App() {
           userDetails.userToken === null ? (
             <BottomNavigator />
           ) : (
-            <LoggedInNavigator />
+            <cartContext.Provider value={{ cartDetails, dispatchCart }}>
+              <LoggedInNavigator />
+            </cartContext.Provider>
           )
         ) : (
           <DeliveryDriverBottomNavigator />

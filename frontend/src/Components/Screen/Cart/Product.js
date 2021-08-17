@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import Card from "../../UI/Card";
+import * as All from "../Products/ALLImages";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Product = ({ item }) => {
@@ -24,7 +25,7 @@ const Product = ({ item }) => {
       bg="#FFF"
     >
       <View style={styles.productContainer}>
-        <Image source={item.url} style={styles.itemImage} />
+        <Image source={All[`Image${item.itemId}`]} style={styles.itemImage} />
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>{`${item.price} /=`}</Text>
@@ -34,7 +35,7 @@ const Product = ({ item }) => {
                 <Text style={styles.btnMinIcon}>-</Text>
               </View>
             </TouchableOpacity>
-            <Text style={styles.itemQuantity}>1</Text>
+            <Text style={styles.itemQuantity}>{item.quantity}</Text>
             <TouchableOpacity style={styles.btn}>
               <View>
                 <Text style={styles.btnIcon}>+</Text>
