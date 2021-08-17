@@ -155,7 +155,7 @@ const Products = ({ navigate, products, categories }) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={products}
-          keyExtractor={(product) => product.itemid.toString()}
+          keyExtractor={(product) => product.id}
           renderItem={({ item }) => <Product item={item} navigate={navigate} />}
         />
       </>
@@ -195,7 +195,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
     color: "#000",
-    letterSpacing: 2,
+    letterSpacing: 1,
+    width: 45,
   },
 });
 export default Products;

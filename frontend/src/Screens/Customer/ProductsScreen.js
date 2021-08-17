@@ -32,6 +32,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
     try {
       const response = await axios.get(`${API_URL}products/`);
       const productsResult = response.data;
+      console.log(productsResult.data);
       setProducts(productsResult.data);
     } catch (error) {
       console.log(error);
@@ -44,7 +45,6 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       const response = await axios.get(`${API_URL}products/categories`);
       const categoryResult = response.data.result;
       setCategories(categoryResult);
-      console.log(categoryResult);
     } catch (error) {
       console.log(error);
     }

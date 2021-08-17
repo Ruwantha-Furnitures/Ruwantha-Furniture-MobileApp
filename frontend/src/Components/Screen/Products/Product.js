@@ -21,32 +21,40 @@ const Product = ({ item, navigate }) => {
   const [firstLine, setFirstLine] = useState("");
 
   useEffect(() => {
-    const line = item.details.split(".")[0];
-    console.log(item.itemid);
+    const line = item.description.split(".")[0];
     setFirstLine(line);
   }, []);
 
   return (
     <Card width={cardWidth} height={200} ml={20} bg="#fff">
       <View style={styles.productContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigate("More Details", { item });
-          }}
-        >
-          <View style={styles.imgBorder}>
-            <Image
-              source={All[`Image${item.itemid}`]}
-              style={styles.productImage}
-            />
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigate("More Details", { item });
+            }}
+          >
+            <View>
+              <Image
+                source={All[`Image${item.id}`]}
+                style={styles.productImage}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.ratingContainer}>
+            <AntDesign name="star" size={24} color="#FB9F3C" />
+            <AntDesign name="star" size={24} color="#FB9F3C" />
+            <AntDesign name="star" size={24} color="#FB9F3C" />
+            <AntDesign name="star" size={24} color="#FB9F3C" />
+            <AntDesign name="star" size={24} color="#E7E5E9" />
           </View>
-        </TouchableOpacity>
+        </View>
         <View>
           <TouchableOpacity>
             <Text style={styles.productName}>{item.name}</Text>
           </TouchableOpacity>
           <Text style={styles.productDescription}>{firstLine}</Text>
-          <Text style={styles.productPrice}>{`Rs. ${item.price}.00/=`}</Text>
+          <Text style={styles.productPrice}>{`Rs. ${item.price}/=`}</Text>
           <View style={styles.btnContainer}>
             <AppButton
               title="Preview AR"
@@ -63,22 +71,19 @@ const Product = ({ item, navigate }) => {
           </View>
         </View>
       </View>
-      <View style={styles.ratingContainer}>
-        <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#E7E5E9" />
-      </View>
     </Card>
   );
 };
 const styles = StyleSheet.create({
-  productContainer: { flexDirection: "row", marginTop: 10, marginLeft: 10 },
+  productContainer: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginLeft: 10,
+  },
   productImage: {
     width: 100,
     height: 100,
-    borderRadius: 40,
+    borderRadius: 50,
     marginTop: 10,
   },
   overlay: {
@@ -104,12 +109,12 @@ const styles = StyleSheet.create({
     color: "#FB9F3C",
   },
   btnContainer: {
-    marginLeft: 10,
+    marginLeft: -25,
     marginTop: 5,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
-  ratingContainer: { marginTop: -30, flexDirection: "row", marginLeft: 8 },
+  ratingContainer: { marginTop: 20, flexDirection: "row", marginLeft: 8 },
   imgBorder: {
     borderWidth: 1,
     borderColor: "#000",
