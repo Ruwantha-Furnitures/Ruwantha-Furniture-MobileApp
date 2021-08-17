@@ -1,13 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
-  const Products = sequelize.define(
-    "Products",
+  const products = sequelize.define(
+    "products",
     {
-      itemid: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -20,17 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       color: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       width: {
         type: DataTypes.INTEGER,
@@ -44,12 +33,15 @@ module.exports = (sequelize, DataTypes) => {
       img_location: {
         type: DataTypes.STRING,
       },
+      is_deleted: {
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
       freezeTableName: true,
-      tableName: "Products",
+      tableName: "products",
     }
   );
 
-  return Products;
+  return products;
 };

@@ -17,7 +17,7 @@ const Product = ({ item }) => {
   return (
     <Card
       width={mobileWidth - 60}
-      height={mobileHeight / 6}
+      height={mobileHeight / 5}
       ml={30}
       pd={7}
       fd="row"
