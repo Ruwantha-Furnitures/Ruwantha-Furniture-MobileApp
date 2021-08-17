@@ -38,8 +38,8 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
           `${API_URL}customer/viewprofile/${accID}`
         );
         if (response.data.auth === true) {
-          const { name, address, telephone } = response.data;
-          const data = { email, name, address, telephone };
+          const { first_name, address, telephone } = response.data;
+          const data = { email, first_name, address, telephone };
           setUserData(data);
         }
       } catch (err) {
