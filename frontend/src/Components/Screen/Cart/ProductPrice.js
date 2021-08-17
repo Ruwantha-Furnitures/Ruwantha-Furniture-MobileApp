@@ -13,16 +13,12 @@ const ProductPrice = ({ navigation }) => {
         <View style={styles.products}>
           <Text style={styles.subHeader}>Selected Items</Text>
           <View style={styles.productDetail}>
-            <Text style={styles.productName}>Molteni Outlined Chair</Text>
-            <Text style={styles.productPrice}>Rs.1500 /=</Text>
-          </View>
-          <View style={styles.productDetail}>
-            <Text style={styles.productName}>Molteni Outlined Chair</Text>
-            <Text style={styles.productPrice}>Rs.1500 /=</Text>
+            <Text style={styles.productName}>Wooden Dining Chair</Text>
+            <Text style={styles.productPrice}>Rs.6875 /=</Text>
           </View>
           <View style={styles.productDetail}>
             <Text style={styles.productName}>Total Price</Text>
-            <Text style={styles.productPrice}>Rs.3000 /=</Text>
+            <Text style={styles.productPrice}>Rs.6875 /=</Text>
           </View>
           <View style={styles.checkoutButton}>
             <AppButton
@@ -40,12 +36,12 @@ const ProductPrice = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   priceContainer: {
-    marginTop: 10,
+    position: "absolute",
+    bottom: 166,
   },
   subHeader: {
     letterSpacing: 3,
     marginTop: 10,
-    marginBottom: 20,
     fontSize: 27,
     marginLeft: 120,
     fontWeight: "bold",

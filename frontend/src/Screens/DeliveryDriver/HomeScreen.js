@@ -30,8 +30,6 @@ const HomeScreen = () => {
           <Text style={styles.itemPrice}>02</Text>
         </View>
       </Card>
-
-
       <Card
         width={mobileWidth - 40}
         height={mobileHeight / 6}
@@ -74,7 +72,6 @@ const HomeScreen = () => {
         </View>
       </Card>
     </View>
-
   );
 };
 

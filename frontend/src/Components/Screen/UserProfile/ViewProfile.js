@@ -17,9 +17,10 @@ const ViewProfile = ({ onChangeNav, userData }) => {
   useEffect(() => {
     if (userData) {
       setEmail(() => userData.email);
-      setName(() => userData.name);
+      setName(() => userData.first_name);
       setAddress(() => userData.address);
       setTelephone(() => userData.telephone);
+      console.log(userData.telephone);
     }
   }, [userData]);
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import AppButton from "../../UI/AppButton";
 import Form from "../../UI/Form";
@@ -7,7 +7,8 @@ import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 
 const SignUpForm = ({ signUpHandler }) => {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [contactNo, setContactNo] = useState("");
@@ -20,7 +21,14 @@ const SignUpForm = ({ signUpHandler }) => {
       setErrorMessage(true);
     } else {
       setErrorMessage(false);
-      signUpHandler({ name, email, address, contactNo, password });
+      signUpHandler({
+        firstName,
+        lastName,
+        email,
+        address,
+        contactNo,
+        password,
+      });
     }
   };
 
@@ -28,13 +36,19 @@ const SignUpForm = ({ signUpHandler }) => {
   const mobileHeight = Dimensions.get("window").height;
 
   return (
-    <Form type="SignUp" width={mobileWidth - 40} height={mobileHeight - 330}>
+    <Form type="SignUp" width={mobileWidth - 40}>
       <SubHeader title="Create Account" width={300} />
       <Input
-        placeholder="Name"
+        placeholder="First Name"
         type="string"
-        value={name}
-        onChangeText={(name) => setName(name)}
+        value={firstName}
+        onChangeText={(firstName) => setFirstName(firstName)}
+      />
+      <Input
+        placeholder="Last Name"
+        type="string"
+        value={lastName}
+        onChangeText={(lastName) => setLastName(lastName)}
       />
       <Input
         value={email}

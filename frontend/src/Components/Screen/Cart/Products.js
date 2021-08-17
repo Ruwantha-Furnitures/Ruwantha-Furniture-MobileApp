@@ -7,14 +7,8 @@ const Products = () => {
     {
       id: 1,
       url: require("../../../../assets/Molteni-Outline-Chair-3D-Model.jpeg"),
-      name: "Monay Chair",
-      price: "Rs.500",
-    },
-    {
-      id: 2,
-      url: require("../../../../assets/newImg.jpg"),
-      name: "Molteni Chair",
-      price: "Rs.1000",
+      name: "Wooden Dining Chair",
+      price: "Rs.6875",
     },
   ];
 

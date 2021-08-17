@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { API_URL} from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import Header from "../../Components/Header/Header";
 import LoginForm from "../../Components/Screen/Home/LoginForm";
@@ -28,10 +29,9 @@ const LoginScreen = ({ navigation }) => {
 
   const loginHandler = async (data) => {
     try {
-      console.log('login');
+      console.log("login");
       setIsLoading(true);
-      console.log(API_URL1);
-
+      console.log(API_URL);
       let response = await axios.post(`${API_URL}customer/login`, {
         data,
       });
@@ -66,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.viewContainer}>
+      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
       {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
       <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
         <TouchableOpacity
@@ -79,6 +80,7 @@ const LoginScreen = ({ navigation }) => {
       <Header />
       {isLoading && <ActivityIndicator size="large" color="green" />}
       <LoginForm navigation={navigation} loginHandler={loginHandler} />
+      {/* </ScrollView> */}
     </View>
   );
 };
