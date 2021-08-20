@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import { LoginContext } from "../../Reducers/loginReducer";
+import { CartContext } from "../../Reducers/cartReducer";
 import { AntDesign } from "@expo/vector-icons";
 import * as All from "./ALLImages";
 
@@ -18,6 +19,7 @@ const Product = ({ item, navigate }) => {
   const mobileHeight = Dimensions.get("window").height;
   const cardWidth = mobileWidth - 40;
   const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
   const [firstLine, setFirstLine] = useState("");
 
   useEffect(() => {
@@ -25,6 +27,18 @@ const Product = ({ item, navigate }) => {
     setFirstLine(line);
   }, []);
 
+  const cartHandler = (item) => {
+    console.log(item);
+    cartContext.dispatchCart({
+      type: "add",
+      payload: {
+        itemId: item.id,
+        quantity: 1,
+        price: item.price,
+        name: item.name,
+      },
+    });
+  };
   return (
     <Card width={cardWidth} height={200} ml={20} bg="#fff">
       <View style={styles.productContainer}>
@@ -65,7 +79,7 @@ const Product = ({ item, navigate }) => {
               <AppButton
                 width={80}
                 title="Add to cart"
-                onPress={() => console.log("Clicked")}
+                onPress={() => cartHandler(item)}
               />
             )}
           </View>

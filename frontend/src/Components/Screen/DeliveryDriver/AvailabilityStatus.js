@@ -1,0 +1,1 @@
+//AvailabilityStatus.js
