@@ -14,23 +14,23 @@ const AvailabilityStatus = () => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   availableStatus: {
-//     backgroundColor: "green",
-//     borderRadius: 20,
-//     paddingHorizontal: 15,
-//     letterSpacing: 1,
-//     paddingVertical: 15,
-//     fontSize: 20,
-//     marginLeft: 25,
-//     maxWidth: 240,
-//     flexDirection: "row",
-//   },
-//   text: {
-//     color: "white",
-//     fontWeight: "bold",
-//     width: 70,
-//   },
-// });
+const styles = StyleSheet.create({
+  availableStatus: {
+    backgroundColor: "green",
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    letterSpacing: 1,
+    paddingVertical: 15,
+    fontSize: 20,
+    marginLeft: 25,
+    maxWidth: 240,
+    flexDirection: "row",
+  },
+  text: {
+    color: "white",
+    fontWeight: "bold",
+    width: 70,
+  },
+});
 
 export default AvailabilityStatus;
