@@ -1,111 +1,99 @@
 //checking the availability change of driver
-
-import React from "react";
+//AvailabilityChangeScreen.js
+import React, { useContext } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Image,
-  TouchableOpacity,
+  ScrollView,
   Dimensions,
+  TouchableOpacity,
+  Image,
 } from "react-native";
-import Card from "../../Components/UI/Card";
-import Header from "../../Components/Header/Header";
-import { MaterialIcons } from "@expo/vector-icons";
+import { LoginContext } from "../../Components/Reducers/loginReducer";
+import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
+import ChangeAvailabilityForm from "../../Components/Screen/DeliveryDriver/ChangeAvailabilityForm";
+
 const AvailabilityChangeScreen = () => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
-    return (
-    <View style={styles.productContainer}>
-      <Header />
-      <Card
-        width={mobileWidth - 40}
-        height={mobileHeight / 6}
-        ml={30}
-        pd={7}
-        fd="row"
-        bg="#FFF"
+  const loginContext = useContext(LoginContext);
+  return (
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View
+        style={{ flex: 1, backgroundColor: "#E7E5E9", minHeight: mobileHeight }}
       >
-        <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>Today Availability</Text>  
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginRight: 10,
+            justifyContent: "space-between",
+          }}
+        >
+          <AvailabilityStatus />
+          <TouchableOpacity
+            style={styles.buttonLg}
+            onPress={() => loginContext.loginDispatch({ type: "logout" })}
+          >
+            <Text style={styles.Login}>Logout</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.btnContainer}>
-            <AppButton
-              title="Available"
-              width={80}
-        
-            />
-            {loginContext.userDetails.userToken !== null && (
-              <AppButton
-                width={80}
-                title="Not available"
-               
-              />
-            )}
-          </View>
-      </Card>
-      <Card
-        width={mobileWidth - 40}
-        height={mobileHeight / 6}
-        ml={30}
-        pd={7}
-        fd="row"
-        bg="#FFF"
-      >
-        <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>Tomorrow Availability</Text> 
-        </View>
-        <View style={styles.btnContainer}>
-            <AppButton
-              title="Available"
-              width={80}
-        
-            />
-            {loginContext.userDetails.userToken !== null && (
-              <AppButton
-                width={80}
-                title="Not available"
-               
-              />
-            )}
-          </View>
-      </Card>
-  </View>
-
+        <Text style={styles.header}>Chanage</Text>
+        <Text style={styles.header2}>Availability</Text>
+        <Image
+          source={require("../../../assets/nlogo.png")}
+          style={styles.imageHeader}
+        />
+        <ChangeAvailabilityForm />
+      </View>
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  itemImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 40,
-  },
-
-  itemName: {
-    fontWeight: "bold",
-    fontSize: 40,
-    width: 180,
-    letterSpacing: 2,
-  },
-
-  productContainer: {
-    flexDirection: "row",
-    marginTop: 10,
-    marginLeft: 10,
-  },
-  itemDetailsContainer: {
-    marginLeft: 30,
-    flexDirection: "column",
-  },
-
-  btnContainer: {
-    marginLeft: 10,
-    marginTop: 5,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
- 
-});
-
+// const styles = StyleSheet.create({
+//   header: {
+//     fontWeight: "100",
+//     fontWeight: "bold",
+//     fontSize: 35,
+//     alignSelf: "center",
+//     marginTop: 12,
+//     width: 300,
+//     letterSpacing: 5,
+//     marginLeft: 100,
+//   },
+//   header2: {
+//     fontWeight: "100",
+//     fontWeight: "bold",
+//     fontSize: 35,
+//     alignSelf: "center",
+//     marginTop: 2,
+//     width: 300,
+//     marginBottom: 10,
+//     letterSpacing: 5,
+//     marginLeft: 35,
+//   },
+//   buttonLg: {
+//     backgroundColor: "black",
+//     borderRadius: 20,
+//     paddingRight: 0,
+//     paddingLeft: 17,
+//     paddingVertical: 12,
+//     marginTop: 3,
+//     justifyContent: "center",
+//   },
+//   Login: {
+//     fontWeight: "bold",
+//     fontSize: 15,
+//     color: "#fff",
+//     letterSpacing: 1,
+//     width: 75,
+//   },
+//   imageHeader: {
+//     width: 40,
+//     height: 40,
+//     marginRight: 5,
+//     backgroundColor: "#E7E5E9",
+//     alignSelf: "center",
+//   },
+// });
 export default AvailabilityChangeScreen;
