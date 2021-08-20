@@ -16,10 +16,10 @@ const OrderDetailsScreen = ({ route }) => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   viewContainer: {
-//     flex: 1,
-//     alignItems: "center",
-//   },
-// });
+const styles = StyleSheet.create({
+  viewContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+});
 export default OrderDetailsScreen;
