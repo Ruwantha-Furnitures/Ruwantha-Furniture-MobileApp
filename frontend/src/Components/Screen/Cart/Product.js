@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -10,10 +10,28 @@ import {
 import Card from "../../UI/Card";
 import * as All from "../Products/ALLImages";
 import { MaterialIcons } from "@expo/vector-icons";
+import { CartContext } from "../../Reducers/cartReducer";
 
 const Product = ({ item }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
+  const cartContext = useContext(CartContext);
+
+  const increment = (item) => {
+    console.log("clicked");
+    cartContext.dispatchCart({
+      type: "increment",
+      payload: {
+        itemId: item.id,
+        quantity: parseInt(item.quantity) + 1,
+        price: item.price,
+        name: item.name,
+      },
+    });
+  };
+  const decrement = (item) => {
+    console.log(item);
+  };
 
   return (
     <Card
@@ -30,16 +48,18 @@ const Product = ({ item }) => {
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>{`${item.price} /=`}</Text>
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.btn}>
-              <View>
-                <Text style={styles.btnMinIcon}>-</Text>
-              </View>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => decrement(item)}
+            >
+              <Text style={styles.btnMinIcon}>-</Text>
             </TouchableOpacity>
             <Text style={styles.itemQuantity}>{item.quantity}</Text>
-            <TouchableOpacity style={styles.btn}>
-              <View>
-                <Text style={styles.btnIcon}>+</Text>
-              </View>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => increment(item)}
+            >
+              <Text style={styles.btnIcon}>+</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnDelete}>
               <View>

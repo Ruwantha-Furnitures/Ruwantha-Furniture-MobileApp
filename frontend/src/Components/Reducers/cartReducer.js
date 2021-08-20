@@ -4,9 +4,28 @@ export const cartReducer = (state, action) => {
   switch (action.type) {
     case "increment":
       return {
-        userToken: action.payload.userToken,
-        userLevel: action.payload.userLevel,
+        ...state.map((item, index) => {
+          if (item.itemId === action.payload.itemId) {
+            items[index] = {
+              itemId: action.payload.itemId,
+              quantity: action.payload.quantity,
+              name: action.payload.name,
+              price: action.payload.price,
+            };
+          }
+        }),
       };
+    // return {
+    //   items: [
+    //     ...state.items,
+    //     {
+    //       itemId: action.payload.itemId,
+    //       quantity: action.payload.quantity,
+    //       name: action.payload.name,
+    //       price: action.payload.price,
+    //     },
+    //   ],
+    // };
     case "decrement":
       return {
         userToken: null,
