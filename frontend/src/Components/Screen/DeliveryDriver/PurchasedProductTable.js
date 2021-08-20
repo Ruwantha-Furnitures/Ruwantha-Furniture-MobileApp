@@ -1,47 +1,86 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
-import FormAppButton from "../../UI/FormAppButton";
-import { AntDesign } from "@expo/vector-icons";
+import React from "react";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { Col, Row, Grid } from "react-native-easy-grid";
+import Card from "../../UI/Card";
 
-const StatusPopup = ({ showModal, deleteHandler }) => {
+const PurchasedProductTable = () => {
+  const mobileWidth = Dimensions.get("window").width;
+  const cardWidth = mobileWidth - 40;
   return (
-    <PopUpConfirmationModal visible={showModal}>
-      <AntDesign
-        name="closecircleo"
-        size={24}
-        color="#F00"
-        style={styles.closeIcon}
-        onPress={deleteHandler}
-      />
-      <Text style={styles.confirmationText}>
-        Are you sure that you want to Change the Delivery Status ?
-      </Text>
-      <View style={styles.btnContainer}>
-        <FormAppButton title="No" width={90} onPress={deleteHandler} />
-        <FormAppButton title="Yes" type="Submit" width={90} />
-      </View>
-    </PopUpConfirmationModal>
+    <React.Fragment>
+      <Text style={styles.subheader}>Purchased Product Details</Text>
+
+      <Grid style={{ marginHorizontal: 10, marginVertical: 10 }}>
+        <Col size={25}>
+          <Row style={styles.cell}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                height: "100%",
+              }}
+            >
+              Product Name
+            </Text>
+          </Row>
+          <Row style={styles.cell}>
+            <Text>Serena Single Seater</Text>
+          </Row>
+        </Col>
+        <Col size={15}>
+          <Row style={styles.cell}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                width: 80,
+                alignSelf: "flex-start",
+              }}
+            >
+              Quantity
+            </Text>
+          </Row>
+          <Row style={styles.cell}>
+            <Text>1</Text>
+          </Row>
+        </Col>
+        <Col size={26}>
+          <Row style={styles.cell}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                width: 80,
+                alignSelf: "flex-start",
+              }}
+            >
+              Amount
+            </Text>
+          </Row>
+          <Row style={styles.cell}>
+            <Text style={{ marginLeft: 10 }}>Rs.72975.00/=</Text>
+          </Row>
+        </Col>
+      </Grid>
+    </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
-  closeIcon: {
-    alignSelf: "flex-end",
-    marginTop: -18,
-    marginRight: 5,
-    marginBottom: 0,
-  },
-  confirmationText: {
-    fontSize: 17,
+  subheader: {
     fontWeight: "bold",
-    marginTop: 25,
+    marginLeft: 20,
+    fontSize: 20,
+    marginTop: 20,
+    letterSpacing: 0.5,
+    width: 300,
+    marginBottom: 20,
+    textDecorationLine: "underline",
   },
-  btnContainer: {
+  cell: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    flex: 1,
     justifyContent: "center",
-    flexDirection: "row",
-    marginTop: 30,
-    marginBottom: 10,
+    alignItems: "center",
+    paddingHorizontal: 0,
   },
 });
-export default StatusPopup;
+export default PurchasedProductTable;
