@@ -68,58 +68,58 @@ const Order = ({ order, navigation }) => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   name: {
-//     flexDirection: "row",
-//     marginHorizontal: 20,
-//     marginVertical: 10,
-//   },
-//   label: {
-//     fontSize: 15,
-//     paddingVertical: 10,
-//     fontWeight: "bold",
-//     width: 120,
-//   },
-//   nameInput: {
-//     backgroundColor: "#E7E5E9",
-//     borderRadius: 20,
-//     paddingHorizontal: 10,
-//     letterSpacing: 1,
-//     paddingVertical: 10,
-//     fontSize: 15,
-//     marginLeft: 25,
-//     maxWidth: 240,
-//   },
-//   delivered: {
-//     backgroundColor: "#fff",
-//     borderRadius: 20,
-//     paddingHorizontal: 10,
-//     letterSpacing: 1,
-//     paddingVertical: 10,
-//     fontSize: 15,
-//     marginLeft: 25,
-//     maxWidth: 240,
-//     borderColor: "green",
-//     borderWidth: 2,
-//   },
-//   notDelivered: {
-//     backgroundColor: "#fff",
-//     borderRadius: 20,
-//     paddingHorizontal: 10,
-//     letterSpacing: 1,
-//     paddingVertical: 10,
-//     fontSize: 15,
-//     marginLeft: 25,
-//     maxWidth: 240,
-//     borderColor: "red",
-//     borderWidth: 2,
-//     color: "black",
-//   },
-//   btnContainer: {
-//     flexDirection: "row",
-//     justifyContent: "space-evenly",
-//     marginTop: 10,
-//   },
-// });
+const styles = StyleSheet.create({
+  name: {
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  label: {
+    fontSize: 15,
+    paddingVertical: 10,
+    fontWeight: "bold",
+    width: 120,
+  },
+  nameInput: {
+    backgroundColor: "#E7E5E9",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    letterSpacing: 1,
+    paddingVertical: 10,
+    fontSize: 15,
+    marginLeft: 25,
+    maxWidth: 240,
+  },
+  delivered: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    letterSpacing: 1,
+    paddingVertical: 10,
+    fontSize: 15,
+    marginLeft: 25,
+    maxWidth: 240,
+    borderColor: "green",
+    borderWidth: 2,
+  },
+  notDelivered: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    letterSpacing: 1,
+    paddingVertical: 10,
+    fontSize: 15,
+    marginLeft: 25,
+    maxWidth: 240,
+    borderColor: "red",
+    borderWidth: 2,
+    color: "black",
+  },
+  btnContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 10,
+  },
+});
 
 export default Order;
