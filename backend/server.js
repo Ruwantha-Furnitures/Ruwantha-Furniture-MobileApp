@@ -9,6 +9,7 @@ const db = require("./models");
 const { customerRouter } = require("./routes/customers.js");
 const { productRouter } = require("./routes/products.js");
 const { contactUsRouter } = require("./routes/contactus.js");
+const { cartRouter } = require("./routes/cart.js");
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/armagic/api/customer", customerRouter);
 app.use("/armagic/api/products", productRouter);
 app.use("/armagic/api/contactus", contactUsRouter);
+app.use("/armagic/api/cart", cartRouter);
 
 const PORT = process.env.PORT;
 

@@ -1,4 +1,7 @@
-const { Customers, Accounts, online_customers } = require("../../models");
+const db = require("../../models");
+const Customer = db.customer;
+const Account = db.account;
+const online_customer = db.onlineCustomer;
 const sendEmail = require("../../common/sendEmail");
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
@@ -20,7 +23,7 @@ const SignUpController = async (req, res) => {
       };
 
       try {
-        const existingStatus = await Accounts.findOne({ where: { email } });
+        const existingStatus = await Account.findOne({ where: { email } });
         if (existingStatus) {
           console.log(existingStatus);
           res.status(409).json({
@@ -28,7 +31,7 @@ const SignUpController = async (req, res) => {
               "Account already exists,please try to Login with that account",
           });
         } else {
-          const AccountDetails = await Accounts.create(accountData);
+          const AccountDetails = await Account.create(accountData);
           const aid = AccountDetails.id;
 
           //customer data for the customer table
@@ -39,14 +42,14 @@ const SignUpController = async (req, res) => {
             contact_number: contactNo,
           };
 
-          const CustomerDetails = await Customers.create(customerData);
+          const CustomerDetails = await Customer.create(customerData);
 
           //online customer details data for online customer table
           const onlineCustomerData = {
             customer_id: CustomerDetails.id,
             account_id: aid,
           };
-          const onlineCustomerDetails = await online_customers.create(
+          const onlineCustomerDetails = await online_customer.create(
             onlineCustomerData
           );
           sendEmail(email);

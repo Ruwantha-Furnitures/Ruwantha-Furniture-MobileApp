@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,12 +17,17 @@ const Product = ({ item }) => {
   const mobileHeight = Dimensions.get("window").height;
   const cartContext = useContext(CartContext);
 
+  useEffect(() => {
+    console.log("Inside the useEffect");
+    console.log(item);
+  }, [item]);
+
   const increment = (item) => {
     console.log("clicked");
     cartContext.dispatchCart({
       type: "increment",
       payload: {
-        itemId: item.id,
+        itemId: item.itemId,
         quantity: parseInt(item.quantity) + 1,
         price: item.price,
         name: item.name,

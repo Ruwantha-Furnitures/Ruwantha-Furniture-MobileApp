@@ -1,5 +1,6 @@
 require("dotenv").config;
-const { Accounts } = require("../../models");
+const db = require("../../models");
+const Account = db.account;
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const { createTokens, validateTokens } = require("../../middleware/auth");
@@ -10,7 +11,7 @@ const LoginController = async (req, res) => {
   const data = { email: userEmail };
 
   try {
-    const account = await Accounts.findOne({
+    const account = await Account.findOne({
       where: { email: data.email },
     });
     if (account === null) {

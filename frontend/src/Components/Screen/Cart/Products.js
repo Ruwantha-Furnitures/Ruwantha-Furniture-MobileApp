@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Product from "./Product";
 
-const Products = ({ products }) => {
+const Products = ({ products, addToCart }) => {
   return (
     <View style={styles.productContainer}>
       <FlatList
         data={products}
-        keyExtractor={(item) => item.itemId}
+        keyExtractor={(item, index) => index}
         renderItem={({ item }) => <Product item={item} />}
       />
     </View>

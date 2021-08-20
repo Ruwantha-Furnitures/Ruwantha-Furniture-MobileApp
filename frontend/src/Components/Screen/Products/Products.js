@@ -80,7 +80,7 @@ const productList = [
 
 LogBox.ignoreLogs(["Warning: ..."]);
 
-const Products = ({ navigate, products, categories }) => {
+const Products = ({ navigate, products, categories, addToCart }) => {
   const [productType, setProductType] = useState("All");
   const [list, setList] = useState(productList);
 
@@ -156,7 +156,9 @@ const Products = ({ navigate, products, categories }) => {
           showsVerticalScrollIndicator={false}
           data={products}
           keyExtractor={(product) => product.id}
-          renderItem={({ item }) => <Product item={item} navigate={navigate} />}
+          renderItem={({ item }) => (
+            <Product item={item} navigate={navigate} addToCart={addToCart} />
+          )}
         />
       </>
     </View>

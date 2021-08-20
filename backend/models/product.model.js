@@ -1,47 +1,34 @@
-module.exports = (sequelize, DataTypes) => {
-  const products = sequelize.define(
-    "products",
-    {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      type_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      price: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      description: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      color: {
-        type: DataTypes.STRING,
-      },
-      width: {
-        type: DataTypes.INTEGER,
-      },
-      height: {
-        type: DataTypes.INTEGER,
-      },
-      discount: {
-        type: DataTypes.INTEGER,
-      },
-      img_location: {
-        type: DataTypes.STRING,
-      },
-      is_deleted: {
-        type: DataTypes.BOOLEAN,
-      },
+module.exports = (sequelize, Sequelize) => {
+  const Product = sequelize.define("products", {
+    name: {
+      type: Sequelize.STRING,
     },
-    {
-      freezeTableName: true,
-      tableName: "products",
-    }
-  );
+    price: {
+      type: Sequelize.NUMBER,
+    },
+    description: {
+      type: Sequelize.STRING,
+    },
+    color: {
+      type: Sequelize.STRING,
+    },
+    width: {
+      type: Sequelize.INTEGER,
+    },
+    height: {
+      type: Sequelize.INTEGER,
+    },
+    discount: {
+      type: Sequelize.INTEGER,
+    },
+    img_location: {
+      type: Sequelize.STRING,
+    },
+    is_deleted: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+  });
 
-  return products;
+  return Product;
 };

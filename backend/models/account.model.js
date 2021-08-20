@@ -1,31 +1,25 @@
-module.exports = (sequelize, DataTypes) => {
-  const Accounts = sequelize.define(
-    "Accounts",
-    {
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      user_level: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      verified: {
-        type: DataTypes.BOOLEAN,
-      },
-      is_deleted: {
-        type: DataTypes.BOOLEAN,
-      },
+module.exports = (sequelize, Sequelize) => {
+  const Account = sequelize.define("accounts", {
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
     },
-    {
-      freezeTableName: true,
-      tableName: "Accounts",
-    }
-  );
+    password: {
+      type: Sequelize.STRING,
+    },
+    user_level: {
+      type: Sequelize.INTEGER,
+    },
+    verified: {
+      type: Sequelize.INTEGER,
+      defaultValue: 1,
+    },
+    is_deleted: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+  });
 
-  return Accounts;
+  return Account;
 };
