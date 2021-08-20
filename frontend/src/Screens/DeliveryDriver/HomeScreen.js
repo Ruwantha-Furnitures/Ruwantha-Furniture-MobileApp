@@ -123,70 +123,70 @@ const HomeScreen = () => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   itemImage: {
-//     width: 90,
-//     height: 90,
-//     borderRadius: 40,
-//   },
+const styles = StyleSheet.create({
+  itemImage: {
+    width: 90,
+    height: 90,
+    borderRadius: 40,
+  },
 
-//   itemName: {
-//     marginTop: 10,
-//     fontSize: 18,
-//     width: 180,
-//     letterSpacing: 2,
-//   },
+  itemName: {
+    marginTop: 10,
+    fontSize: 18,
+    width: 180,
+    letterSpacing: 2,
+  },
 
-//   productContainer: {
-//     flex: 1,
-//     backgroundColor: "#E7E5E9",
-//   },
-//   itemDetailsContainer: {
-//     marginLeft: 30,
-//     flexDirection: "column",
-//   },
+  productContainer: {
+    flex: 1,
+    backgroundColor: "#E7E5E9",
+  },
+  itemDetailsContainer: {
+    marginLeft: 30,
+    flexDirection: "column",
+  },
 
-//   itemPrice: {
-//     marginTop: 10,
-//     color: "#542b14",
-//     fontSize: 25,
-//     fontWeight: "bold",
-//   },
+  itemPrice: {
+    marginTop: 10,
+    color: "#542b14",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
 
-//   buttonLg: {
-//     backgroundColor: "black",
-//     borderRadius: 20,
-//     paddingRight: 0,
-//     paddingLeft: 17,
-//     paddingVertical: 12,
-//     marginTop: 3,
-//     justifyContent: "center",
-//   },
-//   Login: {
-//     fontWeight: "bold",
-//     fontSize: 15,
-//     color: "#fff",
-//     letterSpacing: 1,
-//     width: 75,
-//   },
-//   header: {
-//     fontWeight: "100",
-//     fontWeight: "bold",
-//     fontSize: 35,
-//     alignSelf: "center",
-//     marginTop: 12,
-//     width: 300,
-//     marginBottom: 10,
-//     letterSpacing: 5,
-//     marginLeft: 50,
-//   },
-//   imageHeader: {
-//     width: 40,
-//     height: 40,
-//     marginRight: 5,
-//     backgroundColor: "#E7E5E9",
-//     alignSelf: "center",
-//   },
-// });
+  buttonLg: {
+    backgroundColor: "black",
+    borderRadius: 20,
+    paddingRight: 0,
+    paddingLeft: 17,
+    paddingVertical: 12,
+    marginTop: 3,
+    justifyContent: "center",
+  },
+  Login: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: "#fff",
+    letterSpacing: 1,
+    width: 75,
+  },
+  header: {
+    fontWeight: "100",
+    fontWeight: "bold",
+    fontSize: 35,
+    alignSelf: "center",
+    marginTop: 12,
+    width: 300,
+    marginBottom: 10,
+    letterSpacing: 5,
+    marginLeft: 50,
+  },
+  imageHeader: {
+    width: 40,
+    height: 40,
+    marginRight: 5,
+    backgroundColor: "#E7E5E9",
+    alignSelf: "center",
+  },
+});
 
 export default HomeScreen;
