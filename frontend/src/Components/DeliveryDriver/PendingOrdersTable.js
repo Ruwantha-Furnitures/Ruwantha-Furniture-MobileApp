@@ -111,21 +111,21 @@ const PendingOrdersTable = () => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   cell: {
-//     borderWidth: 1,
-//     borderColor: "#ddd",
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     paddingHorizontal: 0,
-//   },
-//   header: {
-//     alignSelf: "center",
-//     fontWeight: "bold",
-//     fontSize: 25,
-//     letterSpacing: 1,
-//     width: 200,
-//   },
-// });
+const styles = StyleSheet.create({
+  cell: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 0,
+  },
+  header: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 25,
+    letterSpacing: 1,
+    width: 200,
+  },
+});
 export default PendingOrdersTable;
