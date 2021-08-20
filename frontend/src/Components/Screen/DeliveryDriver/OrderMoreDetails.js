@@ -66,45 +66,45 @@ const OrderMoreDetails = ({ order }) => {
     </View>
   );
 };
-// const styles = StyleSheet.create({
-//   name: {
-//     flexDirection: "row",
-//     marginHorizontal: 20,
-//     marginVertical: 10,
-//   },
-//   label: {
-//     fontSize: 15,
-//     paddingVertical: 10,
-//     width: 120,
-//   },
-//   nameInput: {
-//     backgroundColor: "#E7E5E9",
-//     borderRadius: 20,
-//     paddingHorizontal: 10,
-//     letterSpacing: 1,
-//     paddingVertical: 10,
-//     fontSize: 15,
-//     marginLeft: 25,
-//     maxWidth: 230,
-//   },
-//   header: {
-//     fontWeight: "bold",
-//     alignSelf: "center",
-//     fontSize: 25,
-//     marginTop: 20,
-//     letterSpacing: 0.9,
-//     width: 300,
-//     marginBottom: 20,
-//   },
-//   subheader: {
-//     fontWeight: "bold",
-//     marginLeft: 20,
-//     fontSize: 20,
-//     marginTop: 20,
-//     letterSpacing: 0.5,
-//     width: 300,
-//     marginBottom: 20,
-//     textDecorationLine: "underline",
-//   },
-// });
+const styles = StyleSheet.create({
+  name: {
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  label: {
+    fontSize: 15,
+    paddingVertical: 10,
+    width: 120,
+  },
+  nameInput: {
+    backgroundColor: "#E7E5E9",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    letterSpacing: 1,
+    paddingVertical: 10,
+    fontSize: 15,
+    marginLeft: 25,
+    maxWidth: 230,
+  },
+  header: {
+    fontWeight: "bold",
+    alignSelf: "center",
+    fontSize: 25,
+    marginTop: 20,
+    letterSpacing: 0.9,
+    width: 300,
+    marginBottom: 20,
+  },
+  subheader: {
+    fontWeight: "bold",
+    marginLeft: 20,
+    fontSize: 20,
+    marginTop: 20,
+    letterSpacing: 0.5,
+    width: 300,
+    marginBottom: 20,
+    textDecorationLine: "underline",
+  },
+});
 export default OrderMoreDetails;
