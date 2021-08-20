@@ -50,50 +50,50 @@ const AvailabilityChangeScreen = () => {
     </ScrollView>
   );
 };
-// const styles = StyleSheet.create({
-//   header: {
-//     fontWeight: "100",
-//     fontWeight: "bold",
-//     fontSize: 35,
-//     alignSelf: "center",
-//     marginTop: 12,
-//     width: 300,
-//     letterSpacing: 5,
-//     marginLeft: 100,
-//   },
-//   header2: {
-//     fontWeight: "100",
-//     fontWeight: "bold",
-//     fontSize: 35,
-//     alignSelf: "center",
-//     marginTop: 2,
-//     width: 300,
-//     marginBottom: 10,
-//     letterSpacing: 5,
-//     marginLeft: 35,
-//   },
-//   buttonLg: {
-//     backgroundColor: "black",
-//     borderRadius: 20,
-//     paddingRight: 0,
-//     paddingLeft: 17,
-//     paddingVertical: 12,
-//     marginTop: 3,
-//     justifyContent: "center",
-//   },
-//   Login: {
-//     fontWeight: "bold",
-//     fontSize: 15,
-//     color: "#fff",
-//     letterSpacing: 1,
-//     width: 75,
-//   },
-//   imageHeader: {
-//     width: 40,
-//     height: 40,
-//     marginRight: 5,
-//     backgroundColor: "#E7E5E9",
-//     alignSelf: "center",
-//   },
-// });
+const styles = StyleSheet.create({
+  header: {
+    fontWeight: "100",
+    fontWeight: "bold",
+    fontSize: 35,
+    alignSelf: "center",
+    marginTop: 12,
+    width: 300,
+    letterSpacing: 5,
+    marginLeft: 100,
+  },
+  header2: {
+    fontWeight: "100",
+    fontWeight: "bold",
+    fontSize: 35,
+    alignSelf: "center",
+    marginTop: 2,
+    width: 300,
+    marginBottom: 10,
+    letterSpacing: 5,
+    marginLeft: 35,
+  },
+  buttonLg: {
+    backgroundColor: "black",
+    borderRadius: 20,
+    paddingRight: 0,
+    paddingLeft: 17,
+    paddingVertical: 12,
+    marginTop: 3,
+    justifyContent: "center",
+  },
+  Login: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: "#fff",
+    letterSpacing: 1,
+    width: 75,
+  },
+  imageHeader: {
+    width: 40,
+    height: 40,
+    marginRight: 5,
+    backgroundColor: "#E7E5E9",
+    alignSelf: "center",
+  },
+});
 export default AvailabilityChangeScreen;
