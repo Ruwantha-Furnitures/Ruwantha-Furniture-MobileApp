@@ -1,0 +1,16 @@
+export const Image1 = require("../../../../assets/items/1.jpg");
+export const Image2 = require("../../../../assets/items/2.jpg");
+export const Image3 = require("../../../../assets/items/3.jpg");
+export const Image4 = require("../../../../assets/items/4.jpg");
+export const Image5 = require("../../../../assets/items/5.jpg");
+export const Image6 = require("../../../../assets/items/6.jpg");
+export const Image7 = require("../../../../assets/items/1.jpg");
+export const Image8 = require("../../../../assets/items/2.jpg");
+export const Image9 = require("../../../../assets/items/3.jpg");
+export const Image10 = require("../../../../assets/items/10.jpg");
+export const Image11 = require("../../../../assets/items/11.jpg");
+export const Image12 = require("../../../../assets/items/12.jpg");
+export const Image13 = require("../../../../assets/items/13.jpg");
+export const Image14 = require("../../../../assets/items/14.jpg");
+// export const Image15 = require("../../../../assets/items/15.jpg");
+export const Image16 = require("../../../../assets/items/16.jpg");

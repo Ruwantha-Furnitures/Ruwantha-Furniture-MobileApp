@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
 import SignUpForm from "../../Components/Screen/Home/SignUpForm";
@@ -36,18 +42,20 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.viewContainer}>
-      {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
-      <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
-        <TouchableOpacity
-          style={styles.LoginHeader}
-          style={styles.buttonLg}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.Login}>Login</Text>
-        </TouchableOpacity>
-      </View>
-      <Header />
-      <SignUpForm navigation={navigation} signUpHandler={signUpHandler} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {errorMessage.length > 0 && <ErrorModal errorMessage={errorMessage} />}
+        <View style={{ alignSelf: "flex-end", marginTop: 15, marginRight: 10 }}>
+          <TouchableOpacity
+            style={styles.LoginHeader}
+            style={styles.buttonLg}
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text style={styles.Login}>Login</Text>
+          </TouchableOpacity>
+        </View>
+        <Header />
+        <SignUpForm navigation={navigation} signUpHandler={signUpHandler} />
+      </ScrollView>
     </View>
   );
 };

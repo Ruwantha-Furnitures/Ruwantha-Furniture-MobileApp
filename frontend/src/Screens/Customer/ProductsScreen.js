@@ -24,20 +24,35 @@ let StatusBarHeight = StatusBar.currentHeight;
 const ProductScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   LogBox.ignoreAllLogs(); //Ignore all log notifications
 
+  //fetching the products
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`${API_URL}products/`);
+      const productsResult = response.data;
+      console.log(productsResult.data);
+      setProducts(productsResult.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //fetching the categories
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${API_URL}products/categories`);
+      const categoryResult = response.data.result;
+      setCategories(categoryResult);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(`${API_URL}products/`);
-        const products = response.data;
-        setProducts(products);
-        console.log(products);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const LogOut = (
@@ -77,7 +92,15 @@ const ProductScreen = ({ navigation: { navigate } }) => {
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Searchbar placeholder="Search" />
-        <Products navigate={navigate} />
+        {products.isEmpty ? (
+          <Text>Loading...</Text>
+        ) : (
+          <Products
+            navigate={navigate}
+            products={products}
+            categories={categories}
+          />
+        )}
       </View>
     </ScrollView>
   );

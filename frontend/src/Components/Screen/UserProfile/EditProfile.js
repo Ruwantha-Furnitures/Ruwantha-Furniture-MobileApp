@@ -14,7 +14,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
   useEffect(() => {
     if (userData) {
       setEmail(() => userData.email);
-      setName(() => userData.name);
+      setName(() => userData.first_name);
       setAddress(() => userData.address);
       setTelephone(() => userData.telephone);
     }

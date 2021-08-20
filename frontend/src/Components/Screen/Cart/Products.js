@@ -2,27 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Product from "./Product";
 
-const Products = () => {
-  const data = [
-    {
-      id: 1,
-      url: require("../../../../assets/Molteni-Outline-Chair-3D-Model.jpeg"),
-      name: "Monay Chair",
-      price: "Rs.500",
-    },
-    {
-      id: 2,
-      url: require("../../../../assets/newImg.jpg"),
-      name: "Molteni Chair",
-      price: "Rs.1000",
-    },
-  ];
-
+const Products = ({ products }) => {
   return (
     <View style={styles.productContainer}>
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
+        data={products}
+        keyExtractor={(item) => item.itemId}
         renderItem={({ item }) => <Product item={item} />}
       />
     </View>

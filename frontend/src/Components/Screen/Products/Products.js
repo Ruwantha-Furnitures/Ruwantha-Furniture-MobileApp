@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   LogBox,
 } from "react-native";
 import Product from "./Product";
+import axios from "axios";
 
 const productList = [
   {
@@ -79,9 +80,27 @@ const productList = [
 
 LogBox.ignoreLogs(["Warning: ..."]);
 
-const Products = ({ navigate }) => {
+const Products = ({ navigate, products, categories }) => {
   const [productType, setProductType] = useState("All");
   const [list, setList] = useState(productList);
+
+  // const fetchAllProducts=async(() =>{
+  //   try {
+  //     await
+  //   } catch (error) {
+
+  //   }
+  // })
+
+  // const fetchTypeProduct = async () => {
+  //   try {
+  //     await axios.get("http://localhost:3002/");
+  //   } catch (error) {}
+  // };
+
+  // useEffect(() => {
+
+  // }, [productType]);
 
   return (
     <View style={{ marginTop: 25, marginBottom: 0 }}>
@@ -105,78 +124,38 @@ const Products = ({ navigate }) => {
             All Types
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            productType === "Chairs"
-              ? styles.selectedIndicator
-              : styles.defaultIndicator
-          }
-          onPress={() => {
-            setProductType("Chairs");
-            const newList = productList.filter(
-              (product) => product.type === "Chairs"
-            );
-            setList(newList);
-          }}
-        >
-          <Text
+        {categories.map((category) => (
+          <TouchableOpacity
             style={
-              productType === "Chairs" ? styles.textIndicator : styles.textStyle
+              productType === category.name
+                ? styles.selectedIndicator
+                : styles.defaultIndicator
             }
+            onPress={() => {
+              setProductType(category.name);
+              const newList = productList.filter(
+                (product) => product.type === category.name
+              );
+              setList(newList);
+            }}
           >
-            Chairs
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            productType === "Sofars"
-              ? styles.selectedIndicator
-              : styles.defaultIndicator
-          }
-          onPress={() => {
-            setProductType("Sofars");
-            const newList = productList.filter(
-              (product) => product.type === "Sofars"
-            );
-            setList(newList);
-          }}
-        >
-          <Text
-            style={
-              productType === "Sofars" ? styles.textIndicator : styles.textStyle
-            }
-          >
-            Sofars
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            productType === "Tables"
-              ? styles.selectedIndicator
-              : styles.defaultIndicator
-          }
-          onPress={() => {
-            setProductType("Tables");
-            const newList = productList.filter(
-              (product) => product.type === "Tables"
-            );
-            setList(newList);
-          }}
-        >
-          <Text
-            style={
-              productType === "Tables" ? styles.textIndicator : styles.textStyle
-            }
-          >
-            Tables
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={
+                productType === category.name
+                  ? styles.textIndicator
+                  : styles.textStyle
+              }
+            >
+              {category.name}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
       <>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={list}
-          keyExtractor={(product) => product.id.toString()}
+          data={products}
+          keyExtractor={(product) => product.id}
           renderItem={({ item }) => <Product item={item} navigate={navigate} />}
         />
       </>
@@ -216,7 +195,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
     color: "#000",
-    letterSpacing: 2,
+    letterSpacing: 1,
+    width: 45,
   },
 });
 export default Products;
