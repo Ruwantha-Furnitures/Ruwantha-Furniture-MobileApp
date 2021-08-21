@@ -36,14 +36,24 @@ const LoginScreen = ({ navigation }) => {
         data,
       });
       if (response.data.auth) {
+        let cusIdResponse = await axios.get(
+          `${API_URL}customer/login/${response.data.accountId}`
+        );
+        const { customerId } = cusIdResponse.data;
         setIsLoading(false);
         setErrorMessage("");
         await SecureStore.setItemAsync("user_token", response.data.accessToken); //setting the user token in Secure Storage
         await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
+        //setting the customer id in Secure Storage
+        await SecureStore.setItemAsync(
+          "customer_id",
+          JSON.stringify(customerId)
+        );
         await SecureStore.setItemAsync(
           "user_accountID",
           JSON.stringify(response.data.accountId)
         );
+        // const res = await SecureStore.getItemAsync("customer_id");
         loginContext.loginDispatch({
           type: "login",
           payload: {

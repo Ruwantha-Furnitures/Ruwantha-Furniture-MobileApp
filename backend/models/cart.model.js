@@ -1,20 +1,14 @@
-module.exports = (sequelize, DataTypes) => {
-  const carts = sequelize.define(
-    "carts",
-    {
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      is_deleted: {
-        type: DataTypes.BOOLEAN,
-      },
+module.exports = (sequelize, Sequelize) => {
+  const Cart = sequelize.define("carts", {
+    quantity: {
+      type: Sequelize.INTEGER,
     },
-    {
-      freezeTableName: true,
-      tableName: "carts",
-    }
-  );
 
-  return carts;
+    is_deleted: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+  });
+
+  return Cart;
 };

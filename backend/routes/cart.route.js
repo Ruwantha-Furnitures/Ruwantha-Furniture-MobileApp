@@ -4,7 +4,7 @@ const {
   AddToCartController,
   UpdateCartController,
   DeleteCartController,
-} = require("../controllers/customer/cart.controller");
+} = require("../controllers/products/cart.controller");
 router.post("/addToCart", AddToCartController);
 
 module.exports = { cartRouter: router };

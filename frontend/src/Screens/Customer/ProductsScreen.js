@@ -55,7 +55,9 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   const addToCart = async (product) => {
     try {
       const { id } = product;
-      const customer_id = await SecureStore.getItemAsync("user_accountID");
+      const customerId = await SecureStore.getItemAsync("customer_id");
+      const customer_id = parseInt(customerId);
+      console.log(customer_id);
       const data = { product_id: id, customer_id, quantity: 1 };
       let response = await axios.post(`${API_URL}cart/addToCart`, {
         data,

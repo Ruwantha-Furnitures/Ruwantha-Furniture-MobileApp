@@ -1,6 +1,7 @@
 require("dotenv").config;
 const db = require("../../models");
 const Account = db.account;
+const online_customer = db.onlineCustomer;
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const { createTokens, validateTokens } = require("../../middleware/auth");
@@ -14,6 +15,7 @@ const LoginController = async (req, res) => {
     const account = await Account.findOne({
       where: { email: data.email },
     });
+    console.log(account);
     if (account === null) {
       res.json({
         auth: false,
@@ -24,7 +26,6 @@ const LoginController = async (req, res) => {
       const hashedPassword = account.password;
       const accountId = account.id;
       const userLevel = account.user_level;
-      console.log(userLevel);
       const passwordMatched = await bcrypt.compare(password, hashedPassword);
       if (!passwordMatched) {
         return res.json({
@@ -37,9 +38,14 @@ const LoginController = async (req, res) => {
           { userEmail, accountId },
           process.env.TOKEN_SECRET
         );
-        return res
-          .status(200)
-          .json({ auth: true, accessToken, userEmail, accountId, userLevel });
+
+        res.status(200).json({
+          auth: true,
+          accessToken,
+          userEmail,
+          accountId,
+          userLevel,
+        });
       }
     }
   } catch (error) {
@@ -47,4 +53,19 @@ const LoginController = async (req, res) => {
   }
 };
 
-module.exports = { LoginController };
+const getCustomerIdContrller = async (req, res) => {
+  const accountId = parseInt(req.params.accID);
+  console.log(accountId);
+  try {
+    const response = await online_customer.findOne({
+      where: { account_id: accountId },
+    });
+    const customerId = response.customer_id;
+    console.log(customerId);
+    res.status(200).json({ customerId });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { LoginController, getCustomerIdContrller };

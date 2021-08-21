@@ -19,7 +19,7 @@ db.customer = require("./customer.model")(sequelize, Sequelize);
 // // db.deliveries = require("./deliveries.model")(sequelize, Sequelize);
 // // db.order = require("./order.model")(sequelize, Sequelize);
 db.account = require("./account.model")(sequelize, Sequelize);
-// db.cart = require("./cart.model")(sequelize, Sequelize);
+db.cart = require("./cart.model")(sequelize, Sequelize);
 // // db.deliveryCharges = require("./deliveryCharges.model")(sequelize, Sequelize);
 db.onlineCustomer = require("./online_customer.model")(sequelize, Sequelize);
 // db.messages = require("./messages.model")(sequelize, Sequelize);
@@ -96,24 +96,24 @@ db.product.belongsTo(db.type, {
 // //   as: "deliveryDriver",
 // // });
 
-// // Foreign key for Cart
-// db.customer.hasOne(db.cart, {
-//   foreignKey: "customer_id",
-// });
+// Foreign key for Cart
+db.customer.hasOne(db.cart, {
+  foreignKey: "customer_id",
+});
 
-// db.cart.belongsTo(db.customer, {
-//   foreignKey: "customer_id",
-//   as: "customer",
-// });
+db.cart.belongsTo(db.customer, {
+  foreignKey: "customer_id",
+  as: "customer",
+});
 
-// db.product.hasMany(db.cart, {
-//   foreignKey: "product_id",
-// });
+db.product.hasMany(db.cart, {
+  foreignKey: "product_id",
+});
 
-// db.cart.belongsTo(db.product, {
-//   foreignKey: "product_id",
-//   as: "product",
-// });
+db.cart.belongsTo(db.product, {
+  foreignKey: "product_id",
+  as: "product",
+});
 
 // // Foreign key for delivery Driver
 // // db.account.hasOne(db.deliveryDriver, {
