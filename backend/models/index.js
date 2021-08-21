@@ -10,9 +10,9 @@ const db = {};
 db.Sequelize = sequelize;
 db.sequelize = sequelize;
 
-// db.category = require("./product_categories.model")(sequelize, Sequelize);
-// db.type = require("./type.model")(sequelize, Sequelize);
-// db.product = require("./product.model")(sequelize, Sequelize);
+db.category = require("./product_categories.model")(sequelize, Sequelize);
+db.type = require("./type.model")(sequelize, Sequelize);
+db.product = require("./product.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
 // // db.sellProduct = require("./sellProduct.model")(sequelize, Sequelize);
 // // db.deliveryDriver = require("./deliveryDriver.model")(sequelize, Sequelize);
@@ -28,25 +28,25 @@ db.onlineCustomer = require("./online_customer.model")(sequelize, Sequelize);
 // // db.productReview = require("./productReview.model")(sequelize, Sequelize);
 // // db.resetToken = require("./resetToken.model")(sequelize, Sequelize);
 
-// // Foreign key for types
-// // db.category.hasMany(db.type, {
-// //   foreignKey: "category_id",
-// // });
+// Foreign key for types
+db.category.hasMany(db.type, {
+  foreignKey: "category_id",
+});
 
-// db.type.belongsTo(db.category, {
-//   foreignKey: "category_id",
-//   as: "category",
-// });
+db.type.belongsTo(db.category, {
+  foreignKey: "category_id",
+  as: "category",
+});
 
-// // Foreign key for product
-// db.type.hasMany(db.product, {
-//   foreignKey: "type_id",
-// });
+// Foreign key for product
+db.type.hasMany(db.product, {
+  foreignKey: "type_id",
+});
 
-// db.product.belongsTo(db.type, {
-//   foreignKey: "type_id",
-//   as: "type",
-// });
+db.product.belongsTo(db.type, {
+  foreignKey: "type_id",
+  as: "type",
+});
 
 // // // Foreign key for order
 // // db.product.hasMany(db.sellProduct, {

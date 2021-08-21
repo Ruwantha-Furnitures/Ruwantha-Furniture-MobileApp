@@ -31,6 +31,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   //fetching the products
   const fetchProducts = async () => {
     try {
+      console.log("Fetch All Products");
       const response = await axios.get(`${API_URL}products/`);
       const productsResult = response.data;
       console.log(productsResult.data);

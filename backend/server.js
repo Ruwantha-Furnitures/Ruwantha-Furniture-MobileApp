@@ -6,10 +6,10 @@ const app = express();
 const cors = require("cors");
 const db = require("./models");
 
-const { customerRouter } = require("./routes/customers.js");
-const { productRouter } = require("./routes/products.js");
-const { contactUsRouter } = require("./routes/contactus.js");
-const { cartRouter } = require("./routes/cart.js");
+const { customerRouter } = require("./routes/customers.route.js");
+const { productRouter } = require("./routes/products.route.js");
+const { contactUsRouter } = require("./routes/contactus.route.js");
+const { cartRouter } = require("./routes/cart.route.js");
 
 app.use(cors());
 app.use(express.json());
@@ -31,6 +31,6 @@ async function connectDB() {
       console.log("Application is running on the port 3002");
     });
   } catch (error) {
-    console.log("error");
+    console.log("error", error);
   }
 }

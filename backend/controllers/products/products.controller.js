@@ -1,9 +1,10 @@
-const { products } = require("../../models");
+const db = require("../../models");
+const Product = db.product;
 
 const getAllProducts = async (req, res) => {
   try {
-    console.log("response");
-    const data = await products.findAll();
+    console.log("Fetch Products");
+    const data = await Product.findAll();
     console.log(data);
     res.status(200).json({ data });
   } catch (error) {
