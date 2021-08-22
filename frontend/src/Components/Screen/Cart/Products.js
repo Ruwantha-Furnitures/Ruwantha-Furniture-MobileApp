@@ -7,7 +7,7 @@ const Products = ({ products, addToCart }) => {
     <View style={styles.productContainer}>
       <FlatList
         data={products}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Product item={item} />}
       />
     </View>

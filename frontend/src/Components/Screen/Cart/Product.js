@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,17 +9,28 @@ import {
 } from "react-native";
 import Card from "../../UI/Card";
 import * as All from "../Products/ALLImages";
+import { API_URL } from "react-native-dotenv";
 import { MaterialIcons } from "@expo/vector-icons";
-import { CartContext } from "../../Reducers/cartReducer";
+import axios from "axios";
 
 const Product = ({ item }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
-  const cartContext = useContext(CartContext);
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+
+  const fetchSingleProduct = async () => {
+    try {
+      console.log("Inside product cart useedIn");
+      const { id } = item.response;
+      console.log(id);
+      let response = await axios.get(`${API_URL}/cart/getProduct/${id}`);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    console.log("Inside the useEffect");
-    console.log(item);
+    fetchSingleProduct();
   }, [item]);
 
   const increment = (item) => {
