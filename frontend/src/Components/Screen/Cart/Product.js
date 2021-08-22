@@ -13,7 +13,7 @@ import { API_URL } from "react-native-dotenv";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 
-const Product = ({ item }) => {
+const Product = ({ item, removeCartProduct }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const [id, setId] = useState();
@@ -47,7 +47,7 @@ const Product = ({ item }) => {
 
   const increment = async (item) => {
     try {
-      console.log(item);
+      // console.log(item);
       setQuantity(quantity + 1);
       const curQty = quantity + 1;
       const id = item.id;
@@ -57,11 +57,26 @@ const Product = ({ item }) => {
         `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
         { quantity: curQty }
       );
-    } catch (error) {}
-    console.log(item.quantity);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const decrement = (item) => {
-    console.log(item);
+  const decrement = async (item) => {
+    try {
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+        const curQty = quantity - 1;
+        const id = item.id;
+        const customerId = item.customer_id;
+        const type = "increment";
+        let qtyResponse = await axios.put(
+          `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
+          { quantity: curQty }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -95,7 +110,10 @@ const Product = ({ item }) => {
             >
               <Text style={styles.btnIcon}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnDelete}>
+            <TouchableOpacity
+              style={styles.btnDelete}
+              onPress={() => removeCartProduct(item)}
+            >
               <View>
                 <MaterialIcons name="delete" size={30} color="black" />
               </View>

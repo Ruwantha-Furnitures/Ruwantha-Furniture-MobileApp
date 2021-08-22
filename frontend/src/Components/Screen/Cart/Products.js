@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Product from "./Product";
 
-const Products = ({ products, addToCart }) => {
+const Products = ({ products, addToCart, removeCartProduct }) => {
   useEffect(() => {
     console.log("Inside cart products");
     console.log(products);
@@ -12,7 +12,9 @@ const Products = ({ products, addToCart }) => {
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Product item={item} />}
+        renderItem={({ item }) => (
+          <Product item={item} removeCartProduct={removeCartProduct} />
+        )}
       />
     </View>
   );

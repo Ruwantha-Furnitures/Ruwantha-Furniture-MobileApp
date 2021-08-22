@@ -29,8 +29,27 @@ const CartScreen = ({ navigation, route }) => {
   useEffect(() => {
     console.log("Pagere renders");
     fetchCartItems();
-  }, [route]);
+  }, [route, setCartItems]);
 
+  const removeCartProduct = async (product) => {
+    console.log("Product has removed from cart");
+    // console.log(product);
+    const { id } = product;
+    try {
+      const deleteProduct = await axios.delete(
+        `${API_URL}cart/deleteCartProduct/${id}`
+      );
+      if (deleteProduct.data.state === "deleted") {
+        console.log("deleted");
+        const newCartArr = cartItems.filter((product) => product.id === id);
+        setCartItems(newCartArr);
+        console.log(newCartArr);
+        console.log(cartItems);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // useFocusEffect(
   //   React.useCallback(() => {
   //     console.log("React new effect");
@@ -41,7 +60,10 @@ const CartScreen = ({ navigation, route }) => {
       <View style={styles.viewContainer}>
         <Header />
         {cartItems.length > 0 ? (
-          <Products products={cartItems} />
+          <Products
+            products={cartItems}
+            removeCartProduct={removeCartProduct}
+          />
         ) : (
           <Text>No Items has been added to the cart</Text>
         )}

@@ -37,14 +37,27 @@ const UpdateCartController = async (req, res) => {
   }
 };
 
-const DeleteCartController = () => {};
+const DeleteCartController = async (req, res) => {
+  const { cartId } = req.params;
+  try {
+    const deleteCart = await Cart.update(
+      { is_deleted: true },
+      { where: { id: cartId } }
+    );
+    res
+      .status(200)
+      .json({ state: "deleted", message: "Cart Item has been deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const GetCartItemsController = async (req, res) => {
   const { customerId } = req.params;
   console.log(customerId);
   try {
     const response = await Cart.findAll({
-      where: { customer_id: customerId },
+      where: { customer_id: customerId, is_deleted: 0 },
     });
     console.log(response);
     res.status(200).json({ cartItems: response });
