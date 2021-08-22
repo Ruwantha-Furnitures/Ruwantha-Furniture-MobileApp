@@ -19,6 +19,7 @@ const ProductStackNav = () => {
         },
         headerTintColor: "#fff",
         headerTitle: "",
+        initialRouteName: "Products",
       }}
     >
       <ProductStack.Screen name="Products" component={ProductsScreen} />

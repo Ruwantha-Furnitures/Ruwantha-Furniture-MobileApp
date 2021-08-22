@@ -16,6 +16,7 @@ import axios from "axios";
 const Product = ({ item }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
+  const [id, setId] = useState();
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState();
@@ -42,17 +43,22 @@ const Product = ({ item }) => {
     fetchSingleProduct();
   }, [item]);
 
-  const increment = (item) => {
-    console.log("clicked");
-    cartContext.dispatchCart({
-      type: "increment",
-      payload: {
-        itemId: item.itemId,
-        quantity: parseInt(item.quantity) + 1,
-        price: item.price,
-        name: item.name,
-      },
-    });
+  const updateQuantity = async () => {};
+
+  const increment = async (item) => {
+    try {
+      console.log(item);
+      setQuantity(quantity + 1);
+      const curQty = quantity + 1;
+      const id = item.id;
+      const customerId = item.customer_id;
+      const type = "increment";
+      let qtyResponse = await axios.put(
+        `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
+        { quantity: curQty }
+      );
+    } catch (error) {}
+    console.log(item.quantity);
   };
   const decrement = (item) => {
     console.log(item);

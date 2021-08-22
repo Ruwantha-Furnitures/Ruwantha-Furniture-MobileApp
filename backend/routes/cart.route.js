@@ -14,5 +14,6 @@ const {
 router.get("/:customerId", GetCartItemsController);
 router.post("/addToCart", AddToCartController);
 router.get("/getProduct/:productId", getOneProductController);
-
+router.put("/updateCartProduct/:productId/:customerId", UpdateCartController);
+router.delete("deleteCartProduct/:customerId", DeleteCartController);
 module.exports = { cartRouter: router };

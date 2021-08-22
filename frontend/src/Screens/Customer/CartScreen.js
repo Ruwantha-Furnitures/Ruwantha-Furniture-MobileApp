@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Cart/Products";
+import { useFocusEffect } from "@react-navigation/native";
 import ProductPrice from "../../Components/Screen/Cart/ProductPrice";
 import { CartContext } from "../../Components/Reducers/cartReducer";
 import axios from "axios";
@@ -29,6 +30,12 @@ const CartScreen = ({ navigation, route }) => {
     console.log("Pagere renders");
     fetchCartItems();
   }, [route]);
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     console.log("React new effect");
+  //   }, [])
+  // );
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>

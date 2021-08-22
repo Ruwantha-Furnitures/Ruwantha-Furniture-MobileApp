@@ -27,6 +27,7 @@ const HomeStackNav = () => {
         },
         headerTintColor: "#fff",
         headerTitle: "",
+        initialRouteName: "Home",
       }}
     >
       <HomeStack.Screen name="Home" component={HomeScreen} />
