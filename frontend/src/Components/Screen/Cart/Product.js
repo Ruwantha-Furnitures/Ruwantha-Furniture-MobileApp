@@ -18,15 +18,24 @@ const Product = ({ item }) => {
   const mobileHeight = Dimensions.get("window").height;
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState();
 
   const fetchSingleProduct = async () => {
     try {
-      console.log("Inside product cart useedIn");
-      const { id } = item.response;
-      console.log(id);
-      let response = await axios.get(`${API_URL}/cart/getProduct/${id}`);
-    } catch (error) {}
+      // console.log("Inside product cart useedIn");
+      // console.log(item);
+      // console.log(item.product_id);
+      const id = item.product_id;
+      let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
+      // console.log("response: ");
+      // console.log(response);
+      const { name, price } = response.data.product;
+      setName(name);
+      setQuantity(item.quantity);
+      setPrice(price);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -59,10 +68,13 @@ const Product = ({ item }) => {
       bg="#FFF"
     >
       <View style={styles.productContainer}>
-        <Image source={All[`Image${item.itemId}`]} style={styles.itemImage} />
+        <Image
+          source={All[`Image${item.product_id}`]}
+          style={styles.itemImage}
+        />
         <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>{item.name}</Text>
-          <Text style={styles.itemPrice}>{`${item.price} /=`}</Text>
+          <Text style={styles.itemName}>{name}</Text>
+          <Text style={styles.itemPrice}>{`${price} /=`}</Text>
           <View style={styles.btnContainer}>
             <TouchableOpacity
               style={styles.btn}
@@ -70,7 +82,7 @@ const Product = ({ item }) => {
             >
               <Text style={styles.btnMinIcon}>-</Text>
             </TouchableOpacity>
-            <Text style={styles.itemQuantity}>{item.quantity}</Text>
+            <Text style={styles.itemQuantity}>{quantity}</Text>
             <TouchableOpacity
               style={styles.btn}
               onPress={() => increment(item)}

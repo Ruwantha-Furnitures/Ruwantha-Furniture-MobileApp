@@ -11,8 +11,13 @@ const getAllProducts = async (req, res) => {
 };
 
 const getOneProduct = async (req, res) => {
+  console.log("Inside the product");
   console.log(req.params.productId);
   try {
+    const product = await Product.findOne({
+      where: { id: req.params.productId },
+    });
+    res.status(200).json({ product });
   } catch (error) {
     console.error(error);
   }

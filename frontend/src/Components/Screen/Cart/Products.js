@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Product from "./Product";
 
 const Products = ({ products, addToCart }) => {
+  useEffect(() => {
+    console.log("Inside cart products");
+    console.log(products);
+  }, [products]);
   return (
     <View style={styles.productContainer}>
       <FlatList

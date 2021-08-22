@@ -21,11 +21,11 @@ const GetCartItemsController = async (req, res) => {
   const { customerId } = req.params;
   console.log(customerId);
   try {
-    const response = await Cart.findOne({
+    const response = await Cart.findAll({
       where: { customer_id: customerId },
     });
     console.log(response);
-    res.status(200).json({ response });
+    res.status(200).json({ cartItems: response });
   } catch (error) {
     console.log(error);
   }

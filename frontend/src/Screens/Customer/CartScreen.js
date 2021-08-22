@@ -8,7 +8,7 @@ import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
 
-const CartScreen = ({ navigation }) => {
+const CartScreen = ({ navigation, route }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const fetchCartItems = async () => {
@@ -16,7 +16,10 @@ const CartScreen = ({ navigation }) => {
       const customerId = await SecureStore.getItemAsync("customer_id");
       const customer_id = parseInt(customerId);
       const response = await axios.get(`${API_URL}cart/${customer_id}`);
-      setCartItems([...cartItems, response.data]);
+      console.log("response");
+      console.log(response.data.cartItems);
+      setCartItems(response.data.cartItems);
+      console.log("array");
       console.log(cartItems);
     } catch (error) {
       console.log(error);
@@ -25,7 +28,7 @@ const CartScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("Pagere renders");
     fetchCartItems();
-  }, []);
+  }, [route]);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>

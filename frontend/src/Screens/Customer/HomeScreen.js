@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
   //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
-      <TouchableOpacity onPress={() => navigate("Cart")}>
+      <TouchableOpacity onPress={() => navigate("Cart", { test: 123 })}>
         <AntDesign
           style={styles.cart}
           name="shoppingcart"
