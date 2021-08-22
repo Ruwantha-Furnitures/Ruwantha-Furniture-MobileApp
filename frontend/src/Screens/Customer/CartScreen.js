@@ -40,11 +40,8 @@ const CartScreen = ({ navigation, route }) => {
         `${API_URL}cart/deleteCartProduct/${id}`
       );
       if (deleteProduct.data.state === "deleted") {
-        console.log("deleted");
         const newCartArr = cartItems.filter((product) => product.id === id);
         setCartItems(newCartArr);
-        console.log(newCartArr);
-        console.log(cartItems);
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +64,7 @@ const CartScreen = ({ navigation, route }) => {
         ) : (
           <Text>No Items has been added to the cart</Text>
         )}
-        {/* <ProductPrice navigation={navigation} /> */}
+        <ProductPrice navigation={navigation} cartItems={cartItems} />
       </View>
     </ScrollView>
   );

@@ -23,13 +23,8 @@ const Product = ({ item, removeCartProduct }) => {
 
   const fetchSingleProduct = async () => {
     try {
-      // console.log("Inside product cart useedIn");
-      // console.log(item);
-      // console.log(item.product_id);
       const id = item.product_id;
       let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
-      // console.log("response: ");
-      // console.log(response);
       const { name, price } = response.data.product;
       setName(name);
       setQuantity(item.quantity);
