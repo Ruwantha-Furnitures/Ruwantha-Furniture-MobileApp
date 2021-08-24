@@ -20,7 +20,7 @@ app.use("/armagic/api/customer", customerRouter);
 app.use("/armagic/api/products", productRouter);
 app.use("/armagic/api/contactus", contactUsRouter);
 app.use("/armagic/api/cart", cartRouter);
-app.use("armagic/api/payments", paymentRouter);
+app.use("/armagic/api/payments", paymentRouter);
 
 const PORT = process.env.PORT;
 
