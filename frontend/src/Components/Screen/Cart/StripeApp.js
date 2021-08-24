@@ -5,12 +5,22 @@ import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import FormAppButton from "../../UI/FormAppButton";
+import { API_URL } from "react-native-dotenv";
+import axios from "axios";
 const StripeApp = () => {
   const [email, setEmail] = useState();
   const [card, setCard] = useState();
   const { confirmPayment, loading } = useConfirmPayment();
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
+
+  const fetchPaymentIntentClientSecret = async () => {
+    const response = await axios.post(
+      `${API_URL}payment/create-payment-intent`
+    );
+    console.log(response.data.clientSecret);
+  };
+
   const paymentHandler = async () => {
     console.log("payment submitted");
     //Gather the billing information has been added

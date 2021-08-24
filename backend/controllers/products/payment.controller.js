@@ -1,4 +1,6 @@
 const db = require("../../models");
+const SECRET_KEY = process.env.SECRET_KEY;
+const stripe = require("stripe")(SECRET_KEY, { apiVersion: "2020-08-27" });
 const DeliveryCharges = db.deliveryCharges;
 const ShippingDetails = db.shippingDetails;
 const getAllDistrictsChargesController = async (req, res) => {
@@ -38,7 +40,22 @@ const shippingDetailsController = async (req, res) => {
   }
 };
 
+const paymentIntentController = async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 1000,
+      currency: "LKR",
+      payment_method_types: ["card"],
+    });
+    const clientSecret = paymentIntent.client_secret;
+    res.status(200).json({ clientSecret });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getAllDistrictsChargesController,
   shippingDetailsController,
+  paymentIntentController,
 };
