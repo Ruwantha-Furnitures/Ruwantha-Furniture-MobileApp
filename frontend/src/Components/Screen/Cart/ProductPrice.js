@@ -54,27 +54,6 @@ const ProductPrice = ({ navigation, cartItems }) => {
   useEffect(() => {
     fetchProductPriceItems();
   }, [cartItems]);
-  // const [productsDetail, sellProductDetails] = useState([]);
-  // useEffect(() => {
-  //   console.log("Inside price");
-  //   const fetchProduct = async (req, res) => {
-  //     for (let i = 0; i < cartItems.length; i++) {
-  //       let id = cartItems[i].product_id;
-  //       let quantity = cartItems[i].quantity;
-  //       let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
-  //       const { name, price } = response.data.product;
-  //       const productPrice = price * quantity;
-  //       console.log(productPrice);
-  //       const data = { id, name, productPrice };
-  //       const result = productsDetail.some((product) => product.id === id);
-  //       if (!result && i >= 0) {
-  //         sellProductDetails((prevState) => [...prevState, data]);
-  //       }
-  //       console.log(productsDetail);
-  //     }
-  //   };
-  //   fetchProduct();
-  // }, []);
   return (
     <View style={{ width: mobileWidth }}>
       <Card width={mobileWidth} pd={7} fd="row" bg="#343899">

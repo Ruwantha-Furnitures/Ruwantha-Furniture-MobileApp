@@ -14,17 +14,17 @@ db.category = require("./product_categories.model")(sequelize, Sequelize);
 db.type = require("./type.model")(sequelize, Sequelize);
 db.product = require("./product.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
-// // db.sellProduct = require("./sellProduct.model")(sequelize, Sequelize);
+db.sellProduct = require("./sellProduct.model")(sequelize, Sequelize);
 // // db.deliveryDriver = require("./deliveryDriver.model")(sequelize, Sequelize);
 // // db.deliveries = require("./deliveries.model")(sequelize, Sequelize);
-// // db.order = require("./order.model")(sequelize, Sequelize);
+db.order = require("./order.model")(sequelize, Sequelize);
 db.account = require("./account.model")(sequelize, Sequelize);
 db.cart = require("./cart.model")(sequelize, Sequelize);
-// // db.deliveryCharges = require("./deliveryCharges.model")(sequelize, Sequelize);
+db.deliveryCharges = require("./deliveryCharges.model")(sequelize, Sequelize);
 db.onlineCustomer = require("./online_customer.model")(sequelize, Sequelize);
 // db.messages = require("./messages.model")(sequelize, Sequelize);
 // // db.payments = require("./payments.model")(sequelize, Sequelize);
-// // db.shippingDetails = require("./shippingDetails.model")(sequelize, Sequelize);
+db.shippingDetails = require("./shippingDetails.model")(sequelize, Sequelize);
 // // db.productReview = require("./productReview.model")(sequelize, Sequelize);
 // // db.resetToken = require("./resetToken.model")(sequelize, Sequelize);
 
@@ -49,23 +49,23 @@ db.product.belongsTo(db.type, {
 });
 
 // // // Foreign key for order
-// // db.product.hasMany(db.sellProduct, {
-// //   foreignKey: "product_id",
-// // });
+db.product.hasMany(db.sellProduct, {
+  foreignKey: "product_id",
+});
 
-// // db.sellProduct.belongsTo(db.product, {
-// //   foreignKey: "product_id",
-// //   as: "product",
-// // });
+db.sellProduct.belongsTo(db.product, {
+  foreignKey: "product_id",
+  as: "product",
+});
 
-// // db.order.hasMany(db.sellProduct, {
-// //   foreignKey: "order_id",
-// // });
+db.order.hasMany(db.sellProduct, {
+  foreignKey: "order_id",
+});
 
-// // db.sellProduct.belongsTo(db.order, {
-// //   foreignKey: "order_id",
-// //   as: "order",
-// // });
+db.sellProduct.belongsTo(db.order, {
+  foreignKey: "order_id",
+  as: "order",
+});
 
 // // Foreign key for invoice
 // // db.customer.hasMany(db.order, {
@@ -154,24 +154,24 @@ db.onlineCustomer.belongsTo(db.account, {
 // //   as: "order",
 // // });
 
-// // Foreign key for shipping Details
-// // db.deliveryCharges.hasOne(db.shippingDetails, {
-// //   foreignKey: "charge_id",
-// // });
+// Foreign key for shipping Details
+db.deliveryCharges.hasOne(db.shippingDetails, {
+  foreignKey: "charge_id",
+});
 
-// // db.shippingDetails.belongsTo(db.deliveryCharges, {
-// //   foreignKey: "charge_id",
-// //   as: "deliveryCharge",
-// // });
+db.shippingDetails.belongsTo(db.deliveryCharges, {
+  foreignKey: "charge_id",
+  as: "deliveryCharge",
+});
 
-// // db.order.hasOne(db.shippingDetails, {
-// //   foreignKey: "order_id",
-// // });
+db.order.hasOne(db.shippingDetails, {
+  foreignKey: "order_id",
+});
 
-// // db.shippingDetails.belongsTo(db.order, {
-// //   foreignKey: "order_id",
-// //   as: "order",
-// // });
+db.shippingDetails.belongsTo(db.order, {
+  foreignKey: "order_id",
+  as: "order",
+});
 
 // // Foreign key for product Review
 // // db.product.hasMany(db.productReview, {

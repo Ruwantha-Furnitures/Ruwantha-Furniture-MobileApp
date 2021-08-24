@@ -5,6 +5,8 @@ import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
 import TermsConditionsModal from "../../UI/TermsConditionsModal";
 import FormAppButton from "../../UI/FormAppButton";
+import { Picker } from "@react-native-picker/picker";
+import axios from "axios";
 const mobileWidth = Dimensions.get("window").width;
 
 const UserDetails = () => {
@@ -21,8 +23,6 @@ const UserDetails = () => {
       <React.Fragment>
         <SubHeader title="Shipping Details" width={mobileWidth / 1.3} />
         <Input placeholder="Enter Your Address" name="textarea" />
-        <Input placeholder="Enter Your City" />
-        <Input placeholder="Enter Your Postal Code" />
       </React.Fragment>
       <View style={styles.conditions}>
         <Checkbox
