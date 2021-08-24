@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, FlatList } from "react-native";
 import Checkbox from "expo-checkbox";
 import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
@@ -10,51 +10,72 @@ import axios from "axios";
 const mobileWidth = Dimensions.get("window").width;
 
 const UserDetails = ({ districts }) => {
+  // const [allDistricts, setAllDistricts] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [telephoneNumber, setTelephoneNumber] = useState("");
   const [address, setAddress] = useState("");
-  const [deliveryAmount, setDeliveryAmount] = useState("");
-  const [district, setDistrict] = useState("");
+  // const [deliveryAmount, setDeliveryAmount] = useState("");
+  const [district, setDistrict] = useState(districts[0].area);
+  const [deliveryDetails, setDeliveryDetails] = useState(null);
   // useEffect(() => {
-  //   console.log(districts);
+  //   setAllDistricts(districts);
   // }, []);
 
-  const deliveryChargeHandler = (item) => {
-    setDistrict(item.area);
-    setDeliveryAmount(item.amount);
-    console.log(district);
-    console.log(deliveryAmount);
-  };
+  const deliveryChargeHandler = districts.map((location) => {
+    return (
+      <Picker.Item label={location.area} value={location} key={location.id} />
+    );
+  });
+
   return (
     <React.Fragment>
       <React.Fragment>
         <SubHeader title="Personal Information" width={mobileWidth / 1.3} />
-        <Input placeholder="Enter Your First Name" />
-        <Input placeholder="Enter Your Last Name" />
-        <Input placeholder="Enter Your Telephone Number" />
+        <Input
+          placeholder="Enter Your First Name"
+          value={firstName}
+          onChangeText={(firstName) => setFirstName(firstName)}
+        />
+        <Input
+          placeholder="Enter Your Last Name"
+          value={lastName}
+          onChangeText={(lastName) => setLastName}
+        />
+        <Input
+          placeholder="Enter Your Telephone Number"
+          value={telephoneNumber}
+          onChangeText={(telephoneNumber) =>
+            setTelephoneNumber(telephoneNumber)
+          }
+        />
       </React.Fragment>
       <React.Fragment>
         <SubHeader title="Shipping Details" width={mobileWidth / 1.3} />
-        <Input placeholder="Enter Your Address" name="textarea" />
+        <Input
+          placeholder="Enter Your Address"
+          name="textarea"
+          value={address}
+          onChangeText={(address) => setAddress(address)}
+        />
         <Picker
           style={styles.nameSelect}
           selectedValue={district}
-          onValueChange={(itemValue, itemIndex) =>
-            deliveryChargeHandler(itemValue)
-          }
+          // value={
+          //   deliveryDetails === null ? "Select your area" : deliveryDetails.area
+          // }
+          onValueChange={(itemValue, itemIndex) => {
+            console.log(itemValue);
+            setDeliveryDetails(itemValue);
+            setDistrict(itemValue.area);
+          }}
           mode="dropdown"
         >
-          {districts.map((district) => (
-            <Picker.Item
-              label={district.area}
-              value={district}
-              key={district.id}
-            />
-          ))}
+          {deliveryChargeHandler}
         </Picker>
       </React.Fragment>
+
       <View style={styles.conditions}>
         <Checkbox
           style={styles.checkbox}

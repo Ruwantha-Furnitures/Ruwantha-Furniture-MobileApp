@@ -9,5 +9,6 @@ const {
 } = require("../controllers/products/payment.controller");
 
 router.get("/deliveryCharges", getAllDistrictsChargesController);
+router.post("/shippingDetails", shippingDetailsController);
 
 module.exports = { paymentRouter: router };

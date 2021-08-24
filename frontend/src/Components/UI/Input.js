@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 20,
     marginHorizontal: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 25,
     paddingTop: 20,
-    fontSize: 15,
+    fontSize: 18,
     textAlignVertical: "top",
   },
 });
