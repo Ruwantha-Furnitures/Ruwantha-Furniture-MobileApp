@@ -7,6 +7,7 @@ import SignUpScreen from "../Screens/Customer/SignUpScreen";
 import MoreDetailsScreen from "../Screens/Customer/MoreDetailsScreen";
 import CartScreen from "../Screens/Customer/CartScreen";
 import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
+import StripeAppScreen from "../Screens/Customer/StripeAppScreen";
 
 const ProductStack = createStackNavigator();
 const ProductStackNav = () => {
@@ -19,6 +20,7 @@ const ProductStackNav = () => {
         },
         headerTintColor: "#fff",
         headerTitle: "",
+        initialRouteName: "Products",
       }}
     >
       <ProductStack.Screen name="Products" component={ProductsScreen} />
@@ -28,6 +30,7 @@ const ProductStackNav = () => {
       <ProductStack.Screen name="Sign Up" component={SignUpScreen} />
       <ProductStack.Screen name="Cart" component={CartScreen} />
       <ProductStack.Screen name="CheckOut" component={CheckOutScreen} />
+      <ProductStack.Screen name="StripeApp" component={StripeAppScreen} />
     </ProductStack.Navigator>
   );
 };

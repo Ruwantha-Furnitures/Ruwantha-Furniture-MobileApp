@@ -81,8 +81,6 @@ const HomeScreen = () => {
               <Text style={styles.itemPrice}>50</Text>
             </View>
           </Card>
-      </Card>
-     
         </View>
         <View style={{ flexDirection: "row" }}>
           <Card

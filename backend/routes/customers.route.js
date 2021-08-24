@@ -3,7 +3,10 @@ const mysql = require("mysql");
 
 const router = express.Router();
 
-const { LoginController } = require("../controllers/customer/login.controller");
+const {
+  LoginController,
+  getCustomerIdContrller,
+} = require("../controllers/customer/login.controller");
 
 const {
   SignUpController,
@@ -19,6 +22,7 @@ const {
 
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
+router.get("/login/:accID", getCustomerIdContrller);
 router.get("/viewprofile/:accID", ViewProfileController);
 router.put("/viewprofile/:accID", UpdateProfileController);
 

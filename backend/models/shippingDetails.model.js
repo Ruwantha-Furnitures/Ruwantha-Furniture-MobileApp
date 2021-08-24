@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-  const Customer = sequelize.define("customers", {
+  const ShippingDetail = sequelize.define("shipping_details", {
     first_name: {
       type: Sequelize.STRING,
     },
     last_name: {
       type: Sequelize.STRING,
     },
-    address: {
+    shipping_address: {
       type: Sequelize.STRING,
     },
     contact_number: {
@@ -18,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  return Customer;
+  return ShippingDetail;
 };

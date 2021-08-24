@@ -16,6 +16,7 @@ import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { API_URL } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
 let ScreenHeight = Dimensions.get("window").height;
@@ -30,6 +31,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   //fetching the products
   const fetchProducts = async () => {
     try {
+      console.log("Fetch All Products");
       const response = await axios.get(`${API_URL}products/`);
       const productsResult = response.data;
       console.log(productsResult.data);
@@ -45,6 +47,21 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       const response = await axios.get(`${API_URL}products/categories`);
       const categoryResult = response.data.result;
       setCategories(categoryResult);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addToCart = async (product) => {
+    try {
+      const { id } = product;
+      const customerId = await SecureStore.getItemAsync("customer_id");
+      const customer_id = parseInt(customerId);
+      console.log(customer_id);
+      const data = { product_id: id, customer_id, quantity: 1 };
+      let response = await axios.post(`${API_URL}cart/addToCart`, {
+        data,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -99,6 +116,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
             navigate={navigate}
             products={products}
             categories={categories}
+            addToCart={addToCart}
           />
         )}
       </View>

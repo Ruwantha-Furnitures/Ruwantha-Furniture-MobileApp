@@ -11,11 +11,12 @@ import {
 import SubHeader from "../../Header/SubHeader";
 import AppButton from "../../UI/AppButton";
 import Card from "../../UI/Card";
+import * as All from "../Products/ALLImages";
 
 const mobileWidth = Dimensions.get("window").width;
 const newItemWidth = (mobileWidth - 104) / 2;
 
-const NewArrival = () => {
+const NewArrival = ({ newProducts, navigate }) => {
   console.log(mobileWidth + "mm");
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const data = [
@@ -67,13 +68,19 @@ const NewArrival = () => {
         bg="#E7E5E9"
       >
         <Image
-          source={item.url}
+          source={All[`Image${item.id}`]}
           style={{ width: 70, height: 70, borderRadius: 40 }}
         />
         <View style={styles.detailContainer}>
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>{`${item.price}/=`}</Text>
-          <AppButton title="More Details" width={80} />
+          <AppButton
+            title="More Details"
+            width={80}
+            onPress={() => {
+              navigate("More Details", { item });
+            }}
+          />
         </View>
       </Card>
     );
@@ -86,7 +93,7 @@ const NewArrival = () => {
           contentContainerStyle={{ paddingRight: 20 }}
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={data}
+          data={newProducts}
           snapToInterval={newItemWidth + 22}
           decelerationRate={0}
           snapToAlignment={"center"}

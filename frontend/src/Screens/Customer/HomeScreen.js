@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { API_URL } from "react-native-dotenv";
 import {
   View,
@@ -16,14 +16,28 @@ import Intro from "../../Components/Screen/Home/Intro";
 import NewArrival from "../../Components/Screen/Home/NewArrival";
 import CustomIntro from "../../Components/Screen/Home/CustomIntro";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
+  const [newProducts, setNewProducts] = useState([]);
 
+  useEffect(() => {
+    const fetchNewProducts = async () => {
+      try {
+        let response = await axios.get(`${API_URL}products/newProducts`);
+        setNewProducts(response.data.newProducts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchNewProducts();
+  }, []);
   //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
-      <TouchableOpacity onPress={() => navigate("Cart")}>
+      <TouchableOpacity onPress={() => navigate("Cart", { test: 123 })}>
         <AntDesign
           style={styles.cart}
           name="shoppingcart"
@@ -58,7 +72,12 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Intro navigate={navigate} />
-        <NewArrival />
+        {newProducts.length > 0 ? (
+          <NewArrival newProducts={newProducts} navigate={navigate} />
+        ) : (
+          <Text>Products are Loading</Text>
+        )}
+
         <CustomIntro />
         <Contact />
       </View>

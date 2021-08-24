@@ -1,25 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
+import axios from "axios";
+import { API_URL } from "react-native-dotenv";
 
-const ProductPrice = ({ navigation }) => {
+const ProductPrice = ({ navigation, cartItems }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
+  const [productsDetail, sellProductDetails] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
+  const fetchProductPriceItems = async () => {
+    console.log("fetching products");
+    console.log(cartItems);
+    setIsLoading(true);
+    setDataLoaded(false);
+    for (let i = 0; i < cartItems.length; i++) {
+      let id = cartItems[i].product_id;
+      let quantity = cartItems[i].quantity;
+      let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
+      const { name, price } = response.data.product;
+      const productPrice = price * quantity;
+      console.log(productPrice);
+      const data = { id, name, productPrice };
+      const result = productsDetail.some((product) => product.id === id);
+      console.log(productsDetail);
+      console.log(result, i);
+      if (result) {
+        let ids = productsDetail.map((o) => o.id);
+        let filtered = productsDetail.filter(
+          ({ id }, index) => !ids.includes(id, index + 1)
+        );
+        console.log("filtered products");
+        // sellProductDetails((prevState) => [...prevState, data]);
+        sellProductDetails(filtered);
+        setIsLoading(false);
+        setDataLoaded(true);
+
+        console.log(filtered);
+      }
+      if (!result && i >= 0) {
+        console.log("result: " + JSON.stringify(result));
+        sellProductDetails((prevState) => [...prevState, data]);
+        setIsLoading(false);
+        setDataLoaded(true);
+        console.log(productsDetail);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchProductPriceItems();
+  }, [cartItems]);
   return (
-    <View style={styles.priceContainer}>
+    <View style={{ width: mobileWidth }}>
       <Card width={mobileWidth} pd={7} fd="row" bg="#343899">
         <View style={styles.products}>
           <Text style={styles.subHeader}>Selected Items</Text>
-          <View style={styles.productDetail}>
-            <Text style={styles.productName}>Wooden Dining Chair</Text>
-            <Text style={styles.productPrice}>Rs.6875 /=</Text>
-          </View>
-          <View style={styles.productDetail}>
-            <Text style={styles.productName}>Total Price</Text>
-            <Text style={styles.productPrice}>Rs.6875 /=</Text>
-          </View>
+          {productsDetail.length > 0 ? (
+            productsDetail.map((cartItem) => (
+              <View style={styles.productDetail} key={cartItem.id}>
+                <Text style={styles.productName}>{cartItem.name}</Text>
+                <Text
+                  style={styles.productPrice}
+                >{`Rs${cartItem.productPrice}/=`}</Text>
+              </View>
+            ))
+          ) : (
+            <Text>0</Text>
+          )}
+
           <View style={styles.checkoutButton}>
             <AppButton
               title="Checkout"
@@ -35,10 +87,6 @@ const ProductPrice = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  priceContainer: {
-    position: "absolute",
-    bottom: 166,
-  },
   subHeader: {
     letterSpacing: 3,
     marginTop: 10,

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Category = sequelize.define("product_categories", {
+  const Type = sequelize.define("product_types", {
     name: {
       type: Sequelize.STRING,
     },
@@ -9,5 +9,5 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  return Category;
+  return Type;
 };

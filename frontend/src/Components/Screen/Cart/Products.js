@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Product from "./Product";
 
-const Products = ({ products }) => {
+const Products = ({ products, addToCart, removeCartProduct }) => {
+  useEffect(() => {
+    console.log("Inside cart products");
+    console.log(products);
+  }, [products]);
   return (
     <View style={styles.productContainer}>
       <FlatList
         data={products}
-        keyExtractor={(item) => item.itemId}
-        renderItem={({ item }) => <Product item={item} />}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Product item={item} removeCartProduct={removeCartProduct} />
+        )}
       />
     </View>
   );

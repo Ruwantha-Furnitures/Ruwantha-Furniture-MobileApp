@@ -1,29 +1,10 @@
-module.exports = (sequelize, DataTypes) => {
-  const online_customers = sequelize.define(
-    "online_customers",
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      customer_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      account_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      is_deleted: {
-        type: DataTypes.BOOLEAN,
-      },
+module.exports = (sequelize, Sequelize) => {
+  const OnlineCustomer = sequelize.define("online_customers", {
+    is_deleted: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
     },
-    {
-      freezeTableName: true,
-      tableName: "online_customers",
-    }
-  );
+  });
 
-  return online_customers;
+  return OnlineCustomer;
 };

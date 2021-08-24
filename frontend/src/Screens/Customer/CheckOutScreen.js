@@ -2,13 +2,17 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Header from "../../Components/Header/Header";
 import CheckOutForm from "../../Components/Screen/Cart/CheckOutForm";
+import axios from "axios";
 
-const CheckOutScreen = () => {
+const CheckOutScreen = ({ navigation }) => {
+  // const paymentSubmit = () => {
+  //   console.log("clicked");
+  // };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
         <Header />
-        <CheckOutForm />
+        <CheckOutForm navigation={navigation} />
       </View>
     </ScrollView>
   );
