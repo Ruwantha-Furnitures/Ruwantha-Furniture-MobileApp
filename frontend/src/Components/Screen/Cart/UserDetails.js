@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import Checkbox from "expo-checkbox";
 import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
@@ -9,7 +16,7 @@ import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 const mobileWidth = Dimensions.get("window").width;
 
-const UserDetails = ({ districts }) => {
+const UserDetails = ({ districts, navigation }) => {
   // const [allDistricts, setAllDistricts] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -85,7 +92,12 @@ const UserDetails = ({ districts }) => {
         <TermsConditionsModal />
       </View>
       <View style={styles.btnContainer}>
-        <FormAppButton title="Proceed To Payment" type="Submit" width={250} />
+        <FormAppButton
+          title="Proceed To Payment"
+          type="Submit"
+          width={250}
+          onPress={() => navigation.navigate("StripeApp")}
+        />
       </View>
     </React.Fragment>
   );
@@ -105,6 +117,8 @@ const styles = StyleSheet.create({
     marginLeft: -15,
     alignSelf: "center",
     marginTop: 25,
+    borderColor: "black",
+    borderWidth: 10,
   },
 
   nameSelect: {

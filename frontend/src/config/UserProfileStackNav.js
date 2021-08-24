@@ -4,6 +4,7 @@ import UserProfileScreen from "../Screens/Customer/UserProfileScreen";
 import HomeScreen from "../Screens/Customer/HomeScreen";
 import CartScreen from "../Screens/Customer/CartScreen";
 import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
+import StripeAppScreen from "../Screens/Customer/StripeAppScreen";
 
 const UserProfileStack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const UserProfileStackNav = () => {
       />
       <UserProfileStack.Screen name="Cart" component={CartScreen} />
       <UserProfileStack.Screen name="CheckOut" component={CheckOutScreen} />
+      <UserProfileStack.Screen name="StripeApp" component={StripeAppScreen} />
     </UserProfileStack.Navigator>
   );
 };

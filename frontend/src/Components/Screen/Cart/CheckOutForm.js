@@ -16,7 +16,7 @@ const mobileWidth = Dimensions.get("window").width;
 const mobileHeight = Dimensions.get("window").height;
 const StatusBarHeight = StatusBar.currentHeight;
 
-const CheckOutForm = () => {
+const CheckOutForm = ({ navigation }) => {
   const [districts, setDistricts] = useState([]);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ const CheckOutForm = () => {
 
     fetchDistrictList();
   }, []);
+
   return (
     <Card
       width={mobileWidth - 40}
@@ -41,7 +42,9 @@ const CheckOutForm = () => {
       ml={20}
       bg="#fff"
     >
-      {districts.length > 0 && <UserDetails districts={districts} />}
+      {districts.length > 0 && (
+        <UserDetails districts={districts} navigation={navigation} />
+      )}
     </Card>
   );
 };

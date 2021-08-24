@@ -11,9 +11,7 @@ import CartScreen from "../Screens/Customer/CartScreen";
 import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
 import ProductStackNav from "./ProductStackNav";
 import MoreDetailsScreen from "../Screens/Customer/MoreDetailsScreen";
-
-import { FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
+import StripeAppScreen from "../Screens/Customer/StripeAppScreen";
 
 const HomeStack = createStackNavigator();
 
@@ -42,6 +40,7 @@ const HomeStackNav = () => {
       <HomeStack.Screen name="Cart" component={CartScreen} />
       <HomeStack.Screen name="CheckOut" component={CheckOutScreen} />
       <HomeStack.Screen name="More Details" component={MoreDetailsScreen} />
+      <HomeStack.Screen name="StripeApp" component={StripeAppScreen} />
     </HomeStack.Navigator>
   );
 };
