@@ -12,6 +12,7 @@ import * as All from "../Products/ALLImages";
 import { API_URL } from "react-native-dotenv";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 
 const Product = ({ item, removeCartProduct }) => {
   const mobileWidth = Dimensions.get("window").width;
@@ -43,6 +44,9 @@ const Product = ({ item, removeCartProduct }) => {
   const increment = async (item) => {
     try {
       // console.log(item);
+      const number = await SecureStore.getItemAsync("numberOfProducts");
+      const afterIncrement = parseInt(number) + 1;
+      await SecureStore.setItemAsync("numberOfProducts", afterIncrement);
       setQuantity(quantity + 1);
       const curQty = quantity + 1;
       const id = item.id;

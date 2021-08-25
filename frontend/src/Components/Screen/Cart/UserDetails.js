@@ -91,14 +91,12 @@ const UserDetails = ({ districts, navigation }) => {
         />
         <TermsConditionsModal />
       </View>
-      <View style={styles.btnContainer}>
-        <FormAppButton
-          title="Proceed To Payment"
-          type="Submit"
-          width={250}
-          onPress={() => navigation.navigate("StripeApp")}
-        />
-      </View>
+      <FormAppButton
+        title="Proceed To Payment"
+        type="Submit"
+        width={250}
+        onPress={() => navigation.navigate("StripeApp")}
+      />
     </React.Fragment>
   );
 };

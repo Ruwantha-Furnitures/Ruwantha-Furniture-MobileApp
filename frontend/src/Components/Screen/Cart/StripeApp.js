@@ -56,14 +56,6 @@ const StripeApp = () => {
           billingDetails: { name },
         });
         setShowModal((prevState) => !prevState);
-
-        // if (error) {
-        //   console.log(error);
-        //   alert("Payment Confirmation error");
-        // } else {
-        //   alert("Payment Successful");
-        //   console.log(paymentIntent);
-        // }
       }
     } catch (e) {
       console.log(e);

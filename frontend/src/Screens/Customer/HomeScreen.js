@@ -17,9 +17,11 @@ import NewArrival from "../../Components/Screen/Home/NewArrival";
 import CustomIntro from "../../Components/Screen/Home/CustomIntro";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
+  const [numberOfProducts, setNumberOfProducts] = useState(0);
   const [newProducts, setNewProducts] = useState([]);
 
   useEffect(() => {
@@ -32,18 +34,47 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       }
     };
 
+    const getNumberedProducts = async () => {
+      try {
+        const numberOfProducts = await SecureStore.getItemAsync(
+          "numberOfProducts"
+        );
+        setNumberOfProducts(numberOfProducts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchNewProducts();
+    getNumberedProducts();
   }, []);
   //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart", { test: 123 })}>
-        <AntDesign
-          style={styles.cart}
-          name="shoppingcart"
-          size={35}
-          color="black"
-        />
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign
+            style={styles.cart}
+            name="shoppingcart"
+            size={35}
+            color="black"
+          />
+          {numberOfProducts > 0 && (
+            <View
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 25 / 2,
+                backgroundColor: "#FB9F3C",
+                marginRight: 5,
+              }}
+            >
+              <Text style={{ alignSelf: "center", color: "white" }}>
+                {numberOfProducts}
+              </Text>
+            </View>
+          )}
+        </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
@@ -94,8 +125,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   cart: {
-    marginRight: 15,
-    marginTop: 8,
+    marginTop: 12,
   },
   upperContainer: {
     alignSelf: "flex-end",
