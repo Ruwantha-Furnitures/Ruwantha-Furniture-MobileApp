@@ -21,6 +21,7 @@ import * as SecureStore from "expo-secure-store";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
+  const [cartItems, setCartItems] = useState([]);
   const [numberOfProducts, setNumberOfProducts] = useState(0);
   const [newProducts, setNewProducts] = useState([]);
 
@@ -45,8 +46,43 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       }
     };
 
+    // if (loginContext.userDetails.token !== null) {
+    //   const fetchUserId = async () => {
+    //     try {
+    //       const customerId = await SecureStore.getItemAsync("customer_id");
+    //       const customer_id = parseInt(customerId);
+    //       const response = await axios.get(`${API_URL}cart/${customer_id}`);
+    //       console.log(response.data);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   };
+    // }
+    // fetchUserId();
+
     fetchNewProducts();
     getNumberedProducts();
+  }, []);
+
+  useEffect(() => {
+    const fetchCustomerId = async () => {
+      let customer_id = await SecureStore.getItemAsync("customer_id");
+      console.log(customer_id);
+      if (customer_id !== null) {
+        customer_id = parseInt(customer_id);
+        try {
+          const response = await axios.get(`${API_URL}cart/${customer_id}`);
+          console.log("--------");
+          console.log(response.data.cartItems);
+          setCartItems(response.data.cartItems);
+          console.log(response.data.cartItems.length);
+          console.log("--------");
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    fetchCustomerId();
   }, []);
   //header for the loggedin users
   const LogOut = (
@@ -59,7 +95,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
             size={35}
             color="black"
           />
-          {numberOfProducts > 0 && (
+          {cartItems.length > 0 && (
             <View
               style={{
                 width: 25,
@@ -70,7 +106,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
               }}
             >
               <Text style={{ alignSelf: "center", color: "white" }}>
-                {numberOfProducts}
+                {cartItems.length}
               </Text>
             </View>
           )}
@@ -78,7 +114,11 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
-        onPress={() => loginContext.loginDispatch({ type: "logout" })}
+        onPress={() => {
+          SecureStore.deleteItemAsync("numberOfProducts");
+          SecureStore.deleteItemAsync("customer_id");
+          loginContext.loginDispatch({ type: "logout" });
+        }}
       >
         <Text style={styles.Login}>Logout</Text>
       </TouchableOpacity>
