@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-const FormAppButton = ({ onPress, title, width, type }) => {
+const FormAppButton = ({ onPress, title, width, type, disabled }) => {
   const dimensions = {
     width,
   };
@@ -12,6 +12,7 @@ const FormAppButton = ({ onPress, title, width, type }) => {
           ? [styles.buttonSubmit, dimensions]
           : [styles.buttonCancel, dimensions]
       }
+      disabled={disabled}
     >
       <Text style={styles.textLg}>{title}</Text>
     </TouchableOpacity>

@@ -1,10 +1,27 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, Platform } from "react-native";
+import { API_URL } from "react-native-dotenv";
 import StripeApp from "../../Components/Screen/Cart/StripeApp";
 import { StripeProvider } from "@stripe/stripe-react-native";
+import axios from "axios";
 const StripeAppScreen = () => {
+  const [publishableKey, setPublishableKey] = useState("");
+
+  useEffect(() => {
+    const fetchPublishableKey = async () => {
+      try {
+        let response = await axios.get(`${API_URL}payments/publishableKey`);
+        console.log(response.data.PUBLISHABLE_KEY);
+        setPublishableKey(response.data.PUBLISHABLE_KEY);
+      } catch (error) {
+        console.log(error.type);
+        console.log(error);
+      }
+    };
+    fetchPublishableKey();
+  }, []);
   return (
-    <StripeProvider publishableKey="pk_test_51JS3DASG2UHVeUis6t1Onq36qCPEjxNOTQJ6SFocWyaBiqLejsN7cTU8UUsnrMSn7oO4jv7oHzC4huSgw0Xqjdao00kqrqDy8x">
+    <StripeProvider publishableKey={publishableKey}>
       <StripeApp />
     </StripeProvider>
   );
