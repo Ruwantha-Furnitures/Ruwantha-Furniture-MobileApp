@@ -17,7 +17,7 @@ import {
 } from "./src/Components/Reducers/cartReducer";
 
 const initialState = { userLevel: 1, userToken: null };
-const initialCartState = { items: [] };
+const initialCartState = { quantity: 0 };
 const loginContext = LoginContext;
 const cartContext = CartContext;
 

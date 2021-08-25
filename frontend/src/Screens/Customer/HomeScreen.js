@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
+import { CartContext } from "../../Components/Reducers/cartReducer";
 import Header from "../../Components/Header/Header";
 import Contact from "../../Components/Screen/Home/Contact";
 import Intro from "../../Components/Screen/Home/Intro";
@@ -21,7 +22,8 @@ import * as SecureStore from "expo-secure-store";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
-  const [cartItems, setCartItems] = useState([]);
+  const cartContext = useContext(CartContext);
+  const [cartItems, setCartItems] = useState(0);
   const [numberOfProducts, setNumberOfProducts] = useState(0);
   const [newProducts, setNewProducts] = useState([]);
 
@@ -34,34 +36,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         console.log(error);
       }
     };
-
-    const getNumberedProducts = async () => {
-      try {
-        const numberOfProducts = await SecureStore.getItemAsync(
-          "numberOfProducts"
-        );
-        setNumberOfProducts(numberOfProducts);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    // if (loginContext.userDetails.token !== null) {
-    //   const fetchUserId = async () => {
-    //     try {
-    //       const customerId = await SecureStore.getItemAsync("customer_id");
-    //       const customer_id = parseInt(customerId);
-    //       const response = await axios.get(`${API_URL}cart/${customer_id}`);
-    //       console.log(response.data);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   };
-    // }
-    // fetchUserId();
-
     fetchNewProducts();
-    getNumberedProducts();
   }, []);
 
   useEffect(() => {
@@ -73,9 +48,12 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         try {
           const response = await axios.get(`${API_URL}cart/${customer_id}`);
           console.log("--------");
-          console.log(response.data.cartItems);
-          setCartItems(response.data.cartItems);
-          console.log(response.data.cartItems.length);
+          console.log(response.data.totalQuantity);
+          setCartItems(response.data.totalQuantity);
+          cartContext.dispatchCart({
+            type: "initiate",
+            payload: { quantity: response.data.totalQuantity },
+          });
           console.log("--------");
         } catch (error) {
           console.log(error);
@@ -95,7 +73,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
             size={35}
             color="black"
           />
-          {cartItems.length > 0 && (
+          {cartItems > 0 && (
             <View
               style={{
                 width: 25,
@@ -106,7 +84,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
               }}
             >
               <Text style={{ alignSelf: "center", color: "white" }}>
-                {cartItems.length}
+                {cartContext.cartDetails.quantity}
               </Text>
             </View>
           )}
