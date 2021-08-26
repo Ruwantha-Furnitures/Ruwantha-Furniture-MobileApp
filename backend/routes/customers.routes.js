@@ -23,7 +23,7 @@ const {
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
 router.get("/login/:accID", getCustomerIdContrller);
-router.get("/viewprofile/:accID", ViewProfileController);
-router.put("/viewprofile/:accID", UpdateProfileController);
+router.get("/viewprofile/:customerID", ViewProfileController);
+router.put("/viewprofile/:customerID", UpdateProfileController);
 
 module.exports = { customerRouter: router };

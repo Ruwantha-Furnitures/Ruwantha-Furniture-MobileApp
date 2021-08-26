@@ -12,6 +12,8 @@ import * as All from "../Products/ALLImages";
 import { API_URL } from "react-native-dotenv";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
+import { CartContext } from "../../Reducers/cartReducer";
 
 const Product = ({ item, removeCartProduct }) => {
   const mobileWidth = Dimensions.get("window").width;
@@ -20,10 +22,13 @@ const Product = ({ item, removeCartProduct }) => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState();
+  const cartContext = useContext(CartContext);
 
   const fetchSingleProduct = async () => {
     try {
-      const id = item.product_id;
+      console.log("inside cart product");
+      const id = item.id;
+      console.log(id);
       let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
       const { name, price } = response.data.product;
       setName(name);
@@ -42,8 +47,16 @@ const Product = ({ item, removeCartProduct }) => {
 
   const increment = async (item) => {
     try {
-      // console.log(item);
-      setQuantity(quantity + 1);
+      console.log("increment");
+      console.log(price);
+      // const number = await SecureStore.getItemAsync("numberOfProducts");
+      // const afterIncrement = parseInt(number) + 1;
+      // await SecureStore.setItemAsync("numberOfProducts", afterIncrement);
+      // setQuantity(quantity + 1);
+      cartContext.dispatchCart({
+        type: "increment",
+        payload: { totalAmount: price },
+      });
       const curQty = quantity + 1;
       const id = item.id;
       const customerId = item.customer_id;
@@ -84,10 +97,7 @@ const Product = ({ item, removeCartProduct }) => {
       bg="#FFF"
     >
       <View style={styles.productContainer}>
-        <Image
-          source={All[`Image${item.product_id}`]}
-          style={styles.itemImage}
-        />
+        <Image source={All[`Image${item.id}`]} style={styles.itemImage} />
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>{name}</Text>
           <Text style={styles.itemPrice}>{`${price} /=`}</Text>

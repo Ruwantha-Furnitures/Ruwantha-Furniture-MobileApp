@@ -5,12 +5,14 @@ const {
   UpdateCartController,
   DeleteCartController,
   GetCartItemsController,
+  GetCartInitialTotalAmountController,
 } = require("../controllers/products/cart.controller");
 
 const {
   getOneProductController,
 } = require("../controllers/products/products.controller");
 
+router.get("/totalAmount", GetCartInitialTotalAmountController);
 router.get("/:customerId", GetCartItemsController);
 router.post("/addToCart", AddToCartController);
 router.get("/getProduct/:productId", getOneProductController);

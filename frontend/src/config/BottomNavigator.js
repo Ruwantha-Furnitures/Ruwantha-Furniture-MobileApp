@@ -6,6 +6,7 @@ import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import CameraScreen from "../Screens/Customer/CameraScreen";
 import UserProfileStackNav from "./UserProfileStackNav";
+import StripeAppScreen from "../Screens/Customer/StripeAppScreen";
 import AboutUsStackNav from "./AboutUsStackNav";
 import HomeStackNav from "./HomeStackNav";
 import ProductStackNav from "./ProductStackNav";
@@ -50,7 +51,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="Camera"
-        component={CameraScreen}
+        component={StripeAppScreen}
         options={{
           tabBarLabel: "Camera",
           tabBarIcon: ({ color }) => (

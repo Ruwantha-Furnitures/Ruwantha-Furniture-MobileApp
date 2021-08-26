@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { API_URL } from "react-native-dotenv";
 import {
   View,
   Text,
@@ -11,6 +10,7 @@ import {
 import Header from "../../Components/Header/Header";
 import LoginForm from "../../Components/Screen/Home/LoginForm";
 import ErrorModal from "../../Components/UI/ErrorModal";
+import { API_URL } from "react-native-dotenv";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       console.log("login");
       setIsLoading(true);
-      console.log(API_URL);
+      // const API_URL = "http://10.0.2.2:3002";
       let response = await axios.post(`${API_URL}customer/login`, {
         data,
       });

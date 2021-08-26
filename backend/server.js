@@ -6,11 +6,11 @@ const app = express();
 const cors = require("cors");
 const db = require("./models");
 
-const { customerRouter } = require("./routes/customers.route.js");
+const { customerRouter } = require("./routes/customers.routes.js");
 const { productRouter } = require("./routes/products.route.js");
-const { contactUsRouter } = require("./routes/contactus.route.js");
-const { cartRouter } = require("./routes/cart.route.js");
-const { paymentRouter } = require("./routes/payment.route.js");
+const { contactUsRouter } = require("./routes/contactus.routes.js");
+const { cartRouter } = require("./routes/cart.routes.js");
+const { paymentRouter } = require("./routes/payment.routes.js");
 
 app.use(cors());
 app.use(express.json());

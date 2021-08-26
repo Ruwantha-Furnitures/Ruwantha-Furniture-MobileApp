@@ -1,61 +1,46 @@
 import React from "react";
 
 export const cartReducer = (state, action) => {
-  // if (action.type === "increment") {
-  //   console.log("In the state");
-  //   console.log(JSON.stringify(state));
-  //   state.items.map((item, index) => console.log(item));
-  // }
   console.log(action.payload);
   switch (action.type) {
+    case "initiate":
+      return {
+        quantity: action.payload.quantity,
+        totalAmount: action.payload.totalAmount,
+      };
     case "increment":
       return {
-        // items: [
-        //   state.items.map((item, index) => {
-        //     console.log("Inside the loop");
-        //     console.log(item["itemId"]);
-        //     if (item["itemId"] === action.payload.itemId) {
-        //       console.log("Inside the if");
-        //       console.log(item["itemId"]);
-        //       state.items[index] = {
-        //         itemId: action.payload.itemId,
-        //         quantity: action.payload.quantity,
-        //         name: action.payload.name,
-        //         price: action.payload.price,
-        //       };
-        //     }
-        //   }),
-        // ],
-        items: [
-          ...state.items,
-          {
-            itemId: action.payload.itemId,
-            quantity: action.payload.quantity,
-            name: action.payload.name,
-            price: action.payload.price,
-          },
-        ],
+        quantity: state.quantity + 1,
+        totalAmount: state.totalAmount + action.payload.totalAmount,
       };
     case "decrement":
-      return {
-        userToken: null,
-        userLevel: 1,
-      };
+      if (state.quantity === 1) {
+        return {
+          quantity: 1,
+          totalAmount: state.totalAmount,
+        };
+      } else {
+        return {
+          quantity: state.quantity - 1,
+          totalAmount: state.totalAmount - action.payload.totalAmount,
+        };
+      }
     case "delete":
-      return {};
+      return {
+        quantity: state.quantity - action.payload.quantity,
+        totalAmount: state.totalAmount - action.payload.totalAmount,
+      };
     case "add": {
       return {
-        items: [
-          ...state.items,
-          {
-            itemId: action.payload.itemId,
-            quantity: action.payload.quantity,
-            name: action.payload.name,
-            price: action.payload.price,
-          },
-        ],
+        quantity: state.quantity + action.payload.quantity,
+        totalAmount: state.totalAmount + action.payload.totalAmount,
       };
     }
+    case "logout":
+      return {
+        quantity: 0,
+        totalAmount: 0,
+      };
   }
 };
 
