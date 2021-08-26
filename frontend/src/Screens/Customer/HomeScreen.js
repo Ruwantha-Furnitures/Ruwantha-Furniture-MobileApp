@@ -25,6 +25,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
   const cartContext = useContext(CartContext);
   const [cartItems, setCartItems] = useState(0);
+  const [totalCartAmount, setTotalCartAmount] = useState(0);
   const [cartContainer, setCartContainer] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
 
@@ -48,51 +49,25 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         const response = await axios.get(`${API_URL}cart/${customer_id}`);
         setCartItems(response.data.totalQuantity);
         setCartContainer(response.data.cartItems);
-        // cartContext.dispatchCart({
-        //   type: "initiate",
-        //   payload: { quantity: response.data.totalQuantity },
-        // });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  //getting the initial total amount
-  const getTotalAmount = async () => {
-    if (cartContainer.length > 0) {
-      try {
-        const responseTotalAmount = await axios.get(
-          `${API_URL}cart/totalAmount`,
-          {
-            params: {
-              cartData: cartContainer,
-            },
-            paramsSerializer: (params) => {
-              return qs.stringify(params);
-            },
-          }
-        );
-        const { totalAmount } = responseTotalAmount.data;
+        // console.log(response.data.totalQuantity);
+        // console.log(response.data.totalAmount);
         cartContext.dispatchCart({
           type: "initiate",
-          payload: { quantity: cartContainer.length, totalAmount },
+          payload: {
+            quantity: response.data.totalQuantity,
+            totalAmount: response.data.totalAmount,
+          },
         });
-        console.log(totalAmount);
-        console.log("----");
+        // getTotalAmount();
       } catch (error) {
         console.log(error);
       }
     }
   };
-
   useEffect(() => {
-    console.log("----");
     fetchNewProducts();
     fetchTotalQuantityItems();
-    getTotalAmount();
   }, []);
-
   //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
@@ -127,6 +102,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
           SecureStore.deleteItemAsync("numberOfProducts");
           SecureStore.deleteItemAsync("customer_id");
           loginContext.loginDispatch({ type: "logout" });
+          cartContext.dispatchCart({ type: "logout" });
         }}
       >
         <Text style={styles.Login}>Logout</Text>
@@ -160,9 +136,9 @@ const HomeScreen = ({ navigation: { navigate } }) => {
 
         <CustomIntro />
         <Contact />
-        <Text style={{ color: "red", fontSize: 20 }}>
+        {/* <Text style={{ color: "red", fontSize: 20 }}>
           {cartContext.cartDetails.totalAmount}
-        </Text>
+        </Text> */}
       </View>
     </ScrollView>
   );

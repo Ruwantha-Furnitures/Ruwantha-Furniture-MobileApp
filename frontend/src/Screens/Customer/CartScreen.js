@@ -11,11 +11,13 @@ import * as SecureStore from "expo-secure-store";
 
 const CartScreen = ({ navigation, route }) => {
   const [cartItems, setCartItems] = useState([]);
+  const cartContext = useContext(CartContext);
 
   const fetchCartItems = async () => {
     try {
       const customerId = await SecureStore.getItemAsync("customer_id");
       const customer_id = parseInt(customerId);
+      console.log(customer_id);
       const response = await axios.get(`${API_URL}cart/${customer_id}`);
       // console.log("response");
       console.log(response.data.cartItems);
@@ -42,9 +44,6 @@ const CartScreen = ({ navigation, route }) => {
     fetchCartItems();
   }, [route, setCartItems]);
 
-  // useEffect(() => {
-  //   fetchProductPriceItems();
-  // }, [setDataLoaded]);
   const removeCartProduct = async (product) => {
     console.log("Product has removed from cart");
     // console.log(product);
@@ -70,7 +69,7 @@ const CartScreen = ({ navigation, route }) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
         <Header />
-        {cartItems.length > 0 ? (
+        {cartContext.cartDetails.quantity > 0 ? (
           <Products
             products={cartItems}
             removeCartProduct={removeCartProduct}
@@ -78,7 +77,7 @@ const CartScreen = ({ navigation, route }) => {
         ) : (
           <Text>No Items has been added to the cart</Text>
         )}
-        {cartItems.length > 0 && (
+        {cartContext.cartDetails.quantity > 0 && (
           <ProductPrice navigation={navigation} cartItems={cartItems} />
         )}
       </View>

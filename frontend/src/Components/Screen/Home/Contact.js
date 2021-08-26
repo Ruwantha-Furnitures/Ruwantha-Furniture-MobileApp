@@ -9,7 +9,7 @@ const mobileWidth = Dimensions.get("window").width;
 
 const Contact = () => {
   return (
-    <Form width={mobileWidth - 40} height={520}>
+    <Form width={mobileWidth - 40} height={550}>
       <SubHeader title="Customize Your Furniture" width={mobileWidth - 40} />
       <Input placeholder="Name" type="string" />
       <Input placeholder="Telephone" type="number" />

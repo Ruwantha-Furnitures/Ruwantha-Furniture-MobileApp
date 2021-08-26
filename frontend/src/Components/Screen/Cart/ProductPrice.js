@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { CartContext } from "../../Reducers/cartReducer";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 import axios from "axios";
@@ -9,6 +10,7 @@ const ProductPrice = ({ navigation, cartItems }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const [productsDetail, sellProductDetails] = useState([]);
+  const cartContext = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -55,23 +57,28 @@ const ProductPrice = ({ navigation, cartItems }) => {
     fetchProductPriceItems();
   }, [cartItems]);
   return (
-    <View style={{ width: mobileWidth }}>
+    <View
+      style={{
+        width: mobileWidth,
+        position: "absolute",
+        bottom: 165,
+      }}
+    >
       <Card width={mobileWidth} pd={7} fd="row" bg="#343899">
         <View style={styles.products}>
-          <Text style={styles.subHeader}>Selected Items</Text>
-          {productsDetail.length > 0 ? (
-            productsDetail.map((cartItem) => (
-              <View style={styles.productDetail} key={cartItem.id}>
-                <Text style={styles.productName}>{cartItem.name}</Text>
-                <Text
-                  style={styles.productPrice}
-                >{`Rs${cartItem.productPrice}/=`}</Text>
-              </View>
-            ))
-          ) : (
-            <Text>0</Text>
-          )}
-
+          <Text style={styles.subHeader}>Your Order</Text>
+          <View style={styles.productDetail}>
+            <Text style={styles.productName}>Total Purchase</Text>
+            <Text
+              style={styles.productName}
+            >{`Rs.${cartContext.cartDetails.totalAmount}.00/=`}</Text>
+          </View>
+          <View style={styles.productDetail}>
+            <Text style={styles.amountDiscount}>After Discount</Text>
+            <Text
+              style={styles.amountDiscount}
+            >{`Rs.${cartContext.cartDetails.totalAmount}.00/=`}</Text>
+          </View>
           <View style={styles.checkoutButton}>
             <AppButton
               title="Checkout"
@@ -105,8 +112,13 @@ const styles = StyleSheet.create({
   productName: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "bold",
     width: 200,
+  },
+  amountDiscount: {
+    color: "#fff",
+    fontSize: 18,
+    width: 200,
+    fontWeight: "bold",
   },
   productPrice: {
     color: "#FB9F3C",

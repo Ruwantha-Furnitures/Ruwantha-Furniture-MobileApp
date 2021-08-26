@@ -11,26 +11,36 @@ export const cartReducer = (state, action) => {
     case "increment":
       return {
         quantity: state.quantity + 1,
+        totalAmount: state.totalAmount + action.payload.totalAmount,
       };
     case "decrement":
       if (state.quantity === 1) {
         return {
           quantity: 1,
+          totalAmount: state.totalAmount,
         };
       } else {
         return {
           quantity: state.quantity - 1,
+          totalAmount: state.totalAmount - action.payload.totalAmount,
         };
       }
     case "delete":
       return {
         quantity: state.quantity - action.payload.quantity,
+        totalAmount: state.totalAmount - action.payload.totalAmount,
       };
     case "add": {
       return {
         quantity: state.quantity + action.payload.quantity,
+        totalAmount: state.totalAmount + action.payload.totalAmount,
       };
     }
+    case "logout":
+      return {
+        quantity: 0,
+        totalAmount: 0,
+      };
   }
 };
 

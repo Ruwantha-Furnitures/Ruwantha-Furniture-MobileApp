@@ -37,7 +37,7 @@ export default function App() {
       <NavigationContainer>
         {userDetails.userLevel === 1 ? (
           userDetails.userToken === null ? (
-            <cartContext.Provider value={{ cartDetails }}>
+            <cartContext.Provider value={{ cartDetails, dispatchCart }}>
               <BottomNavigator />
             </cartContext.Provider>
           ) : (
