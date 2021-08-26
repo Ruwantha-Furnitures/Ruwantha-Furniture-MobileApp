@@ -1,19 +1,31 @@
-const { Customer, Account } = require("../../models");
+const db = require("../../models");
+const Customer = db.customer;
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
 const UpdateProfileController = async (req, res) => {
-  const accountID = req.params.accID;
-  const { name, address, telephone } = req.body.data;
-  const data = { name, address, telephone };
+  console.log(req.body.data);
+  const customerID = req.params.customerID;
+  const { firstName, address, telephone, lastName } = req.body.data;
   try {
     const update = await Customer.update(
-      { name, address, telephone },
-      { where: { aid: accountID } }
+      {
+        first_name: firstName,
+        last_name: lastName,
+        address,
+        contact_number: telephone,
+      },
+      { where: { id: customerID } }
     );
     // res.json({});
     if (update >= 1) {
-      res.json({ status: "Successful", name, address, telephone });
+      res.json({
+        status: "Successful",
+        firstName,
+        lastName,
+        address,
+        telephone,
+      });
     } else {
       res.json({ status: "Unsuccessful" });
     }

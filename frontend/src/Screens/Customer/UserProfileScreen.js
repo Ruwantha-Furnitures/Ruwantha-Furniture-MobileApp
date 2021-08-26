@@ -55,6 +55,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
 
   const editProfileHandler = async (data) => {
     try {
+      setShowModal((prevState) => !prevState);
       let customerID = await SecureStore.getItemAsync("customer_id");
       let email = await SecureStore.getItemAsync("user_email");
       let res = await axios.put(
@@ -64,9 +65,14 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
       console.log(res.data);
       if (res.data.status === "Successful") {
         const { name, address, telephone } = res.data;
-        const updatedUserDetails = { email, name, address, telephone };
-        setUserData(() => updatedUserDetails);
-        setShowModal((prevState) => !prevState);
+        const updatedUserDetails = {
+          email,
+          firstName,
+          lastName,
+          address,
+          telephone,
+        };
+        setUserData(updatedUserDetails);
         console.log(userData);
       } else {
         console.log("Data has not been updated");

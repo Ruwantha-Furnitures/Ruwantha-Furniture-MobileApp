@@ -24,6 +24,6 @@ router.post("/signup", SignUpController);
 router.post("/login", LoginController);
 router.get("/login/:accID", getCustomerIdContrller);
 router.get("/viewprofile/:customerID", ViewProfileController);
-router.put("/viewprofile/:accID", UpdateProfileController);
+router.put("/viewprofile/:customerID", UpdateProfileController);
 
 module.exports = { customerRouter: router };
