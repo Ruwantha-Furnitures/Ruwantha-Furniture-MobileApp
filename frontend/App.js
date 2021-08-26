@@ -17,7 +17,7 @@ import {
 } from "./src/Components/Reducers/cartReducer";
 
 const initialState = { userLevel: 1, userToken: null };
-const initialCartState = { quantity: 0 };
+const initialCartState = { quantity: 0, totalAmount: 0 };
 const loginContext = LoginContext;
 const cartContext = CartContext;
 
@@ -37,7 +37,9 @@ export default function App() {
       <NavigationContainer>
         {userDetails.userLevel === 1 ? (
           userDetails.userToken === null ? (
-            <BottomNavigator />
+            <cartContext.Provider value={{ cartDetails }}>
+              <BottomNavigator />
+            </cartContext.Provider>
           ) : (
             <cartContext.Provider value={{ cartDetails, dispatchCart }}>
               <LoggedInNavigator />

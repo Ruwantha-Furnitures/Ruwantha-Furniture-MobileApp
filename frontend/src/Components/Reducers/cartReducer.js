@@ -6,6 +6,7 @@ export const cartReducer = (state, action) => {
     case "initiate":
       return {
         quantity: action.payload.quantity,
+        totalAmount: action.payload.totalAmount,
       };
     case "increment":
       return {

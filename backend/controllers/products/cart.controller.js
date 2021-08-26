@@ -1,5 +1,6 @@
 const db = require("../../models");
 const Cart = db.cart;
+const Product = db.product;
 const AddToCartController = async (req, res) => {
   const { customer_id, product_id, quantity } = req.body.data;
   const cartData = { customer_id, product_id, quantity };
@@ -55,16 +56,37 @@ const DeleteCartController = async (req, res) => {
 const GetCartItemsController = async (req, res) => {
   const { customerId } = req.params;
   console.log(customerId);
+  const products = [];
   let totalQuantity = 0;
   try {
     const response = await Cart.findAll({
       where: { customer_id: customerId, is_deleted: 0 },
     });
     console.log(response);
-
-    response.map((item) => (totalQuantity = +item.quantity));
+    const result = response.map((item) =>
+      products.push({ id: item.product_id, quantity: item.quantity })
+    );
+    console.log(products);
+    response.map((item) => (totalQuantity += item.quantity));
     console.log(totalQuantity);
-    res.status(200).json({ cartItems: response, totalQuantity });
+    res.status(200).json({ cartItems: products, totalQuantity });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const GetCartInitialTotalAmountController = async (req, res) => {
+  const { cartData } = req.query;
+  let totalAmount = 0;
+  try {
+    for (let i = 0; i < cartData.length; i++) {
+      console.log(cartData[i].id);
+      const quantity = cartData[i].quantity;
+      const result = await Product.findOne({ where: { id: cartData[i].id } });
+      totalAmount += result.price * quantity;
+    }
+    console.log(totalAmount);
+    res.status(200).json({ totalAmount });
   } catch (error) {
     console.log(error);
   }
@@ -75,4 +97,5 @@ module.exports = {
   DeleteCartController,
   UpdateCartController,
   GetCartItemsController,
+  GetCartInitialTotalAmountController,
 };

@@ -14,6 +14,7 @@ import ViewProfile from "../../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../../Components/Screen/UserProfile/EditProfile";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
+import { CartContext } from "../../Components/Reducers/cartReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
 import FormAppButton from "../../Components/UI/FormAppButton";
 import * as SecureStore from "expo-secure-store";
@@ -22,6 +23,7 @@ import axios from "axios";
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
   const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
   const [userData, setUserData] = useState();
   const [showModal, setShowModal] = useState(false);
 
@@ -77,12 +79,29 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
-        <AntDesign
-          style={styles.cart}
-          name="shoppingcart"
-          size={35}
-          color="black"
-        />
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign
+            style={styles.cart}
+            name="shoppingcart"
+            size={35}
+            color="black"
+          />
+          {cartContext.cartDetails.quantity > 0 && (
+            <View
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 25 / 2,
+                backgroundColor: "#FB9F3C",
+                marginRight: 5,
+              }}
+            >
+              <Text style={{ alignSelf: "center", color: "white" }}>
+                {cartContext.cartDetails.quantity}
+              </Text>
+            </View>
+          )}
+        </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
@@ -155,8 +174,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   cart: {
-    marginRight: 15,
-    marginTop: 8,
+    marginTop: 12,
   },
   buttonLg: {
     backgroundColor: "black",

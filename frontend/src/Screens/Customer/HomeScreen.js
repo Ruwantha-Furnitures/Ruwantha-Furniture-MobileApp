@@ -18,50 +18,81 @@ import NewArrival from "../../Components/Screen/Home/NewArrival";
 import CustomIntro from "../../Components/Screen/Home/CustomIntro";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
+import qs from "qs";
 import * as SecureStore from "expo-secure-store";
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
   const cartContext = useContext(CartContext);
   const [cartItems, setCartItems] = useState(0);
-  const [numberOfProducts, setNumberOfProducts] = useState(0);
+  const [cartContainer, setCartContainer] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchNewProducts = async () => {
+  //fetching the newa rrivals
+  const fetchNewProducts = async () => {
+    try {
+      let response = await axios.get(`${API_URL}products/newProducts`);
+      setNewProducts(response.data.newProducts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //fetching the total quantity,cartItems & store it in reducer
+  const fetchTotalQuantityItems = async () => {
+    let customer_id = await SecureStore.getItemAsync("customer_id");
+    console.log(customer_id);
+    if (customer_id !== null) {
+      customer_id = parseInt(customer_id);
       try {
-        let response = await axios.get(`${API_URL}products/newProducts`);
-        setNewProducts(response.data.newProducts);
+        const response = await axios.get(`${API_URL}cart/${customer_id}`);
+        setCartItems(response.data.totalQuantity);
+        setCartContainer(response.data.cartItems);
+        // cartContext.dispatchCart({
+        //   type: "initiate",
+        //   payload: { quantity: response.data.totalQuantity },
+        // });
       } catch (error) {
         console.log(error);
       }
-    };
-    fetchNewProducts();
-  }, []);
+    }
+  };
+
+  //getting the initial total amount
+  const getTotalAmount = async () => {
+    if (cartContainer.length > 0) {
+      try {
+        const responseTotalAmount = await axios.get(
+          `${API_URL}cart/totalAmount`,
+          {
+            params: {
+              cartData: cartContainer,
+            },
+            paramsSerializer: (params) => {
+              return qs.stringify(params);
+            },
+          }
+        );
+        const { totalAmount } = responseTotalAmount.data;
+        cartContext.dispatchCart({
+          type: "initiate",
+          payload: { quantity: cartContainer.length, totalAmount },
+        });
+        console.log(totalAmount);
+        console.log("----");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   useEffect(() => {
-    const fetchCustomerId = async () => {
-      let customer_id = await SecureStore.getItemAsync("customer_id");
-      console.log(customer_id);
-      if (customer_id !== null) {
-        customer_id = parseInt(customer_id);
-        try {
-          const response = await axios.get(`${API_URL}cart/${customer_id}`);
-          console.log("--------");
-          console.log(response.data.totalQuantity);
-          setCartItems(response.data.totalQuantity);
-          cartContext.dispatchCart({
-            type: "initiate",
-            payload: { quantity: response.data.totalQuantity },
-          });
-          console.log("--------");
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-    fetchCustomerId();
+    console.log("----");
+    fetchNewProducts();
+    fetchTotalQuantityItems();
+    getTotalAmount();
   }, []);
+
   //header for the loggedin users
   const LogOut = (
     <View style={styles.upperContainer}>
@@ -84,7 +115,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
               }}
             >
               <Text style={{ alignSelf: "center", color: "white" }}>
-                {cartContext.cartDetails.quantity}
+                {cartItems}
               </Text>
             </View>
           )}
@@ -129,6 +160,9 @@ const HomeScreen = ({ navigation: { navigate } }) => {
 
         <CustomIntro />
         <Contact />
+        <Text style={{ color: "red", fontSize: 20 }}>
+          {cartContext.cartDetails.totalAmount}
+        </Text>
       </View>
     </ScrollView>
   );

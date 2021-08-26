@@ -14,6 +14,7 @@ import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
+import { CartContext } from "../../Components/Reducers/cartReducer";
 import { API_URL } from "react-native-dotenv";
 import { AntDesign } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
@@ -24,6 +25,8 @@ let StatusBarHeight = StatusBar.currentHeight;
 
 const ProductScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
+
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -75,12 +78,29 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
-        <AntDesign
-          style={styles.cart}
-          name="shoppingcart"
-          size={35}
-          color="black"
-        />
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign
+            style={styles.cart}
+            name="shoppingcart"
+            size={35}
+            color="black"
+          />
+          {cartContext.cartDetails.quantity > 0 && (
+            <View
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 25 / 2,
+                backgroundColor: "#FB9F3C",
+                marginRight: 5,
+              }}
+            >
+              <Text style={{ alignSelf: "center", color: "white" }}>
+                {cartContext.cartDetails.quantity}
+              </Text>
+            </View>
+          )}
+        </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
@@ -139,8 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   cart: {
-    marginRight: 15,
-    marginTop: 8,
+    marginTop: 12,
   },
   upperContainer: {
     alignSelf: "flex-end",
