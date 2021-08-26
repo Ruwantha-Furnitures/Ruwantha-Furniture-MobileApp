@@ -35,13 +35,14 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     const result = async () => {
       try {
         let email = await SecureStore.getItemAsync("user_email");
-        let accID = await SecureStore.getItemAsync("user_accountID");
+        let customerID = await SecureStore.getItemAsync("customer_id");
         let response = await axios.get(
-          `${API_URL}customer/viewprofile/${accID}`
+          `${API_URL}customer/viewprofile/${customerID}`
         );
+        console.log(response.data);
         if (response.data.auth === true) {
-          const { first_name, address, telephone } = response.data;
-          const data = { email, first_name, address, telephone };
+          const { first_name, address, telephone, last_name } = response.data;
+          const data = { email, first_name, last_name, address, telephone };
           setUserData(data);
         }
       } catch (err) {
@@ -54,12 +55,13 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
 
   const editProfileHandler = async (data) => {
     try {
-      let accID = await SecureStore.getItemAsync("user_accountID");
+      let customerID = await SecureStore.getItemAsync("customer_id");
       let email = await SecureStore.getItemAsync("user_email");
       let res = await axios.put(
-        `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`,
+        `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${customerID}`,
         { data }
       );
+      console.log(res.data);
       if (res.data.status === "Successful") {
         const { name, address, telephone } = res.data;
         const updatedUserDetails = { email, name, address, telephone };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
@@ -10,14 +10,18 @@ import { AntDesign } from "@expo/vector-icons";
 const ViewProfile = ({ onChangeNav, userData }) => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
+
+  const mobileWidth = Dimensions.get("window").width;
 
   useEffect(() => {
     if (userData) {
       setEmail(() => userData.email);
-      setName(() => userData.first_name);
+      setFirstName(() => userData.first_name);
+      setLastName(() => userData.last_name);
       setAddress(() => userData.address);
       setTelephone(() => userData.telephone);
       console.log(userData.telephone);
@@ -29,9 +33,10 @@ const ViewProfile = ({ onChangeNav, userData }) => {
   };
   return (
     <View style={styles.viewProfile}>
-      <Form width={415} height={500}>
+      <Form width={mobileWidth - 40} height={500}>
         <SubHeader title="User Profile" width={200} />
-        <Input editable={false} value={name} type="email" />
+        <Input editable={false} value={firstName} type="email" />
+        <Input editable={false} value={lastName} type="email" />
         <Input editable={false} value={email} type="email" />
         <Input editable={false} value={address} type="string" />
         <Input editable={false} value={telephone.toString()} type="string" />
@@ -44,14 +49,14 @@ const ViewProfile = ({ onChangeNav, userData }) => {
         >
           <FormAppButton
             title="Delete Profile"
-            width={175}
+            width={165}
             onPress={deleteHandler}
           />
           <FormAppButton
             type="Submit"
             title="Edit Profile"
             onPress={() => onChangeNav("Edit Profile")}
-            width={160}
+            width={150}
           />
         </View>
       </Form>
