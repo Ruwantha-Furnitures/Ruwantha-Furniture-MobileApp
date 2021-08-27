@@ -28,6 +28,7 @@ const Product = ({ item, navigate, addToCart }) => {
   }, []);
 
   const cartHandler = (item) => {
+    console.log("insdie products product");
     console.log(item);
     cartContext.dispatchCart({
       type: "add",
