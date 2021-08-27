@@ -63,7 +63,7 @@ const HomeScreen = () => {
                 size={40}
                 color="#542b14"
               />
-              <Text style={styles.itemName}>Today Deliveries</Text>
+              <Text style={styles.itemName}>Today Sales</Text>
               <Text style={styles.itemPrice}>02</Text>
             </View>
           </Card>
@@ -77,7 +77,7 @@ const HomeScreen = () => {
           >
             <View style={styles.itemDetailsContainer}>
               <MaterialIcons name="category" size={40} color="#542b14" />
-              <Text style={styles.itemName}>All Deliveries</Text>
+              <Text style={styles.itemName}>Sales Items</Text>
               <Text style={styles.itemPrice}>50</Text>
             </View>
           </Card>
@@ -97,7 +97,7 @@ const HomeScreen = () => {
                 size={40}
                 color="#542b14"
               />
-              <Text style={styles.itemName}>Daily income</Text>
+              <Text style={styles.itemName}>New Orders</Text>
               <Text style={styles.itemPrice}>Rs.8000 /=</Text>
             </View>
           </Card>
@@ -112,7 +112,7 @@ const HomeScreen = () => {
           >
             <View style={styles.itemDetailsContainer}>
               <FontAwesome5 name="spa" size={40} color="#542b14" />
-              <Text style={styles.itemName}>Total Income</Text>
+              <Text style={styles.itemName}>Total Orders</Text>
               <Text style={styles.itemPrice}>Rs.25,000 /=</Text>
             </View>
           </Card>

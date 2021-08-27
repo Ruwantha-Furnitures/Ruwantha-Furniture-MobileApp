@@ -60,8 +60,8 @@ const ProductPrice = ({ navigation, cartItems }) => {
     <View
       style={{
         width: mobileWidth,
-        position: "absolute",
-        bottom: 165,
+        // position: "absolute",
+        // bottom: 165,
       }}
     >
       <Card width={mobileWidth} pd={7} fd="row" bg="#343899">
