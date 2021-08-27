@@ -26,7 +26,7 @@ const UpdateCartController = async (req, res) => {
       {
         where: {
           customer_id: customerId,
-          id: productId,
+          product_id: productId,
           is_deleted: 0,
         },
       }
@@ -39,11 +39,11 @@ const UpdateCartController = async (req, res) => {
 };
 
 const DeleteCartController = async (req, res) => {
-  const { cartId } = req.params;
+  const { productId, customerId } = req.params;
   try {
     const deleteCart = await Cart.update(
       { is_deleted: true },
-      { where: { id: cartId } }
+      { where: { customer_id: customerId, product_id: productId } }
     );
     res
       .status(200)

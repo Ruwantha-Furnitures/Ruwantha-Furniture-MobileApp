@@ -56,17 +56,39 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   };
 
   const addToCart = async (product) => {
-    try {
-      const { id } = product;
-      const customerId = await SecureStore.getItemAsync("customer_id");
-      const customer_id = parseInt(customerId);
-      console.log(customer_id);
-      const data = { product_id: id, customer_id, quantity: 1 };
-      let response = await axios.post(`${API_URL}cart/addToCart`, {
-        data,
-      });
-    } catch (error) {
-      console.log(error);
+    //when adding to the cart check whether the particular product already exists in the cart
+    if (
+      cartContext.cartDetails.quantity > 0 &&
+      cartContext.cartDetails.cartProductID.includes(product.id)
+    ) {
+      console.log("exists already");
+      return;
+    }
+    //when the particular product is not exists in the cart
+    else {
+      //calculate the discount amount
+      let discountAmount = (product.discount * product.price) / 100;
+      try {
+        cartContext.dispatchCart({
+          type: "add",
+          payload: {
+            id: product.id,
+            totalAmount: product.price,
+            discount: discountAmount,
+            quantity: 1,
+          },
+        });
+        const { id } = product;
+        const customerId = await SecureStore.getItemAsync("customer_id");
+        const customer_id = parseInt(customerId);
+        console.log(customer_id);
+        const data = { product_id: id, customer_id, quantity: 1 };
+        let response = await axios.post(`${API_URL}cart/addToCart`, {
+          data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

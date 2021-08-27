@@ -1,7 +1,8 @@
 import React from "react";
 
 export const cartReducer = (state, action) => {
-  console.log(action.payload);
+  console.log("state is");
+  console.log(state);
   switch (action.type) {
     case "initiate":
       return {
@@ -10,31 +11,61 @@ export const cartReducer = (state, action) => {
       };
     case "increment":
       return {
+        cartProductID: state.cartProductID,
         quantity: state.quantity + 1,
-        totalAmount: state.totalAmount + action.payload.totalAmount,
+        totalAmount:
+          parseInt(state.totalAmount) + parseInt(action.payload.totalAmount),
+        totalDiscountAmount:
+          parseInt(state.totalDiscountAmount) +
+          parseInt(action.payload.discount),
       };
     case "decrement":
-      if (state.quantity === 1) {
-        return {
-          quantity: 1,
-          totalAmount: state.totalAmount,
-        };
-      } else {
-        return {
-          quantity: state.quantity - 1,
-          totalAmount: state.totalAmount - action.payload.totalAmount,
-        };
-      }
+      return {
+        cartProductID: state.cartProductID,
+        quantity: state.quantity - 1,
+        totalAmount:
+          parseInt(state.totalAmount) - parseInt(action.payload.totalAmount),
+        totalDiscountAmount:
+          parseInt(state.totalDiscountAmount) -
+          parseInt(action.payload.discount),
+      };
     case "delete":
       return {
-        quantity: state.quantity - action.payload.quantity,
-        totalAmount: state.totalAmount - action.payload.totalAmount,
+        cartProductID: state.cartProductID.filter(
+          (productId) => productId === action.payload.id
+        ),
+        quantity: parseInt(state.quantity) - parseInt(action.payload.quantity),
+        totalAmount:
+          parseInt(state.totalAmount) - parseInt(action.payload.totalAmount),
+        totalDiscountAmount:
+          parseInt(state.totalDiscountAmount) -
+          parseInt(action.payload.discount),
       };
     case "add": {
-      return {
-        quantity: state.quantity + action.payload.quantity,
-        totalAmount: state.totalAmount + action.payload.totalAmount,
-      };
+      if (state.quantity > 0) {
+        if (!state.cartProductID.includes(action.payload.id)) {
+          return {
+            cartProductID: [...state.cartProductID, action.payload.id],
+            quantity: state.quantity + action.payload.quantity,
+            totalAmount:
+              parseInt(state.totalAmount) +
+              parseInt(action.payload.totalAmount),
+            totalDiscountAmount:
+              parseInt(state.totalDiscountAmount) +
+              parseInt(action.payload.discount),
+          };
+        } else {
+          return state;
+        }
+      } else {
+        return {
+          cartProductID: [action.payload.id],
+          quantity: state.quantity + action.payload.quantity,
+          totalAmount:
+            parseInt(state.totalAmount) + parseInt(action.payload.totalAmount),
+          totalDiscountAmount: parseInt(action.payload.discount),
+        };
+      }
     }
     case "logout":
       return {

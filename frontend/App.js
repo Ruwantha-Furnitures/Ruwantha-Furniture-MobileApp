@@ -18,9 +18,9 @@ import {
 
 const initialState = { userLevel: 1, userToken: null };
 const initialCartState = {
+  cartProductID: [],
   quantity: 0,
   totalAmount: 0,
-  cartProductID: [],
   totalDiscountAmount: 0,
 };
 const loginContext = LoginContext;

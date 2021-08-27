@@ -13,6 +13,7 @@ const CartScreen = ({ navigation, route }) => {
   const [cartItems, setCartItems] = useState([]);
   const cartContext = useContext(CartContext);
 
+  //fetching the products in the cart currently
   const fetchCartItems = async () => {
     try {
       const customerId = await SecureStore.getItemAsync("customer_id");
@@ -44,13 +45,23 @@ const CartScreen = ({ navigation, route }) => {
     fetchCartItems();
   }, [route, setCartItems]);
 
+  //deleting the particular product
   const removeCartProduct = async (product) => {
     console.log("Product has removed from cart");
-    // console.log(product);
-    const { id } = product;
+    console.log(product);
+    const { id } = product.item;
+    const customerId = await SecureStore.getItemAsync("customer_id");
+    const { quantity, discount, price } = product;
+    let totalAmount = price * quantity;
+    let discountAmount = (price * discount * quantity) / 100;
+    console.log(discountAmount);
+    cartContext.dispatchCart({
+      type: "delete",
+      payload: { id, quantity, discount: discountAmount, totalAmount },
+    });
     try {
       const deleteProduct = await axios.delete(
-        `${API_URL}cart/deleteCartProduct/${id}`
+        `${API_URL}cart/deleteCartProduct/${id}/${customerId}`
       );
       if (deleteProduct.data.state === "deleted") {
         const newCartArr = cartItems.filter((product) => product.id === id);

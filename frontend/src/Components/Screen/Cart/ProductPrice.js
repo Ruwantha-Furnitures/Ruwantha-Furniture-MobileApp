@@ -75,9 +75,12 @@ const ProductPrice = ({ navigation, cartItems }) => {
           </View>
           <View style={styles.productDetail}>
             <Text style={styles.amountDiscount}>After Discount</Text>
-            <Text
-              style={styles.amountDiscount}
-            >{`Rs.${cartContext.cartDetails.totalAmount}.00/=`}</Text>
+            <Text style={styles.amountDiscount}>
+              Rs.
+              {cartContext.cartDetails.totalAmount -
+                cartContext.cartDetails.totalDiscountAmount}
+              .00 /=
+            </Text>
           </View>
           <View style={styles.checkoutButton}>
             <AppButton

@@ -90,7 +90,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
               }}
             >
               <Text style={{ alignSelf: "center", color: "white" }}>
-                {cartItems}
+                {cartContext.cartDetails.quantity}
               </Text>
             </View>
           )}
