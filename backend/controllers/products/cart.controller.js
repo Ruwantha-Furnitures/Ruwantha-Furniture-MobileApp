@@ -58,6 +58,7 @@ const GetCartItemsController = async (req, res) => {
   const products = [];
   let totalQuantity = 0;
   let totalAmount = 0;
+  let discountAmount = 0;
   try {
     const response = await Cart.findAll({
       where: { customer_id: customerId, is_deleted: 0 },
@@ -70,15 +71,22 @@ const GetCartItemsController = async (req, res) => {
     //getting the total quantity
     response.map((item) => (totalQuantity += item.quantity));
 
-    //getting the total amount for the customer
+    //getting the total amount & total discount for the customer
     for (let i = 0; i < products.length; i++) {
       console.log(products[i].id);
       const quantity = products[i].quantity;
       const result = await Product.findOne({ where: { id: products[i].id } });
       totalAmount += result.price * quantity;
+      discountAmount += (result.price * quantity * result.discount) / 100;
     }
-    console.log(totalAmount);
-    res.status(200).json({ cartItems: products, totalQuantity, totalAmount });
+
+    console.log(totalAmount, discountAmount, totalQuantity, products);
+    res.status(200).json({
+      cartItems: products,
+      totalQuantity,
+      totalAmount,
+      discountAmount,
+    });
   } catch (error) {
     console.log(error);
   }

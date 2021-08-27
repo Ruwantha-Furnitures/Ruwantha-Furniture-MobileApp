@@ -47,15 +47,20 @@ const HomeScreen = ({ navigation: { navigate } }) => {
       customer_id = parseInt(customer_id);
       try {
         const response = await axios.get(`${API_URL}cart/${customer_id}`);
+        const cartProductID = response.data.cartItems.map(
+          (cartItem) => cartItem.id
+        );
+        console.log(cartProductID);
+        console.log(response.data);
         setCartItems(response.data.totalQuantity);
         setCartContainer(response.data.cartItems);
-        // console.log(response.data.totalQuantity);
-        // console.log(response.data.totalAmount);
         cartContext.dispatchCart({
           type: "initiate",
           payload: {
+            cartProductID,
             quantity: response.data.totalQuantity,
             totalAmount: response.data.totalAmount,
+            totalDiscount: parseInt(response.data.discountAmount),
           },
         });
         // getTotalAmount();
@@ -79,7 +84,7 @@ const HomeScreen = ({ navigation: { navigate } }) => {
             size={35}
             color="black"
           />
-          {cartItems > 0 && (
+          {cartContext.cartDetails.quantity > 0 && (
             <View
               style={{
                 width: 25,

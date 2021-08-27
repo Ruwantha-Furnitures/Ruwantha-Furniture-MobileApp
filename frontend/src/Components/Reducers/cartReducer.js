@@ -3,11 +3,14 @@ import React from "react";
 export const cartReducer = (state, action) => {
   console.log("state is");
   console.log(state);
+  console.log(action.payload);
   switch (action.type) {
     case "initiate":
       return {
+        cartProductID: action.payload.cartProductID,
         quantity: action.payload.quantity,
         totalAmount: action.payload.totalAmount,
+        totalDiscountAmount: action.payload.totalDiscount,
       };
     case "increment":
       return {
