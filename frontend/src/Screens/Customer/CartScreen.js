@@ -66,19 +66,22 @@ const CartScreen = ({ navigation, route }) => {
   //   }, [])
   // );
   return (
-    <View style={styles.viewContainer}>
-      <Header />
-      {cartContext.cartDetails.quantity > 0 ? (
-        // <ScrollView showsVerticalScrollIndicator={false}>
-        <Products products={cartItems} removeCartProduct={removeCartProduct} />
-      ) : (
-        // </ScrollView>
-        <Text>No Items has been added to the cart</Text>
-      )}
-      {cartContext.cartDetails.quantity > 0 && (
-        <ProductPrice navigation={navigation} cartItems={cartItems} />
-      )}
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.viewContainer}>
+        <Header />
+        {cartContext.cartDetails.quantity > 0 ? (
+          <Products
+            products={cartItems}
+            removeCartProduct={removeCartProduct}
+          />
+        ) : (
+          <Text>No Items has been added to the cart</Text>
+        )}
+        {cartContext.cartDetails.quantity > 0 && (
+          <ProductPrice navigation={navigation} cartItems={cartItems} />
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

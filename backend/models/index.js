@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
-  operatorsAliases: false,
+  operatorsAliases: 0,
 });
 
 const db = {};
@@ -15,8 +15,8 @@ db.type = require("./type.model")(sequelize, Sequelize);
 db.product = require("./product.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
 db.sellProduct = require("./sellProduct.model")(sequelize, Sequelize);
-// // db.deliveryDriver = require("./deliveryDriver.model")(sequelize, Sequelize);
-// // db.deliveries = require("./deliveries.model")(sequelize, Sequelize);
+db.deliveryDriver = require("./deliveryDriver.model")(sequelize, Sequelize);
+db.deliveries = require("./deliveries.model")(sequelize, Sequelize);
 db.order = require("./order.model")(sequelize, Sequelize);
 db.account = require("./account.model")(sequelize, Sequelize);
 db.cart = require("./cart.model")(sequelize, Sequelize);
@@ -77,24 +77,24 @@ db.sellProduct.belongsTo(db.order, {
 // //   as: "customer",
 // // });
 
-// // Foreign key for deliveries
-// // db.order.hasMany(db.deliveries, {
-// //   foreignKey: "order_id",
-// // });
+// Foreign key for deliveries
+db.order.hasMany(db.deliveries, {
+  foreignKey: "order_id",
+});
 
-// // db.deliveries.belongsTo(db.order, {
-// //   foreignKey: "order_id",
-// //   as: "order",
-// // });
+db.deliveries.belongsTo(db.order, {
+  foreignKey: "order_id",
+  as: "order",
+});
 
-// // db.deliveryDriver.hasMany(db.deliveries, {
-// //   foreignKey: "delivery_driver_id",
-// // });
+db.deliveryDriver.hasMany(db.deliveries, {
+  foreignKey: "delivery_driver_id",
+});
 
-// // db.deliveries.belongsTo(db.deliveryDriver, {
-// //   foreignKey: "delivery_driver_id",
-// //   as: "deliveryDriver",
-// // });
+db.deliveries.belongsTo(db.deliveryDriver, {
+  foreignKey: "delivery_driver_id",
+  as: "deliveryDriver",
+});
 
 // Foreign key for Cart
 db.customer.hasOne(db.cart, {
@@ -115,15 +115,15 @@ db.cart.belongsTo(db.product, {
   as: "product",
 });
 
-// // Foreign key for delivery Driver
-// // db.account.hasOne(db.deliveryDriver, {
-// //   foreignKey: "account_id",
-// // });
+// Foreign key for delivery Driver
+db.account.hasOne(db.deliveryDriver, {
+  foreignKey: "account_id",
+});
 
-// // db.deliveryDriver.belongsTo(db.account, {
-// //   foreignKey: "account_id",
-// //   as: "account",
-// // });
+db.deliveryDriver.belongsTo(db.account, {
+  foreignKey: "account_id",
+  as: "account",
+});
 
 // Foreign key for Online Customer
 db.customer.hasOne(db.onlineCustomer, {

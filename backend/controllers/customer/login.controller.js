@@ -54,6 +54,7 @@ const LoginController = async (req, res) => {
 };
 
 const getCustomerIdContrller = async (req, res) => {
+  console.log("mmm");
   const accountId = parseInt(req.params.accID);
   console.log(accountId);
   try {
