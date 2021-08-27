@@ -24,7 +24,7 @@ app.use("/armagic/api/cart", cartRouter);
 app.use("/armagic/api/payments", paymentRouter);
 // app.use("/armagic/api/deliveryDriver", deliveryDriverRouter);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3006;
 
 connectDB();
 
