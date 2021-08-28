@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   Dimensions,
   Alert,
   Platform,
+  Image,
 } from "react-native";
 import Input from "../../UI/Input";
 import Form from "../../UI/Form";
@@ -15,14 +16,15 @@ import FormAppButton from "../../UI/FormAppButton";
 import { API_URL } from "react-native-dotenv";
 import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import { AntDesign } from "@expo/vector-icons";
-import { Zocial } from "@expo/vector-icons";
+import { CartContext } from "../../Reducers/cartReducer";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
-const StripeApp = () => {
+const StripeApp = ({ userDetails }) => {
   const [name, setName] = useState();
   const [showModal, setShowModal] = useState(false);
-  //   const [cardDetails, setCardDetails] = useState();
+  const cartContext = useContext(CartContext);
   const { confirmPayment, loading } = useConfirmPayment();
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
@@ -55,7 +57,28 @@ const StripeApp = () => {
           type: "Card",
           billingDetails: { name },
         });
-        setShowModal((prevState) => !prevState);
+
+        const total_product_amount = parseFloat(
+          cartContext.cartDetails.totalAmount
+        ).toFixed(2);
+        const customerID = await SecureStore.getItemAsync("customer_id");
+        const customer_id = parseInt(customerID);
+        const payment_method = "online";
+        const data = {
+          total_product_amount,
+          customer_id,
+          payment_method,
+        };
+        console.log(data);
+        try {
+          const response = await axios.post(`${API_URL}payments/orders`, {
+            data,
+          });
+          const { order_id } = response.data;
+          setShowModal((prevState) => !prevState);
+        } catch (err) {
+          console.log(err);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -63,8 +86,12 @@ const StripeApp = () => {
   };
   return (
     <View style={styles.container}>
-      <Form width={mobileWidth - 30} height={330}>
-        <SubHeader title="Payment Form" width={300} />
+      <Form width={mobileWidth - 30} height={mobileHeight - 250}>
+        <Image
+          source={require("../../../../assets/nlogo.png")}
+          style={styles.imageHeader}
+        />
+        <SubHeader title="Payment Form" width={mobileWidth / 1.75} />
         <Input
           placeholder="Enter your name"
           value={name}
@@ -92,9 +119,9 @@ const StripeApp = () => {
         >
           <FormAppButton
             type="Submit"
-            title="Pay With Stripe"
+            title="Pay With Payhere"
             onPress={paymentHandler}
-            width={180}
+            width={200}
             disabled={loading}
           />
         </View>
@@ -104,6 +131,7 @@ const StripeApp = () => {
             size={24}
             color="#F00"
             style={styles.closeIcon}
+            onPress={() => setShowModal(!showModal)}
           />
           <MaterialIcons
             name="payments"
@@ -159,5 +187,12 @@ const styles = StyleSheet.create({
     marginTop: -18,
     marginRight: 5,
     marginBottom: 0,
+  },
+  imageHeader: {
+    width: 90,
+    height: 90,
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    marginTop: 20,
   },
 });

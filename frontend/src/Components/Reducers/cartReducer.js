@@ -70,6 +70,14 @@ export const cartReducer = (state, action) => {
         };
       }
     }
+    case "deliveryCharges":
+      return {
+        cartProductID: state.cartProductID,
+        quantity: state.quantity,
+        totalAmount: parseInt(state.totalAmount),
+        totalDiscountAmount: state.totalDiscountAmount,
+        deliveryCharges: parseInt(action.payload.deliveryCharges),
+      };
     case "logout":
       return {
         quantity: 0,

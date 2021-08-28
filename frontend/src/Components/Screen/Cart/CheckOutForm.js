@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import Card from "../../UI/Card";
 import UserDetails from "./UserDetails";
 import axios from "axios";
+import { CartContext } from "../../Reducers/cartReducer";
 import { API_URL } from "react-native-dotenv";
 
 const mobileWidth = Dimensions.get("window").width;
@@ -18,6 +19,12 @@ const StatusBarHeight = StatusBar.currentHeight;
 
 const CheckOutForm = ({ navigation }) => {
   const [districts, setDistricts] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [telephoneNumber, setTelephoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [district, setDistrict] = useState("");
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     const fetchDistrictList = async () => {
@@ -36,16 +43,11 @@ const CheckOutForm = ({ navigation }) => {
   }, []);
 
   return (
-    <Card
-      width={mobileWidth - 40}
-      height={mobileHeight / 1.1}
-      ml={20}
-      bg="#fff"
-    >
+    <React.Fragment>
       {districts.length > 0 && (
         <UserDetails districts={districts} navigation={navigation} />
       )}
-    </Card>
+    </React.Fragment>
   );
 };
 

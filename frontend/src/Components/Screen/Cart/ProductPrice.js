@@ -59,12 +59,11 @@ const ProductPrice = ({ navigation, cartItems }) => {
   return (
     <View
       style={{
-        width: mobileWidth,
-        // position: "absolute",
-        // bottom: 165,
+        marginTop: 10,
+        marginHorizontal: 10,
       }}
     >
-      <Card width={mobileWidth} pd={7} fd="row" bg="#343899">
+      <Card width={mobileWidth - 20} pd={7} fd="row" bg="#343899">
         <View style={styles.products}>
           <Text style={styles.subHeader}>Your Order</Text>
           <View style={styles.productDetail}>
@@ -130,8 +129,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   checkoutButton: {
-    marginTop: 10,
-    marginLeft: 300,
+    alignSelf: "flex-end",
+    marginRight: 50,
+    marginTop: 20,
+    marginBottom: 10,
   },
 });
 

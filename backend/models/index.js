@@ -25,7 +25,7 @@ db.onlineCustomer = require("./online_customer.model")(sequelize, Sequelize);
 // db.messages = require("./messages.model")(sequelize, Sequelize);
 db.payments = require("./payments.model")(sequelize, Sequelize);
 db.shippingDetails = require("./shippingDetails.model")(sequelize, Sequelize);
-// // db.productReview = require("./productReview.model")(sequelize, Sequelize);
+db.productReview = require("./productReview.model")(sequelize, Sequelize);
 // // db.resetToken = require("./resetToken.model")(sequelize, Sequelize);
 
 // Foreign key for types
@@ -68,14 +68,14 @@ db.sellProduct.belongsTo(db.order, {
 });
 
 // // Foreign key for invoice
-// // db.customer.hasMany(db.order, {
-// //   foreignKey: "customer_id",
-// // });
+db.customer.hasMany(db.order, {
+  foreignKey: "customer_id",
+});
 
-// // db.order.belongsTo(db.customer, {
-// //   foreignKey: "customer_id",
-// //   as: "customer",
-// // });
+db.order.belongsTo(db.customer, {
+  foreignKey: "customer_id",
+  as: "customer",
+});
 
 // Foreign key for deliveries
 db.order.hasMany(db.deliveries, {
@@ -145,14 +145,14 @@ db.onlineCustomer.belongsTo(db.account, {
 });
 
 // // Foreign key for payments
-// // db.order.hasOne(db.payments, {
-// //   foreignKey: "order_id",
-// // });
+db.order.hasOne(db.payments, {
+  foreignKey: "order_id",
+});
 
-// // db.payments.belongsTo(db.order, {
-// //   foreignKey: "order_id",
-// //   as: "order",
-// // });
+db.payments.belongsTo(db.order, {
+  foreignKey: "order_id",
+  as: "order",
+});
 
 // Foreign key for shipping Details
 db.deliveryCharges.hasOne(db.shippingDetails, {
@@ -174,13 +174,13 @@ db.shippingDetails.belongsTo(db.order, {
 });
 
 // // Foreign key for product Review
-// // db.product.hasMany(db.productReview, {
-// //   foreignKey: "product_id",
-// // });
+db.product.hasMany(db.productReview, {
+  foreignKey: "product_id",
+});
 
-// // db.productReview.belongsTo(db.product, {
-// //   foreignKey: "product_id",
-// //   as: "product",
-// // });
+db.productReview.belongsTo(db.product, {
+  foreignKey: "product_id",
+  as: "product",
+});
 
 module.exports = db;
