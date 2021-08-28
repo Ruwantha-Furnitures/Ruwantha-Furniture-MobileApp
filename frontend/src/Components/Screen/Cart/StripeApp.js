@@ -69,13 +69,62 @@ const StripeApp = ({ userDetails }) => {
           customer_id,
           payment_method,
         };
-        console.log(data);
+        const {
+          firstName,
+          lastName,
+          address,
+          district,
+          telephoneNumber,
+          selectdeliveryDetails,
+        } = userDetails;
+        console.log(selectdeliveryDetails);
+
+        //adding data to the order table
         try {
           const response = await axios.post(`${API_URL}payments/orders`, {
             data,
           });
-          const { order_id } = response.data;
-          setShowModal((prevState) => !prevState);
+          if (response.status === 201) {
+            const { order_id } = response.data; //getting the order id
+            const shppingDetailData = {
+              order_id,
+              first_name: firstName,
+              last_name: lastName,
+              shipping_address: address,
+              contact_number: telephoneNumber,
+              charge_id: selectdeliveryDetails.id,
+            };
+            const shippingDetailsResponse = await axios.post(
+              `${API_URL}payments/shippingDetails`,
+              { shppingDetailData }
+            );
+            if (shippingDetailsResponse.status === 201) {
+              console.log("done");
+              // setShowModal((prevState) => !prevState);
+            } else {
+              console.log("error");
+            }
+            const paymentDetailsData = {
+              order_id,
+              total_amounts:
+                cartContext.cartDetails.totalAmount +
+                cartContext.cartDetails.deliveryCharges -
+                cartContext.cartDetails.totalDiscountAmount,
+            };
+
+            const paymentsDetailsResponse = await axios.post(
+              `${API_URL}payments/savePayments`,
+              { paymentDetailsData }
+            );
+
+            if (paymentsDetailsResponse.status === 201) {
+              console.log("done");
+            }
+          } else {
+            console.log("error");
+          }
+          console.log(response);
+          console.log(order_id);
         } catch (err) {
           console.log(err);
         }

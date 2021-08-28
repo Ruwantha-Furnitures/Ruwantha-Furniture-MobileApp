@@ -145,6 +145,7 @@ const UserDetails = ({ districts, navigation }) => {
         address={address}
         district={district}
         telephoneNumber={telephoneNumber}
+        selectdeliveryDetails={selectdeliveryDetails}
       />
     </React.Fragment>
   );

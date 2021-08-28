@@ -13,6 +13,7 @@ const DiscountProductPrice = ({
   address,
   district,
   telephoneNumber,
+  selectdeliveryDetails,
 }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
@@ -68,6 +69,7 @@ const DiscountProductPrice = ({
                     address,
                     telephoneNumber,
                     district,
+                    selectdeliveryDetails,
                   },
                 })
               }
