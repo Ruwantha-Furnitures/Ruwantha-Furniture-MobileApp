@@ -109,10 +109,25 @@ const GetCartInitialTotalAmountController = async (req, res) => {
   }
 };
 
+const DeleteCustomerCartController = async (req, res) => {
+  console.log("delete");
+  const { customerId } = req.params;
+  try {
+    const deleteProduct = await Cart.update({
+      is_deleted: 1,
+      where: { customer_id: customerId },
+    });
+    res.status(200).json({ message: "Successfully deleted cart product" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   AddToCartController,
   DeleteCartController,
   UpdateCartController,
   GetCartItemsController,
   GetCartInitialTotalAmountController,
+  DeleteCustomerCartController,
 };

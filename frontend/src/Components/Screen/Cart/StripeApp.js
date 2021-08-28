@@ -86,6 +86,8 @@ const StripeApp = ({ userDetails }) => {
           });
           if (response.status === 201) {
             const { order_id } = response.data; //getting the order id
+
+            //shipping detai;s
             const shppingDetailData = {
               order_id,
               first_name: firstName,
@@ -94,6 +96,8 @@ const StripeApp = ({ userDetails }) => {
               contact_number: telephoneNumber,
               charge_id: selectdeliveryDetails.id,
             };
+
+            //adding data to the shipping details table
             const shippingDetailsResponse = await axios.post(
               `${API_URL}payments/shippingDetails`,
               { shppingDetailData }
@@ -104,6 +108,8 @@ const StripeApp = ({ userDetails }) => {
             } else {
               console.log("error");
             }
+
+            //required payment data for the payment table
             const paymentDetailsData = {
               order_id,
               total_amounts:
@@ -112,6 +118,7 @@ const StripeApp = ({ userDetails }) => {
                 cartContext.cartDetails.totalDiscountAmount,
             };
 
+            //save payment details in payment table
             const paymentsDetailsResponse = await axios.post(
               `${API_URL}payments/savePayments`,
               { paymentDetailsData }
@@ -119,12 +126,39 @@ const StripeApp = ({ userDetails }) => {
 
             if (paymentsDetailsResponse.status === 201) {
               console.log("done");
+            } else {
+              console.log("error");
+            }
+
+            //get the cart items from the db
+            const getCartItemsResponse = await axios.get(
+              `${API_URL}cart/${customer_id}`
+            );
+            const { cartItems } = getCartItemsResponse.data;
+
+            //save those cart items in the sellproduct table
+            const sellProductDetails = {
+              cartItems,
+              order_id,
+            };
+            const sellProductDetailResponse = await axios.post(
+              `${API_URL}payments/sellProducts`,
+              { sellProductDetails }
+            );
+            if (sellProductDetailResponse.status === 201) {
+              const deleteCartOfCustomer = await axios.put(
+                `${API_URL}cart/${customer_id}`
+              );
+              if (deleteCartOfCustomer.status === 200) {
+                //should add dispatch method to set state to initial stage
+              }
+              console.log("done");
+            } else {
+              console.log("error");
             }
           } else {
             console.log("error");
           }
-          console.log(response);
-          console.log(order_id);
         } catch (err) {
           console.log(err);
         }

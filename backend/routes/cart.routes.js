@@ -6,6 +6,7 @@ const {
   DeleteCartController,
   GetCartItemsController,
   GetCartInitialTotalAmountController,
+  DeleteCustomerCartController,
 } = require("../controllers/products/cart.controller");
 
 const {
@@ -21,4 +22,5 @@ router.delete(
   "/deleteCartProduct/:productId/:customerId",
   DeleteCartController
 );
+router.put("/:customerId", DeleteCustomerCartController);
 module.exports = { cartRouter: router };
