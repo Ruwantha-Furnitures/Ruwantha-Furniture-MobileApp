@@ -1,9 +1,6 @@
 import React from "react";
 
 export const cartReducer = (state, action) => {
-  console.log("state is");
-  console.log(state);
-  console.log(action.payload);
   switch (action.type) {
     case "initiate":
       return {
@@ -82,6 +79,15 @@ export const cartReducer = (state, action) => {
       return {
         quantity: 0,
         totalAmount: 0,
+      };
+
+    case "deleteCart":
+      return {
+        cartProductID: action.payload.cartProductID,
+        quantity: action.payload.quantity,
+        totalAmount: action.payload.totalAmount,
+        totalDiscountAmount: action.payload.totalDiscountAmount,
+        deliveryCharges: action.payload.deliveryCharges,
       };
   }
 };

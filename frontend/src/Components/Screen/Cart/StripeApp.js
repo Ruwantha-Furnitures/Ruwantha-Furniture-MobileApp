@@ -104,7 +104,6 @@ const StripeApp = ({ userDetails }) => {
             );
             if (shippingDetailsResponse.status === 201) {
               console.log("done");
-              // setShowModal((prevState) => !prevState);
             } else {
               console.log("error");
             }
@@ -151,6 +150,20 @@ const StripeApp = ({ userDetails }) => {
               );
               if (deleteCartOfCustomer.status === 200) {
                 //should add dispatch method to set state to initial stage
+                console.log("delete cart");
+                cartContext.dispatchCart({
+                  type: "deleteCart",
+                  payload: {
+                    cartProductID: [],
+                    quantity: 0,
+                    totalAmount: 0,
+                    totalDiscountAmount: 0,
+                    deliveryCharges: 0,
+                  },
+                });
+                setShowModal((prevState) => !prevState);
+              } else {
+                console.log("error");
               }
               console.log("done");
             } else {
@@ -202,7 +215,7 @@ const StripeApp = ({ userDetails }) => {
         >
           <FormAppButton
             type="Submit"
-            title="Pay With Payhere"
+            title="Pay With Stripe"
             onPress={paymentHandler}
             width={200}
             disabled={loading}
