@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -11,91 +11,141 @@ import Checkbox from "expo-checkbox";
 import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
 import TermsConditionsModal from "../../UI/TermsConditionsModal";
+import Card from "../../UI/Card";
+import DiscountProductPrice from "./DiscountProductPrice";
 import FormAppButton from "../../UI/FormAppButton";
 import { Picker } from "@react-native-picker/picker";
+import { CartContext } from "../../Reducers/cartReducer";
+import { AntDesign } from "@expo/vector-icons";
+
 import axios from "axios";
 const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
 
 const UserDetails = ({ districts, navigation }) => {
-  // const [allDistricts, setAllDistricts] = useState([]);
+  const [allDistrictData, setAllDistrictData] = useState();
+  const [allDistricts, setAllDistricts] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [telephoneNumber, setTelephoneNumber] = useState("");
   const [address, setAddress] = useState("");
-  // const [deliveryAmount, setDeliveryAmount] = useState("");
-  const [district, setDistrict] = useState(districts[0].area);
-  const [deliveryDetails, setDeliveryDetails] = useState(null);
-  // useEffect(() => {
-  //   setAllDistricts(districts);
-  // }, []);
+  const [district, setDistrict] = useState("Please select your area");
+  const [selectdeliveryDetails, setSelectDeliveryDetails] = useState();
+  const cartContext = useContext(CartContext);
 
-  const deliveryChargeHandler = districts.map((location) => {
-    return (
-      <Picker.Item label={location.area} value={location} key={location.id} />
+  useEffect(() => {
+    setAllDistrictData(districts);
+    setAllDistricts(districts.map((district) => district.area));
+  }, []);
+
+  const getDeliveryAmount = (area) => {
+    const selectedDistrictIndex = allDistrictData.findIndex(
+      (district) => district.area === area
     );
+    const { amount } = districts[selectedDistrictIndex];
+    cartContext.dispatchCart({
+      type: "deliveryCharges",
+      payload: {
+        deliveryCharges: amount,
+      },
+    });
+    setSelectDeliveryDetails(districts[selectedDistrictIndex]);
+  };
+
+  const deliveryChargeHandler = allDistricts.map((location, index) => {
+    return <Picker.Item label={location} value={location} key={index} />;
   });
 
   return (
     <React.Fragment>
-      <React.Fragment>
-        <SubHeader title="Personal Information" width={mobileWidth / 1.3} />
-        <Input
-          placeholder="Enter Your First Name"
-          value={firstName}
-          onChangeText={(firstName) => setFirstName(firstName)}
-        />
-        <Input
-          placeholder="Enter Your Last Name"
-          value={lastName}
-          onChangeText={(lastName) => setLastName}
-        />
-        <Input
-          placeholder="Enter Your Telephone Number"
-          value={telephoneNumber}
-          onChangeText={(telephoneNumber) =>
-            setTelephoneNumber(telephoneNumber)
-          }
-        />
-      </React.Fragment>
-      <React.Fragment>
-        <SubHeader title="Shipping Details" width={mobileWidth / 1.3} />
-        <Input
-          placeholder="Enter Your Address"
-          name="textarea"
-          value={address}
-          onChangeText={(address) => setAddress(address)}
-        />
-        <Picker
-          style={styles.nameSelect}
-          selectedValue={district}
-          // value={
-          //   deliveryDetails === null ? "Select your area" : deliveryDetails.area
-          // }
-          onValueChange={(itemValue, itemIndex) => {
-            console.log(itemValue);
-            setDeliveryDetails(itemValue);
-            setDistrict(itemValue.area);
-          }}
-          mode="dropdown"
-        >
-          {deliveryChargeHandler}
-        </Picker>
-      </React.Fragment>
+      <Card
+        width={mobileWidth - 40}
+        height={mobileHeight + 30}
+        ml={20}
+        bg="#fff"
+      >
+        <React.Fragment>
+          <SubHeader title="Personal Information" width={mobileWidth / 1.3} />
+          <Input
+            placeholder="Enter Your First Name"
+            value={firstName}
+            onChangeText={(firstName) => setFirstName(firstName)}
+          />
+          <Input
+            placeholder="Enter Your Last Name"
+            value={lastName}
+            onChangeText={(lastName) => setLastName(lastName)}
+          />
+          <Input
+            placeholder="Enter Your Telephone Number"
+            value={telephoneNumber}
+            onChangeText={(telephoneNumber) =>
+              setTelephoneNumber(telephoneNumber)
+            }
+          />
+        </React.Fragment>
+        <React.Fragment>
+          <SubHeader title="Shipping Details" width={mobileWidth / 1.3} />
+          <Input
+            placeholder="Enter Your Address"
+            name="textarea"
+            value={address}
+            onChangeText={(address) => setAddress(address)}
+          />
+          {districts.length > 0 && (
+            <View
+              style={{
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: "#E7E5E9",
+                padding: 1,
+                marginLeft: 20,
+                marginTop: 10,
+                width: mobileWidth - 80,
+                dropdownIconColor: "#000",
+                backgroundColor: "#E7E5E9",
+              }}
+            >
+              <Picker
+                style={styles.nameSelect}
+                selectedValue={district}
+                onValueChange={(itemValue, itemIndex) => {
+                  console.log(itemValue);
+                  setDistrict(itemValue);
+                  getDeliveryAmount(itemValue);
+                }}
+                mode="dropdown"
+              >
+                {deliveryChargeHandler}
+              </Picker>
+              <AntDesign
+                name="caretdown"
+                size={22}
+                color="black"
+                style={{ position: "absolute", top: 14, right: 18 }}
+              />
+            </View>
+          )}
+        </React.Fragment>
 
-      <View style={styles.conditions}>
-        <Checkbox
-          style={styles.checkbox}
-          value={isChecked}
-          onValueChange={setIsChecked}
-        />
-        <TermsConditionsModal />
-      </View>
-      <FormAppButton
-        title="Proceed To Payment"
-        type="Submit"
-        width={250}
-        onPress={() => navigation.navigate("StripeApp")}
+        <View style={styles.conditions}>
+          <Checkbox
+            style={styles.checkbox}
+            value={isChecked}
+            onValueChange={setIsChecked}
+          />
+          <TermsConditionsModal />
+        </View>
+      </Card>
+      <DiscountProductPrice
+        navigation={navigation}
+        firstName={firstName}
+        lastName={lastName}
+        address={address}
+        district={district}
+        telephoneNumber={telephoneNumber}
+        selectdeliveryDetails={selectdeliveryDetails}
       />
     </React.Fragment>
   );
@@ -104,7 +154,8 @@ const UserDetails = ({ districts, navigation }) => {
 const styles = StyleSheet.create({
   conditions: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 25,
+    marginLeft: 10,
     justifyContent: "center",
   },
   checkbox: {
@@ -124,10 +175,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     letterSpacing: 1,
     fontSize: 15,
-    minWidth: 140,
-    minHeight: 20,
-    maxWidth: 230,
-    marginLeft: 20,
+    // minHeight: 20,
+    // marginLeft: 10,
     color: "#000",
     fontWeight: "bold",
   },

@@ -12,8 +12,8 @@ const TermsConditionsModal = () => {
 
 const styles = StyleSheet.create({
   modal: {
-    width: 250,
-    paddingVertical: 10,
+    width: 280,
+    paddingVertical: 7.5,
     paddingHorizontal: 10,
     borderRadius: 10,
     borderColor: "black",

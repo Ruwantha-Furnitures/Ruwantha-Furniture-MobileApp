@@ -22,6 +22,7 @@ const Product = ({ item, removeCartProduct }) => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState();
+  const [discount, setDiscount] = useState();
   const cartContext = useContext(CartContext);
 
   const fetchSingleProduct = async () => {
@@ -30,10 +31,11 @@ const Product = ({ item, removeCartProduct }) => {
       const id = item.id;
       console.log(id);
       let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
-      const { name, price } = response.data.product;
+      const { name, price, discount } = response.data.product;
       setName(name);
       setQuantity(item.quantity);
       setPrice(price);
+      setDiscount(discount);
     } catch (error) {
       console.log(error);
     }
@@ -48,19 +50,18 @@ const Product = ({ item, removeCartProduct }) => {
   const increment = async (item) => {
     try {
       console.log("increment");
-      console.log(price);
-      // const number = await SecureStore.getItemAsync("numberOfProducts");
-      // const afterIncrement = parseInt(number) + 1;
-      // await SecureStore.setItemAsync("numberOfProducts", afterIncrement);
-      // setQuantity(quantity + 1);
+      let discountAmount = (price * discount) / 100; //calculate discount amout
+      console.log(discountAmount);
+      setQuantity(quantity + 1);
+      //calling the reducer function to update the global state
       cartContext.dispatchCart({
         type: "increment",
-        payload: { totalAmount: price },
+        payload: { totalAmount: price, discount: discountAmount },
       });
+      //update cart api calling
       const curQty = quantity + 1;
       const id = item.id;
-      const customerId = item.customer_id;
-      const type = "increment";
+      const customerId = await SecureStore.getItemAsync("customer_id");
       let qtyResponse = await axios.put(
         `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
         { quantity: curQty }
@@ -74,8 +75,14 @@ const Product = ({ item, removeCartProduct }) => {
       if (quantity > 1) {
         setQuantity(quantity - 1);
         const curQty = quantity - 1;
+        let discountAmount = (price * discount) / 100; //calculate discount amount
+        //calling the reducer function to update the global state for decrement
+        cartContext.dispatchCart({
+          type: "decrement",
+          payload: { totalAmount: price, discount: discountAmount },
+        });
         const id = item.id;
-        const customerId = item.customer_id;
+        const customerId = await SecureStore.getItemAsync("customer_id");
         const type = "increment";
         let qtyResponse = await axios.put(
           `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
@@ -117,7 +124,9 @@ const Product = ({ item, removeCartProduct }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.btnDelete}
-              onPress={() => removeCartProduct(item)}
+              onPress={() =>
+                removeCartProduct({ item, price, quantity, discount })
+              }
             >
               <View>
                 <MaterialIcons name="delete" size={30} color="black" />

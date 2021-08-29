@@ -1,37 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 import PurchaseDetailTable from "./PurchaseDetailTable";
 import RatingsForm from "./RatingsForm";
+import axios from "axios";
+import { API_URL } from "react-native-dotenv";
+import * as All from "../Products/ALLImages";
 
-const PurchasedProduct = ({ item }) => {
+const PurchasedProduct = ({ item, order }) => {
   const [ratingDisplay, setRatingDisplay] = useState(false);
+  const [orderId, setOrderId] = useState("");
+  const [details, setDetails] = useState(null);
+  const [startRating, setStartRating] = useState(1);
+  const [feedback, setFeedback] = useState("");
 
   const ratingFormHandler = () => {
     setRatingDisplay((prevState) => !prevState);
   };
 
+  const feedbackHandler = async (defaultRating, feedback) => {
+    console.log(defaultRating);
+    console.log(feedback);
+    console.log(details[0].id);
+    try {
+      const ratingsResponse = await axios.post(
+        `${API_URL}customer/purchaseOrders/feedback`,
+        { product_id: details[0].id, feedback, rating_points: defaultRating }
+      );
+      if (ratingsResponse.status === 200) {
+        console.log("ratings has been added");
+        setRatingDisplay((prevState) => !prevState);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProductDetails = async () => {
+    try {
+      const orderid = order.id;
+      setOrderId(orderId);
+      console.log("wtf");
+      const purchasedProductResponse = await axios.get(
+        `${API_URL}customer/purchaseOrders/products/${orderid}`
+      );
+      console.log(purchasedProductResponse.data);
+      if (purchasedProductResponse.status === 200) {
+        const { sellProduct, productDetails } = purchasedProductResponse.data;
+        setDetails(productDetails);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductDetails();
+  }, []);
+
   return (
     <View style={styles.purchases}>
-      <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
-        <View style={styles.productContainer}>
-          <Text style={styles.purchaseItemName}>{item.name}</Text>
-          <Image source={item.image} style={styles.productImage} />
-          <PurchaseDetailTable item={item} />
-          {!ratingDisplay && (
-            <View style={styles.btnContainer}>
-              <AppButton
-                size="lg"
-                title="Provide Ratings"
-                onPress={ratingFormHandler}
-                width={200}
-              />
-            </View>
+      {details != null && (
+        <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
+          <View style={styles.productContainer}>
+            <Text style={styles.purchaseItemName}>{details[0].name}</Text>
+            <Image
+              source={All[`Image${details[0].id}`]}
+              style={styles.productImage}
+            />
+            {details && <PurchaseDetailTable item={details} />}
+            {!ratingDisplay && (
+              <View style={styles.btnContainer}>
+                <AppButton
+                  size="lg"
+                  title="Provide Ratings"
+                  onPress={ratingFormHandler}
+                  width={200}
+                />
+              </View>
+            )}
+          </View>
+          {ratingDisplay && (
+            <RatingsForm
+              ratingFormHandler={ratingFormHandler}
+              feedbackHandler={feedbackHandler}
+            />
           )}
-        </View>
-        {ratingDisplay && <RatingsForm ratingFormHandler={ratingFormHandler} />}
-      </Card>
+        </Card>
+      )}
     </View>
   );
 };

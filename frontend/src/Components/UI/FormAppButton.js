@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "uppercase",
     marginLeft: 20,
+    letterSpacing: 0.5,
   },
 });
 export default FormAppButton;

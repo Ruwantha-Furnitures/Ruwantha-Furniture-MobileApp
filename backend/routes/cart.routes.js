@@ -6,6 +6,7 @@ const {
   DeleteCartController,
   GetCartItemsController,
   GetCartInitialTotalAmountController,
+  DeleteCustomerCartController,
 } = require("../controllers/products/cart.controller");
 
 const {
@@ -17,5 +18,9 @@ router.get("/:customerId", GetCartItemsController);
 router.post("/addToCart", AddToCartController);
 router.get("/getProduct/:productId", getOneProductController);
 router.put("/updateCartProduct/:productId/:customerId", UpdateCartController);
-router.delete("/deleteCartProduct/:cartId", DeleteCartController);
+router.delete(
+  "/deleteCartProduct/:productId/:customerId",
+  DeleteCartController
+);
+router.put("/:customerId", DeleteCustomerCartController);
 module.exports = { cartRouter: router };

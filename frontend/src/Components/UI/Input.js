@@ -27,7 +27,8 @@ const Input = ({
       onChangeText={onChangeText}
       placeholder={placeholder}
       editable={editable}
-      numberOfLines={name === "textarea" ? 7 : 1}
+      numberOfLines={name === "textarea" ? 6 : 1}
+      multiline={name === "textarea" ? true : false}
     />
   );
 };

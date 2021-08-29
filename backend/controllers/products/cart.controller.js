@@ -26,7 +26,7 @@ const UpdateCartController = async (req, res) => {
       {
         where: {
           customer_id: customerId,
-          id: productId,
+          product_id: productId,
           is_deleted: 0,
         },
       }
@@ -39,11 +39,11 @@ const UpdateCartController = async (req, res) => {
 };
 
 const DeleteCartController = async (req, res) => {
-  const { cartId } = req.params;
+  const { productId, customerId } = req.params;
   try {
     const deleteCart = await Cart.update(
       { is_deleted: true },
-      { where: { id: cartId } }
+      { where: { customer_id: customerId, product_id: productId } }
     );
     res
       .status(200)
@@ -58,6 +58,7 @@ const GetCartItemsController = async (req, res) => {
   const products = [];
   let totalQuantity = 0;
   let totalAmount = 0;
+  let discountAmount = 0;
   try {
     const response = await Cart.findAll({
       where: { customer_id: customerId, is_deleted: 0 },
@@ -70,15 +71,22 @@ const GetCartItemsController = async (req, res) => {
     //getting the total quantity
     response.map((item) => (totalQuantity += item.quantity));
 
-    //getting the total amount for the customer
+    //getting the total amount & total discount for the customer
     for (let i = 0; i < products.length; i++) {
       console.log(products[i].id);
       const quantity = products[i].quantity;
       const result = await Product.findOne({ where: { id: products[i].id } });
       totalAmount += result.price * quantity;
+      discountAmount += (result.price * quantity * result.discount) / 100;
     }
-    console.log(totalAmount);
-    res.status(200).json({ cartItems: products, totalQuantity, totalAmount });
+
+    console.log(totalAmount, discountAmount, totalQuantity, products);
+    res.status(200).json({
+      cartItems: products,
+      totalQuantity,
+      totalAmount,
+      discountAmount,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -101,10 +109,30 @@ const GetCartInitialTotalAmountController = async (req, res) => {
   }
 };
 
+const DeleteCustomerCartController = async (req, res) => {
+  console.log("delete");
+  const { customerId } = req.params;
+  console.log(customerId);
+  try {
+    const deleteProduct = await Cart.update(
+      {
+        is_deleted: true,
+      },
+      { where: { customer_id: customerId } }
+    );
+    console.log(deleteProduct);
+    res.status(200).json({ message: "Successfully deleted cart product" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   AddToCartController,
   DeleteCartController,
   UpdateCartController,
   GetCartItemsController,
   GetCartInitialTotalAmountController,
+  DeleteCustomerCartController,
 };

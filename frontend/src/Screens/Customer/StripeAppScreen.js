@@ -4,9 +4,9 @@ import { API_URL } from "react-native-dotenv";
 import StripeApp from "../../Components/Screen/Cart/StripeApp";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import axios from "axios";
-const StripeAppScreen = () => {
+const StripeAppScreen = ({ route }) => {
   const [publishableKey, setPublishableKey] = useState("");
-
+  const { userDetails } = route.params;
   useEffect(() => {
     const fetchPublishableKey = async () => {
       try {
@@ -22,7 +22,7 @@ const StripeAppScreen = () => {
   }, []);
   return (
     <StripeProvider publishableKey={publishableKey}>
-      <StripeApp />
+      <StripeApp userDetails={userDetails} />
     </StripeProvider>
   );
 };

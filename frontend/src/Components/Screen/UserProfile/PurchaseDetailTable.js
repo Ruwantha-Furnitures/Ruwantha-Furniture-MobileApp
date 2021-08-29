@@ -14,7 +14,7 @@ const PurchaseDetailTable = ({ item }) => {
       }}
     >
       <Grid>
-        <Col size={17}>
+        <Col size={10}>
           <Row style={styles.cell}>
             <Text
               style={{
@@ -26,7 +26,7 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{item.orderID}</Text>
+            <Text>{`OD0${item[0].orderID}`}</Text>
           </Row>
         </Col>
         <Col size={18}>
@@ -41,10 +41,10 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{item.price}</Text>
+            <Text>Rs.{item[0].itemPrice}/=</Text>
           </Row>
         </Col>
-        <Col size={35}>
+        <Col size={10}>
           <Row style={styles.cell}>
             <Text
               style={{
@@ -56,24 +56,7 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{item.date}</Text>
-          </Row>
-        </Col>
-        <Col size={25}>
-          <Row style={styles.cell}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                height: "100%",
-              }}
-            >
-              Order Status
-            </Text>
-          </Row>
-          <Row style={styles.cell}>
-            <Text>{`${
-              item.orderStatus === true ? "Delivered" : "Pending"
-            }`}</Text>
+            <Text>{item[0].purchasedDate.split("T")[0]}</Text>
           </Row>
         </Col>
       </Grid>

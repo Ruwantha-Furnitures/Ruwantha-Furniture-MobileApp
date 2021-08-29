@@ -8,6 +8,7 @@ const {
   shippingDetailsController,
   paymentIntentController,
   getPublishableKeyController,
+  paymentsStoreController,
 } = require("../controllers/products/payment.controller");
 
 const {
@@ -20,5 +21,6 @@ router.get("/publishableKey", getPublishableKeyController);
 router.post("/shippingDetails", shippingDetailsController);
 router.post("/orders", orderDetailsController);
 router.post("/sellProducts", sellProductsController);
+router.post("/savePayments", paymentsStoreController);
 
 module.exports = { paymentRouter: router };
