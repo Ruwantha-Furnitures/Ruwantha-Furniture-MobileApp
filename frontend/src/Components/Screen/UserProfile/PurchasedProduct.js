@@ -1,16 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 import PurchaseDetailTable from "./PurchaseDetailTable";
 import RatingsForm from "./RatingsForm";
+import axios from "axios";
+import { API_URL } from "react-native-dotenv";
 
-const PurchasedProduct = ({ item }) => {
+const PurchasedProduct = ({ item, order }) => {
   const [ratingDisplay, setRatingDisplay] = useState(false);
+  const [name, setName] = useState("");
+  const [orderId, setOrderId] = useState("");
+  const [details, setDetails] = useState();
+  const [purchasedDate, setPurchasedDate] = useState("");
+  const [orderStatus, setOrderStatus] = useState(false);
+  const [startRating, setStartRating] = useState(1);
+  const [feedback, setFeedback] = useState("");
 
   const ratingFormHandler = () => {
     setRatingDisplay((prevState) => !prevState);
   };
+
+  const getProductDetails = async () => {
+    try {
+      const orderid = order.id;
+      setOrderId(orderId);
+      console.log("wtf");
+      const purchasedProductResponse = await axios.get(
+        `${API_URL}customer/purchaseOrders/products/${orderid}`
+      );
+      console.log(purchasedProductResponse.data);
+      if (purchasedProductResponse.status === 200) {
+        const { sellProduct, productDetails } = purchasedProductResponse.data;
+        setDetails(productDetails);
+        // console.log(SellProduct);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductDetails();
+  }, []);
 
   return (
     <View style={styles.purchases}>
@@ -18,7 +50,7 @@ const PurchasedProduct = ({ item }) => {
         <View style={styles.productContainer}>
           <Text style={styles.purchaseItemName}>{item.name}</Text>
           <Image source={item.image} style={styles.productImage} />
-          <PurchaseDetailTable item={item} />
+          {details && <PurchaseDetailTable item={details} />}
           {!ratingDisplay && (
             <View style={styles.btnContainer}>
               <AppButton

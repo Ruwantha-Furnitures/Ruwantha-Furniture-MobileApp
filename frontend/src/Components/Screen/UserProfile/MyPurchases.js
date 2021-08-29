@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, FlatList } from "react-native";
 import PurchasedProduct from "./PurchasedProduct";
-const MyPurchases = () => {
+const MyPurchases = ({ customerOrders }) => {
+  useEffect(() => {
+    console.log("Customer Orders");
+    console.log(customerOrders);
+  }, []);
   const productList = [
     {
-      orderID: 1,
+      id: 1,
       name: "Molteni Outline Chair",
       price: 2500,
       date: "12 August 2021",
@@ -15,7 +19,7 @@ const MyPurchases = () => {
       paymentStatus: true,
     },
     {
-      orderID: 2,
+      id: 2,
       name: "Monay NewCastle Chair",
       price: 3500,
       date: "10 August 2021",
@@ -33,8 +37,10 @@ const MyPurchases = () => {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={productList}
-        keyExtractor={(product) => product.orderID.toString()}
-        renderItem={({ item }) => <PurchasedProduct item={item} />}
+        keyExtractor={(order) => order.id.toString()}
+        renderItem={({ item }) => (
+          <PurchasedProduct item={item} order={customerOrders} />
+        )}
       />
     </View>
   );

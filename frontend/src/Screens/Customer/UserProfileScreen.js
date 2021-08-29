@@ -25,6 +25,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
   const cartContext = useContext(CartContext);
   const [userData, setUserData] = useState();
+  const [customerOrders, setCustomerOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const onChangeNav = (header) => {
@@ -44,6 +45,16 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
           const { first_name, address, telephone, last_name } = response.data;
           const data = { email, first_name, last_name, address, telephone };
           setUserData(data);
+          let ordersResponse = await axios.get(
+            `${API_URL}customer/purchaseOrders/${customerID}`
+          );
+          if (ordersResponse.status === 200) {
+            // console.log(ordersResponse.data);
+            const { orders } = ordersResponse.data;
+            setCustomerOrders(orders);
+          } else {
+            console.log("error");
+          }
         }
       } catch (err) {
         console.log(err);
@@ -129,7 +140,9 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         {currentView === "My Profile" && (
           <ViewProfile onChangeNav={onChangeNav} userData={userData} />
         )}
-        {currentView === "My Purchases" && <MyPurchases />}
+        {currentView === "My Purchases" && customerOrders.length > 0 && (
+          <MyPurchases customerOrders={customerOrders} />
+        )}
         {currentView === "Edit Profile" && (
           <EditProfile
             userData={userData}

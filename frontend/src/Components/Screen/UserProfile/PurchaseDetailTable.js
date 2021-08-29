@@ -26,7 +26,7 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{item.orderID}</Text>
+            <Text>{item[0].orderID}</Text>
           </Row>
         </Col>
         <Col size={18}>
@@ -41,7 +41,7 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{item.price}</Text>
+            <Text>Rs.{item[0].itemPrice}/=</Text>
           </Row>
         </Col>
         <Col size={35}>
@@ -56,7 +56,7 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{item.date}</Text>
+            <Text>{item[0].purchasedDate}</Text>
           </Row>
         </Col>
         <Col size={25}>
@@ -71,9 +71,10 @@ const PurchaseDetailTable = ({ item }) => {
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{`${
+            <Text>Pending</Text>
+            {/* <Text>{`${
               item.orderStatus === true ? "Delivered" : "Pending"
-            }`}</Text>
+            }`}</Text> */}
           </Row>
         </Col>
       </Grid>
