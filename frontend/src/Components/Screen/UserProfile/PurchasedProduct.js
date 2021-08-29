@@ -10,16 +10,31 @@ import * as All from "../Products/ALLImages";
 
 const PurchasedProduct = ({ item, order }) => {
   const [ratingDisplay, setRatingDisplay] = useState(false);
-  const [name, setName] = useState("");
   const [orderId, setOrderId] = useState("");
   const [details, setDetails] = useState(null);
-  const [purchasedDate, setPurchasedDate] = useState("");
-  const [orderStatus, setOrderStatus] = useState(false);
   const [startRating, setStartRating] = useState(1);
   const [feedback, setFeedback] = useState("");
 
   const ratingFormHandler = () => {
     setRatingDisplay((prevState) => !prevState);
+  };
+
+  const feedbackHandler = async (defaultRating, feedback) => {
+    console.log(defaultRating);
+    console.log(feedback);
+    console.log(details[0].id);
+    try {
+      const ratingsResponse = await axios.post(
+        `${API_URL}customer/purchaseOrders/feedback`,
+        { product_id: details[0].id, feedback, rating_points: defaultRating }
+      );
+      if (ratingsResponse.status === 200) {
+        console.log("ratings has been added");
+        setRatingDisplay((prevState) => !prevState);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getProductDetails = async () => {
@@ -67,7 +82,10 @@ const PurchasedProduct = ({ item, order }) => {
             )}
           </View>
           {ratingDisplay && (
-            <RatingsForm ratingFormHandler={ratingFormHandler} />
+            <RatingsForm
+              ratingFormHandler={ratingFormHandler}
+              feedbackHandler={feedbackHandler}
+            />
           )}
         </Card>
       )}

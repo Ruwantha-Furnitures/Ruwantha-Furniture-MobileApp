@@ -1,7 +1,7 @@
 const db = require("../../models");
 const Order = db.order;
 const SellProduct = db.sellProduct;
-const ProductReviews = db.productReviews;
+const ProductReviews = db.productReview;
 const Product = db.product;
 
 const getAllOrdersController = async (req, res) => {
@@ -54,14 +54,21 @@ const getPurchasedProductsController = async (req, res) => {
 
 const provideCustomerFeedbackController = async (req, res) => {
   const { product_id, feedback, rating_points } = req.body;
+  console.log("body");
+  console.log(req.body);
+  console.log(product_id);
+  console.log(feedback);
+  console.log(rating_points);
   try {
     const productReview = await ProductReviews.create({
       product_id,
       feedback,
       rating_points,
     });
-    res.status(200).message({ message: "Your Product Review has been added" });
+    console.log(productReview);
+    res.status(200).json({ message: "Your Product Review has been added" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };

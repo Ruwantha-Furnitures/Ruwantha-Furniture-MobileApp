@@ -1,11 +1,33 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
 import FormAppButton from "../../UI/FormAppButton";
 import { AntDesign } from "@expo/vector-icons";
 
-const RatingsForm = ({ ratingFormHandler }) => {
+const RatingsForm = ({ ratingFormHandler, feedbackHandler }) => {
+  const [defaultRating, setDefaultRating] = useState(1);
+  const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
+  const [feedback, setFeedback] = useState("");
+
+  const getStartRating = () => {
+    return (
+      <View style={styles.ratingContainer}>
+        {maxRating.map((item, index) => {
+          return (
+            <TouchableOpacity key={item} onPress={() => setDefaultRating(item)}>
+              {item > defaultRating ? (
+                <AntDesign name="staro" size={24} color="#FB9F3C" />
+              ) : (
+                <AntDesign name="star" size={24} color="#FB9F3C" />
+              )}
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <AntDesign
@@ -17,19 +39,14 @@ const RatingsForm = ({ ratingFormHandler }) => {
       />
       <Text style={styles.header}>Rate Product</Text>
       <Text style={styles.content}>How was the Quality of the product</Text>
-      <View style={styles.ratingContainer}>
-        <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="star" size={24} color="#FB9F3C" />
-        <AntDesign name="staro" size={24} color="black" />
-        <AntDesign name="staro" size={24} color="black" />
-        <AntDesign name="staro" size={24} color="black" />
-      </View>
+      {getStartRating()}
       <Text style={styles.content}>Feedback</Text>
       <Input
         placeholder="Write Here"
         name="textarea"
         backgroundColor="#E7E5E9"
         height={80}
+        onChangeText={(feedback) => setFeedback(feedback)}
       />
       <View
         style={{
@@ -40,7 +57,12 @@ const RatingsForm = ({ ratingFormHandler }) => {
         }}
       >
         <FormAppButton width={110} title="Cancel" onPress={ratingFormHandler} />
-        <FormAppButton width={110} type="Submit" title="Submit" />
+        <FormAppButton
+          width={110}
+          type="Submit"
+          title="Submit"
+          onPress={() => feedbackHandler(defaultRating, feedback)}
+        />
       </View>
     </View>
   );

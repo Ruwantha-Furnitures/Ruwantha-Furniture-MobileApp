@@ -33,6 +33,6 @@ router.get("/viewprofile/:customerID", ViewProfileController);
 router.put("/viewprofile/:customerID", UpdateProfileController);
 router.get("/purchaseOrders/:customerID", getAllOrdersController);
 router.get("/purchaseOrders/products/:orderID", getPurchasedProductsController);
-router.post("purchaseOrders/products", provideCustomerFeedbackController);
+router.post("/purchaseOrders/feedback", provideCustomerFeedbackController);
 
 module.exports = { customerRouter: router };
