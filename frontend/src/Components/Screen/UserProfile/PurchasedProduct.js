@@ -6,12 +6,13 @@ import PurchaseDetailTable from "./PurchaseDetailTable";
 import RatingsForm from "./RatingsForm";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
+import * as All from "../Products/ALLImages";
 
 const PurchasedProduct = ({ item, order }) => {
   const [ratingDisplay, setRatingDisplay] = useState(false);
   const [name, setName] = useState("");
   const [orderId, setOrderId] = useState("");
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState(null);
   const [purchasedDate, setPurchasedDate] = useState("");
   const [orderStatus, setOrderStatus] = useState(false);
   const [startRating, setStartRating] = useState(1);
@@ -33,7 +34,6 @@ const PurchasedProduct = ({ item, order }) => {
       if (purchasedProductResponse.status === 200) {
         const { sellProduct, productDetails } = purchasedProductResponse.data;
         setDetails(productDetails);
-        // console.log(SellProduct);
       }
     } catch (error) {
       console.log(error);
@@ -46,24 +46,31 @@ const PurchasedProduct = ({ item, order }) => {
 
   return (
     <View style={styles.purchases}>
-      <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
-        <View style={styles.productContainer}>
-          <Text style={styles.purchaseItemName}>{item.name}</Text>
-          <Image source={item.image} style={styles.productImage} />
-          {details && <PurchaseDetailTable item={details} />}
-          {!ratingDisplay && (
-            <View style={styles.btnContainer}>
-              <AppButton
-                size="lg"
-                title="Provide Ratings"
-                onPress={ratingFormHandler}
-                width={200}
-              />
-            </View>
+      {details != null && (
+        <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
+          <View style={styles.productContainer}>
+            <Text style={styles.purchaseItemName}>{details[0].name}</Text>
+            <Image
+              source={All[`Image${details[0].id}`]}
+              style={styles.productImage}
+            />
+            {details && <PurchaseDetailTable item={details} />}
+            {!ratingDisplay && (
+              <View style={styles.btnContainer}>
+                <AppButton
+                  size="lg"
+                  title="Provide Ratings"
+                  onPress={ratingFormHandler}
+                  width={200}
+                />
+              </View>
+            )}
+          </View>
+          {ratingDisplay && (
+            <RatingsForm ratingFormHandler={ratingFormHandler} />
           )}
-        </View>
-        {ratingDisplay && <RatingsForm ratingFormHandler={ratingFormHandler} />}
-      </Card>
+        </Card>
+      )}
     </View>
   );
 };

@@ -36,11 +36,9 @@ const MyPurchases = ({ customerOrders }) => {
     <View>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={productList}
+        data={customerOrders}
         keyExtractor={(order) => order.id.toString()}
-        renderItem={({ item }) => (
-          <PurchasedProduct item={item} order={customerOrders} />
-        )}
+        renderItem={({ item }) => <PurchasedProduct order={item} />}
       />
     </View>
   );

@@ -31,8 +31,8 @@ router.post("/login", LoginController);
 router.get("/login/:accID", getCustomerIdContrller);
 router.get("/viewprofile/:customerID", ViewProfileController);
 router.put("/viewprofile/:customerID", UpdateProfileController);
-router.get("allOrders", getAllOrdersController);
-router.get("/purchaseOrders/:customerID", getPurchasedProductsController);
-router.post("purchaseOrders/:productID", provideCustomerFeedbackController);
+router.get("/purchaseOrders/:customerID", getAllOrdersController);
+router.get("/purchaseOrders/products/:orderID", getPurchasedProductsController);
+router.post("purchaseOrders/products", provideCustomerFeedbackController);
 
 module.exports = { customerRouter: router };
