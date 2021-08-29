@@ -20,10 +20,19 @@ const {
   UpdateProfileController,
 } = require("../controllers/customer/updateprofile.controller");
 
+const {
+  getPurchasedProductsController,
+  provideCustomerFeedbackController,
+  getAllOrdersController,
+} = require("../controllers/customer/purchasedproducts.controller");
+
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
 router.get("/login/:accID", getCustomerIdContrller);
 router.get("/viewprofile/:customerID", ViewProfileController);
 router.put("/viewprofile/:customerID", UpdateProfileController);
+router.get("allOrders", getAllOrdersController);
+router.get("/purchaseOrders/:customerID", getPurchasedProductsController);
+router.post("purchaseOrders/:productID", provideCustomerFeedbackController);
 
 module.exports = { customerRouter: router };
