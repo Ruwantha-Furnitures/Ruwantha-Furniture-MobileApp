@@ -33,7 +33,7 @@ const ViewProfile = ({ onChangeNav, userData }) => {
   };
   return (
     <View style={styles.viewProfile}>
-      <Form width={mobileWidth - 40} height={500}>
+      <Form width={mobileWidth - 40} height={520}>
         <SubHeader title="User Profile" width={200} />
         <Input editable={false} value={firstName} type="email" />
         <Input editable={false} value={lastName} type="email" />

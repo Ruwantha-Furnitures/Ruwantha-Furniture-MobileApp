@@ -133,17 +133,11 @@ const HomeScreen = ({ navigation: { navigate } }) => {
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Intro navigate={navigate} />
-        {newProducts.length > 0 ? (
+        {newProducts.length > 0 && (
           <NewArrival newProducts={newProducts} navigate={navigate} />
-        ) : (
-          <Text>Products are Loading</Text>
         )}
-
         <CustomIntro />
         <Contact />
-        {/* <Text style={{ color: "red", fontSize: 20 }}>
-          {cartContext.cartDetails.totalAmount}
-        </Text> */}
       </View>
     </ScrollView>
   );

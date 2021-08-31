@@ -22,11 +22,11 @@ db.account = require("./account.model")(sequelize, Sequelize);
 db.cart = require("./cart.model")(sequelize, Sequelize);
 db.deliveryCharges = require("./deliveryCharges.model")(sequelize, Sequelize);
 db.onlineCustomer = require("./online_customer.model")(sequelize, Sequelize);
-// db.messages = require("./messages.model")(sequelize, Sequelize);
+db.messages = require("./messages.model")(sequelize, Sequelize);
 db.payments = require("./payments.model")(sequelize, Sequelize);
 db.shippingDetails = require("./shippingDetails.model")(sequelize, Sequelize);
 db.productReview = require("./productReview.model")(sequelize, Sequelize);
-// // db.resetToken = require("./resetToken.model")(sequelize, Sequelize);
+db.resetToken = require("./resetToken.model")(sequelize, Sequelize);
 
 // Foreign key for types
 db.category.hasMany(db.type, {

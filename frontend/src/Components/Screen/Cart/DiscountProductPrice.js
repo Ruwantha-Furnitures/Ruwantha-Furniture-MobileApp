@@ -42,8 +42,7 @@ const DiscountProductPrice = ({
             <Text style={styles.amountDiscount}>
               Rs.
               {cartContext.cartDetails.totalAmount +
-                cartContext.cartDetails.deliveryCharges -
-                cartContext.cartDetails.totalDiscountAmount}
+                -cartContext.cartDetails.totalDiscountAmount}
               .00 /=
             </Text>
           </View>
@@ -52,7 +51,8 @@ const DiscountProductPrice = ({
             <Text style={styles.amountDiscount}>
               Rs.
               {cartContext.cartDetails.totalAmount -
-                cartContext.cartDetails.totalDiscountAmount}
+                cartContext.cartDetails.totalDiscountAmount +
+                cartContext.cartDetails.deliveryCharges}
               .00 /=
             </Text>
           </View>

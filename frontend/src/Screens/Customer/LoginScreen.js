@@ -31,7 +31,6 @@ const LoginScreen = ({ navigation }) => {
     try {
       console.log("login");
       setIsLoading(true);
-      // const API_URL = "http://10.0.2.2:3002";
       let response = await axios.post(`${API_URL}customer/login`, {
         data,
       });
@@ -64,7 +63,9 @@ const LoginScreen = ({ navigation }) => {
           let deliveryDriverIdResponse = await axios.get(
             `${API_URL}deliveryDriver/login/${response.data.accountId}`
           );
-          const { deliveryDriverID } = deliveryDriverIdResponse.data;
+          const { deliveryDriverID, availability } =
+            deliveryDriverIdResponse.data;
+          console.log(availability);
           setIsLoading(false);
           setErrorMessage("");
           await SecureStore.setItemAsync(
@@ -80,6 +81,10 @@ const LoginScreen = ({ navigation }) => {
           await SecureStore.setItemAsync(
             "user_accountID",
             JSON.stringify(response.data.accountId)
+          );
+          await SecureStore.setItemAsync(
+            "availability",
+            JSON.stringify(availability)
           );
         }
         // const res = await SecureStore.getItemAsync("customer_id");

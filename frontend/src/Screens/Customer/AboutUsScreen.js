@@ -26,9 +26,15 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
 
   const contactUsHandler = async (data) => {
     try {
-      const response = await axios.post(`${API_URL}contactus/`, { data });
-      console.log(response.data.status);
-      if (response.data.status === "Successful") {
+      const { first_name, last_name, email, contact_number, details } = data;
+      const response = await axios.post(`${API_URL}customer/message`, {
+        first_name,
+        last_name,
+        email,
+        contact_number,
+        details,
+      });
+      if (response.status === 200) {
         setShowModal(true);
       }
     } catch (error) {
@@ -106,7 +112,7 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
             onPress={deleteHandler}
           />
           <Text style={styles.confirmationText}>
-            Thank you for your contacting us, Your message has been recorderd.
+            Thank you for contacting us, Your message has been recorderd.
           </Text>
         </PopUpConfirmationModal>
         <Map />

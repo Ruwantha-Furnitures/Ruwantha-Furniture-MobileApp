@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../Screens/DeliveryDriver/HomeScreen";
-
+import AvailabilityChangeScreen from "../../Screens/DeliveryDriver/AvailabilityChangeScreen";
 const HomeStack = createStackNavigator();
 
 const HomeStackNav = () => {
@@ -17,6 +17,10 @@ const HomeStackNav = () => {
       }}
     >
       <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen
+        name="ChangeAvailability"
+        component={AvailabilityChangeScreen}
+      />
     </HomeStack.Navigator>
   );
 };

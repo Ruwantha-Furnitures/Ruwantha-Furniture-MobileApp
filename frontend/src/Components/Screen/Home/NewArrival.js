@@ -17,7 +17,6 @@ const mobileWidth = Dimensions.get("window").width;
 const newItemWidth = (mobileWidth - 104) / 2;
 
 const NewArrival = ({ newProducts, navigate }) => {
-  console.log(mobileWidth + "mm");
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const data = [
     {
