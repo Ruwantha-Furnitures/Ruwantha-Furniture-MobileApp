@@ -2,7 +2,7 @@ const db = require("../../models");
 const Customer = db.customer;
 const Account = db.account;
 const online_customer = db.onlineCustomer;
-const sendEmail = require("../../common/sendEmail");
+const { signUpMail } = require("../../common/sendEmail");
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
@@ -25,8 +25,9 @@ const SignUpController = async (req, res) => {
       try {
         const existingStatus = await Account.findOne({ where: { email } });
         if (existingStatus) {
+          console.log("exists");
           console.log(existingStatus);
-          res.status(409).json({
+          res.json({
             message:
               "Account already exists,please try to Login with that account",
           });
@@ -52,7 +53,7 @@ const SignUpController = async (req, res) => {
           const onlineCustomerDetails = await online_customer.create(
             onlineCustomerData
           );
-          sendEmail(email);
+          signUpMail(email);
           res.status(201).json({
             state: "Successful",
             message: "User has been successfully registered",

@@ -1,3 +1,6 @@
+//PurchasedProductTable.js
+//Path:frontend/Components/DeliveryDriver/PurchasedProductTable.js
+
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";

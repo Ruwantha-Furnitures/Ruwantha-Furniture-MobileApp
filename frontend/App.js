@@ -15,6 +15,10 @@ import {
   cartReducer,
   CartContext,
 } from "./src/Components/Reducers/cartReducer";
+import {
+  DriverContext,
+  driverReducer,
+} from "./src/Components/Reducers/driverReducer";
 
 const initialState = { userLevel: 1, userToken: null };
 const initialCartState = {
@@ -23,13 +27,21 @@ const initialCartState = {
   totalAmount: 0,
   totalDiscountAmount: 0,
 };
+const initialDriverAvailabilityState = { availability: 1 };
+
 const loginContext = LoginContext;
 const cartContext = CartContext;
+const driverContext = DriverContext;
 
 export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [userDetails, dispatch] = useReducer(loginReducer, initialState);
   const [cartDetails, dispatchCart] = useReducer(cartReducer, initialCartState);
+  const [driverAvailability, dispatchAvailability] = useReducer(
+    driverReducer,
+    initialDriverAvailabilityState
+  );
+
   const value = {
     userToken,
     setUserToken,
@@ -51,7 +63,11 @@ export default function App() {
             </cartContext.Provider>
           )
         ) : (
-          <DeliveryDriverBottomNavigator />
+          <driverContext.Provider
+            value={{ driverAvailability, dispatchAvailability }}
+          >
+            <DeliveryDriverBottomNavigator />
+          </driverContext.Provider>
         )}
       </NavigationContainer>
     </loginContext.Provider>

@@ -37,7 +37,7 @@ const PurchaseDetailTable = ({ item }) => {
                 height: "100%",
               }}
             >
-              Item Price
+              Item Price (After Discount)
             </Text>
           </Row>
           <Row style={styles.cell}>

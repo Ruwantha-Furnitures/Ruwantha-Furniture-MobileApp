@@ -3,26 +3,48 @@ import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 import SubHeader from "../../Header/SubHeader";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
+
+const mobileWidth = Dimensions.get("window").width;
+
 const Contact = ({ contactUsHandler }) => {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
 
   const submitHandler = () => {
-    const data = { name, email, telephone, description };
+    const data = {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      contact_number: telephone,
+      details: description,
+    };
+    setFirstName("");
+    setLastName("");
+    setTelephone("");
+    setTelephone("");
+    setEmail("");
+    setDescription("");
     contactUsHandler(data);
   };
 
   return (
-    <Form width={415} height={520}>
+    <Form width={mobileWidth - 40} height={600}>
       <SubHeader title="Contact Us" width={200} />
       <Input
-        placeholder="Name"
+        placeholder="First Name"
         type="string"
-        onChangeText={(username) => setName(username)}
-        value={name}
+        onChangeText={(firstName) => setFirstName(firstName)}
+        value={firstName}
+      />
+      <Input
+        placeholder="Last Name"
+        type="string"
+        onChangeText={(lastName) => setLastName(lastName)}
+        value={lastName}
       />
       <Input
         placeholder="Telephone"

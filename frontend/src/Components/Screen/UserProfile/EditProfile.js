@@ -20,7 +20,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
       setAddress(() => userData.address);
       setTelephone(() => userData.telephone);
     }
-  }, [userData]);
+  }, [userData, submitHandler]);
 
   const submitHandler = () => {
     editProfileHandler({ email, firstName, lastName, address, telephone });
@@ -28,7 +28,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
 
   return (
     <View style={styles.viewProfile}>
-      <Form width={415} height={500}>
+      <Form width={415} height={520}>
         <SubHeader title="Edit Profile" width={200} />
         <Input
           value={firstName}

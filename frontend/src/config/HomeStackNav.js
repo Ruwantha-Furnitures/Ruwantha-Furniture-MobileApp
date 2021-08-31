@@ -7,6 +7,7 @@ import ViewProductARScreen from "../Screens/Customer/ViewProductARScreen";
 import LoginScreen from "../Screens/Customer/LoginScreen";
 import SignUpScreen from "../Screens/Customer/SignUpScreen";
 import ForgotPasswordScreen from "../Screens/Customer/ForgotPasswordScreen";
+import PasswordRecoveryScreen from "../Screens/Customer/PasswordRecoveryScreen";
 import CartScreen from "../Screens/Customer/CartScreen";
 import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
 import ProductStackNav from "./ProductStackNav";
@@ -36,6 +37,10 @@ const HomeStackNav = () => {
       <HomeStack.Screen
         name="Forgot Password"
         component={ForgotPasswordScreen}
+      />
+      <HomeStack.Screen
+        name="Password Recovery"
+        component={PasswordRecoveryScreen}
       />
       <HomeStack.Screen name="Cart" component={CartScreen} />
       <HomeStack.Screen name="CheckOut" component={CheckOutScreen} />

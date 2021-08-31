@@ -34,10 +34,8 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   //fetching the products
   const fetchProducts = async () => {
     try {
-      console.log("Fetch All Products");
       const response = await axios.get(`${API_URL}products/`);
       const productsResult = response.data;
-      console.log(productsResult.data);
       setProducts(productsResult.data);
     } catch (error) {
       console.log(error);
@@ -151,9 +149,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
         <Searchbar placeholder="Search" />
-        {products.isEmpty ? (
-          <Text>Loading...</Text>
-        ) : (
+        {products.length > 0 && (
           <Products
             navigate={navigate}
             products={products}

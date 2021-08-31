@@ -1,4 +1,6 @@
 //PendingOrdersTable.js file
+//Path:frontend/Components/DeliveryDriver/PendingOrdersTable.js
+
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";

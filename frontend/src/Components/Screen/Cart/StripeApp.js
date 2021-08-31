@@ -182,7 +182,7 @@ const StripeApp = ({ userDetails }) => {
   };
   return (
     <View style={styles.container}>
-      <Form width={mobileWidth - 30} height={mobileHeight - 250}>
+      <Form width={mobileWidth - 30} height={mobileHeight - 400}>
         <Image
           source={require("../../../../assets/nlogo.png")}
           style={styles.imageHeader}

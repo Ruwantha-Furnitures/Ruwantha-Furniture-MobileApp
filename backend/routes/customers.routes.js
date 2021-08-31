@@ -26,6 +26,15 @@ const {
   getAllOrdersController,
 } = require("../controllers/customer/purchasedproducts.controller");
 
+const {
+  messageController,
+} = require("../controllers/customer/message.controller");
+
+const {
+  recoverPasswordController,
+  resetPasswordController,
+} = require("../controllers/customer/forgotpassword.controller");
+
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
 router.get("/login/:accID", getCustomerIdContrller);
@@ -34,5 +43,8 @@ router.put("/viewprofile/:customerID", UpdateProfileController);
 router.get("/purchaseOrders/:customerID", getAllOrdersController);
 router.get("/purchaseOrders/products/:orderID", getPurchasedProductsController);
 router.post("/purchaseOrders/feedback", provideCustomerFeedbackController);
+router.post("/message", messageController);
+router.post("/passwordRecovery", recoverPasswordController);
+router.post("/passwordRecovery/resetPassword", resetPasswordController);
 
 module.exports = { customerRouter: router };

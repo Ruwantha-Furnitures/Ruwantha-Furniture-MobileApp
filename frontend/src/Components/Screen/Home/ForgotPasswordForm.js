@@ -8,13 +8,29 @@ import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import { AntDesign } from "@expo/vector-icons";
 import { Zocial } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
+import { API_URL } from "react-native-dotenv";
 
 const mobileWidth = Dimensions.get("window").width;
-const ForgotPassword = () => {
+const ForgotPassword = ({ navigation, errorMessageHandler }) => {
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
 
-  const deleteHandler = () => {
-    setShowModal((prevState) => !prevState);
+  const deleteHandler = async () => {
+    try {
+      const response = await axios.post(`${API_URL}customer/passwordRecovery`, {
+        email,
+      });
+
+      if (response.status === 200) {
+        setShowModal((prevState) => !prevState);
+        navigation.navigate("Password Recovery", { email });
+      }
+    } catch (error) {
+      errorMessageHandler(
+        "Entered email is not a registered email,please register and try again"
+      );
+    }
   };
 
   console.log(mobileWidth + "mobile");
@@ -27,7 +43,12 @@ const ForgotPassword = () => {
           instructions
         </Text>
       </View>
-      <Input placeholder="enter your email address" type="email" />
+      <Input
+        placeholder="enter your email address"
+        type="email"
+        value={email}
+        onChangeText={(email) => setEmail(email)}
+      />
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
         <FormAppButton
           title="Recover Password"
