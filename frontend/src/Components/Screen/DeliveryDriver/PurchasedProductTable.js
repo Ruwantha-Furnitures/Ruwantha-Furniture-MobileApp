@@ -97,5 +97,3 @@ const styles = StyleSheet.create({
   },
 });
 export default PurchasedProductTable;
-
-//after all commits are finished above(copy paste whole page-without the comments) : commit 3 "Purchased product table Screen done"
