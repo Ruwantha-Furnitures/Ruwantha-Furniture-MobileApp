@@ -70,6 +70,22 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  const getTodayPending = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/dashboard/todayPending/${driverID}`
+      );
+      if (response.status === 200) {
+        setTodayPending(response.data.noPendingToday);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 }
 
 export default HomeScreen;
