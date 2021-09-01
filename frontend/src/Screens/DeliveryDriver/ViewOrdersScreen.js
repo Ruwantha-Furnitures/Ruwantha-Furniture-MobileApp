@@ -56,10 +56,9 @@ const ViewOrdersScreen = ({ navigation }) => {
     }
   };
 
-//   //commit 4 line 67-69 - useEffect function calling done
-//   useEffect(() => {
-//     getTodayOrders();
-//   }, [setChangeDeliveryStatus]);
+  useEffect(() => {
+    getTodayOrders();
+  }, [setChangeDeliveryStatus]);
 
 //   //commit 5 line line 72-107 Order retreival done
 //   return (
