@@ -20,24 +20,23 @@ const ViewOrdersScreen = ({ navigation }) => {
   const [todayOrders, setTodayOrders] = useState([]);
   const [changeDeliveryStatus, setChangeDeliveryStatus] = useState(false);
 
-//   //commit 2 line 29-45 - getTodayOrders API calling done
-//   const getTodayOrders = async () => {
-//     try {
-//       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
-//       const response = await axios.get(
-//         `${API_URL}deliveryDriver/orders/${driverID}`
-//       );
-//       if (response.status === 200) {
-//         const { orderDetails } = response.data;
-//         console.log(orderDetails);
-//         setTodayOrders(orderDetails);
-//       } else {
-//         console.log("error");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const getTodayOrders = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/orders/${driverID}`
+      );
+      if (response.status === 200) {
+        const { orderDetails } = response.data;
+        console.log(orderDetails);
+        setTodayOrders(orderDetails);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 //   //commit 3 line 47-64 - changeStatusHandler API calling done
 //   const changeStatusHandler = async (order_id) => {
