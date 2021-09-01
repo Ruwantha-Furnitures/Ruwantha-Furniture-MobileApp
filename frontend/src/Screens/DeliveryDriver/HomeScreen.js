@@ -227,7 +227,77 @@ const HomeScreen = ({ navigation }) => {
       </View>
     </ScrollView>
   );
+
+  const styles = StyleSheet.create({
+    itemImage: {
+      width: 90,
+      height: 90,
+      borderRadius: 40,
+    },
+  
+    itemName: {
+      marginTop: 10,
+      fontSize: 18,
+      width: mobileWidth / 2.15,
+      letterSpacing: 1.4,
+      marginLeft: -20,
+    },
+  
+    productContainer: {
+      flex: 1,
+      backgroundColor: "#E7E5E9",
+      minHeight: mobileHeight,
+    },
+    itemDetailsContainer: {
+      marginLeft: 30,
+      flexDirection: "column",
+    },
+  
+    itemPrice: {
+      marginTop: 10,
+      color: "#542b14",
+      fontSize: 25,
+      fontWeight: "bold",
+    },
+  
+    buttonLg: {
+      backgroundColor: "black",
+      borderRadius: 20,
+      paddingRight: 10,
+      paddingLeft: 17,
+      paddingVertical: 12,
+      marginTop: 3,
+      justifyContent: "center",
+    },
+    Login: {
+      fontWeight: "bold",
+      fontSize: 15,
+      color: "#fff",
+      letterSpacing: 1,
+      width: 75,
+    },
+    header: {
+      fontWeight: "100",
+      fontWeight: "bold",
+      fontSize: 35,
+      alignSelf: "center",
+      marginTop: 12,
+      width: 300,
+      marginBottom: 10,
+      letterSpacing: 5,
+      marginLeft: 50,
+    },
+    imageHeader: {
+      width: 40,
+      height: 40,
+      marginRight: 5,
+      backgroundColor: "#E7E5E9",
+      alignSelf: "center",
+    },
+  });
+  
+  export default HomeScreen;
 };
 
 
-export default HomeScreen;
+
