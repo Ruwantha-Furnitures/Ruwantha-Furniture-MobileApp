@@ -123,27 +123,25 @@ const pendingOrderDetailsController = async (req, res) => {
   }
 };
 
-// //commit 5 line 139-157 - update delivery status
-
-// const updateDeliveryStatusController = async (req, res) => {
-//   const { driverID, orderID } = req.params;
-//   try {
-//     const deliveries = await Deliveries.update(
-//       { complete_status: 1 },
-//       {
-//         where: {
-//           delivery_driver_id: driverID,
-//           order_id: orderID,
-//         },
-//       }
-//     );
-//     if (deliveries) {
-//       res.status(200).json({ message: "State Has been updated" });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+const updateDeliveryStatusController = async (req, res) => {
+  const { driverID, orderID } = req.params;
+  try {
+    const deliveries = await Deliveries.update(
+      { complete_status: 1 },
+      {
+        where: {
+          delivery_driver_id: driverID,
+          order_id: orderID,
+        },
+      }
+    );
+    if (deliveries) {
+      res.status(200).json({ message: "State Has been updated" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // //commit 6 line 161-178 getting - assigned orders for today
 
