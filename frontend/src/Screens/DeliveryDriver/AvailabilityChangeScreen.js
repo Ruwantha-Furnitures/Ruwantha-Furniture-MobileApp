@@ -18,6 +18,7 @@ const AvailabilityChangeScreen = () => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const loginContext = useContext(LoginContext);
+  const [driverData, setDriverData] = useState(null);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View
