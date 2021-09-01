@@ -54,6 +54,22 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  const getTodayCompleted = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/dashboard/todayCompleted/${driverID}`
+      );
+      if (response.status === 200) {
+        setTodayCompleted(response.data.noCompletedToday);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 }
 
 export default HomeScreen;
