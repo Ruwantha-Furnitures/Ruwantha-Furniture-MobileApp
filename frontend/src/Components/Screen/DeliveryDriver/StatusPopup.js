@@ -34,26 +34,25 @@ const StatusPopup = ({ showModal, deleteHandler, changeStatus, order_id }) => {
   );
 };
 
-// //commit 2 line 39-57 style added
-// const styles = StyleSheet.create({
-//   closeIcon: {
-//     alignSelf: "flex-end",
-//     marginTop: -18,
-//     marginRight: 5,
-//     marginBottom: 0,
-//   },
-//   confirmationText: {
-//     fontSize: 17,
-//     fontWeight: "bold",
-//     marginTop: 25,
-//   },
-//   btnContainer: {
-//     justifyContent: "center",
-//     flexDirection: "row",
-//     marginTop: 30,
-//     marginBottom: 10,
-//   },
-// });
-// export default StatusPopup;
+const styles = StyleSheet.create({
+  closeIcon: {
+    alignSelf: "flex-end",
+    marginTop: -18,
+    marginRight: 5,
+    marginBottom: 0,
+  },
+  confirmationText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    marginTop: 25,
+  },
+  btnContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: 30,
+    marginBottom: 10,
+  },
+});
+export default StatusPopup;
 
 // //after all commits are finished above(copy paste whole page-without the comments) : commit 3 "StatusPopup done"
