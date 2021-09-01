@@ -81,13 +81,12 @@ const OrderDetailsScreen = ({ route }) => {
   );
 };
 
-// //commit 6 line 91-98 -order retreival added
-// const styles = StyleSheet.create({
-//   viewContainer: {
-//     flex: 1,
-//     alignItems: "center",
-//   },
-};
+const styles = StyleSheet.create({
+  viewContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+});
 export default OrderDetailsScreen;
 
 //after all commits are finished above(copy paste whole page-without the comments) : commit 7 "Order Details Screen done"
