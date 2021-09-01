@@ -91,39 +91,37 @@ const getOneOrderDetailsController = async (req, res) => {
   }
 };
 
-// //commit 4 line 104-134 - getting pendingorder details
-
-// //get the pending order details controller
-// const pendingOrderDetailsController = async (req, res) => {
-//   const { driverID } = req.params;
-//   const orderUsers = [];
-//   try {
-//     const pending = await Deliveries.findAll({
-//       where: {
-//         delivery_driver_id: driverID,
-//         request_status: 0,
-//         complete_status: 0,
-//       },
-//     });
-//     console.log("pending");
-//     console.log(pending);
-//     for (let i = 0; i < pending.length; i++) {
-//       console.log(pending[i].order_id);
-//       let { order_id } = pending[i];
-//       // const orders = await Order.findOne({ where: { id: order_id } });
-//       // let {customer_id}=orders;
-//       const userData = await ShippingDetails.findOne({ where: { order_id } });
-//       console.log(userData.first_name, userData.last_name);
-//       const { first_name, last_name, shipping_address, createdAt } = userData;
-//       const name = `${first_name} ${last_name}`;
-//       orderUsers.push({ name, shipping_address, createdAt, order_id });
-//     }
-//     res.status(200).json({ orderUsers });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: error });
-//   }
-// };
+//get the pending order details controller
+const pendingOrderDetailsController = async (req, res) => {
+  const { driverID } = req.params;
+  const orderUsers = [];
+  try {
+    const pending = await Deliveries.findAll({
+      where: {
+        delivery_driver_id: driverID,
+        request_status: 0,
+        complete_status: 0,
+      },
+    });
+    console.log("pending");
+    console.log(pending);
+    for (let i = 0; i < pending.length; i++) {
+      console.log(pending[i].order_id);
+      let { order_id } = pending[i];
+      // const orders = await Order.findOne({ where: { id: order_id } });
+      // let {customer_id}=orders;
+      const userData = await ShippingDetails.findOne({ where: { order_id } });
+      console.log(userData.first_name, userData.last_name);
+      const { first_name, last_name, shipping_address, createdAt } = userData;
+      const name = `${first_name} ${last_name}`;
+      orderUsers.push({ name, shipping_address, createdAt, order_id });
+    }
+    res.status(200).json({ orderUsers });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error });
+  }
+};
 
 // //commit 5 line 139-157 - update delivery status
 
