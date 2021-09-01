@@ -54,5 +54,3 @@ const styles = StyleSheet.create({
   },
 });
 export default StatusPopup;
-
-// //after all commits are finished above(copy paste whole page-without the comments) : commit 3 "StatusPopup done"
