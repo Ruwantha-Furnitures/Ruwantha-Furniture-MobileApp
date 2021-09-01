@@ -75,28 +75,27 @@ const PurchasedProductTable = ({ productContainer }) => {
   );
 };
 
-// //commit 2 line 80-101 - styles done
-// const styles = StyleSheet.create({
-//   subheader: {
-//     fontWeight: "bold",
-//     marginLeft: 20,
-//     fontSize: 20,
-//     marginTop: 20,
-//     letterSpacing: 0.5,
-//     width: 300,
-//     marginBottom: 20,
-//     textDecorationLine: "underline",
-//   },
-//   cell: {
-//     borderWidth: 1,
-//     borderColor: "#ddd",
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     paddingHorizontal: 0,
-//     minHeight: 55,
-//   },
-// });
-// export default PurchasedProductTable;
+const styles = StyleSheet.create({
+  subheader: {
+    fontWeight: "bold",
+    marginLeft: 20,
+    fontSize: 20,
+    marginTop: 20,
+    letterSpacing: 0.5,
+    width: 300,
+    marginBottom: 20,
+    textDecorationLine: "underline",
+  },
+  cell: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 0,
+    minHeight: 55,
+  },
+});
+export default PurchasedProductTable;
 
 //after all commits are finished above(copy paste whole page-without the comments) : commit 3 "Purchased product table Screen done"
