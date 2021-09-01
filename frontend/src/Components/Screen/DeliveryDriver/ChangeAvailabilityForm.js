@@ -1,34 +1,57 @@
 //ChangeAvailabilityForm.js
 //Path:frontend/Components/DeliveryDriver/ChangeAvailabilityForm.js
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, Button } from "react-native";
+import * as SecureStore from "expo-secure-store";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import AppButton from "../../UI/AppButton";
 import SubHeader from "../../Header/SubHeader";
+import { DriverContext } from "../../Reducers/driverReducer";
 import { Picker } from "@react-native-picker/picker";
 import { AntDesign } from "@expo/vector-icons";
 
-const ChangeAvailabilityForm = () => {
-  const mobileWidth = Dimensions.get("window").width;
+const mobileWidth = Dimensions.get("window").width;
+
+const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
+  
   const cardWidth = mobileWidth - 40;
-  const [firstName, setFirstName] = useState("Nuwan");
-  const [lastName, setLastName] = useState("Fernando");
-  const [email, setEmail] = useState("nuwanfernando@gmail.com");
-  const [phone, setPhone] = useState("0777604473");
-  const [availability, setAvailability] = useState("1");
+  const [email, setEmail] = useState("");
+  const [availability, setAvailability] = useState("Available");
+  const [availableDetails, setAvailableDetails] = useState([
+    "Available",
+    "Not Available",
+  ]);
+  const driverContext = useContext(DriverContext);
+
+  
+  const getEmailDriver = async () => {
+    if (driverData.availability === 1) {
+      setAvailability("Available");
+    } else {
+      setAvailability("Not Available");
+    }
+    const driverEmail = await SecureStore.getItemAsync("user_email");
+    setEmail(driverEmail);
+  };
+
+  useEffect(() => {
+    getEmailDriver();
+  }, []);
+
+  
   return (
     <Form width={mobileWidth - 40} height={560}>
       <Text style={styles.subHeaderOne}>Delivery Driver</Text>
       <Text style={styles.subHeaderTwo}>Availability</Text>
       <View style={styles.name}>
         <Text style={styles.label}>First Name</Text>
-        <Text style={styles.nameInput}>{firstName}</Text>
+        <Text style={styles.nameInput}>{driverData.first_name}</Text>
       </View>
       <View style={styles.name}>
         <Text style={styles.label}>Last Name</Text>
-        <Text style={styles.nameInput}>{lastName}</Text>
+        <Text style={styles.nameInput}>{driverData.last_name}</Text>
       </View>
       <View style={styles.name}>
         <Text style={styles.label}>Email</Text>
@@ -36,7 +59,7 @@ const ChangeAvailabilityForm = () => {
       </View>
       <View style={styles.name}>
         <Text style={styles.label}>Phone</Text>
-        <Text style={styles.nameInput}>{phone}</Text>
+        <Text style={styles.nameInput}>{driverData.telephone}</Text>
       </View>
       <View style={styles.name}>
         <Text style={styles.label}>Availability</Text>
@@ -46,9 +69,9 @@ const ChangeAvailabilityForm = () => {
             borderWidth: 1,
             borderColor: "#E7E5E9",
             padding: 2,
-            marginLeft: 20,
             dropdownIconColor: "#000",
             backgroundColor: "#E7E5E9",
+            minWidth: mobileWidth / 2,
           }}
         >
           <Picker
@@ -57,8 +80,9 @@ const ChangeAvailabilityForm = () => {
             onValueChange={(itemValue, itemIndex) => setAvailability(itemValue)}
             mode="dropdown"
           >
-            <Picker.Item label="Available" value="1" />
-            <Picker.Item label="Not Available" value="0" />
+            {availableDetails.map((itemValue, index) => (
+              <Picker.Item key={index} label={itemValue} value={itemValue} />
+            ))}
           </Picker>
           <AntDesign
             name="caretdown"
@@ -74,11 +98,21 @@ const ChangeAvailabilityForm = () => {
           size="lg"
           type="Submit"
           width={220}
+          onPress={() => {
+            driverContext.dispatchAvailability({
+              type: "change",
+              payload: {
+                availability,
+              },
+            });
+            changeAvailability(availability);
+          }}
         />
       </View>
     </Form>
   );
 };
+
 
 const styles = StyleSheet.create({
   subheader: {
@@ -99,17 +133,16 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15,
     paddingVertical: 10,
-    width: 120,
+    width: 100,
   },
   nameInput: {
     backgroundColor: "#E7E5E9",
     borderRadius: 30,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     letterSpacing: 1,
     paddingVertical: 15,
     fontSize: 15,
-    marginLeft: 15,
-    maxWidth: 300,
+    minWidth: mobileWidth / 2,
     color: "grey",
   },
 
@@ -117,7 +150,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E7E5E9",
     borderRadius: 20,
     letterSpacing: 1,
-    fontSize: 15,
+    fontSize: 13,
     minWidth: 140,
     minHeight: 20,
     maxWidth: 230,
