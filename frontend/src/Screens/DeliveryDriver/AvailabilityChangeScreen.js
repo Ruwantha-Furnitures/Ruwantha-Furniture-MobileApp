@@ -36,6 +36,26 @@ const AvailabilityChangeScreen = () => {
     }
   };
 };
+
+const changeAvailability = async (availability) => {
+  console.log(availability);
+  try {
+    const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+    const changeAvailability = await axios.put(
+      `${API_URL}deliveryDriver/driverAvailability/${driverID}`,
+      { availability }
+    );
+    if (changeAvailability.status === 200) {
+      console.log("Status has been updated");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+useEffect(() => {
+  getDriverDetails();
+}, []);
 const styles = StyleSheet.create({
   header: {
     fontWeight: "100",
