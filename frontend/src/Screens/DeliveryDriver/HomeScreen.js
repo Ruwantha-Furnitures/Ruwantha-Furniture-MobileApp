@@ -102,6 +102,23 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  const getAllPendingOrderDetails = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/orders/pendingOrders/${driverID}`
+      );
+      if (response.status === 200) {
+        console.log(response.data.orderUsers);
+        setPendingOrders(response.data.orderUsers);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 }
 
 export default HomeScreen;
