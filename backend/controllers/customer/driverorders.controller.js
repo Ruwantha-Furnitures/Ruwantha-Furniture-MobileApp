@@ -7,65 +7,63 @@ const ShippingDetails = db.shippingDetails;
 const SellProduct = db.sellProduct;
 const Product = db.product;
 
-// //commit 2 line 16-72 getting allorders for the days
+//getting the all orders for today
+const getAllOrdersForDayController = async (req, res) => {
+  const { driverID } = req.params;
+  const day = moment().date();
+  console.log("day");
+  console.log(day);
+  const orderDetails = [];
+  try {
+    //find all the deliveries assigned
+    const allOrders = await Deliveries.findAll({
+      where: {
+        delivery_driver_id: driverID,
+        request_status: 1,
+      },
+    });
+    for (let i = 0; i < allOrders.length; i++) {
+      const { order_id, complete_status } = allOrders[i];
 
-// //getting the all orders for today
-// const getAllOrdersForDayController = async (req, res) => {
-//   const { driverID } = req.params;
-//   const day = moment().date();
-//   console.log("day");
-//   console.log(day);
-//   const orderDetails = [];
-//   try {
-//     //find all the deliveries assigned
-//     const allOrders = await Deliveries.findAll({
-//       where: {
-//         delivery_driver_id: driverID,
-//         request_status: 1,
-//       },
-//     });
-//     for (let i = 0; i < allOrders.length; i++) {
-//       const { order_id, complete_status } = allOrders[i];
-
-//       //check whether individual  order is two days before today where the customer has placed there order
-//       const orderWithTwoDays = await Order.findOne({
-//         where: {
-//           id: order_id,
-//           createdAt: {
-//             [Op.gte]: moment("01", "DD")
-//               .add(day - 2, "days")
-//               .toDate(),
-//             [Op.lt]: moment("01", "DD").add(day, "days").toDate(),
-//           },
-//         },
-//       });
-//       //if then only it will take the shipping details from the customer
-//       if (orderWithTwoDays) {
-//         const orderID = orderWithTwoDays.id;
-//         const { total_product_amount, createdAt } = orderWithTwoDays;
-//         const shippingDetails = await ShippingDetails.findOne({
-//           where: { order_id },
-//         });
-//         const { first_name, last_name, contact_number, shipping_address } =
-//           shippingDetails;
-//         const customerName = `${first_name} ${last_name}`;
-//         orderDetails.push({
-//           customerName,
-//           shipping_address,
-//           contact_number,
-//           complete_status,
-//           order_id,
-//           total_product_amount,
-//           purchasedDate: createdAt,
-//         });
-//       }
-//     }
-//     res.status(200).json({ orderDetails });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: error });
-//   }
-// };
+      //check whether individual  order is two days before today where the customer has placed there order
+      const orderWithTwoDays = await Order.findOne({
+        where: {
+          id: order_id,
+          createdAt: {
+            [Op.gte]: moment("01", "DD")
+              .add(day - 2, "days")
+              .toDate(),
+            [Op.lt]: moment("01", "DD").add(day, "days").toDate(),
+          },
+        },
+      });
+      //if then only it will take the shipping details from the customer
+      if (orderWithTwoDays) {
+        const orderID = orderWithTwoDays.id;
+        const { total_product_amount, createdAt } = orderWithTwoDays;
+        const shippingDetails = await ShippingDetails.findOne({
+          where: { order_id },
+        });
+        const { first_name, last_name, contact_number, shipping_address } =
+          shippingDetails;
+        const customerName = `${first_name} ${last_name}`;
+        orderDetails.push({
+          customerName,
+          shipping_address,
+          contact_number,
+          complete_status,
+          order_id,
+          total_product_amount,
+          purchasedDate: createdAt,
+        });
+      }
+    }
+    res.status(200).json({ orderDetails });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error });
+  }
+};
 
 // //commit 3 line 76-100 - getting order details about a order
 
