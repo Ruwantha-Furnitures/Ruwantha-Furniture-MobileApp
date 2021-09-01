@@ -138,4 +138,3 @@ const styles = StyleSheet.create({
  });
 export default ViewOrdersScreen;
 
-//after all commits are finished above(copy paste whole page-without the comments) : commit 7 "ViewOrder Screen done"
