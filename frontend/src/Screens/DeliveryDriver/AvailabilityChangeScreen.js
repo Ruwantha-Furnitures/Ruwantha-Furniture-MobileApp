@@ -19,37 +19,22 @@ const AvailabilityChangeScreen = () => {
   const mobileHeight = Dimensions.get("window").height;
   const loginContext = useContext(LoginContext);
   const [driverData, setDriverData] = useState(null);
-  return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View
-        style={{ flex: 1, backgroundColor: "#E7E5E9", minHeight: mobileHeight }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 15,
-            marginRight: 10,
-            justifyContent: "space-between",
-          }}
-        >
-          <AvailabilityStatus />
-          <TouchableOpacity
-            style={styles.buttonLg}
-            onPress={() => loginContext.loginDispatch({ type: "logout" })}
-          >
-            <Text style={styles.Login}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.header}>Chanage</Text>
-        <Text style={styles.header2}>Availability</Text>
-        <Image
-          source={require("../../../assets/nlogo.png")}
-          style={styles.imageHeader}
-        />
-        <ChangeAvailabilityForm />
-      </View>
-    </ScrollView>
-  );
+  const getDriverDetails = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      console.log(driverID);
+      const driverDetailsResponse = await axios.get(
+        `${API_URL}deliveryDriver/driverDetails/${driverID}`
+      );
+      if (driverDetailsResponse.status === 200) {
+        const { deliveryDriverDetails } = driverDetailsResponse.data;
+        setDriverData(deliveryDriverDetails);
+        console.log(driverDetailsResponse.data.deliveryDriverDetails);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 const styles = StyleSheet.create({
   header: {
