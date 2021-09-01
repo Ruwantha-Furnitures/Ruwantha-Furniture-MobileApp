@@ -119,6 +119,16 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  useEffect(() => {
+    setGlobalStateForAvailability();
+    getTodayAssignments();
+    getTodayCompleted();
+    getTodayPending();
+    getMonthlyCompleted();
+    getAllPendingOrderDetails();
+  }, []);
+
+  
 }
 
 export default HomeScreen;
