@@ -13,37 +13,37 @@ const OrderDetailsScreen = ({ route }) => {
   console.log(order.order_id);
 
   
-//   const fetchOrderDetails = async () => {
-//     try {
-//       const {
-//         order_id,
-//         customerName,
-//         shipping_address,
-//         contact_number,
-//         total_product_amount,
-//         purchasedDate,
-//         complete_status,
-//       } = order;
-//       setMoreDetails({
-//         order_id,
-//         customerName,
-//         shipping_address,
-//         contact_number,
-//         total_product_amount,
-//         purchasedDate,
-//         complete_status,
-//       });
-//       const response = await axios.get(
-//         `${API_URL}deliveryDriver/orders/moreDetails/${order_id}`
-//       );
-//       if (response.status === 200) {
-//         setProductContainer(response.data.productContainer);
-//         console.log("done");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const fetchOrderDetails = async () => {
+    try {
+      const {
+        order_id,
+        customerName,
+        shipping_address,
+        contact_number,
+        total_product_amount,
+        purchasedDate,
+        complete_status,
+      } = order;
+      setMoreDetails({
+        order_id,
+        customerName,
+        shipping_address,
+        contact_number,
+        total_product_amount,
+        purchasedDate,
+        complete_status,
+      });
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/orders/moreDetails/${order_id}`
+      );
+      if (response.status === 200) {
+        setProductContainer(response.data.productContainer);
+        console.log("done");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 //   //commit 3 line 54-67 - changeStatusHandler API calling done
 //   const changeStatusHandler = async (order_id) => {
