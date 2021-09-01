@@ -151,5 +151,3 @@ const styles = StyleSheet.create({
 });
 
 export default Order;
-
-//after all commits are finished above(copy paste whole page-without the comments) : commit 4 "Order component done"
