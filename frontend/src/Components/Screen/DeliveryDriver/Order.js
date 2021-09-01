@@ -14,65 +14,64 @@ const Order = ({ order, navigation, changeStatus }) => {
     setShowModal((prevState) => !prevState);
   };
 
-//   //commit 2 line 22-79 - order view done
-//   return (
-//     <Card width={cardWidth} height={420} ml={20} bg="#fff">
-//       <View style={styles.nameInitial}>
-//         <Text style={styles.label}>Customer Name</Text>
-//         <Text style={styles.nameInput}>{order.customerName}</Text>
-//       </View>
-//       <View style={styles.name}>
-//         <Text style={styles.label}>Customer Address</Text>
-//         <Text style={styles.nameAddress} multiline={true}>
-//           {order.shipping_address}
-//         </Text>
-//       </View>
-//       <View style={styles.name}>
-//         <Text style={styles.label}>Contact Number</Text>
-//         <Text style={styles.nameInput}>{order.contact_number}</Text>
-//       </View>
-//       <View style={styles.name}>
-//         <Text style={styles.label}>Order Status</Text>
-//         {order.complete_status === 1 ? (
-//           <Text style={styles.delivered}>Delivered</Text>
-//         ) : (
-//           <Text style={styles.notDelivered}>Not Delivered </Text>
-//         )}
-//       </View>
-//       {order.complete_status === 0 ? (
-//         <View style={styles.btnContainer}>
-//           <AppButton
-//             width={160}
-//             size="lg"
-//             title="Change Status"
-//             onPress={deleteHandler}
-//           />
-//           <AppButton
-//             width={160}
-//             size="lg"
-//             title="More Details"
-//             onPress={() => navigation.navigate("OrderDetails", { order })}
-//           />
-//         </View>
-//       ) : (
-//         <View style={{ alignSelf: "flex-end", marginRight: 35, marginTop: 20 }}>
-//           <AppButton
-//             width={160}
-//             size="lg"
-//             title="More Details"
-//             onPress={() => navigation.navigate("OrderDetails", { order })}
-//           />
-//         </View>
-//       )}
-//       <StatusPopup
-//         showModal={showModal}
-//         order_id={order.order_id}
-//         deleteHandler={deleteHandler}
-//         changeStatus={changeStatus}
-//       />
-//     </Card>
-//   );
-// };
+  return (
+    <Card width={cardWidth} height={420} ml={20} bg="#fff">
+      <View style={styles.nameInitial}>
+        <Text style={styles.label}>Customer Name</Text>
+        <Text style={styles.nameInput}>{order.customerName}</Text>
+      </View>
+      <View style={styles.name}>
+        <Text style={styles.label}>Customer Address</Text>
+        <Text style={styles.nameAddress} multiline={true}>
+          {order.shipping_address}
+        </Text>
+      </View>
+      <View style={styles.name}>
+        <Text style={styles.label}>Contact Number</Text>
+        <Text style={styles.nameInput}>{order.contact_number}</Text>
+      </View>
+      <View style={styles.name}>
+        <Text style={styles.label}>Order Status</Text>
+        {order.complete_status === 1 ? (
+          <Text style={styles.delivered}>Delivered</Text>
+        ) : (
+          <Text style={styles.notDelivered}>Not Delivered </Text>
+        )}
+      </View>
+      {order.complete_status === 0 ? (
+        <View style={styles.btnContainer}>
+          <AppButton
+            width={160}
+            size="lg"
+            title="Change Status"
+            onPress={deleteHandler}
+          />
+          <AppButton
+            width={160}
+            size="lg"
+            title="More Details"
+            onPress={() => navigation.navigate("OrderDetails", { order })}
+          />
+        </View>
+      ) : (
+        <View style={{ alignSelf: "flex-end", marginRight: 35, marginTop: 20 }}>
+          <AppButton
+            width={160}
+            size="lg"
+            title="More Details"
+            onPress={() => navigation.navigate("OrderDetails", { order })}
+          />
+        </View>
+      )}
+      <StatusPopup
+        showModal={showModal}
+        order_id={order.order_id}
+        deleteHandler={deleteHandler}
+        changeStatus={changeStatus}
+      />
+    </Card>
+  );
+};
 
 // //commit 3 line 82-159 - order style modified
 // const styles = StyleSheet.create({
@@ -150,7 +149,7 @@ const Order = ({ order, navigation, changeStatus }) => {
 //     justifyContent: "space-evenly",
 //     marginTop: 20,
 //   },
-};
+;
 
 export default Order;
 
