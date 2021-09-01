@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   buttonLg: {
     backgroundColor: "black",
     borderRadius: 20,
-    paddingRight: 0,
+    paddingRight: 10,
     paddingLeft: 17,
     paddingVertical: 12,
     marginTop: 3,
