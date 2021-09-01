@@ -60,43 +60,42 @@ const ViewOrdersScreen = ({ navigation }) => {
     getTodayOrders();
   }, [setChangeDeliveryStatus]);
 
-//   //commit 5 line line 72-107 Order retreival done
-//   return (
-//     <View style={styles.viewContainer}>
-//       <ScrollView showsVerticalScrollIndicator={false}>
-//         <View
-//           style={{
-//             flexDirection: "row",
-//             marginTop: 15,
-//             marginRight: 10,
-//             justifyContent: "space-between",
-//           }}
-//         >
-//           <AvailabilityStatus navigation={navigation} />
-//           <TouchableOpacity
-//             style={styles.buttonLg}
-//             onPress={() => loginContext.loginDispatch({ type: "logout" })}
-//           >
-//             <Text style={styles.Login}>Logout</Text>
-//           </TouchableOpacity>
-//         </View>
-//         <Text style={styles.header}>Order Details</Text>
-//         <Image
-//           source={require("../../../assets/nlogo.png")}
-//           style={styles.imageHeader}
-//         />
-//         {todayOrders.length > 0 &&
-//           todayOrders.map((order) => (
-//             <Order
-//               order={order}
-//               navigation={navigation}
-//               changeStatus={changeStatusHandler}
-//             />
-//           ))}
-//       </ScrollView>
-//     </View>
-//   );
-// };
+  return (
+    <View style={styles.viewContainer}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginRight: 10,
+            justifyContent: "space-between",
+          }}
+        >
+          <AvailabilityStatus navigation={navigation} />
+          <TouchableOpacity
+            style={styles.buttonLg}
+            onPress={() => loginContext.loginDispatch({ type: "logout" })}
+          >
+            <Text style={styles.Login}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.header}>Order Details</Text>
+        <Image
+          source={require("../../../assets/nlogo.png")}
+          style={styles.imageHeader}
+        />
+        {todayOrders.length > 0 &&
+          todayOrders.map((order) => (
+            <Order
+              order={order}
+              navigation={navigation}
+              changeStatus={changeStatusHandler}
+            />
+          ))}
+      </ScrollView>
+    </View>
+  );
+};
 
 // //commit 6 line 111-150 styles added
 // const styles = StyleSheet.create({
