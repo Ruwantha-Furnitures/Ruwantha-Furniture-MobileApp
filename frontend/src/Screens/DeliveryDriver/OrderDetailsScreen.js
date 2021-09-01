@@ -12,7 +12,7 @@ const OrderDetailsScreen = ({ route }) => {
   const [productContainer, setProductContainer] = useState([]);
   console.log(order.order_id);
 
-  //commit 2 line 21-51 fetchOrders API calling done
+  
 //   const fetchOrderDetails = async () => {
 //     try {
 //       const {
