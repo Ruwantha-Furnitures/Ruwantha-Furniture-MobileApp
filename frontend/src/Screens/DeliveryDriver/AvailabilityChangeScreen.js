@@ -56,6 +56,45 @@ const changeAvailability = async (availability) => {
 useEffect(() => {
   getDriverDetails();
 }, []);
+
+return (
+  <ScrollView showsVerticalScrollIndicator={false}>
+    <View
+      style={{ flex: 1, backgroundColor: "#E7E5E9", minHeight: mobileHeight }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          marginTop: 15,
+          marginRight: 10,
+          justifyContent: "space-between",
+        }}
+      >
+        <AvailabilityStatus />
+        <TouchableOpacity
+          style={styles.buttonLg}
+          onPress={() => loginContext.loginDispatch({ type: "logout" })}
+        >
+          <Text style={styles.Login}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.header}>Chanage</Text>
+      <Text style={styles.header2}>Availability</Text>
+      <Image
+        source={require("../../../assets/nlogo.png")}
+        style={styles.imageHeader}
+      />
+      {driverData !== null && (
+        <ChangeAvailabilityForm
+          driverData={driverData}
+          changeAvailability={changeAvailability}
+        />
+      )}
+    </View>
+  </ScrollView>
+);
+
+
 const styles = StyleSheet.create({
   header: {
     fontWeight: "100",
