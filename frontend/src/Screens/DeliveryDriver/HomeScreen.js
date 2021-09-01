@@ -38,6 +38,21 @@ const HomeScreen = ({ navigation }) => {
   const [monthlyCompleted, setMonthlyCompleted] = useState(null);
   const [pendingOrders, setPendingOrders] = useState([]);
 
+  const getTodayAssignments = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/dashboard/todayAssignment/${driverID}`
+      );
+      if (response.status === 200) {
+        setTodayAssigned(response.data.noAssignedToday);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 }
 
