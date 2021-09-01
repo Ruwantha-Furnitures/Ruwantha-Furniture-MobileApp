@@ -202,42 +202,40 @@ const todayPendingOrderController = async (req, res) => {
   }
 };
 
-// //commit 9 line 226-262 - getting monthly completed orders
+//get the completed orders in this month
+const monthlyCompletedOrderController = async (req, res) => {
+  const { driverID } = req.params;
+  console.log(driverID);
+  let month = moment().month();
+  month += 1;
+  try {
+    const monthlyCompleted = await Deliveries.findAll({
+      where: {
+        delivery_driver_id: driverID,
+        complete_status: 1,
+        createdAt: {
+          [Op.gte]: moment("0101", "MMDD")
+            .add(month - 1, "months")
+            .toDate(),
+          [Op.lt]: moment("0101", "MMDD").add(month, "months").toDate(),
+        },
+      },
+    });
+    const noMonthlyCompleted = monthlyCompleted.length;
+    res.status(200).json({ noMonthlyCompleted });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error });
+  }
+};
 
-// //get the completed orders in this month
-// const monthlyCompletedOrderController = async (req, res) => {
-//   const { driverID } = req.params;
-//   console.log(driverID);
-//   let month = moment().month();
-//   month += 1;
-//   try {
-//     const monthlyCompleted = await Deliveries.findAll({
-//       where: {
-//         delivery_driver_id: driverID,
-//         complete_status: 1,
-//         createdAt: {
-//           [Op.gte]: moment("0101", "MMDD")
-//             .add(month - 1, "months")
-//             .toDate(),
-//           [Op.lt]: moment("0101", "MMDD").add(month, "months").toDate(),
-//         },
-//       },
-//     });
-//     const noMonthlyCompleted = monthlyCompleted.length;
-//     res.status(200).json({ noMonthlyCompleted });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: error });
-//   }
-// };
-
-// module.exports = {
-//   getAllOrdersForDayController,
-//   getOneOrderDetailsController,
-//   pendingOrderDetailsController,
-//   updateDeliveryStatusController,
-//   todayAssignmentController,
-//   todayCompleteController,
-//   todayPendingOrderController,
-//   monthlyCompletedOrderController,
-// };
+module.exports = {
+  getAllOrdersForDayController,
+  getOneOrderDetailsController,
+  pendingOrderDetailsController,
+  updateDeliveryStatusController,
+  todayAssignmentController,
+  todayCompleteController,
+  todayPendingOrderController,
+  monthlyCompletedOrderController,
+};
