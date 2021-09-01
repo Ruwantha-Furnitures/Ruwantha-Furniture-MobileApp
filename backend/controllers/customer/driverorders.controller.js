@@ -162,26 +162,24 @@ const todayAssignmentController = async (req, res) => {
   }
 };
 
-// //commit 7 line 182-199 - getting completed number of orders the days
-
-// //get the completed number of orders today
-// const todayCompleteController = async (req, res) => {
-//   const { driverID } = req.params;
-//   try {
-//     const completed = await Deliveries.findAll({
-//       where: {
-//         delivery_driver_id: driverID,
-//         complete_status: 1,
-//         updatedAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-//         updatedAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
-//       },
-//     });
-//     const noCompletedToday = completed.length;
-//     res.status(200).json({ noCompletedToday });
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
+//get the completed number of orders today
+const todayCompleteController = async (req, res) => {
+  const { driverID } = req.params;
+  try {
+    const completed = await Deliveries.findAll({
+      where: {
+        delivery_driver_id: driverID,
+        complete_status: 1,
+        updatedAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
+        updatedAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+      },
+    });
+    const noCompletedToday = completed.length;
+    res.status(200).json({ noCompletedToday });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
 // //commit 8 line 203-222 - getting pending orders for today
 
