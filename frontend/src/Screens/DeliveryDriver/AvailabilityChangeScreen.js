@@ -1,6 +1,4 @@
-//checking the availability change of driver
-//AvailabilityChangeScreen.js
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,12 +11,19 @@ import {
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
 import ChangeAvailabilityForm from "../../Components/Screen/DeliveryDriver/ChangeAvailabilityForm";
+import * as SecureStore from "expo-secure-store";
+import { API_URL } from "react-native-dotenv";
+import axios from "axios";
 
 const AvailabilityChangeScreen = () => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
+
+
   const loginContext = useContext(LoginContext);
   const [driverData, setDriverData] = useState(null);
+
+ 
   const getDriverDetails = async () => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
@@ -35,64 +40,67 @@ const AvailabilityChangeScreen = () => {
       console.log(error);
     }
   };
-};
 
-const changeAvailability = async (availability) => {
-  console.log(availability);
-  try {
-    const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
-    const changeAvailability = await axios.put(
-      `${API_URL}deliveryDriver/driverAvailability/${driverID}`,
-      { availability }
-    );
-    if (changeAvailability.status === 200) {
-      console.log("Status has been updated");
+  
+
+  const changeAvailability = async (availability) => {
+    console.log(availability);
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const changeAvailability = await axios.put(
+        `${API_URL}deliveryDriver/driverAvailability/${driverID}`,
+        { availability }
+      );
+      if (changeAvailability.status === 200) {
+        console.log("Status has been updated");
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
 
-useEffect(() => {
-  getDriverDetails();
-}, []);
+  useEffect(() => {
+    getDriverDetails();
+  }, []);
 
-return (
-  <ScrollView showsVerticalScrollIndicator={false}>
-    <View
-      style={{ flex: 1, backgroundColor: "#E7E5E9", minHeight: mobileHeight }}
-    >
+  
+  return (
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View
-        style={{
-          flexDirection: "row",
-          marginTop: 15,
-          marginRight: 10,
-          justifyContent: "space-between",
-        }}
+        style={{ flex: 1, backgroundColor: "#E7E5E9", minHeight: mobileHeight }}
       >
-        <AvailabilityStatus />
-        <TouchableOpacity
-          style={styles.buttonLg}
-          onPress={() => loginContext.loginDispatch({ type: "logout" })}
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginRight: 10,
+            justifyContent: "space-between",
+          }}
         >
-          <Text style={styles.Login}>Logout</Text>
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.header}>Chanage</Text>
-      <Text style={styles.header2}>Availability</Text>
-      <Image
-        source={require("../../../assets/nlogo.png")}
-        style={styles.imageHeader}
-      />
-      {driverData !== null && (
-        <ChangeAvailabilityForm
-          driverData={driverData}
-          changeAvailability={changeAvailability}
+          <AvailabilityStatus />
+          <TouchableOpacity
+            style={styles.buttonLg}
+            onPress={() => loginContext.loginDispatch({ type: "logout" })}
+          >
+            <Text style={styles.Login}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.header}>Chanage</Text>
+        <Text style={styles.header2}>Availability</Text>
+        <Image
+          source={require("../../../assets/nlogo.png")}
+          style={styles.imageHeader}
         />
-      )}
-    </View>
-  </ScrollView>
-);
+        {driverData !== null && (
+          <ChangeAvailabilityForm
+            driverData={driverData}
+            changeAvailability={changeAvailability}
+          />
+        )}
+      </View>
+    </ScrollView>
+  );
+};
 
 
 const styles = StyleSheet.create({
