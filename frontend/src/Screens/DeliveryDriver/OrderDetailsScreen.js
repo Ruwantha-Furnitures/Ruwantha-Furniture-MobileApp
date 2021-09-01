@@ -45,21 +45,21 @@ const OrderDetailsScreen = ({ route }) => {
     }
   };
 
-//   //commit 3 line 54-67 - changeStatusHandler API calling done
-//   const changeStatusHandler = async (order_id) => {
-//     try {
-//       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
-//       console.log(order_id);
-//       const response = await axios.put(
-//         `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
-//       );
-//       if (response.status === 200) {
-//         console.log(response.data);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+
+  const changeStatusHandler = async (order_id) => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      console.log(order_id);
+      const response = await axios.put(
+        `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 //   //commit 4 line 70-72 - fetch order function calling done inside useeffect
 //   useEffect(() => {
