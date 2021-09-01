@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { API_URL } from "react-native-dotenv";
 import {
   View,
   Text,
@@ -11,6 +10,7 @@ import {
 import Header from "../../Components/Header/Header";
 import LoginForm from "../../Components/Screen/Home/LoginForm";
 import ErrorModal from "../../Components/UI/ErrorModal";
+import { API_URL } from "react-native-dotenv";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
@@ -31,19 +31,63 @@ const LoginScreen = ({ navigation }) => {
     try {
       console.log("login");
       setIsLoading(true);
-      console.log(API_URL);
       let response = await axios.post(`${API_URL}customer/login`, {
         data,
       });
       if (response.data.auth) {
-        setIsLoading(false);
-        setErrorMessage("");
-        await SecureStore.setItemAsync("user_token", response.data.accessToken); //setting the user token in Secure Storage
-        await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
-        await SecureStore.setItemAsync(
-          "user_accountID",
-          JSON.stringify(response.data.accountId)
-        );
+        //when the user level 1 is customer
+        if (response.data.userLevel === 1) {
+          let cusIdResponse = await axios.get(
+            `${API_URL}customer/login/${response.data.accountId}`
+          );
+          const { customerId } = cusIdResponse.data;
+          setIsLoading(false);
+          setErrorMessage("");
+          await SecureStore.setItemAsync(
+            "user_token",
+            response.data.accessToken
+          ); //setting the user token in Secure Storage
+          await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
+          //setting the customer id in Secure Storage
+          await SecureStore.setItemAsync(
+            "customer_id",
+            JSON.stringify(customerId)
+          );
+          await SecureStore.setItemAsync(
+            "user_accountID",
+            JSON.stringify(response.data.accountId)
+          );
+        }
+        //when the user level 3 is it's the driver
+        else if (response.data.userLevel === 3) {
+          let deliveryDriverIdResponse = await axios.get(
+            `${API_URL}deliveryDriver/login/${response.data.accountId}`
+          );
+          const { deliveryDriverID, availability } =
+            deliveryDriverIdResponse.data;
+          console.log(availability);
+          setIsLoading(false);
+          setErrorMessage("");
+          await SecureStore.setItemAsync(
+            "user_token",
+            response.data.accessToken
+          ); //setting the user token in Secure Storage
+          await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
+          //setting the customer id in Secure Storage
+          await SecureStore.setItemAsync(
+            "deliveryDriver_id",
+            JSON.stringify(deliveryDriverID)
+          );
+          await SecureStore.setItemAsync(
+            "user_accountID",
+            JSON.stringify(response.data.accountId)
+          );
+          await SecureStore.setItemAsync(
+            "availability",
+            JSON.stringify(availability)
+          );
+        }
+        // const res = await SecureStore.getItemAsync("customer_id");
         loginContext.loginDispatch({
           type: "login",
           payload: {

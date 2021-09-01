@@ -14,6 +14,7 @@ import ViewProfile from "../../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../../Components/Screen/UserProfile/EditProfile";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
+import { CartContext } from "../../Components/Reducers/cartReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
 import FormAppButton from "../../Components/UI/FormAppButton";
 import * as SecureStore from "expo-secure-store";
@@ -22,7 +23,9 @@ import axios from "axios";
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
   const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
   const [userData, setUserData] = useState();
+  const [customerOrders, setCustomerOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const onChangeNav = (header) => {
@@ -33,14 +36,25 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     const result = async () => {
       try {
         let email = await SecureStore.getItemAsync("user_email");
-        let accID = await SecureStore.getItemAsync("user_accountID");
+        let customerID = await SecureStore.getItemAsync("customer_id");
         let response = await axios.get(
-          `${API_URL}customer/viewprofile/${accID}`
+          `${API_URL}customer/viewprofile/${customerID}`
         );
+        console.log(response.data);
         if (response.data.auth === true) {
-          const { first_name, address, telephone } = response.data;
-          const data = { email, first_name, address, telephone };
+          const { first_name, address, telephone, last_name } = response.data;
+          const data = { email, first_name, last_name, address, telephone };
           setUserData(data);
+          let ordersResponse = await axios.get(
+            `${API_URL}customer/purchaseOrders/${customerID}`
+          );
+          if (ordersResponse.status === 200) {
+            // console.log(ordersResponse.data);
+            const { orders } = ordersResponse.data;
+            setCustomerOrders(orders);
+          } else {
+            console.log("error");
+          }
         }
       } catch (err) {
         console.log(err);
@@ -52,17 +66,24 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
 
   const editProfileHandler = async (data) => {
     try {
-      let accID = await SecureStore.getItemAsync("user_accountID");
+      setShowModal((prevState) => !prevState);
+      let customerID = await SecureStore.getItemAsync("customer_id");
       let email = await SecureStore.getItemAsync("user_email");
       let res = await axios.put(
-        `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${accID}`,
+        `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${customerID}`,
         { data }
       );
+      console.log(res.data);
       if (res.data.status === "Successful") {
         const { name, address, telephone } = res.data;
-        const updatedUserDetails = { email, name, address, telephone };
-        setUserData(() => updatedUserDetails);
-        setShowModal((prevState) => !prevState);
+        const updatedUserDetails = {
+          email,
+          firstName,
+          lastName,
+          address,
+          telephone,
+        };
+        setUserData(updatedUserDetails);
         console.log(userData);
       } else {
         console.log("Data has not been updated");
@@ -77,12 +98,29 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
-        <AntDesign
-          style={styles.cart}
-          name="shoppingcart"
-          size={35}
-          color="black"
-        />
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign
+            style={styles.cart}
+            name="shoppingcart"
+            size={35}
+            color="black"
+          />
+          {cartContext.cartDetails.quantity > 0 && (
+            <View
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 25 / 2,
+                backgroundColor: "#FB9F3C",
+                marginRight: 5,
+              }}
+            >
+              <Text style={{ alignSelf: "center", color: "white" }}>
+                {cartContext.cartDetails.quantity}
+              </Text>
+            </View>
+          )}
+        </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
@@ -102,7 +140,9 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         {currentView === "My Profile" && (
           <ViewProfile onChangeNav={onChangeNav} userData={userData} />
         )}
-        {currentView === "My Purchases" && <MyPurchases />}
+        {currentView === "My Purchases" && customerOrders.length > 0 && (
+          <MyPurchases customerOrders={customerOrders} />
+        )}
         {currentView === "Edit Profile" && (
           <EditProfile
             userData={userData}
@@ -155,8 +195,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   cart: {
-    marginRight: 15,
-    marginTop: 8,
+    marginTop: 12,
   },
   buttonLg: {
     backgroundColor: "black",

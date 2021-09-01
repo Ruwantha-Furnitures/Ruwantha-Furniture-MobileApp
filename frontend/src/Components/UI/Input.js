@@ -27,7 +27,8 @@ const Input = ({
       onChangeText={onChangeText}
       placeholder={placeholder}
       editable={editable}
-      numberOfLines={name === "textarea" ? 7 : 1}
+      numberOfLines={name === "textarea" ? 6 : 1}
+      multiline={name === "textarea" ? true : false}
     />
   );
 };
@@ -49,9 +50,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 20,
     marginHorizontal: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 25,
     paddingTop: 20,
-    fontSize: 15,
+    fontSize: 18,
     textAlignVertical: "top",
   },
 });

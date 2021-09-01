@@ -14,7 +14,7 @@ import { CartContext } from "../../Reducers/cartReducer";
 import { AntDesign } from "@expo/vector-icons";
 import * as All from "./ALLImages";
 
-const Product = ({ item, navigate }) => {
+const Product = ({ item, navigate, addToCart }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const cardWidth = mobileWidth - 40;
@@ -28,6 +28,7 @@ const Product = ({ item, navigate }) => {
   }, []);
 
   const cartHandler = (item) => {
+    console.log("insdie products product");
     console.log(item);
     cartContext.dispatchCart({
       type: "add",
@@ -79,7 +80,7 @@ const Product = ({ item, navigate }) => {
               <AppButton
                 width={80}
                 title="Add to cart"
-                onPress={() => cartHandler(item)}
+                onPress={() => addToCart(item)}
               />
             )}
           </View>

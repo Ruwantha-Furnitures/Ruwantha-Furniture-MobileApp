@@ -1,20 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
-  const product_categories = sequelize.define(
-    "product_categories",
-    {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      is_deleted: {
-        type: DataTypes.BOOLEAN,
-      },
+module.exports = (sequelize, Sequelize) => {
+  const Category = sequelize.define("product_categories", {
+    name: {
+      type: Sequelize.STRING,
     },
-    {
-      freezeTableName: true,
-      tableName: "product_categories",
-    }
-  );
+    is_deleted: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+  });
 
-  return product_categories;
+  return Category;
 };

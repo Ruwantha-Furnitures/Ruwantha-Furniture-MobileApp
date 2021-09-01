@@ -7,12 +7,12 @@ import ViewProductARScreen from "../Screens/Customer/ViewProductARScreen";
 import LoginScreen from "../Screens/Customer/LoginScreen";
 import SignUpScreen from "../Screens/Customer/SignUpScreen";
 import ForgotPasswordScreen from "../Screens/Customer/ForgotPasswordScreen";
+import PasswordRecoveryScreen from "../Screens/Customer/PasswordRecoveryScreen";
 import CartScreen from "../Screens/Customer/CartScreen";
 import CheckOutScreen from "../Screens/Customer/CheckOutScreen";
 import ProductStackNav from "./ProductStackNav";
-
-import { FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
+import MoreDetailsScreen from "../Screens/Customer/MoreDetailsScreen";
+import StripeAppScreen from "../Screens/Customer/StripeAppScreen";
 
 const HomeStack = createStackNavigator();
 
@@ -26,6 +26,7 @@ const HomeStackNav = () => {
         },
         headerTintColor: "#fff",
         headerTitle: "",
+        initialRouteName: "Home",
       }}
     >
       <HomeStack.Screen name="Home" component={HomeScreen} />
@@ -37,8 +38,14 @@ const HomeStackNav = () => {
         name="Forgot Password"
         component={ForgotPasswordScreen}
       />
+      <HomeStack.Screen
+        name="Password Recovery"
+        component={PasswordRecoveryScreen}
+      />
       <HomeStack.Screen name="Cart" component={CartScreen} />
       <HomeStack.Screen name="CheckOut" component={CheckOutScreen} />
+      <HomeStack.Screen name="More Details" component={MoreDetailsScreen} />
+      <HomeStack.Screen name="StripeApp" component={StripeAppScreen} />
     </HomeStack.Navigator>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,28 +9,89 @@ import {
 } from "react-native";
 import Card from "../../UI/Card";
 import * as All from "../Products/ALLImages";
+import { API_URL } from "react-native-dotenv";
 import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 import { CartContext } from "../../Reducers/cartReducer";
 
-const Product = ({ item }) => {
+const Product = ({ item, removeCartProduct }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
+  const [id, setId] = useState();
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState();
+  const [discount, setDiscount] = useState();
   const cartContext = useContext(CartContext);
 
-  const increment = (item) => {
-    console.log("clicked");
-    cartContext.dispatchCart({
-      type: "increment",
-      payload: {
-        itemId: item.id,
-        quantity: parseInt(item.quantity) + 1,
-        price: item.price,
-        name: item.name,
-      },
-    });
+  const fetchSingleProduct = async () => {
+    try {
+      console.log("inside cart product");
+      const id = item.id;
+      console.log(id);
+      let response = await axios.get(`${API_URL}cart/getProduct/${id}`);
+      const { name, price, discount } = response.data.product;
+      setName(name);
+      setQuantity(item.quantity);
+      setPrice(price);
+      setDiscount(discount);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const decrement = (item) => {
-    console.log(item);
+
+  useEffect(() => {
+    fetchSingleProduct();
+  }, [item]);
+
+  const updateQuantity = async () => {};
+
+  const increment = async (item) => {
+    try {
+      console.log("increment");
+      let discountAmount = (price * discount) / 100; //calculate discount amout
+      console.log(discountAmount);
+      setQuantity(quantity + 1);
+      //calling the reducer function to update the global state
+      cartContext.dispatchCart({
+        type: "increment",
+        payload: { totalAmount: price, discount: discountAmount },
+      });
+      //update cart api calling
+      const curQty = quantity + 1;
+      const id = item.id;
+      const customerId = await SecureStore.getItemAsync("customer_id");
+      let qtyResponse = await axios.put(
+        `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
+        { quantity: curQty }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const decrement = async (item) => {
+    try {
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+        const curQty = quantity - 1;
+        let discountAmount = (price * discount) / 100; //calculate discount amount
+        //calling the reducer function to update the global state for decrement
+        cartContext.dispatchCart({
+          type: "decrement",
+          payload: { totalAmount: price, discount: discountAmount },
+        });
+        const id = item.id;
+        const customerId = await SecureStore.getItemAsync("customer_id");
+        const type = "increment";
+        let qtyResponse = await axios.put(
+          `${API_URL}cart/updateCartProduct/${id}/${customerId}`,
+          { quantity: curQty }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -43,10 +104,10 @@ const Product = ({ item }) => {
       bg="#FFF"
     >
       <View style={styles.productContainer}>
-        <Image source={All[`Image${item.itemId}`]} style={styles.itemImage} />
+        <Image source={All[`Image${item.id}`]} style={styles.itemImage} />
         <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemName}>{item.name}</Text>
-          <Text style={styles.itemPrice}>{`${item.price} /=`}</Text>
+          <Text style={styles.itemName}>{name}</Text>
+          <Text style={styles.itemPrice}>{`${price} /=`}</Text>
           <View style={styles.btnContainer}>
             <TouchableOpacity
               style={styles.btn}
@@ -54,14 +115,19 @@ const Product = ({ item }) => {
             >
               <Text style={styles.btnMinIcon}>-</Text>
             </TouchableOpacity>
-            <Text style={styles.itemQuantity}>{item.quantity}</Text>
+            <Text style={styles.itemQuantity}>{quantity}</Text>
             <TouchableOpacity
               style={styles.btn}
               onPress={() => increment(item)}
             >
               <Text style={styles.btnIcon}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnDelete}>
+            <TouchableOpacity
+              style={styles.btnDelete}
+              onPress={() =>
+                removeCartProduct({ item, price, quantity, discount })
+              }
+            >
               <View>
                 <MaterialIcons name="delete" size={30} color="black" />
               </View>

@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ViewProductARScreen from "../Screens/Customer/ViewProductARScreen";
+import StripeAppScreen from "../Screens/Customer/StripeAppScreen";
 const ArViewStack = createStackNavigator();
 const ArViewStackNavigator = () => {
   return (
@@ -14,7 +15,7 @@ const ArViewStackNavigator = () => {
         headerShown: false,
       }}
     >
-      <ArViewStack.Screen name="ArView" component={ViewProductARScreen} />
+      <ArViewStack.Screen name="Stripe" component={StripeAppScreen} />
     </ArViewStack.Navigator>
   );
 };

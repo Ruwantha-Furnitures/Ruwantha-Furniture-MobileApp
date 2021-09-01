@@ -7,30 +7,37 @@ import Input from "../../UI/Input";
 
 const EditProfile = ({ userData, editProfileHandler }) => {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
 
   useEffect(() => {
     if (userData) {
       setEmail(() => userData.email);
-      setName(() => userData.first_name);
+      setFirstName(() => userData.first_name);
+      setLastName(() => userData.last_name);
       setAddress(() => userData.address);
       setTelephone(() => userData.telephone);
     }
-  }, [userData]);
+  }, [userData, submitHandler]);
 
   const submitHandler = () => {
-    editProfileHandler({ email, name, address, telephone });
+    editProfileHandler({ email, firstName, lastName, address, telephone });
   };
 
   return (
     <View style={styles.viewProfile}>
-      <Form width={415} height={500}>
+      <Form width={415} height={520}>
         <SubHeader title="Edit Profile" width={200} />
         <Input
-          value={name}
-          onChangeText={(userName) => setName(userName)}
+          value={firstName}
+          onChangeText={(userName) => setFirstName(userName)}
+          type="string"
+        />
+        <Input
+          value={lastName}
+          onChangeText={(userName) => setLastName(userName)}
           type="string"
         />
         <Input
