@@ -143,26 +143,24 @@ const updateDeliveryStatusController = async (req, res) => {
   }
 };
 
-// //commit 6 line 161-178 getting - assigned orders for today
-
-// //get the number of assigned orders for driver today
-// const todayAssignmentController = async (req, res) => {
-//   const { driverID } = req.params;
-//   try {
-//     const assignment = await Deliveries.findAll({
-//       where: {
-//         delivery_driver_id: driverID,
-//         request_status: 1,
-//         createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-//         createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
-//       },
-//     });
-//     const noAssignedToday = assignment.length;
-//     res.status(200).json({ noAssignedToday });
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
+//get the number of assigned orders for driver today
+const todayAssignmentController = async (req, res) => {
+  const { driverID } = req.params;
+  try {
+    const assignment = await Deliveries.findAll({
+      where: {
+        delivery_driver_id: driverID,
+        request_status: 1,
+        createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
+        createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+      },
+    });
+    const noAssignedToday = assignment.length;
+    res.status(200).json({ noAssignedToday });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
 // //commit 7 line 182-199 - getting completed number of orders the days
 
