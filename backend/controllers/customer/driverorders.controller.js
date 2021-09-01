@@ -181,28 +181,26 @@ const todayCompleteController = async (req, res) => {
   }
 };
 
-// //commit 8 line 203-222 - getting pending orders for today
-
-// //get the pending orders for today
-// const todayPendingOrderController = async (req, res) => {
-//   const { driverID } = req.params;
-//   try {
-//     const pending = await Deliveries.findAll({
-//       where: {
-//         delivery_driver_id: driverID,
-//         request_status: 0,
-//         createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-//         createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
-//       },
-//     });
-//     console.log("pending");
-//     console.log(pending);
-//     const noPendingToday = pending.length;
-//     res.status(200).json({ noPendingToday });
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
+//get the pending orders for today
+const todayPendingOrderController = async (req, res) => {
+  const { driverID } = req.params;
+  try {
+    const pending = await Deliveries.findAll({
+      where: {
+        delivery_driver_id: driverID,
+        request_status: 0,
+        createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
+        createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+      },
+    });
+    console.log("pending");
+    console.log(pending);
+    const noPendingToday = pending.length;
+    res.status(200).json({ noPendingToday });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
 // //commit 9 line 226-262 - getting monthly completed orders
 
