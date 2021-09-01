@@ -86,6 +86,22 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  const getMonthlyCompleted = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/dashboard/monthlyCompleted/${driverID}`
+      );
+      if (response.status === 200) {
+        setMonthlyCompleted(response.data.noMonthlyCompleted);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 }
 
 export default HomeScreen;
