@@ -61,26 +61,25 @@ const OrderDetailsScreen = ({ route }) => {
     }
   };
 
-//   //commit 4 line 70-72 - fetch order function calling done inside useeffect
-//   useEffect(() => {
-//     fetchOrderDetails();
-//   }, []);
+  useEffect(() => {
+    fetchOrderDetails();
+  }, []);
 
-//   //commit 5 line 74-88 -order retreival added
-//   return (
-//     <ScrollView showsVerticalScrollIndicator={false}>
-//       <View style={styles.viewContainer}>
-//         {productContainer.length > 0 && (
-//           <OrderMoreDetails
-//             order={moreDetails}
-//             productContainer={productContainer}
-//             changeStatus={changeStatusHandler}
-//           />
-//         )}
-//       </View>
-//     </ScrollView>
-//   );
-// };
+  //commit 5 line 74-88 -order retreival added
+  return (
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.viewContainer}>
+        {productContainer.length > 0 && (
+          <OrderMoreDetails
+            order={moreDetails}
+            productContainer={productContainer}
+            changeStatus={changeStatusHandler}
+          />
+        )}
+      </View>
+    </ScrollView>
+  );
+};
 
 // //commit 6 line 91-98 -order retreival added
 // const styles = StyleSheet.create({
