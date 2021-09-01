@@ -128,7 +128,106 @@ const HomeScreen = ({ navigation }) => {
     getAllPendingOrderDetails();
   }, []);
 
-  
-}
+  return (
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.productContainer}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginRight: 10,
+            justifyContent: "space-between",
+          }}
+        >
+          <AvailabilityStatus navigation={navigation} />
+          <TouchableOpacity
+            style={styles.buttonLg}
+            onPress={() => loginContext.loginDispatch({ type: "logout" })}
+          >
+            <Text style={styles.Login}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.header}>Home Page</Text>
+        <Image
+          source={require("../../../assets/nlogo.png")}
+          style={styles.imageHeader}
+        />
+        <View style={{ flexDirection: "row" }}>
+          <Card
+            width={mobileWidth / 2.15}
+            height={mobileHeight / 6}
+            ml={10}
+            pd={7}
+            fd="row"
+            bg="#FFF"
+          >
+            <View style={styles.itemDetailsContainer}>
+              <MaterialCommunityIcons
+                name="truck-delivery"
+                size={40}
+                color="#542b14"
+              />
+              <Text style={styles.itemName}>Today Assingned</Text>
+              <Text style={styles.itemPrice}>{todayAssigned}</Text>
+            </View>
+          </Card>
+          <Card
+            width={mobileWidth / 2.15}
+            height={mobileHeight / 6}
+            ml={10}
+            pd={7}
+            fd="row"
+            bg="#FFF"
+          >
+            <View style={styles.itemDetailsContainer}>
+              <MaterialIcons name="category" size={40} color="#542b14" />
+              <Text style={styles.itemName}>Today Completed</Text>
+              <Text style={styles.itemPrice}>{todayCompleted}</Text>
+            </View>
+          </Card>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Card
+            width={mobileWidth / 2.15}
+            height={mobileHeight / 6}
+            ml={10}
+            pd={7}
+            fd="row"
+            bg="#FFF"
+          >
+            <View style={styles.itemDetailsContainer}>
+              <MaterialIcons
+                name="stacked-line-chart"
+                size={40}
+                color="#542b14"
+              />
+              <Text style={styles.itemName}>Today Pending</Text>
+              <Text style={styles.itemPrice}>{todayPending}</Text>
+            </View>
+          </Card>
+
+          <Card
+            width={mobileWidth / 2.15}
+            height={mobileHeight / 6}
+            ml={10}
+            pd={7}
+            fd="row"
+            bg="#FFF"
+          >
+            <View style={styles.itemDetailsContainer}>
+              <FontAwesome5 name="spa" size={40} color="#542b14" />
+              <Text style={styles.itemName}>Monthly Completed</Text>
+              <Text style={styles.itemPrice}>{monthlyCompleted}</Text>
+            </View>
+          </Card>
+        </View>
+        {pendingOrders.length > 0 && (
+          <PendingOrdersTable pendingOrders={pendingOrders} />
+        )}
+      </View>
+    </ScrollView>
+  );
+};
+
 
 export default HomeScreen;
