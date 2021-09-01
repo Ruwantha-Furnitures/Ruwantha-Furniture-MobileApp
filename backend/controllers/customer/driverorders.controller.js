@@ -65,33 +65,31 @@ const getAllOrdersForDayController = async (req, res) => {
   }
 };
 
-// //commit 3 line 76-100 - getting order details about a order
-
-// //getting more details about the order
-// const getOneOrderDetailsController = async (req, res) => {
-//   const { orderID } = req.params;
-//   console.log(orderID);
-//   const productContainer = [];
-//   try {
-//     const sellProduct = await SellProduct.findAll({
-//       where: { order_id: orderID },
-//     });
-//     for (let i = 0; i < sellProduct.length; i++) {
-//       const productID = sellProduct[i].product_id;
-//       console.log(productID);
-//       const { quantity, price, discount } = sellProduct[i];
-//       console.log(sellProduct[i]);
-//       const product = await Product.findOne({ where: { id: productID } });
-//       const { name } = product;
-//       const itemPriceAfterDiscount = (price * discount) / 100 + parseInt(price);
-//       productContainer.push({ name, quantity, itemPriceAfterDiscount });
-//     }
-//     console.log(productContainer);
-//     res.status(200).json({ productContainer });
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
+//getting more details about the order
+const getOneOrderDetailsController = async (req, res) => {
+  const { orderID } = req.params;
+  console.log(orderID);
+  const productContainer = [];
+  try {
+    const sellProduct = await SellProduct.findAll({
+      where: { order_id: orderID },
+    });
+    for (let i = 0; i < sellProduct.length; i++) {
+      const productID = sellProduct[i].product_id;
+      console.log(productID);
+      const { quantity, price, discount } = sellProduct[i];
+      console.log(sellProduct[i]);
+      const product = await Product.findOne({ where: { id: productID } });
+      const { name } = product;
+      const itemPriceAfterDiscount = (price * discount) / 100 + parseInt(price);
+      productContainer.push({ name, quantity, itemPriceAfterDiscount });
+    }
+    console.log(productContainer);
+    res.status(200).json({ productContainer });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
 // //commit 4 line 104-134 - getting pendingorder details
 
