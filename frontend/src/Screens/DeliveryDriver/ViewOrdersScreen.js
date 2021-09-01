@@ -38,24 +38,23 @@ const ViewOrdersScreen = ({ navigation }) => {
     }
   };
 
-//   //commit 3 line 47-64 - changeStatusHandler API calling done
-//   const changeStatusHandler = async (order_id) => {
-//     try {
-//       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
-//       console.log(order_id);
-//       const response = await axios.put(
-//         `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
-//       );
-//       if (response.status === 200) {
-//         console.log(response.data);
-//         getTodayOrders();
+  const changeStatusHandler = async (order_id) => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      console.log(order_id);
+      const response = await axios.put(
+        `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        getTodayOrders();
 
-//         // setChangeDeliveryStatus((prevState) => !prevState);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+        // setChangeDeliveryStatus((prevState) => !prevState);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 //   //commit 4 line 67-69 - useEffect function calling done
 //   useEffect(() => {
