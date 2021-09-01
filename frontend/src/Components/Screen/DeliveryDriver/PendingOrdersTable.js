@@ -5,13 +5,14 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-const PendingOrdersTable = () => {
+const PendingOrdersTable = ({ pendingOrders }) => {
+  
   return (
     <React.Fragment>
       <Text style={styles.header}>Pending Orders</Text>
       <View
         style={{
-          height: 300,
+          minHeight: 200,
           backgroundColor: "#FFFFFF",
           borderRadius: 10,
           marginHorizontal: 10,
@@ -19,7 +20,7 @@ const PendingOrdersTable = () => {
         }}
       >
         <Grid>
-          <Col size={10}>
+          <Col size={15}>
             <Row style={styles.cell}>
               <Text
                 style={{
@@ -30,17 +31,13 @@ const PendingOrdersTable = () => {
                 Order ID
               </Text>
             </Row>
-            <Row style={styles.cell}>
-              <Text>OD001</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>OD002</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>OD003</Text>
-            </Row>
+            {pendingOrders.map((order, index) => (
+              <Row style={styles.cell} key={index}>
+                <Text>{`OD${order.order_id}`}</Text>
+              </Row>
+            ))}
           </Col>
-          <Col size={20}>
+          <Col size={25}>
             <Row style={styles.cell}>
               <Text
                 style={{
@@ -51,17 +48,13 @@ const PendingOrdersTable = () => {
                 Customer Name
               </Text>
             </Row>
-            <Row style={styles.cell}>
-              <Text>Ayomal Praveen</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>Amal Fernando</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>Nimal Fernando</Text>
-            </Row>
+            {pendingOrders.map((order, index) => (
+              <Row style={styles.cell} key={index}>
+                <Text>{order.name}</Text>
+              </Row>
+            ))}
           </Col>
-          <Col size={15}>
+          <Col size={30}>
             <Row style={styles.cell}>
               <Text
                 style={{
@@ -69,22 +62,14 @@ const PendingOrdersTable = () => {
                   height: "100%",
                 }}
               >
-                Customer Address
+                Shipping Address
               </Text>
             </Row>
-            <Row style={styles.cell}>
-              <Text style={{ marginLeft: 10 }}>No.23,Colombo road,Negombo</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text style={{ marginLeft: 10 }}>
-                No.54,Negombo road,Dankotuwa
-              </Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text style={{ marginLeft: 10 }}>
-                No.20, Kandy road,Kurunegala
-              </Text>
-            </Row>
+            {pendingOrders.map((order, index) => (
+              <Row style={styles.cellAddress} key={index}>
+                <Text>{order.shipping_address}</Text>
+              </Row>
+            ))}
           </Col>
           <Col size={20}>
             <Row style={styles.cell}>
@@ -97,15 +82,15 @@ const PendingOrdersTable = () => {
                 Delivery Due Date
               </Text>
             </Row>
-            <Row style={styles.cell}>
-              <Text>2021-8-24</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>2021-8-24</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>2021-8-25</Text>
-            </Row>
+            {pendingOrders.map((order, index) => (
+              <Row style={styles.cell} key={index}>
+                <Text>
+                  {parseInt(order.createdAt.split("T")[0].split("-")[0])}-
+                  {parseInt(order.createdAt.split("T")[0].split("-")[1]) + 1}-
+                  {parseInt(order.createdAt.split("T")[0].split("-")[2]) - 29}
+                </Text>
+              </Row>
+            ))}
           </Col>
         </Grid>
       </View>
@@ -113,14 +98,26 @@ const PendingOrdersTable = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   cell: {
     borderWidth: 1,
-    borderColor: "#ddd",
     flex: 1,
+    borderColor: "#ddd",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 0,
+    paddingVertical: 5,
+    minHeight: 50,
+  },
+  cellAddress: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    minHeight: 50,
   },
   header: {
     alignSelf: "center",
