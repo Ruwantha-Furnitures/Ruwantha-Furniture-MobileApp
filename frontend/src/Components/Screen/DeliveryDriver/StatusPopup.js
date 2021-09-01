@@ -6,7 +6,8 @@ import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import FormAppButton from "../../UI/FormAppButton";
 import { AntDesign } from "@expo/vector-icons";
 
-const StatusPopup = ({ showModal, deleteHandler }) => {
+const StatusPopup = ({ showModal, deleteHandler, changeStatus, order_id }) => {
+  
   return (
     <PopUpConfirmationModal visible={showModal}>
       <AntDesign
@@ -21,7 +22,15 @@ const StatusPopup = ({ showModal, deleteHandler }) => {
       </Text>
       <View style={styles.btnContainer}>
         <FormAppButton title="No" width={90} onPress={deleteHandler} />
-        <FormAppButton title="Yes" type="Submit" width={90} />
+        <FormAppButton
+          title="Yes"
+          type="Submit"
+          width={90}
+          onPress={() => {
+            deleteHandler();
+            changeStatus(order_id);
+          }}
+        />
       </View>
     </PopUpConfirmationModal>
   );

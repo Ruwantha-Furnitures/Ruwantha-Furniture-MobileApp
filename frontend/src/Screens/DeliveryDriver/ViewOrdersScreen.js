@@ -1,6 +1,4 @@
-//viewing all the orders for today
-//ViewOrdersScreen.js
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,47 +10,56 @@ import {
 import Order from "../../Components/Screen/DeliveryDriver/Order";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
+import { API_URL } from "react-native-dotenv";
+import * as SecureStore from "expo-secure-store";
+import axios from "axios";
 
 const ViewOrdersScreen = ({ navigation }) => {
+  
   const loginContext = useContext(LoginContext);
-  const orders = [
-    {
-      id: 1,
-      orderID: "OD001",
-      customerName: "Ayomal Praveen",
-      address: "No.54, Negombo Road, Dankotuwa",
-      telephoneNumber: "0776054853",
-      status: "Not Delivered",
-      totalAmount: "Rs.10,000",
-      purchasedDate: "2021-10-20",
-      dueDate: "2021-10-22",
-      contactNumber: "0777604473",
-    },
-    {
-      id: 2,
-      orderID: "OD002",
-      customerName: "Amal Perera",
-      address: "No.14, Colombo Road, Negombo",
-      telephoneNumber: "0776029808",
-      status: "Delivered",
-      totalAmount: "Rs.20,000",
-      purchasedDate: "2021-10-21",
-      dueDate: "2021-10-23",
-      contactNumber: "0777605453",
-    },
-    {
-      id: 3,
-      orderID: "OD003",
-      customerName: "Nimal Fernando",
-      address: "No.94, Kandy Road, Kurunegala",
-      telephoneNumber: "0777604473",
-      status: "Delivered",
-      totalAmount: "Rs.30,000",
-      purchasedDate: "2021-10-19",
-      dueDate: "2021-10-21",
-      contactNumber: "0753604473",
-    },
-  ];
+  const [todayOrders, setTodayOrders] = useState([]);
+  const [changeDeliveryStatus, setChangeDeliveryStatus] = useState(false);
+
+  const getTodayOrders = async () => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      const response = await axios.get(
+        `${API_URL}deliveryDriver/orders/${driverID}`
+      );
+      if (response.status === 200) {
+        const { orderDetails } = response.data;
+        console.log(orderDetails);
+        setTodayOrders(orderDetails);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeStatusHandler = async (order_id) => {
+    try {
+      const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      console.log(order_id);
+      const response = await axios.put(
+        `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        getTodayOrders();
+
+        // setChangeDeliveryStatus((prevState) => !prevState);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTodayOrders();
+  }, [setChangeDeliveryStatus]);
+
   return (
     <View style={styles.viewContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -64,7 +71,7 @@ const ViewOrdersScreen = ({ navigation }) => {
             justifyContent: "space-between",
           }}
         >
-          <AvailabilityStatus />
+          <AvailabilityStatus navigation={navigation} />
           <TouchableOpacity
             style={styles.buttonLg}
             onPress={() => loginContext.loginDispatch({ type: "logout" })}
@@ -77,9 +84,14 @@ const ViewOrdersScreen = ({ navigation }) => {
           source={require("../../../assets/nlogo.png")}
           style={styles.imageHeader}
         />
-        {orders.map((order) => (
-          <Order order={order} navigation={navigation} />
-        ))}
+        {todayOrders.length > 0 &&
+          todayOrders.map((order) => (
+            <Order
+              order={order}
+              navigation={navigation}
+              changeStatus={changeStatusHandler}
+            />
+          ))}
       </ScrollView>
     </View>
   );
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
   buttonLg: {
     backgroundColor: "black",
     borderRadius: 20,
-    paddingRight: 0,
+    paddingRight: 10,
     paddingLeft: 17,
     paddingVertical: 12,
     marginTop: 3,
@@ -123,5 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E7E5E9",
     alignSelf: "center",
   },
-});
+ });
 export default ViewOrdersScreen;
+

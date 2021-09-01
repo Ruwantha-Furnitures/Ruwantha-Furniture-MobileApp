@@ -5,13 +5,16 @@ import AppButton from "../../UI/AppButton";
 import PurchasedProductTable from "./PurchasedProductTable";
 import StatusPopup from "./StatusPopup";
 
-const OrderMoreDetails = ({ order }) => {
+const mobileWidth = Dimensions.get("window").width;
+
+const OrderMoreDetails = ({ order, productContainer, changeStatus }) => {
+
   const [showModal, setShowModal] = useState(false);
-  const mobileWidth = Dimensions.get("window").width;
   const cardWidth = mobileWidth - 40;
   const deleteHandler = () => {
     setShowModal((prevState) => !prevState);
   };
+
   return (
     <View>
       <Text style={styles.header}>More Details On Order</Text>
@@ -19,7 +22,7 @@ const OrderMoreDetails = ({ order }) => {
         <Text style={styles.subheader}>User Details</Text>
         <View style={styles.name}>
           <Text style={styles.label}>Order ID</Text>
-          <Text style={styles.nameInput}>{order.orderID}</Text>
+          <Text style={styles.nameInput}>{`OD00${order.order_id}`}</Text>
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Customer Name</Text>
@@ -27,45 +30,62 @@ const OrderMoreDetails = ({ order }) => {
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Customer Address</Text>
-          <Text style={styles.nameInput}>{order.address}</Text>
+          <Text style={styles.nameInput}>{order.shipping_address}</Text>
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Contact Number</Text>
-          <Text style={styles.nameInput}>{order.contactNumber}</Text>
+          <Text style={styles.nameInput}>{order.contact_number}</Text>
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Purchased Date</Text>
-          <Text style={styles.nameInput}>{order.purchasedDate}</Text>
+          <Text style={styles.nameInput}>
+            {order.purchasedDate.split("T")[0]}
+          </Text>
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Due Date</Text>
-          <Text style={styles.nameInput}>{order.dueDate}</Text>
+          <Text style={styles.nameInput}>
+            {order.purchasedDate.split("T")[0].split("-")[0]}-
+            {order.purchasedDate.split("T")[0].split("-")[1]}-
+            {parseInt(order.purchasedDate.split("T")[0].split("-")[2]) + 2}
+          </Text>
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Total Amount</Text>
-          <Text style={styles.nameInput}>Rs.72975.00</Text>
+          <Text style={styles.nameInput}>{order.total_product_amount}</Text>
         </View>
-        <PurchasedProductTable />
-        <View
-          style={{
-            alignSelf: "flex-end",
-            marginRight: 35,
-            marginTop: 10,
-            marginBottom: 10,
-          }}
-        >
-          <AppButton
-            width={160}
-            size="lg"
-            title="Change Status"
-            onPress={deleteHandler}
-          />
-        </View>
-        <StatusPopup showModal={showModal} deleteHandler={deleteHandler} />
+        <PurchasedProductTable productContainer={productContainer} />
+        {order.complete_status === 0 && (
+          <React.Fragment>
+            <View
+              style={{
+                alignSelf: "flex-end",
+                marginRight: 35,
+                marginTop: 10,
+                marginBottom: 10,
+              }}
+            >
+              <AppButton
+                width={160}
+                size="lg"
+                title="Change Status"
+                onPress={deleteHandler}
+              />
+            </View>
+            <StatusPopup
+              showModal={showModal}
+              changeStatus={changeStatus}
+              deleteHandler={deleteHandler}
+              order_id={order.order_id}
+            />
+          </React.Fragment>
+        )}
       </Card>
     </View>
   );
 };
+
+
 const styles = StyleSheet.create({
   name: {
     flexDirection: "row",
@@ -86,6 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 25,
     maxWidth: 230,
+    minWidth: mobileWidth / 2,
   },
   header: {
     fontWeight: "bold",
