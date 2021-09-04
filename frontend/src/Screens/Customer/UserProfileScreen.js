@@ -62,7 +62,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     };
     result();
     // return () => result;
-  }, []);
+  }, [setUserData]);
 
   const editProfileHandler = async (data) => {
     try {
@@ -73,22 +73,22 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${customerID}`,
         { data }
       );
-      console.log(res.data);
       if (res.data.status === "Successful") {
-        const { name, address, telephone } = res.data;
+        const { firstName, lastName, address, telephone } = res.data;
         const updatedUserDetails = {
           email,
-          firstName,
-          lastName,
+          first_name: firstName,
+          last_name: lastName,
           address,
           telephone,
         };
         setUserData(updatedUserDetails);
-        console.log(userData);
       } else {
         console.log("Data has not been updated");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const editConfirmationHandler = () => {
@@ -147,7 +147,11 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
         {currentView === "My Profile" && (
-          <ViewProfile onChangeNav={onChangeNav} userData={userData} />
+          <ViewProfile
+            onChangeNav={onChangeNav}
+            userData={userData}
+            navigate={navigate}
+          />
         )}
         {currentView === "My Purchases" && customerOrders.length > 0 && (
           <MyPurchases customerOrders={customerOrders} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
@@ -7,15 +7,21 @@ import Input from "../../UI/Input";
 import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import { AntDesign } from "@expo/vector-icons";
 import { API_URL } from "react-native-dotenv";
-import axios from "axios";
+import { LoginContext } from "../../Reducers/loginReducer";
+import { CartContext } from "../../Reducers/cartReducer";
 
-const ViewProfile = ({ onChangeNav, userData }) => {
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
+
+const ViewProfile = ({ onChangeNav, userData, navigate }) => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
+  const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
 
   const mobileWidth = Dimensions.get("window").width;
 
@@ -35,14 +41,23 @@ const ViewProfile = ({ onChangeNav, userData }) => {
   };
 
   const customerDeleteHandler = async () => {
-    const customerId = await SecureStore.getItemAsync(
-      "customer_id",
-      JSON.stringify(customerId)
-    );
-    const accountId = await SecureStore.setItemAsync(
-      "user_accountID",
-      JSON.stringify(response.data.accountId)
-    );
+    setShowModal((prevState) => !prevState);
+    const customerId = await SecureStore.getItemAsync("customer_id");
+    const accountId = await SecureStore.getItemAsync("user_accountID");
+    try {
+      const response = await axios.put(
+        `${API_URL}customer/deleteProfile/${customerId}/${accountId}`
+      );
+      if (response.status === 200) {
+        console.log(response.data.message);
+        SecureStore.deleteItemAsync("numberOfProducts");
+        SecureStore.deleteItemAsync("customer_id");
+        loginContext.loginDispatch({ type: "logout" });
+        cartContext.dispatchCart({ type: "logout" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

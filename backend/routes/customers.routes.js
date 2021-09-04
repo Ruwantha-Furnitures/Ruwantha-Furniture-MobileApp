@@ -17,6 +17,10 @@ const {
 } = require("../controllers/customer/viewprofile.controller");
 
 const {
+  DeleteProfileController,
+} = require("../controllers/customer/deleteprofile.controller");
+
+const {
   UpdateProfileController,
 } = require("../controllers/customer/updateprofile.controller");
 
@@ -46,5 +50,6 @@ router.post("/purchaseOrders/feedback", provideCustomerFeedbackController);
 router.post("/message", messageController);
 router.post("/passwordRecovery", recoverPasswordController);
 router.post("/passwordRecovery/resetPassword", resetPasswordController);
+router.put("/deleteProfile/:customerID/:accountID", DeleteProfileController);
 
 module.exports = { customerRouter: router };

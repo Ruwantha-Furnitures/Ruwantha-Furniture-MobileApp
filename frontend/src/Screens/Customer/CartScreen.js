@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Cart/Products";
 import { useFocusEffect } from "@react-navigation/native";
@@ -8,6 +8,8 @@ import { CartContext } from "../../Components/Reducers/cartReducer";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
+
+const mobileHeight = Dimensions.get("window").height;
 
 const CartScreen = ({ navigation, route }) => {
   const [cartItems, setCartItems] = useState([]);
