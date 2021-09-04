@@ -33,6 +33,6 @@ async function connectDB() {
       console.log("Application is running on the port 3002");
     });
   } catch (error) {
-    console.log("error", error);
+    console.log("error");
   }
 }
