@@ -161,7 +161,12 @@ const StripeApp = ({ userDetails }) => {
                     deliveryCharges: 0,
                   },
                 });
-                setShowModal((prevState) => !prevState);
+                setTimeout(() => {
+                  setShowModal((prevState) => !prevState);
+                }, 1000 * 1);
+                setTimeout(() => {
+                  navigation.navigate("Home");
+                }, 1000 * 4);
               } else {
                 console.log("error");
               }

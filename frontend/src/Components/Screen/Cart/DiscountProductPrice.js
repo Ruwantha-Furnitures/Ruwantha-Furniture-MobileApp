@@ -32,28 +32,34 @@ const DiscountProductPrice = ({
             <Text style={styles.productName}>Total Purchase</Text>
             <Text style={styles.productName}>
               Rs.
-              {cartContext.cartDetails.totalAmount +
-                cartContext.cartDetails.totalDiscountAmount}
-              .00/=
+              {(
+                cartContext.cartDetails.totalAmount +
+                cartContext.cartDetails.totalDiscountAmount
+              ).toFixed(2)}
+              /=
             </Text>
           </View>
           <View style={styles.productDetail}>
             <Text style={styles.amountDiscount}>After Discount</Text>
             <Text style={styles.amountDiscount}>
               Rs.
-              {cartContext.cartDetails.totalAmount +
-                -cartContext.cartDetails.totalDiscountAmount}
-              .00 /=
+              {(
+                cartContext.cartDetails.totalAmount +
+                -cartContext.cartDetails.totalDiscountAmount
+              ).toFixed(2)}
+              /=
             </Text>
           </View>
           <View style={styles.productDetail}>
-            <Text style={styles.amountDiscount}>Delivery Charge</Text>
+            <Text style={styles.amountDiscount}>Delivery Charge(After)</Text>
             <Text style={styles.amountDiscount}>
               Rs.
-              {cartContext.cartDetails.totalAmount -
+              {(
+                cartContext.cartDetails.totalAmount -
                 cartContext.cartDetails.totalDiscountAmount +
-                cartContext.cartDetails.deliveryCharges}
-              .00 /=
+                cartContext.cartDetails.deliveryCharges
+              ).toFixed(2)}
+              /=
             </Text>
           </View>
           <View style={styles.checkoutButton}>

@@ -32,9 +32,6 @@ const CartScreen = ({ navigation, route }) => {
       );
       console.log(await SecureStore.getItemAsync("numberOfProducts"));
       setCartItems(response.data.cartItems);
-      // console.log("array");
-      // console.log(cartItems);
-      // fetchProductPriceItems();
     } catch (error) {
       console.log(error);
     }
@@ -71,11 +68,7 @@ const CartScreen = ({ navigation, route }) => {
       console.log(error);
     }
   };
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     console.log("React new effect");
-  //   }, [])
-  // );
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
@@ -100,6 +93,7 @@ const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
     backgroundColor: "#E7E5E9",
+    minHeight: mobileHeight - 100,
   },
 });
 
