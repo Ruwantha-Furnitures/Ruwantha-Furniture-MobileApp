@@ -29,6 +29,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [searchProduct, setSearchProduct] = useState("");
   LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   //fetching the products
@@ -90,6 +91,21 @@ const ProductScreen = ({ navigation: { navigate } }) => {
     }
   };
 
+  const searchHandler = (searchProduct) => {
+    if (searchProduct === "") {
+      setProducts(products);
+    } else {
+      products.map((product) => console.log(product.name));
+      const filtered = products.filter((p) =>
+        p.name.toLowerCase().includes(searchProduct.toLowerCase())
+      );
+      setProducts(filtered);
+      console.log(filtered);
+    }
+    console.log(searchProduct);
+    setSearchProduct(searchProduct);
+  };
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
@@ -98,14 +114,14 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
-        <View style={{ flexDirection: "row" }}>
-          <AntDesign
-            style={styles.cart}
-            name="shoppingcart"
-            size={35}
-            color="black"
-          />
-          {cartContext.cartDetails.quantity > 0 && (
+        {cartContext.cartDetails.quantity > 0 ? (
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign
+              style={styles.cart}
+              name="shoppingcart"
+              size={35}
+              color="black"
+            />
             <View
               style={{
                 width: 25,
@@ -119,8 +135,17 @@ const ProductScreen = ({ navigation: { navigate } }) => {
                 {cartContext.cartDetails.quantity}
               </Text>
             </View>
-          )}
-        </View>
+          </View>
+        ) : (
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign
+              style={{ marginRight: 13, marginTop: 8 }}
+              name="shoppingcart"
+              size={35}
+              color="black"
+            />
+          </View>
+        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
@@ -148,7 +173,11 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       <View style={styles.viewContainer}>
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
-        <Searchbar placeholder="Search" />
+        <Searchbar
+          placeholder="Search"
+          onChangeText={(value) => searchHandler(value)}
+          value={searchProduct}
+        />
         {products.length > 0 && (
           <Products
             navigate={navigate}
@@ -167,12 +196,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E7E5E9",
     minHeight: ScreenHeight - StatusBarHeight,
   },
-  // Login: {
-  //   alignSelf: "flex-end",
-  //   color: "#FFF",
-  //   fontSize: 28,
-  //   letterSpacing: 5,
-  // },
   LoginHeader: {
     marginTop: 5,
   },
