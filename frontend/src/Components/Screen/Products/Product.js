@@ -27,6 +27,14 @@ const Product = ({ item, navigate, addToCart }) => {
     setFirstLine(line);
   }, []);
 
+  // const starRating = console.log(item.rating);
+  // for (let i = 1; i <= 5; i++) {
+  //   if (i <= item.rating) {
+  //     return <AntDesign name="star" size={24} color="#FB9F3C" />;
+  //   } else {
+  //     return <AntDesign name="star" size={24} color="#E7E5E9" />;
+  //   }
+  // }
   const cartHandler = (item) => {
     console.log("insdie products product");
     console.log(item);
@@ -58,10 +66,26 @@ const Product = ({ item, navigate, addToCart }) => {
           </TouchableOpacity>
           <View style={styles.ratingContainer}>
             <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#E7E5E9" />
+            {item.rating >= 2 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
+            {item.rating >= 3 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
+            {item.rating >= 4 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
+            {item.rating >= 5 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
           </View>
         </View>
         <View>

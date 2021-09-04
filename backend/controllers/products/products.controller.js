@@ -2,6 +2,7 @@ const db = require("../../models");
 const Product = db.product;
 const Category = db.category;
 const Type = db.type;
+const ProductReview = db.productReview;
 
 const getAllProducts = async (req, res) => {
   const data = [];
@@ -24,6 +25,20 @@ const getAllProducts = async (req, res) => {
       const types = await Type.findOne({ where: { id: type_id } });
       const { category_id } = types;
       const category = await Category.findOne({ where: { id: category_id } });
+      const ratingProducts = await ProductReview.findAll({
+        where: { product_id: id },
+      });
+      let rating = 1;
+      if (ratingProducts.length > 0) {
+        let totalRating = 0;
+        for (let j = 0; j < ratingProducts.length; j++) {
+          const { rating_points } = ratingProducts[j];
+          totalRating += rating_points;
+        }
+        console.log(rating);
+        console.log(totalRating);
+        rating = parseInt(totalRating / ratingProducts.length);
+      }
       const type = category.name;
       console.log(name);
       data.push({
@@ -36,6 +51,7 @@ const getAllProducts = async (req, res) => {
         height,
         discount,
         type,
+        rating,
       });
     }
     res.status(200).json({ data });

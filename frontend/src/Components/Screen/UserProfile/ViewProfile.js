@@ -6,6 +6,8 @@ import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import { AntDesign } from "@expo/vector-icons";
+import { API_URL } from "react-native-dotenv";
+import axios from "axios";
 
 const ViewProfile = ({ onChangeNav, userData }) => {
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +33,18 @@ const ViewProfile = ({ onChangeNav, userData }) => {
   const deleteHandler = () => {
     setShowModal((prevState) => !prevState);
   };
+
+  const customerDeleteHandler = async () => {
+    const customerId = await SecureStore.getItemAsync(
+      "customer_id",
+      JSON.stringify(customerId)
+    );
+    const accountId = await SecureStore.setItemAsync(
+      "user_accountID",
+      JSON.stringify(response.data.accountId)
+    );
+  };
+
   return (
     <View style={styles.viewProfile}>
       <Form width={mobileWidth - 40} height={520}>
@@ -73,7 +87,12 @@ const ViewProfile = ({ onChangeNav, userData }) => {
         </Text>
         <View style={styles.btnContainer}>
           <FormAppButton title="No" width={100} onPress={deleteHandler} />
-          <FormAppButton title="Yes" type="Submit" width={100} />
+          <FormAppButton
+            title="Yes"
+            type="Submit"
+            width={100}
+            onPress={customerDeleteHandler}
+          />
         </View>
       </PopUpConfirmationModal>
     </View>

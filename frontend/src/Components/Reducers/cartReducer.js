@@ -62,8 +62,9 @@ export const cartReducer = (state, action) => {
           cartProductID: [action.payload.id],
           quantity: state.quantity + action.payload.quantity,
           totalAmount:
-            parseInt(state.totalAmount) + parseInt(action.payload.totalAmount),
-          totalDiscountAmount: parseInt(action.payload.discount),
+            parseFloat(state.totalAmount) +
+            parseFloat(action.payload.totalAmount),
+          totalDiscountAmount: parseFloat(action.payload.discount),
         };
       }
     }
