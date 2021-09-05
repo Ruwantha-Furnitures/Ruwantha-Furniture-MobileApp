@@ -85,8 +85,8 @@ const CartScreen = ({ navigation, route }) => {
         ) : (
           <View style={{ marginTop: 30 }}>
             <Card
-              width={mobileWidth - 60}
-              height={mobileHeight / 4.2}
+              width={mobileWidth - 40}
+              height={mobileHeight / 3.5}
               ml={30}
               pd={7}
               fd="row"
@@ -129,18 +129,18 @@ const styles = StyleSheet.create({
   },
   cartTextEmptyHead: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 19,
     marginTop: 20,
-    marginBottom: 5,
     marginLeft: 25,
-    minWidth: mobileWidth - 100,
+    minWidth: mobileWidth - 80,
   },
   cartTextEmpty: {
-    fontSize: 16,
+    marginTop: -15,
+    fontSize: 15,
     color: "grey",
     fontWeight: "900",
-    minWidth: mobileWidth - 100,
-    marginLeft: 75,
+    minWidth: mobileWidth - 50,
+    marginLeft: 105,
   },
 });
 

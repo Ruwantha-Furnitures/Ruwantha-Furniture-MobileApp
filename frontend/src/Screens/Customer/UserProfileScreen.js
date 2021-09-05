@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { API_URL } from "react-native-dotenv";
@@ -17,8 +18,13 @@ import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { CartContext } from "../../Components/Reducers/cartReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
 import FormAppButton from "../../Components/UI/FormAppButton";
+import Card from "../../Components/UI/Card";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
+import { FontAwesome } from "@expo/vector-icons";
+
+const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
 
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
@@ -154,6 +160,28 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         {currentView === "My Purchases" && customerOrders.length > 0 && (
           <MyPurchases customerOrders={customerOrders} />
         )}
+        {currentView === "My Purchases" && customerOrders.length == 0 && (
+          <View style={{ marginTop: 30 }}>
+            <Card
+              width={mobileWidth - 40}
+              height={mobileHeight / 3.5}
+              ml={20}
+              pd={7}
+              fd="row"
+              bg="#FFF"
+            >
+              <View style={styles.cartEmpty}>
+                <FontAwesome name="question-circle" size={85} color="#Bf9061" />
+                <Text style={styles.cartTextEmptyHead}>
+                  Unfortunately, Your Purchase History Is Empty
+                </Text>
+                <Text style={styles.cartTextEmpty}>
+                  Check back after your next shopping trip
+                </Text>
+              </View>
+            </Card>
+          </View>
+        )}
         {currentView === "Edit Profile" && (
           <EditProfile
             userData={userData}
@@ -239,6 +267,26 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flexDirection: "row",
     marginTop: 20,
+  },
+  cartEmpty: {
+    width: mobileWidth - 80,
+    alignItems: "center",
+    padding: 10,
+  },
+  cartTextEmptyHead: {
+    fontWeight: "bold",
+    fontSize: 19,
+    marginTop: 20,
+    marginBottom: 5,
+    marginLeft: 30,
+    minWidth: mobileWidth - 57,
+  },
+  cartTextEmpty: {
+    fontSize: 15,
+    color: "grey",
+    fontWeight: "900",
+    minWidth: mobileWidth - 50,
+    marginLeft: 75,
   },
 });
 export default UserProfileScreen;
