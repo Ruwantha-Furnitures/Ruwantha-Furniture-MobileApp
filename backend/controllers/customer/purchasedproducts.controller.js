@@ -40,12 +40,13 @@ const getPurchasedProductsController = async (req, res) => {
       const { name, id } = product;
       const purchasedDate = sellProduct[i].createdAt;
       const discount = (sellProduct[i].discount * sellProduct[i].price) / 100;
-      const itemPrice = sellProduct[i].price - discount;
+      const itemPrice = sellProduct[i].price;
       const sellProductData = {
         name,
         id,
         itemPrice,
         purchasedDate,
+        discount,
         orderID: sellProduct[i].order_id,
       };
       console.log(sellProductData);
