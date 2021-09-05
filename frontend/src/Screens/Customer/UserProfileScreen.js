@@ -68,7 +68,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     };
     result();
     // return () => result;
-  }, [setUserData, setInternetCheck]);
+  }, [setUserData, refreshHandler]);
 
   const editProfileHandler = async (data) => {
     try {
@@ -99,6 +99,10 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
 
   const editConfirmationHandler = () => {
     setShowModal((prevState) => !prevState);
+  };
+
+  const refreshHandler = () => {
+    setInternetCheck(internetCheck + 1);
   };
 
   const LogOut = (
@@ -185,7 +189,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
                     width={125}
                     size="lg"
                     title="Refresh"
-                    onPress={() => setInternetCheck(internetCheck + 1)}
+                    onPress={refreshHandler}
                   />
                 </View>
               </View>

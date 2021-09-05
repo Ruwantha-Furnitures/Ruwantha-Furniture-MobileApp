@@ -70,8 +70,8 @@ const RatingsForm = ({ ratingFormHandler, feedbackHandler }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 380,
-    height: 355,
+    width: 350,
+    height: 380,
     backgroundColor: "#fff",
     borderRadius: 10,
     alignSelf: "center",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: "center",
     fontWeight: "bold",
-    width: 160,
+    width: 180,
     fontSize: 20,
     letterSpacing: 1,
     marginTop: -18,

@@ -61,12 +61,12 @@ const UserDetails = ({ districts, navigation }) => {
     <React.Fragment>
       <Card
         width={mobileWidth - 40}
-        height={mobileHeight - 220}
+        height={mobileHeight - 70}
         ml={20}
         bg="#fff"
       >
         <React.Fragment>
-          <SubHeader title="Personal Information" width={mobileWidth / 1.3} />
+          <SubHeader title="Personal Information" width={mobileWidth / 1.1} />
           <Input
             placeholder="Enter Your First Name"
             value={firstName}

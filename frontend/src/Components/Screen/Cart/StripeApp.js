@@ -188,7 +188,7 @@ const StripeApp = ({ userDetails, navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Form width={mobileWidth - 30} height={mobileHeight - 400}>
+      <Form width={mobileWidth - 30} height={mobileHeight - 350}>
         <Image
           source={require("../../../../assets/nlogo.png")}
           style={styles.imageHeader}
@@ -209,8 +209,7 @@ const StripeApp = ({ userDetails, navigation }) => {
           }}
         >
           <CardField
-            postalCodeEnabled={true}
-            placeholder={{ number: "4242 4242 4242 4242" }}
+            // placeholder={{ number: "4242 4242 4242" }}
             cardStyle={styles.card}
             style={styles.cardContainer}
             onCardChange={(cardDetails) => console.log(cardDetails)}
@@ -263,7 +262,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 50,
     backgroundColor: "#E7E5E9",
-    fontSize: 14,
+    fontSize: 13,
     borderRadius: 20,
   },
   mailIcon: {

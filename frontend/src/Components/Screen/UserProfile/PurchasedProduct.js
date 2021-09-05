@@ -61,7 +61,7 @@ const PurchasedProduct = ({ item, order }) => {
   return (
     <View style={styles.purchases}>
       {details != null && (
-        <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
+        <Card width={375} height={ratingDisplay ? 630 : 300} ml={20} bg="#fff">
           <View style={styles.productContainer}>
             <Text style={styles.purchaseItemName}>{details[0].name}</Text>
             <Image

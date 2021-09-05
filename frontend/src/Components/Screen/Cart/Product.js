@@ -97,7 +97,7 @@ const Product = ({ item, removeCartProduct }) => {
   return (
     <Card
       width={mobileWidth - 60}
-      height={mobileHeight / 5}
+      height={mobileHeight / 4.5}
       ml={30}
       pd={7}
       fd="row"
