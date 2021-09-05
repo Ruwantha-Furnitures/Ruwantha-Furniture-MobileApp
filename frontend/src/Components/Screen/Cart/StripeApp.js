@@ -21,7 +21,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
-const StripeApp = ({ userDetails }) => {
+const StripeApp = ({ userDetails, navigation }) => {
   const [name, setName] = useState();
   const [showModal, setShowModal] = useState(false);
   const cartContext = useContext(CartContext);

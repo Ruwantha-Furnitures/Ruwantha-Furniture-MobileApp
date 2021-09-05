@@ -61,7 +61,7 @@ const UserDetails = ({ districts, navigation }) => {
     <React.Fragment>
       <Card
         width={mobileWidth - 40}
-        height={mobileHeight - 200}
+        height={mobileHeight - 220}
         ml={20}
         bg="#fff"
       >

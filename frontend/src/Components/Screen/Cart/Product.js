@@ -107,7 +107,7 @@ const Product = ({ item, removeCartProduct }) => {
         <Image source={All[`Image${item.id}`]} style={styles.itemImage} />
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>{name}</Text>
-          <Text style={styles.itemPrice}>{`${price} /=`}</Text>
+          <Text style={styles.itemPrice}>{`Rs.${price} /=`}</Text>
           <View style={styles.btnContainer}>
             <TouchableOpacity
               style={styles.btn}
