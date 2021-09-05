@@ -59,7 +59,8 @@ const StripeApp = ({ userDetails, navigation }) => {
         });
 
         const total_product_amount = parseFloat(
-          cartContext.cartDetails.totalAmount
+          cartContext.cartDetails.totalAmount -
+            cartContext.cartDetails.totalDiscountAmount
         ).toFixed(2);
         const customerID = await SecureStore.getItemAsync("customer_id");
         const customer_id = parseInt(customerID);

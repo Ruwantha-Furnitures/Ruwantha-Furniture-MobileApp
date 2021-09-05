@@ -139,6 +139,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "grey",
     fontWeight: "900",
+    minWidth: mobileWidth - 100,
+    marginLeft: 75,
   },
 });
 

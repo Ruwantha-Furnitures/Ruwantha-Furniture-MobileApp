@@ -40,7 +40,6 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         let response = await axios.get(
           `${API_URL}customer/viewprofile/${customerID}`
         );
-        console.log(response.data);
         if (response.data.auth === true) {
           const { first_name, address, telephone, last_name } = response.data;
           const data = { email, first_name, last_name, address, telephone };
@@ -49,7 +48,6 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
             `${API_URL}customer/purchaseOrders/${customerID}`
           );
           if (ordersResponse.status === 200) {
-            // console.log(ordersResponse.data);
             const { orders } = ordersResponse.data;
             setCustomerOrders(orders);
           } else {
