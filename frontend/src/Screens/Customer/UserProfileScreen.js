@@ -18,6 +18,7 @@ import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { CartContext } from "../../Components/Reducers/cartReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
 import FormAppButton from "../../Components/UI/FormAppButton";
+import AppButton from "../../Components/UI/AppButton";
 import Card from "../../Components/UI/Card";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
@@ -33,6 +34,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [userData, setUserData] = useState();
   const [customerOrders, setCustomerOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [internetCheck, setInternetCheck] = useState(0);
 
   const onChangeNav = (header) => {
     setCurrentView(header);
@@ -66,7 +68,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     };
     result();
     // return () => result;
-  }, [setUserData]);
+  }, [setUserData, setInternetCheck]);
 
   const editProfileHandler = async (data) => {
     try {
@@ -164,7 +166,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
           <View style={{ marginTop: 30 }}>
             <Card
               width={mobileWidth - 40}
-              height={mobileHeight / 3.5}
+              height={mobileHeight / 2.8}
               ml={20}
               pd={7}
               fd="row"
@@ -178,6 +180,14 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
                 <Text style={styles.cartTextEmpty}>
                   Check back after your next shopping trip
                 </Text>
+                <View style={{ alignSelf: "flex-end" }}>
+                  <AppButton
+                    width={125}
+                    size="lg"
+                    title="Refresh"
+                    onPress={() => setInternetCheck(internetCheck + 1)}
+                  />
+                </View>
               </View>
             </Card>
           </View>
