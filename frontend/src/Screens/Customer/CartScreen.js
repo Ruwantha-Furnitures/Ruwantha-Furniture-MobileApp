@@ -1,13 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Cart/Products";
-import { useFocusEffect } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ProductPrice from "../../Components/Screen/Cart/ProductPrice";
 import { CartContext } from "../../Components/Reducers/cartReducer";
+import Card from "../../Components/UI/Card";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
+
+const mobileHeight = Dimensions.get("window").height;
+const mobileWidth = Dimensions.get("window").width;
 
 const CartScreen = ({ navigation, route }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -32,9 +36,6 @@ const CartScreen = ({ navigation, route }) => {
       );
       console.log(await SecureStore.getItemAsync("numberOfProducts"));
       setCartItems(response.data.cartItems);
-      // console.log("array");
-      // console.log(cartItems);
-      // fetchProductPriceItems();
     } catch (error) {
       console.log(error);
     }
@@ -71,11 +72,7 @@ const CartScreen = ({ navigation, route }) => {
       console.log(error);
     }
   };
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     console.log("React new effect");
-  //   }, [])
-  // );
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
@@ -86,7 +83,30 @@ const CartScreen = ({ navigation, route }) => {
             removeCartProduct={removeCartProduct}
           />
         ) : (
-          <Text>No Items has been added to the cart</Text>
+          <View style={{ marginTop: 30 }}>
+            <Card
+              width={mobileWidth - 40}
+              height={mobileHeight / 3.5}
+              ml={22}
+              pd={7}
+              fd="row"
+              bg="#FFF"
+            >
+              <View style={styles.cartEmpty}>
+                <MaterialCommunityIcons
+                  name="cart-off"
+                  size={85}
+                  color="#Bf9061"
+                />
+                <Text style={styles.cartTextEmptyHead}>
+                  Unfortunately, Your Cart Is Empty
+                </Text>
+                <Text style={styles.cartTextEmpty}>
+                  Please Add something to your cart
+                </Text>
+              </View>
+            </Card>
+          </View>
         )}
         {cartContext.cartDetails.quantity > 0 && (
           <ProductPrice navigation={navigation} cartItems={cartItems} />
@@ -100,6 +120,27 @@ const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
     backgroundColor: "#E7E5E9",
+    minHeight: mobileHeight - 100,
+  },
+  cartEmpty: {
+    width: mobileWidth - 80,
+    alignItems: "center",
+    padding: 10,
+  },
+  cartTextEmptyHead: {
+    fontWeight: "bold",
+    fontSize: 19,
+    marginTop: 20,
+    marginLeft: 25,
+    minWidth: mobileWidth - 80,
+  },
+  cartTextEmpty: {
+    marginTop: -15,
+    fontSize: 15,
+    color: "grey",
+    fontWeight: "900",
+    minWidth: mobileWidth - 50,
+    marginLeft: 105,
   },
 });
 

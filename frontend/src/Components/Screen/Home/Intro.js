@@ -12,6 +12,7 @@ import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 
 const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 const cardWidth = mobileWidth - 40;
 const imageWidth = (cardWidth + 10) / 2;
 const detailsWidth = (cardWidth - 10) / 2;
@@ -109,10 +110,10 @@ const styles = StyleSheet.create({
     width: detailsWidth,
   },
   subHeader: {
-    letterSpacing: 0.5,
+    letterSpacing: 1,
     marginTop: 15,
     marginBottom: 10,
-    fontSize: 25,
+    fontSize: 25 / fontScale,
     fontWeight: "bold",
     width: 220,
   },

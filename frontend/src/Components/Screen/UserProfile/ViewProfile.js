@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
@@ -6,14 +6,22 @@ import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
 import { AntDesign } from "@expo/vector-icons";
+import { API_URL } from "react-native-dotenv";
+import { LoginContext } from "../../Reducers/loginReducer";
+import { CartContext } from "../../Reducers/cartReducer";
 
-const ViewProfile = ({ onChangeNav, userData }) => {
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
+
+const ViewProfile = ({ onChangeNav, userData, navigate }) => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
+  const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
 
   const mobileWidth = Dimensions.get("window").width;
 
@@ -31,6 +39,27 @@ const ViewProfile = ({ onChangeNav, userData }) => {
   const deleteHandler = () => {
     setShowModal((prevState) => !prevState);
   };
+
+  const customerDeleteHandler = async () => {
+    setShowModal((prevState) => !prevState);
+    const customerId = await SecureStore.getItemAsync("customer_id");
+    const accountId = await SecureStore.getItemAsync("user_accountID");
+    try {
+      const response = await axios.put(
+        `${API_URL}customer/deleteProfile/${customerId}/${accountId}`
+      );
+      if (response.status === 200) {
+        console.log(response.data.message);
+        SecureStore.deleteItemAsync("numberOfProducts");
+        SecureStore.deleteItemAsync("customer_id");
+        loginContext.loginDispatch({ type: "logout" });
+        cartContext.dispatchCart({ type: "logout" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.viewProfile}>
       <Form width={mobileWidth - 40} height={520}>
@@ -49,14 +78,14 @@ const ViewProfile = ({ onChangeNav, userData }) => {
         >
           <FormAppButton
             title="Delete Profile"
-            width={165}
+            width={135}
             onPress={deleteHandler}
           />
           <FormAppButton
             type="Submit"
             title="Edit Profile"
             onPress={() => onChangeNav("Edit Profile")}
-            width={150}
+            width={120}
           />
         </View>
       </Form>
@@ -73,7 +102,12 @@ const ViewProfile = ({ onChangeNav, userData }) => {
         </Text>
         <View style={styles.btnContainer}>
           <FormAppButton title="No" width={100} onPress={deleteHandler} />
-          <FormAppButton title="Yes" type="Submit" width={100} />
+          <FormAppButton
+            title="Yes"
+            type="Submit"
+            width={100}
+            onPress={customerDeleteHandler}
+          />
         </View>
       </PopUpConfirmationModal>
     </View>

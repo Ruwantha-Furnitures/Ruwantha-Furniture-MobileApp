@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
   },
   icon: {
-    left: -345,
+    left: -305,
     top: 10,
     position: "relative",
   },

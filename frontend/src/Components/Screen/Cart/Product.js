@@ -97,7 +97,7 @@ const Product = ({ item, removeCartProduct }) => {
   return (
     <Card
       width={mobileWidth - 60}
-      height={mobileHeight / 5}
+      height={mobileHeight / 4.5}
       ml={30}
       pd={7}
       fd="row"
@@ -107,7 +107,7 @@ const Product = ({ item, removeCartProduct }) => {
         <Image source={All[`Image${item.id}`]} style={styles.itemImage} />
         <View style={styles.itemDetailsContainer}>
           <Text style={styles.itemName}>{name}</Text>
-          <Text style={styles.itemPrice}>{`${price} /=`}</Text>
+          <Text style={styles.itemPrice}>{`Rs.${price} /=`}</Text>
           <View style={styles.btnContainer}>
             <TouchableOpacity
               style={styles.btn}

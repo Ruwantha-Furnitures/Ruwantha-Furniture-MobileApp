@@ -1,7 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import Card from "../../UI/Card";
 import SubHeader from "../../Header/SubHeader";
+
+const mobileWidth = Dimensions.get("window").width;
+
 const CustomIntro = () => {
   const Images = [
     {
@@ -32,7 +42,7 @@ const CustomIntro = () => {
   ];
 
   return (
-    <Card width={415} height={340} ml={20} bg="#fff">
+    <Card width={mobileWidth - 40} height={340} ml={20} bg="#fff">
       <SubHeader title="Image Gallery" width={290} />
       <FlatList
         horizontal
@@ -45,7 +55,7 @@ const CustomIntro = () => {
             <Image
               source={item.imgUri}
               style={{
-                width: 415,
+                width: mobileWidth - 40,
                 height: 272,
                 resizeMode: "cover",
                 borderBottomLeftRadius: 10,

@@ -1,8 +1,6 @@
 import React from "react";
 
 export const driverReducer = (state, action) => {
-  console.log("state");
-  console.log(state);
   switch (action.type) {
     case "initiate":
       return {
@@ -10,7 +8,7 @@ export const driverReducer = (state, action) => {
       };
     case "change":
       return {
-        availability: action.payload.availability,
+        availability: parseInt(action.payload.availability),
       };
   }
 };

@@ -15,7 +15,6 @@ import { AntDesign } from "@expo/vector-icons";
 const mobileWidth = Dimensions.get("window").width;
 
 const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
-  
   const cardWidth = mobileWidth - 40;
   const [email, setEmail] = useState("");
   const [availability, setAvailability] = useState("Available");
@@ -25,7 +24,6 @@ const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
   ]);
   const driverContext = useContext(DriverContext);
 
-  
   const getEmailDriver = async () => {
     if (driverData.availability === 1) {
       setAvailability("Available");
@@ -40,9 +38,8 @@ const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
     getEmailDriver();
   }, []);
 
-  
   return (
-    <Form width={mobileWidth - 40} height={560}>
+    <Form width={mobileWidth - 30} height={580}>
       <Text style={styles.subHeaderOne}>Delivery Driver</Text>
       <Text style={styles.subHeaderTwo}>Availability</Text>
       <View style={styles.name}>
@@ -99,10 +96,16 @@ const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
           type="Submit"
           width={220}
           onPress={() => {
+            let availableStatus;
+            if (availability === "Available") {
+              availableStatus = 1;
+            } else {
+              availableStatus = 0;
+            }
             driverContext.dispatchAvailability({
               type: "change",
               payload: {
-                availability,
+                availability: availableStatus,
               },
             });
             changeAvailability(availability);
@@ -112,7 +115,6 @@ const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
     </Form>
   );
 };
-
 
 const styles = StyleSheet.create({
   subheader: {

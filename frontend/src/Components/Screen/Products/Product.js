@@ -17,7 +17,7 @@ import * as All from "./ALLImages";
 const Product = ({ item, navigate, addToCart }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
-  const cardWidth = mobileWidth - 40;
+  const cardWidth = mobileWidth - 30;
   const loginContext = useContext(LoginContext);
   const cartContext = useContext(CartContext);
   const [firstLine, setFirstLine] = useState("");
@@ -27,6 +27,14 @@ const Product = ({ item, navigate, addToCart }) => {
     setFirstLine(line);
   }, []);
 
+  // const starRating = console.log(item.rating);
+  // for (let i = 1; i <= 5; i++) {
+  //   if (i <= item.rating) {
+  //     return <AntDesign name="star" size={24} color="#FB9F3C" />;
+  //   } else {
+  //     return <AntDesign name="star" size={24} color="#E7E5E9" />;
+  //   }
+  // }
   const cartHandler = (item) => {
     console.log("insdie products product");
     console.log(item);
@@ -41,7 +49,7 @@ const Product = ({ item, navigate, addToCart }) => {
     });
   };
   return (
-    <Card width={cardWidth} height={200} ml={20} bg="#fff">
+    <Card width={cardWidth} height={205} ml={20} bg="#fff">
       <View style={styles.productContainer}>
         <View>
           <TouchableOpacity
@@ -58,10 +66,26 @@ const Product = ({ item, navigate, addToCart }) => {
           </TouchableOpacity>
           <View style={styles.ratingContainer}>
             <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#FB9F3C" />
-            <AntDesign name="star" size={24} color="#E7E5E9" />
+            {item.rating >= 2 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
+            {item.rating >= 3 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
+            {item.rating >= 4 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
+            {item.rating >= 5 ? (
+              <AntDesign name="star" size={24} color="#FB9F3C" />
+            ) : (
+              <AntDesign name="star" size={24} color="#E7E5E9" />
+            )}
           </View>
         </View>
         <View>
@@ -77,11 +101,13 @@ const Product = ({ item, navigate, addToCart }) => {
               onPress={() => navigate("ProductsAR")}
             />
             {loginContext.userDetails.userToken !== null && (
-              <AppButton
-                width={80}
-                title="Add to cart"
-                onPress={() => addToCart(item)}
-              />
+              <View style={{ marginLeft: 40 }}>
+                <AppButton
+                  width={80}
+                  title="Add to cart"
+                  onPress={() => addToCart(item)}
+                />
+              </View>
             )}
           </View>
         </View>
@@ -106,14 +132,15 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontWeight: "bold",
-    marginLeft: 30,
-    fontSize: 22,
-    width: 255,
+    marginLeft: 20,
+    fontSize: 20,
+    width: 250,
     marginBottom: 10,
   },
   productDescription: {
-    width: 250,
-    marginLeft: 30,
+    width: 225,
+    marginLeft: 20,
+    fontSize: 11.5,
   },
   productPrice: {
     width: 250,
@@ -124,10 +151,10 @@ const styles = StyleSheet.create({
     color: "#FB9F3C",
   },
   btnContainer: {
-    marginLeft: -25,
-    marginTop: 5,
+    position: "absolute",
+    top: 155,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    marginLeft: 25,
   },
   ratingContainer: { marginTop: 20, flexDirection: "row", marginLeft: 8 },
   imgBorder: {

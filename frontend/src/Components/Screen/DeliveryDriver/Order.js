@@ -17,7 +17,7 @@ const Order = ({ order, navigation, changeStatus }) => {
   };
 
   return (
-    <Card width={cardWidth} height={420} ml={20} bg="#fff">
+    <Card width={cardWidth} height={470} ml={20} bg="#fff">
       <View style={styles.nameInitial}>
         <Text style={styles.label}>Customer Name</Text>
         <Text style={styles.nameInput}>{order.customerName}</Text>
@@ -43,13 +43,13 @@ const Order = ({ order, navigation, changeStatus }) => {
       {order.complete_status === 0 ? (
         <View style={styles.btnContainer}>
           <AppButton
-            width={160}
+            width={120}
             size="lg"
             title="Change Status"
             onPress={deleteHandler}
           />
           <AppButton
-            width={160}
+            width={120}
             size="lg"
             title="More Details"
             onPress={() => navigation.navigate("OrderDetails", { order })}
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     color: "grey",
     minWidth: 20,
     marginLeft: 20,
+    maxWidth: 225,
   },
   delivered: {
     backgroundColor: "#fff",

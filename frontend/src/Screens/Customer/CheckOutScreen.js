@@ -5,9 +5,6 @@ import CheckOutForm from "../../Components/Screen/Cart/CheckOutForm";
 import axios from "axios";
 
 const CheckOutScreen = ({ navigation }) => {
-  // const paymentSubmit = () => {
-  //   console.log("clicked");
-  // };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>

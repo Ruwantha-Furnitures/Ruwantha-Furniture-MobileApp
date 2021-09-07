@@ -49,14 +49,14 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
-        <View style={{ flexDirection: "row" }}>
-          <AntDesign
-            style={styles.cart}
-            name="shoppingcart"
-            size={35}
-            color="black"
-          />
-          {cartContext.cartDetails.quantity > 0 && (
+        {cartContext.cartDetails.quantity > 0 ? (
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign
+              style={styles.cart}
+              name="shoppingcart"
+              size={35}
+              color="black"
+            />
             <View
               style={{
                 width: 25,
@@ -70,8 +70,17 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
                 {cartContext.cartDetails.quantity}
               </Text>
             </View>
-          )}
-        </View>
+          </View>
+        ) : (
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign
+              style={{ marginRight: 13, marginTop: 8 }}
+              name="shoppingcart"
+              size={35}
+              color="black"
+            />
+          </View>
+        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}

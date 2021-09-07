@@ -16,6 +16,7 @@ import Header from "../../Components/Header/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { DriverContext } from "../../Components/Reducers/driverReducer";
+import { DashboardContext } from "../../Components/Reducers/dashboardReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -28,15 +29,14 @@ const mobileHeight = Dimensions.get("window").height;
 const mobileWidth = Dimensions.get("window").width;
 
 const HomeScreen = ({ navigation }) => {
- 
   const loginContext = useContext(LoginContext);
   const driverContext = useContext(DriverContext);
+  const dashboardContext = useContext(DashboardContext);
   const [todayAssigned, setTodayAssigned] = useState(null);
   const [todayPending, setTodayPending] = useState(null);
   const [todayCompleted, setTodayCompleted] = useState(null);
   const [monthlyCompleted, setMonthlyCompleted] = useState(null);
   const [pendingOrders, setPendingOrders] = useState([]);
-
 
   const setGlobalStateForAvailability = async () => {
     const availability = await SecureStore.getItemAsync("availability");
@@ -48,8 +48,6 @@ const HomeScreen = ({ navigation }) => {
       },
     });
   };
-
-
 
   const getTodayAssignments = async () => {
     try {
@@ -67,7 +65,6 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-
   const getTodayCompleted = async () => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
@@ -75,6 +72,12 @@ const HomeScreen = ({ navigation }) => {
         `${API_URL}deliveryDriver/dashboard/todayCompleted/${driverID}`
       );
       if (response.status === 200) {
+        dashboardContext.dispatchDashboard({
+          type: "initiateTodayCompleted",
+          payload: {
+            todayCompleted: response.data.noCompletedToday,
+          },
+        });
         setTodayCompleted(response.data.noCompletedToday);
       } else {
         console.log("error");
@@ -83,7 +86,6 @@ const HomeScreen = ({ navigation }) => {
       console.log(error);
     }
   };
-
 
   const getTodayPending = async () => {
     try {
@@ -108,6 +110,12 @@ const HomeScreen = ({ navigation }) => {
         `${API_URL}deliveryDriver/dashboard/monthlyCompleted/${driverID}`
       );
       if (response.status === 200) {
+        dashboardContext.dispatchDashboard({
+          type: "initiateMonthlyCompleted",
+          payload: {
+            monthlyCompleted: response.data.noMonthlyCompleted,
+          },
+        });
         setMonthlyCompleted(response.data.noMonthlyCompleted);
       } else {
         console.log("error");
@@ -143,7 +151,6 @@ const HomeScreen = ({ navigation }) => {
     getAllPendingOrderDetails();
   }, []);
 
- 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.productContainer}>
@@ -170,8 +177,8 @@ const HomeScreen = ({ navigation }) => {
         />
         <View style={{ flexDirection: "row" }}>
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -188,8 +195,8 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </Card>
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -198,14 +205,16 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.itemDetailsContainer}>
               <MaterialIcons name="category" size={40} color="#542b14" />
               <Text style={styles.itemName}>Today Completed</Text>
-              <Text style={styles.itemPrice}>{todayCompleted}</Text>
+              <Text style={styles.itemPrice}>
+                {dashboardContext.dashboardDetails.todayCompleted}
+              </Text>
             </View>
           </Card>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -223,8 +232,8 @@ const HomeScreen = ({ navigation }) => {
           </Card>
 
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -233,7 +242,9 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.itemDetailsContainer}>
               <FontAwesome5 name="spa" size={40} color="#542b14" />
               <Text style={styles.itemName}>Monthly Completed</Text>
-              <Text style={styles.itemPrice}>{monthlyCompleted}</Text>
+              <Text style={styles.itemPrice}>
+                {dashboardContext.dashboardDetails.monthlyCompleted}
+              </Text>
             </View>
           </Card>
         </View>
@@ -255,7 +266,7 @@ const styles = StyleSheet.create({
   itemName: {
     marginTop: 10,
     fontSize: 18,
-    width: mobileWidth / 2.15,
+    width: mobileWidth / 2.8,
     letterSpacing: 1.4,
     marginLeft: -20,
   },
@@ -314,4 +325,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-

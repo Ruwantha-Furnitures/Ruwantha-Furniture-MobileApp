@@ -13,7 +13,7 @@ const LoginController = async (req, res) => {
 
   try {
     const account = await Account.findOne({
-      where: { email: data.email },
+      where: { email: data.email, is_deleted: 0 },
     });
     console.log(account);
     if (account === null) {

@@ -22,14 +22,14 @@ const PurchaseDetailTable = ({ item }) => {
                 height: "100%",
               }}
             >
-              Order ID
+              Item Price
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>{`OD0${item[0].orderID}`}</Text>
+            <Text>{`Rs.${item[0].itemPrice}/=`}</Text>
           </Row>
         </Col>
-        <Col size={18}>
+        <Col size={12}>
           <Row style={styles.cell}>
             <Text
               style={{
@@ -37,11 +37,11 @@ const PurchaseDetailTable = ({ item }) => {
                 height: "100%",
               }}
             >
-              Item Price (After Discount)
+              Discount Amount
             </Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Rs.{item[0].itemPrice}/=</Text>
+            <Text>Rs.{item[0].discount.toFixed(2)}/=</Text>
           </Row>
         </Col>
         <Col size={10}>

@@ -21,7 +21,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
-const StripeApp = ({ userDetails }) => {
+const fontScale = Dimensions.get("window").fontScale;
+const StripeApp = ({ userDetails, navigation }) => {
   const [name, setName] = useState();
   const [showModal, setShowModal] = useState(false);
   const cartContext = useContext(CartContext);
@@ -59,7 +60,8 @@ const StripeApp = ({ userDetails }) => {
         });
 
         const total_product_amount = parseFloat(
-          cartContext.cartDetails.totalAmount
+          cartContext.cartDetails.totalAmount -
+            cartContext.cartDetails.totalDiscountAmount
         ).toFixed(2);
         const customerID = await SecureStore.getItemAsync("customer_id");
         const customer_id = parseInt(customerID);
@@ -161,7 +163,12 @@ const StripeApp = ({ userDetails }) => {
                     deliveryCharges: 0,
                   },
                 });
-                setShowModal((prevState) => !prevState);
+                setTimeout(() => {
+                  setShowModal((prevState) => !prevState);
+                }, 1000 * 1);
+                setTimeout(() => {
+                  navigation.navigate("Home");
+                }, 1000 * 4);
               } else {
                 console.log("error");
               }
@@ -182,7 +189,7 @@ const StripeApp = ({ userDetails }) => {
   };
   return (
     <View style={styles.container}>
-      <Form width={mobileWidth - 30} height={mobileHeight - 400}>
+      <Form width={mobileWidth - 30} height={mobileHeight - 350}>
         <Image
           source={require("../../../../assets/nlogo.png")}
           style={styles.imageHeader}
@@ -203,8 +210,7 @@ const StripeApp = ({ userDetails }) => {
           }}
         >
           <CardField
-            postalCodeEnabled={true}
-            placeholder={{ number: "4242 4242 4242 4242" }}
+            // placeholder={{ number: "4242 4242 4242" }}
             cardStyle={styles.card}
             style={styles.cardContainer}
             onCardChange={(cardDetails) => console.log(cardDetails)}
@@ -257,7 +263,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 50,
     backgroundColor: "#E7E5E9",
-    fontSize: 14,
+    fontSize: 13 / fontScale,
     borderRadius: 20,
   },
   mailIcon: {

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import OrderMoreDetails from "../../Components/Screen/DeliveryDriver/OrderMoreDetails";
+import { DashboardContext } from "../../Components/Reducers/dashboardReducer";
 import PurchasedProductTable from "../../Components/Screen/DeliveryDriver/PurchasedProductTable";
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 import { API_URL } from "react-native-dotenv";
 
-const OrderDetailsScreen = ({ route }) => {
-  
+const OrderDetailsScreen = ({ route, navigation }) => {
   const { order } = route.params;
   const [moreDetails, setMoreDetails] = useState(null);
   const [productContainer, setProductContainer] = useState([]);
-  console.log(order.order_id);
+  const dashboardContext = useContext(DashboardContext);
 
-  
   const fetchOrderDetails = async () => {
     try {
       const {
@@ -45,16 +45,19 @@ const OrderDetailsScreen = ({ route }) => {
     }
   };
 
-
   const changeStatusHandler = async (order_id) => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
+      console.log("sss");
       console.log(order_id);
       const response = await axios.put(
         `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
       );
       if (response.status === 200) {
-        console.log(response.data);
+        dashboardContext.dispatchDashboard({
+          type: "statusChanged",
+        });
+        navigation.navigate("ViewOrders");
       }
     } catch (error) {
       console.log(error);
@@ -65,7 +68,6 @@ const OrderDetailsScreen = ({ route }) => {
     fetchOrderDetails();
   }, []);
 
-  //commit 5 line 74-88 -order retreival added
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
@@ -88,4 +90,3 @@ const styles = StyleSheet.create({
   },
 });
 export default OrderDetailsScreen;
-

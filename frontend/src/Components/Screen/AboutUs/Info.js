@@ -1,19 +1,28 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Card from "../../UI/Card";
 import SubHeader from "../../Header/SubHeader";
+
+const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 const Info = () => {
   return (
-    <Card width={415} height={1050} ml={20} pd={0} bg="#fff">
+    <Card width={mobileWidth - 30} height={1050} ml={20} pd={0} bg="#fff">
       <View style={{ flexDirection: "column" }}>
         <Image
           source={require("../../../../assets/visionmission.jpg")}
           style={styles.imageStyle}
         />
         <View style={{ marginTop: 20 }}>
-          <Card width={350} height={200} ml={30} pd={0} bg="#E7E5E9">
+          <Card
+            width={mobileWidth - 65}
+            height={200}
+            ml={20}
+            pd={0}
+            bg="#E7E5E9"
+          >
             <SubHeader title="Our Vision" width={200} />
             <Text style={styles.textStyle}>
               To be the best in providing furniture with the latest designs
@@ -21,7 +30,13 @@ const Info = () => {
               the best-augmented reality shopping experience to our customers.
             </Text>
           </Card>
-          <Card width={350} height={200} ml={30} pd={0} bg="#E7E5E9">
+          <Card
+            width={mobileWidth - 65}
+            height={200}
+            ml={20}
+            pd={0}
+            bg="#E7E5E9"
+          >
             <SubHeader title="Our Mission" width={200} />
             <Text style={styles.textStyle}>
               Recognize our clients' needs and wants and satisfy them with great
@@ -29,7 +44,13 @@ const Info = () => {
               value to the money you spent.
             </Text>
           </Card>
-          <Card width={350} height={200} ml={30} pd={0} bg="#E7E5E9">
+          <Card
+            width={mobileWidth - 65}
+            height={200}
+            ml={20}
+            pd={0}
+            bg="#E7E5E9"
+          >
             <SubHeader title="Our Achievements" width={300} />
             <Text style={styles.textStyle}>
               More than 5000+ customers reached our website throughout the last
@@ -49,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   imageStyle: {
-    width: 415,
+    width: mobileWidth - 30,
     height: 270,
     resizeMode: "stretch",
     borderTopLeftRadius: 10,
@@ -69,7 +90,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     marginHorizontal: 20,
-    fontSize: 16,
+    fontSize: 17 / fontScale,
   },
 });
 export default Info;

@@ -10,9 +10,10 @@ const recoverPasswordController = async (req, res) => {
   const { email } = req.body;
   try {
     const cusAccountExists = await Account.findOne({
-      where: { email, user_level: 1 },
+      where: { email, is_deleted: 0 },
     });
-    if (cusAccountExists) {
+
+    if (cusAccountExists && (cusAccountExists.user_level === 1 || 3)) {
       const token = randomstring.generate({ length: 7, charset: "alphabetic" });
       const addToken = await Token.create({ email, token });
       sendTokenMail(email, token);
@@ -39,10 +40,15 @@ const resetPasswordController = async (req, res) => {
           { password: hash },
           { where: { email } }
         );
-        const deleteToken = await Token.delete({ where: { email } });
-        res
-          .status(200)
-          .json({ message: "Your password has been reset successfully" });
+        try {
+          const deleteToken = await Token.destroy({ where: { email } });
+          res
+            .status(200)
+            .json({ message: "Your password has been reset successfully" });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ message: "Please try again!" });
+        }
       });
     } else {
       console.log("error");

@@ -6,17 +6,25 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Dimensions,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import Order from "../../Components/Screen/DeliveryDriver/Order";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
+import { Entypo } from "@expo/vector-icons";
+import { DashboardContext } from "../../Components/Reducers/dashboardReducer";
+import Card from "../../Components/UI/Card";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
+const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
+
 const ViewOrdersScreen = ({ navigation }) => {
-  
   const loginContext = useContext(LoginContext);
+  const dashboardContext = useContext(DashboardContext);
   const [todayOrders, setTodayOrders] = useState([]);
   const [changeDeliveryStatus, setChangeDeliveryStatus] = useState(false);
 
@@ -41,15 +49,14 @@ const ViewOrdersScreen = ({ navigation }) => {
   const changeStatusHandler = async (order_id) => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
-      console.log(order_id);
       const response = await axios.put(
         `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
       );
       if (response.status === 200) {
-        console.log(response.data);
+        dashboardContext.dispatchDashboard({
+          type: "statusChanged",
+        });
         getTodayOrders();
-
-        // setChangeDeliveryStatus((prevState) => !prevState);
       }
     } catch (error) {
       console.log(error);
@@ -59,6 +66,12 @@ const ViewOrdersScreen = ({ navigation }) => {
   useEffect(() => {
     getTodayOrders();
   }, [setChangeDeliveryStatus]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getTodayOrders();
+    }, [])
+  );
 
   return (
     <View style={styles.viewContainer}>
@@ -84,14 +97,36 @@ const ViewOrdersScreen = ({ navigation }) => {
           source={require("../../../assets/nlogo.png")}
           style={styles.imageHeader}
         />
-        {todayOrders.length > 0 &&
+        {todayOrders.length > 0 ? (
           todayOrders.map((order) => (
             <Order
               order={order}
               navigation={navigation}
               changeStatus={changeStatusHandler}
             />
-          ))}
+          ))
+        ) : (
+          <View style={{ marginTop: 30 }}>
+            <Card
+              width={mobileWidth - 40}
+              height={mobileHeight / 3.5}
+              ml={30}
+              pd={7}
+              fd="row"
+              bg="#FFF"
+            >
+              <View style={styles.cartEmpty}>
+                <Entypo name="notifications-off" size={80} color="#Bf9061" />
+                <Text style={styles.cartTextEmptyHead}>
+                  No Delivery Orders For Today!
+                </Text>
+                <Text style={styles.cartTextEmpty}>
+                  Will display when there are orders to be delivered,today.
+                </Text>
+              </View>
+            </Card>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
@@ -108,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     alignSelf: "center",
     marginTop: 12,
-    width: 300,
+    width: 310,
     marginBottom: 10,
     letterSpacing: 5,
   },
@@ -135,6 +170,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#E7E5E9",
     alignSelf: "center",
   },
- });
-export default ViewOrdersScreen;
 
+  cartEmpty: {
+    width: mobileWidth - 80,
+    alignItems: "center",
+    padding: 10,
+  },
+  cartTextEmptyHead: {
+    fontWeight: "bold",
+    alignSelf: "center",
+    fontSize: 19,
+    marginTop: 20,
+    marginLeft: 75,
+    minWidth: mobileWidth - 80,
+  },
+  cartTextEmpty: {
+    marginTop: -15,
+    fontSize: 14,
+    color: "grey",
+    fontWeight: "900",
+    minWidth: mobileWidth - 50,
+    marginLeft: 35,
+  },
+});
+export default ViewOrdersScreen;

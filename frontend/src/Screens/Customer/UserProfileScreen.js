@@ -5,7 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
@@ -17,8 +19,14 @@ import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { CartContext } from "../../Components/Reducers/cartReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
 import FormAppButton from "../../Components/UI/FormAppButton";
+import AppButton from "../../Components/UI/AppButton";
+import Card from "../../Components/UI/Card";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
+import { FontAwesome } from "@expo/vector-icons";
+
+const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
 
 const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [currentView, setCurrentView] = useState("My Profile");
@@ -27,12 +35,45 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const [userData, setUserData] = useState();
   const [customerOrders, setCustomerOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [internetCheck, setInternetCheck] = useState(0);
 
   const onChangeNav = (header) => {
     setCurrentView(header);
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const result = async () => {
+        try {
+          let email = await SecureStore.getItemAsync("user_email");
+          let customerID = await SecureStore.getItemAsync("customer_id");
+          let response = await axios.get(
+            `${API_URL}customer/viewprofile/${customerID}`
+          );
+          if (response.data.auth === true) {
+            const { first_name, address, telephone, last_name } = response.data;
+            const data = { email, first_name, last_name, address, telephone };
+            setUserData(data);
+            let ordersResponse = await axios.get(
+              `${API_URL}customer/purchaseOrders/${customerID}`
+            );
+            if (ordersResponse.status === 200) {
+              const { orders } = ordersResponse.data;
+              setCustomerOrders(orders);
+            } else {
+              console.log("error");
+            }
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      result();
+    }, [])
+  );
+
   useEffect(() => {
+    console.log("internet check", internetCheck);
     const result = async () => {
       try {
         let email = await SecureStore.getItemAsync("user_email");
@@ -40,7 +81,6 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         let response = await axios.get(
           `${API_URL}customer/viewprofile/${customerID}`
         );
-        console.log(response.data);
         if (response.data.auth === true) {
           const { first_name, address, telephone, last_name } = response.data;
           const data = { email, first_name, last_name, address, telephone };
@@ -49,7 +89,6 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
             `${API_URL}customer/purchaseOrders/${customerID}`
           );
           if (ordersResponse.status === 200) {
-            // console.log(ordersResponse.data);
             const { orders } = ordersResponse.data;
             setCustomerOrders(orders);
           } else {
@@ -62,7 +101,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     };
     result();
     // return () => result;
-  }, []);
+  }, [setUserData, setInternetCheck]);
 
   const editProfileHandler = async (data) => {
     try {
@@ -73,39 +112,44 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         `http://192.168.8.210:3002/armagic/api/customer/viewprofile/${customerID}`,
         { data }
       );
-      console.log(res.data);
       if (res.data.status === "Successful") {
-        const { name, address, telephone } = res.data;
+        const { firstName, lastName, address, telephone } = res.data;
         const updatedUserDetails = {
           email,
-          firstName,
-          lastName,
+          first_name: firstName,
+          last_name: lastName,
           address,
           telephone,
         };
         setUserData(updatedUserDetails);
-        console.log(userData);
       } else {
         console.log("Data has not been updated");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const editConfirmationHandler = () => {
     setShowModal((prevState) => !prevState);
   };
 
+  const refreshHandler = () => {
+    console.log(internetCheck);
+    setInternetCheck(internetCheck + 1);
+  };
+
   const LogOut = (
     <View style={styles.upperContainer}>
       <TouchableOpacity onPress={() => navigate("Cart")}>
-        <View style={{ flexDirection: "row" }}>
-          <AntDesign
-            style={styles.cart}
-            name="shoppingcart"
-            size={35}
-            color="black"
-          />
-          {cartContext.cartDetails.quantity > 0 && (
+        {cartContext.cartDetails.quantity > 0 ? (
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign
+              style={styles.cart}
+              name="shoppingcart"
+              size={35}
+              color="black"
+            />
             <View
               style={{
                 width: 25,
@@ -119,8 +163,17 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
                 {cartContext.cartDetails.quantity}
               </Text>
             </View>
-          )}
-        </View>
+          </View>
+        ) : (
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign
+              style={{ marginRight: 13, marginTop: 8 }}
+              name="shoppingcart"
+              size={35}
+              color="black"
+            />
+          </View>
+        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonLg}
@@ -138,10 +191,44 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
         <Header />
         <NavProfile currentView={currentView} onChangeNav={onChangeNav} />
         {currentView === "My Profile" && (
-          <ViewProfile onChangeNav={onChangeNav} userData={userData} />
+          <ViewProfile
+            onChangeNav={onChangeNav}
+            userData={userData}
+            navigate={navigate}
+          />
         )}
         {currentView === "My Purchases" && customerOrders.length > 0 && (
           <MyPurchases customerOrders={customerOrders} />
+        )}
+        {currentView === "My Purchases" && customerOrders.length == 0 && (
+          <View style={{ marginTop: 30 }}>
+            <Card
+              width={mobileWidth - 40}
+              height={mobileHeight / 2.8}
+              ml={20}
+              pd={7}
+              fd="row"
+              bg="#FFF"
+            >
+              <View style={styles.cartEmpty}>
+                <FontAwesome name="question-circle" size={85} color="#Bf9061" />
+                <Text style={styles.cartTextEmptyHead}>
+                  Unfortunately, Your Purchase History Is Empty
+                </Text>
+                <Text style={styles.cartTextEmpty}>
+                  Check back after your next shopping trip
+                </Text>
+                <View style={{ alignSelf: "flex-end" }}>
+                  <AppButton
+                    width={125}
+                    size="lg"
+                    title="Refresh"
+                    onPress={refreshHandler}
+                  />
+                </View>
+              </View>
+            </Card>
+          </View>
         )}
         {currentView === "Edit Profile" && (
           <EditProfile
@@ -228,6 +315,26 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flexDirection: "row",
     marginTop: 20,
+  },
+  cartEmpty: {
+    width: mobileWidth - 80,
+    alignItems: "center",
+    padding: 10,
+  },
+  cartTextEmptyHead: {
+    fontWeight: "bold",
+    fontSize: 19,
+    marginTop: 20,
+    marginBottom: 5,
+    marginLeft: 30,
+    minWidth: mobileWidth - 57,
+  },
+  cartTextEmpty: {
+    fontSize: 15,
+    color: "grey",
+    fontWeight: "900",
+    minWidth: mobileWidth - 50,
+    marginLeft: 75,
   },
 });
 export default UserProfileScreen;

@@ -6,6 +6,7 @@ const Product = db.product;
 
 const getAllOrdersController = async (req, res) => {
   const { customerID } = req.params;
+  console.log(customerID);
   try {
     const orders = await Order.findAll({
       where: {
@@ -21,10 +22,15 @@ const getAllOrdersController = async (req, res) => {
 
 const getPurchasedProductsController = async (req, res) => {
   const { orderID } = req.params;
+  console.log(orderID);
   console.log("this called");
   const productDetails = [];
   try {
-    const sellProduct = await SellProduct.findAll({ order_id: orderID });
+    const sellProduct = await SellProduct.findAll({
+      where: { order_id: orderID },
+    });
+    console.log("sellProduct");
+    console.log(sellProduct);
     for (let i = 0; i < sellProduct.length; i++) {
       const product = await Product.findOne({
         where: {
@@ -34,14 +40,16 @@ const getPurchasedProductsController = async (req, res) => {
       const { name, id } = product;
       const purchasedDate = sellProduct[i].createdAt;
       const discount = (sellProduct[i].discount * sellProduct[i].price) / 100;
-      const itemPrice = sellProduct[i].price - discount;
+      const itemPrice = sellProduct[i].price;
       const sellProductData = {
         name,
         id,
         itemPrice,
         purchasedDate,
+        discount,
         orderID: sellProduct[i].order_id,
       };
+      console.log(sellProductData);
       productDetails.push(sellProductData);
     }
     console.log(productDetails);

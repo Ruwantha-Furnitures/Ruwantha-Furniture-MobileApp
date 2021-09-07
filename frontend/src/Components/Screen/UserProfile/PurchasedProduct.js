@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 import PurchaseDetailTable from "./PurchaseDetailTable";
@@ -7,6 +7,8 @@ import RatingsForm from "./RatingsForm";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import * as All from "../Products/ALLImages";
+
+const mobileWidth = Dimensions.get("window").width;
 
 const PurchasedProduct = ({ item, order }) => {
   const [ratingDisplay, setRatingDisplay] = useState(false);
@@ -20,8 +22,6 @@ const PurchasedProduct = ({ item, order }) => {
   };
 
   const feedbackHandler = async (defaultRating, feedback) => {
-    console.log(defaultRating);
-    console.log(feedback);
     console.log(details[0].id);
     try {
       const ratingsResponse = await axios.post(
@@ -41,7 +41,6 @@ const PurchasedProduct = ({ item, order }) => {
     try {
       const orderid = order.id;
       setOrderId(orderId);
-      console.log("wtf");
       const purchasedProductResponse = await axios.get(
         `${API_URL}customer/purchaseOrders/products/${orderid}`
       );
@@ -62,7 +61,7 @@ const PurchasedProduct = ({ item, order }) => {
   return (
     <View style={styles.purchases}>
       {details != null && (
-        <Card width={415} height={ratingDisplay ? 610 : 300} ml={20} bg="#fff">
+        <Card width={375} height={ratingDisplay ? 630 : 300} ml={20} bg="#fff">
           <View style={styles.productContainer}>
             <Text style={styles.purchaseItemName}>{details[0].name}</Text>
             <Image
@@ -114,9 +113,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     letterSpacing: 2,
-    marginLeft: 85,
     marginBottom: 15,
     marginTop: 5,
+    alignSelf: "center",
+    minWidth: 200,
+    maxWidth: mobileWidth,
   },
   purchasePrice: {
     fontSize: 16,

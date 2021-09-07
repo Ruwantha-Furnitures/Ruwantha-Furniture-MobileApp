@@ -6,11 +6,14 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import Card from "../../Components/UI/Card";
 import AppButton from "../../Components/UI/AppButton";
 import * as All from "../../Components/Screen/Products/ALLImages";
 
+const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 const MoreDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const [quantity, SetQuantity] = useState(1);
@@ -19,7 +22,7 @@ const MoreDetailsScreen = ({ route }) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
         <Image source={All[`Image${item.id}`]} style={styles.imgLarge} />
-        <Card width={435} height={440} ml={10} bg="#fff">
+        <Card width={mobileWidth - 15} height={400} ml={10} bg="#fff">
           <View style={styles.body}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.content}>{item.description}</Text>
@@ -47,30 +50,6 @@ const MoreDetailsScreen = ({ route }) => {
               />
             </View>
             <Text style={styles.price}>{`Rs.${item.price}/=`}</Text>
-            <View style={styles.bottomContainer}>
-              <Text style={styles.quantityTitle}>Quantity</Text>
-              <View style={styles.quantityContainer}>
-                <TouchableOpacity onPress={() => SetQuantity(quantity - 1)}>
-                  <Text style={styles.quantityText}>-</Text>
-                </TouchableOpacity>
-                <View style={styles.hr} />
-                <Text style={[styles.quantityText, { marginTop: -2 }]}>
-                  {quantity}
-                </Text>
-                <View style={styles.hr} />
-                <TouchableOpacity onPress={() => SetQuantity(quantity + 1)}>
-                  <Text style={styles.quantityText}>+</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ marginLeft: 225, marginTop: -35 }}>
-                <AppButton
-                  width={150}
-                  size="lg"
-                  title="Add to cart"
-                  onPress={() => console.log("Clicked")}
-                />
-              </View>
-            </View>
           </View>
         </Card>
       </View>
@@ -98,8 +77,9 @@ const styles = StyleSheet.create({
   content: {
     marginTop: 10,
     marginLeft: 20,
-    width: 390,
+    width: mobileWidth - 30,
     marginBottom: 20,
+    fontSize: 15 / fontScale,
   },
   imgLarge: {
     width: 455,
@@ -119,12 +99,12 @@ const styles = StyleSheet.create({
   },
   price: {
     alignSelf: "flex-end",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#FB9F3C",
-    marginRight: 20,
-    marginTop: 10,
-    width: 150,
+    marginRight: 40,
+    marginTop: 30,
+    width: 180,
   },
   quantityTitle: {
     fontWeight: "bold",
