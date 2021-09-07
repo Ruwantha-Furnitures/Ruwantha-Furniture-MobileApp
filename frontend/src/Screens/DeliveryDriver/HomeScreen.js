@@ -205,7 +205,9 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.itemDetailsContainer}>
               <MaterialIcons name="category" size={40} color="#542b14" />
               <Text style={styles.itemName}>Today Completed</Text>
-              <Text style={styles.itemPrice}>{todayCompleted}</Text>
+              <Text style={styles.itemPrice}>
+                {dashboardContext.dashboardDetails.todayCompleted}
+              </Text>
             </View>
           </Card>
         </View>
@@ -240,7 +242,9 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.itemDetailsContainer}>
               <FontAwesome5 name="spa" size={40} color="#542b14" />
               <Text style={styles.itemName}>Monthly Completed</Text>
-              <Text style={styles.itemPrice}>{monthlyCompleted}</Text>
+              <Text style={styles.itemPrice}>
+                {dashboardContext.dashboardDetails.monthlyCompleted}
+              </Text>
             </View>
           </Card>
         </View>

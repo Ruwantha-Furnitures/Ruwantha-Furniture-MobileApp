@@ -12,6 +12,7 @@ import Order from "../../Components/Screen/DeliveryDriver/Order";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
 import { Entypo } from "@expo/vector-icons";
+import { DashboardContext } from "../../Components/Reducers/dashboardReducer";
 import Card from "../../Components/UI/Card";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
@@ -22,6 +23,7 @@ const mobileHeight = Dimensions.get("window").height;
 
 const ViewOrdersScreen = ({ navigation }) => {
   const loginContext = useContext(LoginContext);
+  const dashboardContext = useContext(DashboardContext);
   const [todayOrders, setTodayOrders] = useState([]);
   const [changeDeliveryStatus, setChangeDeliveryStatus] = useState(false);
 
@@ -46,12 +48,13 @@ const ViewOrdersScreen = ({ navigation }) => {
   const changeStatusHandler = async (order_id) => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
-      console.log(order_id);
       const response = await axios.put(
         `${API_URL}deliveryDriver/orders/changeStatus/${order_id}/${driverID}`
       );
       if (response.status === 200) {
-        console.log(response.data);
+        dashboardContext.dispatchDashboard({
+          type: "statusChanged",
+        });
         getTodayOrders();
 
         // setChangeDeliveryStatus((prevState) => !prevState);
