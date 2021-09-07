@@ -19,6 +19,10 @@ import {
   DriverContext,
   driverReducer,
 } from "./src/Components/Reducers/driverReducer";
+import {
+  DashboardContext,
+  dashboardReducer,
+} from "./src/Components/Reducers/dashboardReducer";
 
 const initialState = { userLevel: 1, userToken: null };
 const initialCartState = {
@@ -28,10 +32,12 @@ const initialCartState = {
   totalDiscountAmount: 0,
 };
 const initialDriverAvailabilityState = { availability: 1 };
+const initialDashboardState = { todayCompleted: 0, monthlyCompleted: 0 };
 
 const loginContext = LoginContext;
 const cartContext = CartContext;
 const driverContext = DriverContext;
+const dashboardContext = DashboardContext;
 
 export default function App() {
   const [userToken, setUserToken] = useState(null);
@@ -40,6 +46,10 @@ export default function App() {
   const [driverAvailability, dispatchAvailability] = useReducer(
     driverReducer,
     initialDriverAvailabilityState
+  );
+  const [dashboardDetails, dispatchDashboard] = useReducer(
+    dashboardReducer,
+    initialDashboardState
   );
 
   const value = {
@@ -66,7 +76,11 @@ export default function App() {
           <driverContext.Provider
             value={{ driverAvailability, dispatchAvailability }}
           >
-            <DeliveryDriverBottomNavigator />
+            <dashboardContext.Provider
+              value={{ dashboardDetails, dispatchDashboard }}
+            >
+              <DeliveryDriverBottomNavigator />
+            </dashboardContext.Provider>
           </driverContext.Provider>
         )}
       </NavigationContainer>
