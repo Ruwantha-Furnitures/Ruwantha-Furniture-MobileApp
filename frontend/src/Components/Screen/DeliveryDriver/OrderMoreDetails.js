@@ -6,6 +6,7 @@ import PurchasedProductTable from "./PurchasedProductTable";
 import StatusPopup from "./StatusPopup";
 
 const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 
 const OrderMoreDetails = ({ order, productContainer, changeStatus }) => {
   const [showModal, setShowModal] = useState(false);
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: "bold",
     alignSelf: "center",
-    fontSize: 25,
+    fontSize: 25 / fontScale,
     marginTop: 20,
     letterSpacing: 0.9,
     width: 300,

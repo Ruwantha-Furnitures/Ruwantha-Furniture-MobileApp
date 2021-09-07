@@ -87,7 +87,7 @@ const CartScreen = ({ navigation, route }) => {
             <Card
               width={mobileWidth - 40}
               height={mobileHeight / 3.5}
-              ml={30}
+              ml={22}
               pd={7}
               fd="row"
               bg="#FFF"

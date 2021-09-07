@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 0,
-    minHeight: 55,
+    minHeight: 60,
   },
 });
 export default PurchasedProductTable;

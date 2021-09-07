@@ -21,6 +21,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
+const fontScale = Dimensions.get("window").fontScale;
 const StripeApp = ({ userDetails, navigation }) => {
   const [name, setName] = useState();
   const [showModal, setShowModal] = useState(false);
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 50,
     backgroundColor: "#E7E5E9",
-    fontSize: 13,
+    fontSize: 13 / fontScale,
     borderRadius: 20,
   },
   mailIcon: {

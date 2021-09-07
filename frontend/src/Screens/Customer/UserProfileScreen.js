@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { API_URL } from "react-native-dotenv";
 import Header from "../../Components/Header/Header";
@@ -39,6 +40,37 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   const onChangeNav = (header) => {
     setCurrentView(header);
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const result = async () => {
+        try {
+          let email = await SecureStore.getItemAsync("user_email");
+          let customerID = await SecureStore.getItemAsync("customer_id");
+          let response = await axios.get(
+            `${API_URL}customer/viewprofile/${customerID}`
+          );
+          if (response.data.auth === true) {
+            const { first_name, address, telephone, last_name } = response.data;
+            const data = { email, first_name, last_name, address, telephone };
+            setUserData(data);
+            let ordersResponse = await axios.get(
+              `${API_URL}customer/purchaseOrders/${customerID}`
+            );
+            if (ordersResponse.status === 200) {
+              const { orders } = ordersResponse.data;
+              setCustomerOrders(orders);
+            } else {
+              console.log("error");
+            }
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      result();
+    }, [])
+  );
 
   useEffect(() => {
     console.log("internet check", internetCheck);

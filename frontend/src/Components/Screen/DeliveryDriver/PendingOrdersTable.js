@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 0,
     paddingVertical: 5,
-    minHeight: 50,
+    minHeight: 95,
   },
   cellAddress: {
     borderWidth: 1,

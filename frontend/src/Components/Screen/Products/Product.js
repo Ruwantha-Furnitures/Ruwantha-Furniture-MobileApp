@@ -101,11 +101,13 @@ const Product = ({ item, navigate, addToCart }) => {
               onPress={() => navigate("ProductsAR")}
             />
             {loginContext.userDetails.userToken !== null && (
-              <AppButton
-                width={80}
-                title="Add to cart"
-                onPress={() => addToCart(item)}
-              />
+              <View style={{ marginLeft: 40 }}>
+                <AppButton
+                  width={80}
+                  title="Add to cart"
+                  onPress={() => addToCart(item)}
+                />
+              </View>
             )}
           </View>
         </View>
@@ -149,10 +151,10 @@ const styles = StyleSheet.create({
     color: "#FB9F3C",
   },
   btnContainer: {
-    marginLeft: -25,
-    marginTop: 5,
+    position: "absolute",
+    top: 155,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    marginLeft: 25,
   },
   ratingContainer: { marginTop: 20, flexDirection: "row", marginLeft: 8 },
   imgBorder: {
