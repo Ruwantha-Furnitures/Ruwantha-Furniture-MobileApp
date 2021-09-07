@@ -78,14 +78,14 @@ const ViewProfile = ({ onChangeNav, userData, navigate }) => {
         >
           <FormAppButton
             title="Delete Profile"
-            width={165}
+            width={135}
             onPress={deleteHandler}
           />
           <FormAppButton
             type="Submit"
             title="Edit Profile"
             onPress={() => onChangeNav("Edit Profile")}
-            width={150}
+            width={120}
           />
         </View>
       </Form>

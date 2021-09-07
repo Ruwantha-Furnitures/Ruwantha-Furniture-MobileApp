@@ -17,7 +17,7 @@ import * as All from "./ALLImages";
 const Product = ({ item, navigate, addToCart }) => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
-  const cardWidth = mobileWidth - 40;
+  const cardWidth = mobileWidth - 30;
   const loginContext = useContext(LoginContext);
   const cartContext = useContext(CartContext);
   const [firstLine, setFirstLine] = useState("");
@@ -49,7 +49,7 @@ const Product = ({ item, navigate, addToCart }) => {
     });
   };
   return (
-    <Card width={cardWidth} height={200} ml={20} bg="#fff">
+    <Card width={cardWidth} height={205} ml={20} bg="#fff">
       <View style={styles.productContainer}>
         <View>
           <TouchableOpacity
@@ -130,14 +130,15 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontWeight: "bold",
-    marginLeft: 30,
-    fontSize: 22,
-    width: 255,
+    marginLeft: 20,
+    fontSize: 20,
+    width: 250,
     marginBottom: 10,
   },
   productDescription: {
-    width: 250,
-    marginLeft: 30,
+    width: 225,
+    marginLeft: 20,
+    fontSize: 11.5,
   },
   productPrice: {
     width: 250,

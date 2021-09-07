@@ -8,9 +8,8 @@ import StatusPopup from "./StatusPopup";
 const mobileWidth = Dimensions.get("window").width;
 
 const OrderMoreDetails = ({ order, productContainer, changeStatus }) => {
-
   const [showModal, setShowModal] = useState(false);
-  const cardWidth = mobileWidth - 40;
+  const cardWidth = mobileWidth - 20;
   const deleteHandler = () => {
     setShowModal((prevState) => !prevState);
   };
@@ -85,7 +84,6 @@ const OrderMoreDetails = ({ order, productContainer, changeStatus }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   name: {
     flexDirection: "row",
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 15,
     marginLeft: 25,
-    maxWidth: 230,
+    maxWidth: 215,
     minWidth: mobileWidth / 2,
   },
   header: {

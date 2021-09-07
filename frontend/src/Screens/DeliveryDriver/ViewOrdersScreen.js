@@ -15,7 +15,6 @@ import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
 const ViewOrdersScreen = ({ navigation }) => {
-  
   const loginContext = useContext(LoginContext);
   const [todayOrders, setTodayOrders] = useState([]);
   const [changeDeliveryStatus, setChangeDeliveryStatus] = useState(false);
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     alignSelf: "center",
     marginTop: 12,
-    width: 300,
+    width: 310,
     marginBottom: 10,
     letterSpacing: 5,
   },
@@ -135,6 +134,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#E7E5E9",
     alignSelf: "center",
   },
- });
+});
 export default ViewOrdersScreen;
-

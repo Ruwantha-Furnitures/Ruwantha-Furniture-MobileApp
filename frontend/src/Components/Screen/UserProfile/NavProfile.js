@@ -72,6 +72,8 @@ const NavProfile = ({ onChangeNav, currentView }) => {
 const styles = StyleSheet.create({
   nav: {
     marginTop: 30,
+    marginLeft: 15,
+    marginRight: 15,
   },
   navContainer: {
     alignSelf: "center",
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
   },
   selectedNav: {
     backgroundColor: "#FB9F3C",
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     paddingVertical: 8,
     borderRadius: 10,
   },

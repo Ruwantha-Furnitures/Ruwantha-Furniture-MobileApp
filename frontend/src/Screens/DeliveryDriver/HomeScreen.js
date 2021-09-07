@@ -28,7 +28,6 @@ const mobileHeight = Dimensions.get("window").height;
 const mobileWidth = Dimensions.get("window").width;
 
 const HomeScreen = ({ navigation }) => {
- 
   const loginContext = useContext(LoginContext);
   const driverContext = useContext(DriverContext);
   const [todayAssigned, setTodayAssigned] = useState(null);
@@ -36,7 +35,6 @@ const HomeScreen = ({ navigation }) => {
   const [todayCompleted, setTodayCompleted] = useState(null);
   const [monthlyCompleted, setMonthlyCompleted] = useState(null);
   const [pendingOrders, setPendingOrders] = useState([]);
-
 
   const setGlobalStateForAvailability = async () => {
     const availability = await SecureStore.getItemAsync("availability");
@@ -48,8 +46,6 @@ const HomeScreen = ({ navigation }) => {
       },
     });
   };
-
-
 
   const getTodayAssignments = async () => {
     try {
@@ -67,7 +63,6 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-
   const getTodayCompleted = async () => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
@@ -83,7 +78,6 @@ const HomeScreen = ({ navigation }) => {
       console.log(error);
     }
   };
-
 
   const getTodayPending = async () => {
     try {
@@ -143,7 +137,6 @@ const HomeScreen = ({ navigation }) => {
     getAllPendingOrderDetails();
   }, []);
 
- 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.productContainer}>
@@ -170,8 +163,8 @@ const HomeScreen = ({ navigation }) => {
         />
         <View style={{ flexDirection: "row" }}>
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -188,8 +181,8 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </Card>
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -204,8 +197,8 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <View style={{ flexDirection: "row" }}>
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -223,8 +216,8 @@ const HomeScreen = ({ navigation }) => {
           </Card>
 
           <Card
-            width={mobileWidth / 2.15}
-            height={mobileHeight / 6}
+            width={mobileWidth / 2.2}
+            height={mobileHeight / 5}
             ml={10}
             pd={7}
             fd="row"
@@ -255,7 +248,7 @@ const styles = StyleSheet.create({
   itemName: {
     marginTop: 10,
     fontSize: 18,
-    width: mobileWidth / 2.15,
+    width: mobileWidth / 2.8,
     letterSpacing: 1.4,
     marginLeft: -20,
   },
@@ -314,4 +307,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-

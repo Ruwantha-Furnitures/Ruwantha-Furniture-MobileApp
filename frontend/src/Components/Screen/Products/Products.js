@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   defaultIndicator: {
     backgroundColor: "#FFF",
     borderRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 8,
     marginTop: -8,
   },
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   defaultIndicatorNew: {
     backgroundColor: "#FFF",
     borderRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 8,
     marginTop: -8,
   },

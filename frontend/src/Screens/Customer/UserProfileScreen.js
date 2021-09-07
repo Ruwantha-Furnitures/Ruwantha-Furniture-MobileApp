@@ -41,6 +41,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   };
 
   useEffect(() => {
+    console.log("internet check", internetCheck);
     const result = async () => {
       try {
         let email = await SecureStore.getItemAsync("user_email");
@@ -68,7 +69,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
     };
     result();
     // return () => result;
-  }, [setUserData, refreshHandler]);
+  }, [setUserData, setInternetCheck]);
 
   const editProfileHandler = async (data) => {
     try {
@@ -102,6 +103,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
   };
 
   const refreshHandler = () => {
+    console.log(internetCheck);
     setInternetCheck(internetCheck + 1);
   };
 

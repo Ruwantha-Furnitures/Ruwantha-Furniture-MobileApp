@@ -40,7 +40,7 @@ const Contact = () => {
 
   return (
     <Form width={mobileWidth - 40} height={600}>
-      <SubHeader title="Customize Your Furniture" width={mobileWidth - 40} />
+      <SubHeader title="Customize Your Furniture" width={mobileWidth - 10} />
       <Input
         placeholder="Fist Name"
         type="string"

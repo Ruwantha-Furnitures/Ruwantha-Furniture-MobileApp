@@ -14,7 +14,7 @@ import Card from "../../UI/Card";
 import * as All from "../Products/ALLImages";
 
 const mobileWidth = Dimensions.get("window").width;
-const newItemWidth = (mobileWidth - 104) / 2;
+const newItemWidth = (mobileWidth - 100) / 2;
 
 const NewArrival = ({ newProducts, navigate }) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -75,7 +75,7 @@ const NewArrival = ({ newProducts, navigate }) => {
           <Text style={styles.itemPrice}>{`${item.price}/=`}</Text>
           <AppButton
             title="More Details"
-            width={80}
+            width={62}
             onPress={() => {
               navigate("More Details", { item });
             }}
@@ -87,7 +87,7 @@ const NewArrival = ({ newProducts, navigate }) => {
   return (
     <Card width={mobileWidth - 40} height={280} ml={20} bg="#fff">
       <View style={styles.newArrivalContainer}>
-        <SubHeader title="New Arrivals" width={200} />
+        <SubHeader title="New Arrivals" width={230} />
         <Animated.FlatList
           contentContainerStyle={{ paddingRight: 20 }}
           horizontal
@@ -117,9 +117,9 @@ const styles = StyleSheet.create({
   },
   itemName: {
     marginTop: 10,
-    width: 90,
+    width: 70,
     height: 30,
-    fontSize: 13,
+    fontSize: 11,
     fontWeight: "bold",
   },
   itemPrice: {
@@ -127,6 +127,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "flex-start",
     marginBottom: 10,
+    fontSize: 10,
+    marginTop: 5,
   },
   detailContainer: {
     marginLeft: 10,

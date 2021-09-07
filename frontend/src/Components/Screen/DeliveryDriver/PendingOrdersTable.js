@@ -6,7 +6,6 @@ import { View, Text, StyleSheet } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 const PendingOrdersTable = ({ pendingOrders }) => {
-  
   return (
     <React.Fragment>
       <Text style={styles.header}>Pending Orders</Text>
@@ -25,7 +24,6 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  height: "100%",
                 }}
               >
                 Order ID
@@ -33,7 +31,7 @@ const PendingOrdersTable = ({ pendingOrders }) => {
             </Row>
             {pendingOrders.map((order, index) => (
               <Row style={styles.cell} key={index}>
-                <Text>{`OD${order.order_id}`}</Text>
+                <Text>{`OD00${order.order_id}`}</Text>
               </Row>
             ))}
           </Col>
@@ -42,7 +40,6 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  height: "100%",
                 }}
               >
                 Customer Name
@@ -59,7 +56,6 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  height: "100%",
                 }}
               >
                 Shipping Address
@@ -76,7 +72,6 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  height: "100%",
                 }}
               >
                 Delivery Due Date
@@ -97,7 +92,6 @@ const PendingOrdersTable = ({ pendingOrders }) => {
     </React.Fragment>
   );
 };
-
 
 const styles = StyleSheet.create({
   cell: {
@@ -124,7 +118,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     letterSpacing: 1,
-    width: 200,
+    width: 250,
   },
 });
 export default PendingOrdersTable;
