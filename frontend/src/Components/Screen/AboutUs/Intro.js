@@ -1,11 +1,13 @@
 import React from "react";
 import Card from "../../UI/Card";
 import SubHeader from "../../Header/SubHeader";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 
+const fontScale = Dimensions.get("window").fontScale;
+const mobileWidth = Dimensions.get("window").width;
 const Intro = () => {
   return (
-    <Card width={415} height={600} ml={20} pd={0} bg="#fff">
+    <Card width={mobileWidth - 30} height={600} ml={20} pd={0} bg="#fff">
       <Image
         source={require("../../../../assets/topimg11.jpg")}
         style={styles.imageStyle}
@@ -26,7 +28,7 @@ const Intro = () => {
 
 const styles = StyleSheet.create({
   imageStyle: {
-    width: 415,
+    width: mobileWidth - 30,
     height: 290,
     resizeMode: "stretch",
     borderTopLeftRadius: 10,
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     marginHorizontal: 15,
-    fontSize: 16,
+    fontSize: 16 / fontScale,
   },
 });
 

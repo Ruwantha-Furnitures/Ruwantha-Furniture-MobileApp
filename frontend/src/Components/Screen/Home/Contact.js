@@ -39,49 +39,51 @@ const Contact = () => {
   };
 
   return (
-    <Form width={mobileWidth - 40} height={600}>
-      <SubHeader title="Customize Your Furniture" width={mobileWidth - 10} />
-      <Input
-        placeholder="Fist Name"
-        type="string"
-        value={firstName}
-        onChangeText={(firstName) => setFirstName(firstName)}
-      />
-      <Input
-        placeholder="Last Name"
-        type="string"
-        value={lastName}
-        onChangeText={(lastName) => setLastName(lastName)}
-      />
-      <Input
-        placeholder="Telephone"
-        type="number"
-        value={telephone}
-        onChangeText={(telephone) => setTelephone(telephone)}
-      />
-      <Input
-        placeholder="Email"
-        type="string"
-        value={email}
-        onChangeText={(email) => setEmail(email)}
-      />
-      <Input
-        placeholder="Description"
-        name="textarea"
-        type="string"
-        value={details}
-        onChangeText={(details) => setDetails(details)}
-      />
-      <View style={styles.btnContainer}>
-        <FormAppButton title="Cancel" width={110} />
-        <FormAppButton
-          type="Submit"
-          title="Submit"
-          onPress={messageSubmit}
-          width={110}
+    <View style={{ marginLeft: -5 }}>
+      <Form width={mobileWidth - 30} height={600}>
+        <SubHeader title="Customize Your Furniture" width={mobileWidth + 15} />
+        <Input
+          placeholder="Fist Name"
+          type="string"
+          value={firstName}
+          onChangeText={(firstName) => setFirstName(firstName)}
         />
-      </View>
-    </Form>
+        <Input
+          placeholder="Last Name"
+          type="string"
+          value={lastName}
+          onChangeText={(lastName) => setLastName(lastName)}
+        />
+        <Input
+          placeholder="Telephone"
+          type="number"
+          value={telephone}
+          onChangeText={(telephone) => setTelephone(telephone)}
+        />
+        <Input
+          placeholder="Email"
+          type="string"
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+        />
+        <Input
+          placeholder="Description"
+          name="textarea"
+          type="string"
+          value={details}
+          onChangeText={(details) => setDetails(details)}
+        />
+        <View style={styles.btnContainer}>
+          <FormAppButton title="Cancel" width={110} />
+          <FormAppButton
+            type="Submit"
+            title="Submit"
+            onPress={messageSubmit}
+            width={110}
+          />
+        </View>
+      </Form>
+    </View>
   );
 };
 

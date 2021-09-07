@@ -1,5 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Dimensions,
+} from "react-native";
+
+const fontScale = Dimensions.get("window").fontScale;
 const FormAppButton = ({ onPress, title, width, type, disabled }) => {
   const dimensions = {
     width,
@@ -36,7 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textLg: {
-    fontSize: 14,
+    fontSize: 14 / fontScale,
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",

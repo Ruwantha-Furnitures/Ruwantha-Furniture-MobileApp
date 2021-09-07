@@ -44,7 +44,7 @@ const Products = ({ navigate, products, categories, addToCart }) => {
                 : styles.textStyleNew
             }
           >
-            All Types
+            All
           </Text>
         </TouchableOpacity>
         {categories.map((category) => (
@@ -116,8 +116,9 @@ const styles = StyleSheet.create({
   selectedIndicatorNew: {
     backgroundColor: "#FB9F3C",
     borderRadius: 20,
-    minWidth: mobileWidth / 5,
-    paddingHorizontal: 20,
+    minWidth: mobileWidth / 6,
+    maxWidth: mobileWidth / 4,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     marginTop: -8,
   },
@@ -129,7 +130,6 @@ const styles = StyleSheet.create({
     marginTop: -8,
   },
   textIndicator: {
-    fontWeight: "bold",
     fontSize: 15,
     color: "#fff",
     letterSpacing: 1,
@@ -141,11 +141,11 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   textStyle: {
-    fontWeight: "bold",
     fontSize: 15,
     color: "#000",
     letterSpacing: 1,
     width: 55,
+    fontWeight: "bold",
   },
 
   textStyleNew: {

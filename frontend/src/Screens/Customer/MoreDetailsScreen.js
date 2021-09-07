@@ -6,11 +6,14 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import Card from "../../Components/UI/Card";
 import AppButton from "../../Components/UI/AppButton";
 import * as All from "../../Components/Screen/Products/ALLImages";
 
+const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 const MoreDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const [quantity, SetQuantity] = useState(1);
@@ -19,7 +22,7 @@ const MoreDetailsScreen = ({ route }) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.viewContainer}>
         <Image source={All[`Image${item.id}`]} style={styles.imgLarge} />
-        <Card width={435} height={400} ml={10} bg="#fff">
+        <Card width={mobileWidth - 15} height={400} ml={10} bg="#fff">
           <View style={styles.body}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.content}>{item.description}</Text>
@@ -74,8 +77,9 @@ const styles = StyleSheet.create({
   content: {
     marginTop: 10,
     marginLeft: 20,
-    width: 390,
+    width: mobileWidth - 30,
     marginBottom: 20,
+    fontSize: 15 / fontScale,
   },
   imgLarge: {
     width: 455,

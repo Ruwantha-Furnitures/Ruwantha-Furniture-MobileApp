@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import Card from "../../UI/Card";
 import SubHeader from "../../Header/SubHeader";
 
+const { width, fontScale } = Dimensions.get("window");
 const WebMobileAppIntro = () => {
   return (
-    <Card width={415} height={670} ml={20} pd={0} bg="#fff">
+    <Card width={width - 30} height={670} ml={18} pd={0} bg="#fff">
       <Image
         source={require("../../../../assets/6.png")}
         style={styles.imageStyle}
@@ -29,7 +30,7 @@ const WebMobileAppIntro = () => {
 
 const styles = StyleSheet.create({
   imageStyle: {
-    width: 415,
+    width: width - 30,
     height: 290,
     resizeMode: "stretch",
     borderTopLeftRadius: 10,
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     marginHorizontal: 25,
-    fontSize: 16,
+    fontSize: 15 / fontScale,
   },
 });
 

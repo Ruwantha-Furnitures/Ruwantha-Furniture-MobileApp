@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
-const SubHeader = ({ title,width}) => {
-  const dimensions={
-    width
-  }
-  return <Text style={[styles.subHeader,dimensions]}>{title}</Text>;
+import { Text, StyleSheet, Dimensions } from "react-native";
+
+const { width, fontScale } = Dimensions.get("window");
+
+const SubHeader = ({ title, width }) => {
+  const dimensions = {
+    width,
+  };
+  return <Text style={[styles.subHeader, dimensions]}>{title}</Text>;
 };
 
 const styles = StyleSheet.create({
@@ -12,7 +15,7 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
     marginTop: 15,
     marginBottom: 20,
-    fontSize: 25,
+    fontSize: 25 / fontScale,
     marginLeft: 50,
     fontWeight: "bold",
     alignSelf: "center",
