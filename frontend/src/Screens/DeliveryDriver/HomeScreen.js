@@ -16,6 +16,7 @@ import Header from "../../Components/Header/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { DriverContext } from "../../Components/Reducers/driverReducer";
+import { DashboardContext } from "../../Components/Reducers/dashboardReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -30,6 +31,7 @@ const mobileWidth = Dimensions.get("window").width;
 const HomeScreen = ({ navigation }) => {
   const loginContext = useContext(LoginContext);
   const driverContext = useContext(DriverContext);
+  const dashboardContext = useContext(DashboardContext);
   const [todayAssigned, setTodayAssigned] = useState(null);
   const [todayPending, setTodayPending] = useState(null);
   const [todayCompleted, setTodayCompleted] = useState(null);
@@ -70,6 +72,12 @@ const HomeScreen = ({ navigation }) => {
         `${API_URL}deliveryDriver/dashboard/todayCompleted/${driverID}`
       );
       if (response.status === 200) {
+        dashboardContext.dispatchDashboard({
+          type: "initiateTodayCompleted",
+          payload: {
+            todayCompleted: response.data.noCompletedToday,
+          },
+        });
         setTodayCompleted(response.data.noCompletedToday);
       } else {
         console.log("error");
@@ -102,6 +110,12 @@ const HomeScreen = ({ navigation }) => {
         `${API_URL}deliveryDriver/dashboard/monthlyCompleted/${driverID}`
       );
       if (response.status === 200) {
+        dashboardContext.dispatchDashboard({
+          type: "initiateMonthlyCompleted",
+          payload: {
+            monthlyCompleted: response.data.noMonthlyCompleted,
+          },
+        });
         setMonthlyCompleted(response.data.noMonthlyCompleted);
       } else {
         console.log("error");
