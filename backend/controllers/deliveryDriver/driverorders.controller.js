@@ -14,8 +14,6 @@ const Product = db.product;
 const getAllOrdersForDayController = async (req, res) => {
   const { driverID } = req.params;
   const day = moment().date();
-  console.log("day");
-  console.log(day);
   const orderDetails = [];
   try {
     //find all the deliveries assigned
@@ -149,16 +147,24 @@ const updateDeliveryStatusController = async (req, res) => {
 //get the number of assigned orders for driver today
 const todayAssignmentController = async (req, res) => {
   const { driverID } = req.params;
+  const day = moment().date();
   try {
     const assignment = await Deliveries.findAll({
       where: {
         delivery_driver_id: driverID,
         request_status: 1,
-        createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-        createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+        // createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
+        // createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+        createdAt: {
+          [Op.gt]: moment("01", "DD")
+            .add(day - 1, "days")
+            .toDate(),
+          [Op.lte]: moment("01", "DD").add(day, "days").toDate(),
+        },
       },
     });
     const noAssignedToday = assignment.length;
+    console.log("result");
     res.status(200).json({ noAssignedToday });
   } catch (error) {
     res.status(500).json({ error: error });
@@ -168,13 +174,19 @@ const todayAssignmentController = async (req, res) => {
 //get the completed number of orders today
 const todayCompleteController = async (req, res) => {
   const { driverID } = req.params;
+  const day = moment().date();
+
   try {
     const completed = await Deliveries.findAll({
       where: {
         delivery_driver_id: driverID,
         complete_status: 1,
-        updatedAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-        updatedAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+        createdAt: {
+          [Op.gt]: moment("01", "DD")
+            .add(day - 1, "days")
+            .toDate(),
+          [Op.lte]: moment("01", "DD").add(day, "days").toDate(),
+        },
       },
     });
     const noCompletedToday = completed.length;
@@ -187,13 +199,19 @@ const todayCompleteController = async (req, res) => {
 //get the pending orders for today
 const todayPendingOrderController = async (req, res) => {
   const { driverID } = req.params;
+  const day = moment().date();
+
   try {
     const pending = await Deliveries.findAll({
       where: {
         delivery_driver_id: driverID,
         request_status: 0,
-        createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-        createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
+        createdAt: {
+          [Op.gt]: moment("01", "DD")
+            .add(day - 1, "days")
+            .toDate(),
+          [Op.lte]: moment("01", "DD").add(day, "days").toDate(),
+        },
       },
     });
     console.log("pending");
