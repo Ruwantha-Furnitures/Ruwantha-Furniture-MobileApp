@@ -8,6 +8,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import Order from "../../Components/Screen/DeliveryDriver/Order";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import AvailabilityStatus from "../../Components/Screen/DeliveryDriver/AvailabilityStatus";
@@ -56,8 +57,6 @@ const ViewOrdersScreen = ({ navigation }) => {
           type: "statusChanged",
         });
         getTodayOrders();
-
-        // setChangeDeliveryStatus((prevState) => !prevState);
       }
     } catch (error) {
       console.log(error);
@@ -67,6 +66,12 @@ const ViewOrdersScreen = ({ navigation }) => {
   useEffect(() => {
     getTodayOrders();
   }, [setChangeDeliveryStatus]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getTodayOrders();
+    }, [])
+  );
 
   return (
     <View style={styles.viewContainer}>
