@@ -96,10 +96,16 @@ const ChangeAvailabilityForm = ({ driverData, changeAvailability }) => {
           type="Submit"
           width={220}
           onPress={() => {
+            let availableStatus;
+            if (availability === "Available") {
+              availableStatus = 1;
+            } else {
+              availableStatus = 0;
+            }
             driverContext.dispatchAvailability({
               type: "change",
               payload: {
-                availability,
+                availability: availableStatus,
               },
             });
             changeAvailability(availability);

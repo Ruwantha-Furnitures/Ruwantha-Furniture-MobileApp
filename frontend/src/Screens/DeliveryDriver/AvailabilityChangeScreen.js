@@ -19,11 +19,10 @@ const AvailabilityChangeScreen = () => {
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
 
-
   const loginContext = useContext(LoginContext);
   const [driverData, setDriverData] = useState(null);
+  const [statusUpdate, setStatusUpdate] = useState(false);
 
- 
   const getDriverDetails = async () => {
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
@@ -41,10 +40,9 @@ const AvailabilityChangeScreen = () => {
     }
   };
 
-  
-
   const changeAvailability = async (availability) => {
     console.log(availability);
+    setStatusUpdate((prevState) => !prevState);
     try {
       const driverID = await SecureStore.getItemAsync("deliveryDriver_id");
       const changeAvailability = await axios.put(
@@ -61,9 +59,8 @@ const AvailabilityChangeScreen = () => {
 
   useEffect(() => {
     getDriverDetails();
-  }, []);
+  }, [setStatusUpdate]);
 
-  
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View
@@ -101,7 +98,6 @@ const AvailabilityChangeScreen = () => {
     </ScrollView>
   );
 };
-
 
 const styles = StyleSheet.create({
   header: {
