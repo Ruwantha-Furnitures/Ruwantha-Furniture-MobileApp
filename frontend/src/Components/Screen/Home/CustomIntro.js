@@ -43,7 +43,7 @@ const CustomIntro = () => {
 
   return (
     <Card width={mobileWidth - 40} height={340} ml={20} bg="#fff">
-      <SubHeader title="Image Gallery" width={290} />
+      <SubHeader title="Image Gallery" width={(mobileWidth - 40) / 1.5} />
       <FlatList
         horizontal
         pagingEnabled

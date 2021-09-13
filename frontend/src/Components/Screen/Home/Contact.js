@@ -39,9 +39,9 @@ const Contact = () => {
   };
 
   return (
-    <View style={{ marginLeft: -5 }}>
-      <Form width={mobileWidth - 30} height={600}>
-        <SubHeader title="Customize Your Furniture" width={mobileWidth + 15} />
+    <View style={{ marginHorizontal: -12 }}>
+      <Form width={mobileWidth - 15} height={600}>
+        <SubHeader title="Customize Your Furniture" width={mobileWidth + 20} />
         <Input
           placeholder="Fist Name"
           type="string"

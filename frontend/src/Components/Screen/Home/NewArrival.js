@@ -73,13 +73,15 @@ const NewArrival = ({ newProducts, navigate }) => {
         <View style={styles.detailContainer}>
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>{`${item.price}/=`}</Text>
-          <AppButton
-            title="More Details"
-            width={62}
-            onPress={() => {
-              navigate("More Details", { item });
-            }}
-          />
+          <View style={{ marginLeft: -10 }}>
+            <AppButton
+              title="More Details"
+              width={62}
+              onPress={() => {
+                navigate("More Details", { item });
+              }}
+            />
+          </View>
         </View>
       </Card>
     );
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
   },
   itemName: {
     marginTop: 10,
-    width: 70,
+    maxWidth: 60,
     height: 30,
     fontSize: 11,
     fontWeight: "bold",
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "flex-start",
     marginBottom: 10,
-    fontSize: 10,
+    fontSize: 9,
     marginTop: 5,
   },
   detailContainer: {

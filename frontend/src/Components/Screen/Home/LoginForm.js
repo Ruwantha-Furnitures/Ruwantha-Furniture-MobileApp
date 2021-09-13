@@ -14,9 +14,16 @@ import Input from "../../UI/Input";
 const LoginForm = ({ navigation, loginHandler }) => {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [invalidEmail, setInvalidEmail] = useState(false);
 
   const submitHandler = () => {
-    loginHandler({ userEmail, password });
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(userEmail) === false) {
+      setInvalidEmail(true);
+    } else {
+      setInvalidEmail(false);
+      loginHandler({ userEmail, password });
+    }
   };
 
   const mobileWidth = Dimensions.get("window").width;
@@ -31,6 +38,12 @@ const LoginForm = ({ navigation, loginHandler }) => {
         placeholder="email"
         type="email"
       />
+
+      {invalidEmail && (
+        <Text style={styles.errorMessage}>
+          Please enter a valid email address
+        </Text>
+      )}
       <Input
         value={password}
         onChangeText={(password) => setPassword(password)}
@@ -80,6 +93,12 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    alignSelf: "flex-start",
+    marginLeft: 20,
   },
 });
 export default LoginForm;

@@ -62,7 +62,39 @@ const resetPasswordController = async (req, res) => {
   }
 };
 
+const changePasswordController = async (req, res) => {
+  const { password, newPassword, email } = req.body;
+  let saltrounds = 10;
+  try {
+    const account = await Account.findOne({
+      where: { email, is_deleted: 0 },
+    });
+    const hashedPassword = account.password;
+    const passwordMatched = await bcrypt.compare(password, hashedPassword);
+    if (passwordMatched) {
+      bcrypt.hash(newPassword, saltrounds, async (err, hash) => {
+        const updatePassword = await Account.update(
+          { password: hash },
+          { where: { email } }
+        );
+        try {
+          res
+            .status(200)
+            .json({ message: "Your password has been changed successfully" });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ message: "Please try again!" });
+        }
+      });
+    } else {
+      res.status(500).json({ message: "Your entered password does not match" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 module.exports = {
   recoverPasswordController,
   resetPasswordController,
+  changePasswordController,
 };

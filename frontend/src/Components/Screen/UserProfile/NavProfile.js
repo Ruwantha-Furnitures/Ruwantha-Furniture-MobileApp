@@ -6,7 +6,7 @@ const NavProfile = ({ onChangeNav, currentView }) => {
       <View style={styles.navContainer}>
         <TouchableOpacity
           style={
-            currentView === "My Profile"
+            currentView === "My Profile" || currentView === "Edit Profile"
               ? styles.selectedNav
               : styles.indicatorNav
           }
@@ -14,7 +14,7 @@ const NavProfile = ({ onChangeNav, currentView }) => {
         >
           <Text
             style={
-              currentView === "My Profile"
+              currentView === "My Profile" || currentView === "Edit Profile"
                 ? styles.selectedNavHeader
                 : styles.navHeader
             }
@@ -22,30 +22,29 @@ const NavProfile = ({ onChangeNav, currentView }) => {
             My Profile
           </Text>
         </TouchableOpacity>
-        {currentView !== "My Profile" && currentView !== "Edit Profile" && (
-          <View style={styles.hr} />
-        )}
+        {currentView !== "Edit Profile" &&
+          currentView !== "My Profile" &&
+          currentView !== "Change Password" && <View style={styles.hr} />}
         <TouchableOpacity
           style={
-            currentView === "Edit Profile"
+            currentView === "Change Password"
               ? styles.selectedNav
               : styles.indicatorNav
           }
-          onPress={() => onChangeNav("Edit Profile")}
+          onPress={() => onChangeNav("Change Password")}
         >
           <Text
             style={
-              currentView === "Edit Profile"
+              currentView === "Change Password"
                 ? styles.selectedNavHeader
                 : styles.navHeader
             }
           >
-            Edit Profile
+            Change Password
           </Text>
         </TouchableOpacity>
-        {currentView !== "Edit Profile" && currentView !== "My Purchases" && (
-          <View style={styles.hr} />
-        )}
+        {currentView !== "Change Password" &&
+          currentView !== "My Purchases" && <View style={styles.hr} />}
         <TouchableOpacity
           style={
             currentView === "My Purchases"
@@ -72,8 +71,8 @@ const NavProfile = ({ onChangeNav, currentView }) => {
 const styles = StyleSheet.create({
   nav: {
     marginTop: 30,
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 10,
+    marginRight: 10,
   },
   navContainer: {
     alignSelf: "center",
@@ -85,13 +84,13 @@ const styles = StyleSheet.create({
     borderColor: "#FB9F3C",
   },
   navHeader: {
-    fontSize: 15,
-    letterSpacing: 2,
+    fontSize: 14,
+    letterSpacing: 1,
     color: "#000",
   },
   selectedNavHeader: {
-    fontSize: 15,
-    letterSpacing: 2,
+    fontSize: 14,
+    letterSpacing: 1,
     color: "#fff",
   },
   hr: {
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
   selectedNav: {
     backgroundColor: "#FB9F3C",
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingVertical: 9,
     borderRadius: 10,
   },
 });
