@@ -61,7 +61,7 @@ const UserDetails = ({ districts, navigation }) => {
     <React.Fragment>
       <Card
         width={mobileWidth - 40}
-        height={mobileHeight - 70}
+        height={mobileHeight - 100}
         ml={20}
         bg="#fff"
       >
@@ -128,15 +128,6 @@ const UserDetails = ({ districts, navigation }) => {
             </View>
           )}
         </React.Fragment>
-
-        <View style={styles.conditions}>
-          <Checkbox
-            style={styles.checkbox}
-            value={isChecked}
-            onValueChange={setIsChecked}
-          />
-          <TermsConditionsModal />
-        </View>
       </Card>
       <DiscountProductPrice
         navigation={navigation}

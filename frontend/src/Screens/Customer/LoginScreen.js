@@ -28,81 +28,92 @@ const LoginScreen = ({ navigation }) => {
   }, [errorMessage]);
 
   const loginHandler = async (data) => {
-    try {
-      console.log("login");
-      setIsLoading(true);
-      let response = await axios.post(`${API_URL}customer/login`, {
-        data,
-      });
-      if (response.data.auth) {
-        //when the user level 1 is customer
-        if (response.data.userLevel === 1) {
-          let cusIdResponse = await axios.get(
-            `${API_URL}customer/login/${response.data.accountId}`
-          );
-          const { customerId } = cusIdResponse.data;
-          setIsLoading(false);
-          setErrorMessage("");
-          await SecureStore.setItemAsync(
-            "user_token",
-            response.data.accessToken
-          ); //setting the user token in Secure Storage
-          await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
-          //setting the customer id in Secure Storage
-          await SecureStore.setItemAsync(
-            "customer_id",
-            JSON.stringify(customerId)
-          );
-          await SecureStore.setItemAsync(
-            "user_accountID",
-            JSON.stringify(response.data.accountId)
-          );
-        }
-        //when the user level 3 is it's the driver
-        else if (response.data.userLevel === 3) {
-          let deliveryDriverIdResponse = await axios.get(
-            `${API_URL}deliveryDriver/login/${response.data.accountId}`
-          );
-          const { deliveryDriverID, availability } =
-            deliveryDriverIdResponse.data;
-          console.log(availability);
-          setIsLoading(false);
-          setErrorMessage("");
-          await SecureStore.setItemAsync(
-            "user_token",
-            response.data.accessToken
-          ); //setting the user token in Secure Storage
-          await SecureStore.setItemAsync("user_email", response.data.userEmail); //setting the user email in Secure Storage
-          //setting the customer id in Secure Storage
-          await SecureStore.setItemAsync(
-            "deliveryDriver_id",
-            JSON.stringify(deliveryDriverID)
-          );
-          await SecureStore.setItemAsync(
-            "user_accountID",
-            JSON.stringify(response.data.accountId)
-          );
-          await SecureStore.setItemAsync(
-            "availability",
-            JSON.stringify(availability)
-          );
-        }
-        // const res = await SecureStore.getItemAsync("customer_id");
-        loginContext.loginDispatch({
-          type: "login",
-          payload: {
-            userLevel: response.data.userLevel,
-            userToken: response.data.accessToken,
-          },
+    const { userEmail, password } = data;
+    if (userEmail === "" || password === "") {
+      setErrorMessage("Please enter the required fields");
+    } else {
+      try {
+        console.log("login");
+        setIsLoading(true);
+        let response = await axios.post(`${API_URL}customer/login`, {
+          data,
         });
-        navigation.navigate("Home");
-      } else {
-        setIsLoading(false);
-        let errorMessage = response.data.errorMessage;
-        setErrorMessage(errorMessage);
+        if (response.data.auth) {
+          //when the user level 1 is customer
+          if (response.data.userLevel === 1) {
+            let cusIdResponse = await axios.get(
+              `${API_URL}customer/login/${response.data.accountId}`
+            );
+            const { customerId } = cusIdResponse.data;
+            setIsLoading(false);
+            setErrorMessage("");
+            await SecureStore.setItemAsync(
+              "user_token",
+              response.data.accessToken
+            ); //setting the user token in Secure Storage
+            await SecureStore.setItemAsync(
+              "user_email",
+              response.data.userEmail
+            ); //setting the user email in Secure Storage
+            //setting the customer id in Secure Storage
+            await SecureStore.setItemAsync(
+              "customer_id",
+              JSON.stringify(customerId)
+            );
+            await SecureStore.setItemAsync(
+              "user_accountID",
+              JSON.stringify(response.data.accountId)
+            );
+          }
+          //when the user level 3 is it's the driver
+          else if (response.data.userLevel === 3) {
+            let deliveryDriverIdResponse = await axios.get(
+              `${API_URL}deliveryDriver/login/${response.data.accountId}`
+            );
+            const { deliveryDriverID, availability } =
+              deliveryDriverIdResponse.data;
+            console.log(availability);
+            setIsLoading(false);
+            setErrorMessage("");
+            await SecureStore.setItemAsync(
+              "user_token",
+              response.data.accessToken
+            ); //setting the user token in Secure Storage
+            await SecureStore.setItemAsync(
+              "user_email",
+              response.data.userEmail
+            ); //setting the user email in Secure Storage
+            //setting the customer id in Secure Storage
+            await SecureStore.setItemAsync(
+              "deliveryDriver_id",
+              JSON.stringify(deliveryDriverID)
+            );
+            await SecureStore.setItemAsync(
+              "user_accountID",
+              JSON.stringify(response.data.accountId)
+            );
+            await SecureStore.setItemAsync(
+              "availability",
+              JSON.stringify(availability)
+            );
+          }
+          // const res = await SecureStore.getItemAsync("customer_id");
+          loginContext.loginDispatch({
+            type: "login",
+            payload: {
+              userLevel: response.data.userLevel,
+              userToken: response.data.accessToken,
+            },
+          });
+          navigation.navigate("Home");
+        } else {
+          setIsLoading(false);
+          let errorMessage = response.data.errorMessage;
+          setErrorMessage(errorMessage);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 

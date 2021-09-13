@@ -61,7 +61,7 @@ const PurchasedProduct = ({ item, order }) => {
   return (
     <View style={styles.purchases}>
       {details != null && (
-        <Card width={375} height={ratingDisplay ? 630 : 300} ml={20} bg="#fff">
+        <Card width={365} height={ratingDisplay ? 630 : 300} ml={10} bg="#fff">
           <View style={styles.productContainer}>
             <Text style={styles.purchaseItemName}>{details[0].name}</Text>
             <Image
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 5,
     alignSelf: "center",
-    minWidth: 200,
     maxWidth: mobileWidth,
   },
   purchasePrice: {

@@ -96,9 +96,9 @@ const Product = ({ item, removeCartProduct }) => {
 
   return (
     <Card
-      width={mobileWidth - 60}
+      width={mobileWidth - 30}
       height={mobileHeight / 4.5}
-      ml={30}
+      ml={20}
       pd={7}
       fd="row"
       bg="#FFF"

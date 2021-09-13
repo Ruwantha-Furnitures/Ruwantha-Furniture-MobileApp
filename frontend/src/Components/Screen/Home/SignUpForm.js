@@ -5,6 +5,8 @@ import AppButton from "../../UI/AppButton";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
+import Checkbox from "expo-checkbox";
+import TermsConditionsModal from "../../UI/TermsConditionsModal";
 
 const SignUpForm = ({ signUpHandler }) => {
   const [firstName, setFirstName] = useState("");
@@ -14,6 +16,7 @@ const SignUpForm = ({ signUpHandler }) => {
   const [contactNo, setContactNo] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
   const submitHandler = () => {
@@ -85,6 +88,14 @@ const SignUpForm = ({ signUpHandler }) => {
           Entered two passwords does not match,with each other.please try again
         </Text>
       )}
+      <View style={styles.conditions}>
+        <Checkbox
+          style={styles.checkbox}
+          value={isChecked}
+          onValueChange={setIsChecked}
+        />
+        <TermsConditionsModal />
+      </View>
       <View style={styles.btnContainer}>
         <FormAppButton
           type="Cancel"
@@ -115,6 +126,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 20,
     width: 370,
+  },
+  conditions: {
+    flexDirection: "row",
+    marginTop: 15,
+    marginLeft: 20,
+    justifyContent: "center",
+  },
+  checkbox: {
+    marginTop: 3,
   },
 });
 export default SignUpForm;

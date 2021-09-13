@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     alignSelf: "flex-end",
-    marginRight: 50,
+    marginRight: 80,
   },
 });
 

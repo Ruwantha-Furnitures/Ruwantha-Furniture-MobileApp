@@ -24,19 +24,31 @@ const SignUpScreen = ({ navigation }) => {
   }, [errorMessage]);
 
   const signUpHandler = async (data) => {
-    try {
-      setIsLoading(true);
-      let response = await axios.post(`${API_URL}customer/signup`, {
-        data,
-      });
-      if (response.data.state === "Successful") {
-        navigation.navigate("Home");
-      } else {
-        setErrorMessage(response.data.message);
-        console.log(response.data.message);
+    const { firstName, lastName, email, address, contactNo, password } = data;
+    if (
+      lastName === "" ||
+      firstName === "" ||
+      email === "" ||
+      address === "" ||
+      contactNo === "" ||
+      password === ""
+    ) {
+      setErrorMessage("Please enter the required fields");
+    } else {
+      try {
+        setIsLoading(true);
+        let response = await axios.post(`${API_URL}customer/signup`, {
+          data,
+        });
+        if (response.data.state === "Successful") {
+          navigation.navigate("Home");
+        } else {
+          setErrorMessage(response.data.message);
+          console.log(response.data.message);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
