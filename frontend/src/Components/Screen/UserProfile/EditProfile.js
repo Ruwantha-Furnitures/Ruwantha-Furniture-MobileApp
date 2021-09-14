@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
@@ -11,6 +11,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
+  const mobileWidth = Dimensions.get("window").width;
 
   useEffect(() => {
     if (userData) {
@@ -28,7 +29,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
 
   return (
     <View style={styles.viewProfile}>
-      <Form width={415} height={520}>
+      <Form width={mobileWidth - 15} height={520}>
         <SubHeader title="Edit Profile" width={200} />
         <Input
           value={firstName}
@@ -79,6 +80,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
 const styles = StyleSheet.create({
   viewProfile: {
     marginTop: 20,
+    marginLeft: -10,
   },
 });
 

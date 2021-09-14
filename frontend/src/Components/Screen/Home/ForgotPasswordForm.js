@@ -12,6 +12,7 @@ import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 
 const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 const ForgotPassword = ({ navigation, errorMessageHandler }) => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -70,8 +71,8 @@ const ForgotPassword = ({ navigation, errorMessageHandler }) => {
           color="#B89068"
           style={styles.mailIcon}
         />
-        <Text style={styles.confirmationText}>We sent an email to</Text>
-        <Text style={styles.confirmationTextTwo}>your account</Text>
+        <Text style={styles.confirmationText}>We sent an email </Text>
+        <Text style={styles.confirmationTextTwo}>to your account</Text>
         <Text style={styles.confirmationBody}>
           Please login into your email account and click on the link we have
           sent to reset your password.
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   confirmationText: {
     fontWeight: "bold",
-    fontSize: 34,
+    fontSize: 30 / fontScale,
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
@@ -96,8 +97,8 @@ const styles = StyleSheet.create({
   confirmationTextTwo: {
     marginTop: 0,
     fontWeight: "bold",
-    fontSize: 34,
-    marginLeft: 50,
+    fontSize: 30 / fontScale,
+    marginLeft: 15,
     marginRight: 5,
   },
   closeIcon: {

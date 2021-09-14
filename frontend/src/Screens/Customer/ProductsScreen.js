@@ -9,7 +9,7 @@ import {
   StatusBar,
   LogBox,
 } from "react-native";
-
+import { useFocusEffect } from "@react-navigation/native";
 import Searchbar from "../../Components/UI/SearchBar";
 import Header from "../../Components/Header/Header";
 import Products from "../../Components/Screen/Products/Products";
@@ -27,6 +27,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
   const loginContext = useContext(LoginContext);
   const cartContext = useContext(CartContext);
 
+  const [allProducts, setAllProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [searchProduct, setSearchProduct] = useState("");
@@ -38,6 +39,7 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       const response = await axios.get(`${API_URL}products/`);
       const productsResult = response.data;
       setProducts(productsResult.data);
+      setAllProducts(productsResult.data);
     } catch (error) {
       console.log(error);
     }
@@ -89,21 +91,6 @@ const ProductScreen = ({ navigation: { navigate } }) => {
         console.log(error);
       }
     }
-  };
-
-  const searchHandler = (searchProduct) => {
-    if (searchProduct === "") {
-      setProducts(products);
-    } else {
-      products.map((product) => console.log(product.name));
-      const filtered = products.filter((p) =>
-        p.name.toLowerCase().includes(searchProduct.toLowerCase())
-      );
-      setProducts(filtered);
-      console.log(filtered);
-    }
-    console.log(searchProduct);
-    setSearchProduct(searchProduct);
   };
 
   useEffect(() => {
@@ -173,11 +160,6 @@ const ProductScreen = ({ navigation: { navigate } }) => {
       <View style={styles.viewContainer}>
         {loginContext.userDetails.userToken === null ? Login : LogOut}
         <Header />
-        <Searchbar
-          placeholder="Search"
-          onChangeText={(value) => searchHandler(value)}
-          value={searchProduct}
-        />
         {products.length > 0 && (
           <Products
             navigate={navigate}

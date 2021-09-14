@@ -8,6 +8,9 @@ import Input from "../../UI/Input";
 import Checkbox from "expo-checkbox";
 import TermsConditionsModal from "../../UI/TermsConditionsModal";
 
+const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
+
 const SignUpForm = ({ signUpHandler }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -17,11 +20,51 @@ const SignUpForm = ({ signUpHandler }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false); //to check whether the password & confirm password macthes
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [mobileInValidity, setMobileInValidity] = useState(false);
+  const [passwordInValidity, setPasswordInValidity] = useState(false);
 
   const submitHandler = () => {
-    if (confirmPassword !== password) {
+    setInvalidEmail(false);
+    setErrorMessage(false);
+    setMobileInValidity(false);
+    setPasswordInValidity(false);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    let regMobile = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+    let regPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    if (
+      confirmPassword !== password &&
+      reg.test(email) === false &&
+      regMobile.test(contactNo)
+    ) {
       setErrorMessage(true);
+      setInvalidEmail(true);
+      setMobileInValidity(true);
+    } else if (confirmPassword !== password && reg.test(email) === false) {
+      setErrorMessage(true);
+      setInvalidEmail(true);
+    } else if (
+      reg.test(email) === false &&
+      regMobile.test(contactNo) === false
+    ) {
+      setInvalidEmail(true);
+      setMobileInValidity(true);
+    } else if (
+      confirmPassword !== password &&
+      regMobile.test(contactNo) === false
+    ) {
+      setErrorMessage(true);
+      setMobileInValidity(true);
+    } else if (confirmPassword !== password) {
+      setErrorMessage(true);
+    } else if (reg.test(email) === false) {
+      setInvalidEmail(true);
+    } else if (regMobile.test(contactNo) === false) {
+      setMobileInValidity(true);
+    } else if (regPassword.test(password) === false) {
+      setPasswordInValidity(true);
     } else {
       setErrorMessage(false);
       signUpHandler({
@@ -31,12 +74,10 @@ const SignUpForm = ({ signUpHandler }) => {
         address,
         contactNo,
         password,
+        isChecked,
       });
     }
   };
-
-  const mobileWidth = Dimensions.get("window").width;
-  const mobileHeight = Dimensions.get("window").height;
 
   return (
     <Form type="SignUp" width={mobileWidth - 40}>
@@ -59,6 +100,11 @@ const SignUpForm = ({ signUpHandler }) => {
         placeholder="Email"
         type="email"
       />
+      {invalidEmail && (
+        <Text style={styles.errorMessage}>
+          Please enter a valid email address
+        </Text>
+      )}
       <Input
         value={address}
         onChangeText={(address) => setAddress(address)}
@@ -70,7 +116,13 @@ const SignUpForm = ({ signUpHandler }) => {
         onChangeText={(contact) => setContactNo(contact)}
         placeholder="Contact No"
         type="string"
+        keyboard="telephone"
       />
+      {mobileInValidity && (
+        <Text style={styles.errorMessage}>
+          Please enter a valid contact number
+        </Text>
+      )}
       <Input
         value={password}
         onChangeText={(password) => setPassword(password)}
@@ -86,6 +138,12 @@ const SignUpForm = ({ signUpHandler }) => {
       {errorMessage && (
         <Text style={styles.errorMessage}>
           Entered two passwords does not match,with each other.please try again
+        </Text>
+      )}
+      {passwordInValidity && (
+        <Text style={styles.errorMessagePassword}>
+          ** Use at least one lowercase,uppercase and digit.Minimum length is 6
+          characterss
         </Text>
       )}
       <View style={styles.conditions}>
@@ -126,6 +184,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 20,
     width: 370,
+  },
+
+  errorMessagePassword: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 20,
+    width: mobileWidth - 60,
   },
   conditions: {
     flexDirection: "row",

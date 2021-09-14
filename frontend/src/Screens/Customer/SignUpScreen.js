@@ -17,14 +17,22 @@ const SignUpScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
+    let timer = setTimeout(() => setErrorMessage(""), 6 * 1000);
     return () => {
       clearInterval(timer);
     };
   }, [errorMessage]);
 
   const signUpHandler = async (data) => {
-    const { firstName, lastName, email, address, contactNo, password } = data;
+    const {
+      firstName,
+      lastName,
+      email,
+      address,
+      contactNo,
+      password,
+      isChecked,
+    } = data;
     if (
       lastName === "" ||
       firstName === "" ||
@@ -34,6 +42,10 @@ const SignUpScreen = ({ navigation }) => {
       password === ""
     ) {
       setErrorMessage("Please enter the required fields");
+    } else if (isChecked === false) {
+      setErrorMessage(
+        "Please agree to the terms and conditions to create the account"
+      );
     } else {
       try {
         setIsLoading(true);

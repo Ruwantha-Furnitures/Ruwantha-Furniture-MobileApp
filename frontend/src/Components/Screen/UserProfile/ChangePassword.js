@@ -11,11 +11,14 @@ import SubHeader from "../../Header/SubHeader";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
+import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
+import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
 
 const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
+  const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,7 +35,7 @@ const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
           email,
         });
         if (response.status === 200) {
-          Alert.alert("Your Password has been updated successfully");
+          setShowModal((prevState) => !prevState);
           setPassword("");
           setNewPassword("");
           setConfirmPassword("");
@@ -79,6 +82,26 @@ const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
           />
         </View>
       </Form>
+      <PopUpConfirmationModal visible={showModal}>
+        <AntDesign
+          name="closecircleo"
+          size={24}
+          color="#F00"
+          style={styles.closeIcon}
+          onPress={() => setShowModal((prevState) => !prevState)}
+        />
+        <Text style={styles.confirmationText}>
+          Your Account Password has been successfully changed.
+        </Text>
+        <View style={styles.btnContainer}>
+          <FormAppButton
+            title="OK"
+            type="Submit"
+            width={100}
+            onPress={() => setShowModal((prevState) => !prevState)}
+          />
+        </View>
+      </PopUpConfirmationModal>
     </View>
   );
 };
@@ -98,6 +121,12 @@ const styles = StyleSheet.create({
   textContainer: {
     marginVertical: 15,
     marginHorizontal: 20,
+  },
+  closeIcon: {
+    alignSelf: "flex-end",
+    marginTop: -18,
+    marginRight: 5,
+    marginBottom: 0,
   },
 });
 export default ChangePasswordForm;

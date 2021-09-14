@@ -65,7 +65,7 @@ const LoginForm = ({ navigation, loginHandler }) => {
         />
       </View>
       <TouchableOpacity
-        style={{ alignSelf: "center", fontSize: 18 }}
+        style={{ alignSelf: "center", fontSize: 18, marginLeft: 20 }}
         onPress={() => navigation.navigate("Sign Up")}
       >
         <Text style={styles.signUp}>Don't have an account</Text>
