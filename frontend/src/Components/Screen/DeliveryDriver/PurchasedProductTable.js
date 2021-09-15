@@ -41,7 +41,7 @@ const PurchasedProductTable = ({ productContainer }) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  width: 80,
+                  width: 60,
                   alignSelf: "flex-start",
                 }}
               >

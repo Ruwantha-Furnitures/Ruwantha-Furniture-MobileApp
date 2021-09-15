@@ -18,7 +18,7 @@ const LoginForm = ({ navigation, loginHandler }) => {
 
   const submitHandler = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(userEmail) === false) {
+    if (reg.test(userEmail.trim()) === false) {
       setInvalidEmail(true);
     } else {
       setInvalidEmail(false);

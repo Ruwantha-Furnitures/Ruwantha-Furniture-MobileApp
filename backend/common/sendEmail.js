@@ -6,6 +6,9 @@ module.exports.signUpMail = async (email) => {
       user: "ucscarmagic@gmail.com",
       pass: "TYPucsc123",
     },
+    tls: {
+      rejectUnauthorized: false,
+    },
   });
 
   const options = {
@@ -31,6 +34,9 @@ module.exports.sendTokenMail = async (email, token) => {
     auth: {
       user: "ucscarmagic@gmail.com",
       pass: "TYPucsc123",
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 

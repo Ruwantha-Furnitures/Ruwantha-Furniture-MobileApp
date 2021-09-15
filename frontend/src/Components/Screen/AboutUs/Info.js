@@ -46,7 +46,7 @@ const Info = () => {
           </Card>
           <Card
             width={mobileWidth - 65}
-            height={200}
+            height={220}
             ml={20}
             pd={0}
             bg="#E7E5E9"

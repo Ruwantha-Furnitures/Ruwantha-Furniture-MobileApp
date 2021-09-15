@@ -8,6 +8,7 @@ import AppButton from "../../UI/AppButton";
 import StatusPopup from "./StatusPopup";
 
 const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 
 const Order = ({ order, navigation, changeStatus }) => {
   const [showModal, setShowModal] = useState(false);
@@ -43,13 +44,13 @@ const Order = ({ order, navigation, changeStatus }) => {
       {order.complete_status === 0 ? (
         <View style={styles.btnContainer}>
           <AppButton
-            width={120}
+            width={130}
             size="lg"
             title="Change Status"
             onPress={deleteHandler}
           />
           <AppButton
-            width={120}
+            width={130}
             size="lg"
             title="More Details"
             onPress={() => navigation.navigate("OrderDetails", { order })}
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     letterSpacing: 1,
     paddingVertical: 15,
-    fontSize: 14,
+    fontSize: 14 / fontScale,
     color: "grey",
     minWidth: mobileWidth / 2.1,
     marginLeft: 20,
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     letterSpacing: 1,
     paddingVertical: 15,
-    fontSize: 13,
+    fontSize: 13 / fontScale,
     color: "grey",
     minWidth: 20,
     marginLeft: 20,
-    maxWidth: 225,
+    maxWidth: mobileWidth - 182,
   },
   delivered: {
     backgroundColor: "#fff",

@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   productDetail: {
     flexDirection: "row",
-    marginLeft: 20,
+    marginLeft: 15,
     marginTop: 10,
   },
   productName: {

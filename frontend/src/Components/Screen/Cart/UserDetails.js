@@ -32,6 +32,9 @@ const UserDetails = ({ districts, navigation }) => {
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("Please select your area");
   const [selectdeliveryDetails, setSelectDeliveryDetails] = useState();
+  const [distrcitSelected, setDistrictSelected] = useState(false);
+  const [initialSelectedChange, setInitialSelectedChange] = useState(false);
+
   const cartContext = useContext(CartContext);
 
   useEffect(() => {
@@ -107,12 +110,17 @@ const UserDetails = ({ districts, navigation }) => {
                 dropdownIconColor: "#000",
                 backgroundColor: "#E7E5E9",
               }}
+              onStartShouldSetResponder={() => setDistrictSelected(true)}
             >
               <Picker
                 style={styles.nameSelect}
                 selectedValue={district}
                 onValueChange={(itemValue, itemIndex) => {
-                  console.log(itemValue);
+                  if (itemIndex !== 0 && initialSelectedChange === false) {
+                    setDistrictSelected(true);
+                  } else if (itemIndex == 0 && initialSelectedChange === true) {
+                    setInitialSelectedChange(true);
+                  }
                   setDistrict(itemValue);
                   getDeliveryAmount(itemValue);
                 }}
@@ -127,6 +135,19 @@ const UserDetails = ({ districts, navigation }) => {
                 style={{ position: "absolute", top: 14, right: 18 }}
               />
             </View>
+          )}
+          {distrcitSelected === false && initialSelectedChange === false && (
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "red",
+                fontSize: 17,
+                marginLeft: 20,
+                marginTop: 10,
+              }}
+            >
+              ** Please select your district
+            </Text>
           )}
         </React.Fragment>
       </Card>

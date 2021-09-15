@@ -6,12 +6,14 @@ import SubHeader from "../../Header/SubHeader";
 const { width, fontScale } = Dimensions.get("window");
 const WebMobileAppIntro = () => {
   return (
-    <Card width={width - 30} height={670} ml={18} pd={0} bg="#fff">
+    <Card width={width - 30} height={720} ml={18} pd={0} bg="#fff">
       <Image
         source={require("../../../../assets/6.png")}
         style={styles.imageStyle}
       />
-      <SubHeader title="Our Website and Mobile App" width={400} />
+      <View style={{ marginLeft: -50 }}>
+        <SubHeader title="Our Website and Mobile App" width={width - 50} />
+      </View>
       <Text style={styles.textStyle}>
         AR Magic website is aimed to provide you with the latest furniture
         models and accessories at a price you can afford. We always consider the

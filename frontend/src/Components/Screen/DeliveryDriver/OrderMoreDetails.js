@@ -18,7 +18,7 @@ const OrderMoreDetails = ({ order, productContainer, changeStatus }) => {
   return (
     <View>
       <Text style={styles.header}>More Details On Order</Text>
-      <Card width={cardWidth} pd={8} ml={0} bg="#fff">
+      <Card width={cardWidth + 5} pd={8} ml={0} bg="#fff">
         <Text style={styles.subheader}>User Details</Text>
         <View style={styles.name}>
           <Text style={styles.label}>Order ID</Text>
@@ -52,7 +52,7 @@ const OrderMoreDetails = ({ order, productContainer, changeStatus }) => {
         </View>
         <View style={styles.name}>
           <Text style={styles.label}>Total Amount</Text>
-          <Text style={styles.nameInput}>{order.total_product_amount}</Text>
+          <Text style={styles.nameInput}>Rs. {order.total_product_amount}</Text>
         </View>
         <PurchasedProductTable productContainer={productContainer} />
         {order.complete_status === 0 && (
@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     letterSpacing: 1,
     paddingVertical: 10,
-    fontSize: 15,
+    fontSize: 14,
     marginLeft: 25,
-    maxWidth: 215,
+    maxWidth: mobileWidth - 270,
     minWidth: mobileWidth / 2,
   },
   header: {

@@ -20,7 +20,7 @@ const PendingOrdersTable = ({ pendingOrders }) => {
       >
         <Grid>
           <Col size={15}>
-            <Row style={styles.cell}>
+            <Row style={styles.cellAddressCol}>
               <Text
                 style={{
                   fontWeight: "bold",
@@ -30,13 +30,13 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               </Text>
             </Row>
             {pendingOrders.map((order, index) => (
-              <Row style={styles.cell} key={index}>
+              <Row style={styles.cellAddress} key={index}>
                 <Text>{`OD00${order.order_id}`}</Text>
               </Row>
             ))}
           </Col>
           <Col size={25}>
-            <Row style={styles.cell}>
+            <Row style={styles.cellAddressCol}>
               <Text
                 style={{
                   fontWeight: "bold",
@@ -46,13 +46,13 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               </Text>
             </Row>
             {pendingOrders.map((order, index) => (
-              <Row style={styles.cell} key={index}>
+              <Row style={styles.cellAddress} key={index}>
                 <Text>{order.name}</Text>
               </Row>
             ))}
           </Col>
           <Col size={30}>
-            <Row style={styles.cell}>
+            <Row style={styles.cellAddressCol}>
               <Text
                 style={{
                   fontWeight: "bold",
@@ -68,7 +68,7 @@ const PendingOrdersTable = ({ pendingOrders }) => {
             ))}
           </Col>
           <Col size={20}>
-            <Row style={styles.cell}>
+            <Row style={styles.cellAddressCol}>
               <Text
                 style={{
                   fontWeight: "bold",
@@ -78,11 +78,11 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               </Text>
             </Row>
             {pendingOrders.map((order, index) => (
-              <Row style={styles.cell} key={index}>
-                <Text>
+              <Row style={styles.cellAddress} key={index}>
+                <Text style={{ fontSize: 13 }}>
                   {parseInt(order.createdAt.split("T")[0].split("-")[0])}-
-                  {parseInt(order.createdAt.split("T")[0].split("-")[1]) + 1}-
-                  {parseInt(order.createdAt.split("T")[0].split("-")[2]) - 29}
+                  {parseInt(order.createdAt.split("T")[0].split("-")[1])}-
+                  {parseInt(order.createdAt.split("T")[0].split("-")[2]) + 2}
                 </Text>
               </Row>
             ))}
@@ -111,7 +111,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 5,
     paddingVertical: 0,
-    minHeight: 50,
+    minHeight: 120,
+  },
+  cellAddressCol: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    minHeight: 107,
   },
   header: {
     alignSelf: "center",

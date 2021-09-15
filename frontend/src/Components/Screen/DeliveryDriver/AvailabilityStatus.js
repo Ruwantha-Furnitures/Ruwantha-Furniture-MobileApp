@@ -1,6 +1,5 @@
 //AvailabilityStatus.js
 
-
 import React, { useContext, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
@@ -13,29 +12,25 @@ const AvailabilityStatus = ({ navigation }) => {
     console.log(driverContext.driverAvailability.availability);
   });
 
-  
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("ChangeAvailability")}>
-      <View
-        style={
-          driverContext.driverAvailability.availability === 1
-            ? styles.availableStatus
-            : styles.unavailableStatus
-        }
-      >
-        <Text style={styles.text}>
-          {driverContext.driverAvailability.availability === 1
-            ? "Available"
-            : "Not Available"}
-        </Text>
-        <View style={{ marginTop: -2 }}>
-          <AntDesign name="checkcircle" size={25} color="white" />
-        </View>
+    <View
+      style={
+        driverContext.driverAvailability.availability === 1
+          ? styles.availableStatus
+          : styles.unavailableStatus
+      }
+    >
+      <Text style={styles.text}>
+        {driverContext.driverAvailability.availability === 1
+          ? "Available"
+          : "Not Available"}
+      </Text>
+      <View style={{ marginTop: -2 }}>
+        <AntDesign name="checkcircle" size={25} color="white" />
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   availableStatus: {

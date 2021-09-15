@@ -36,17 +36,20 @@ const SignUpForm = ({ signUpHandler }) => {
 
     if (
       confirmPassword !== password &&
-      reg.test(email) === false &&
+      reg.test(email.trim()) === false &&
       regMobile.test(contactNo)
     ) {
       setErrorMessage(true);
       setInvalidEmail(true);
       setMobileInValidity(true);
-    } else if (confirmPassword !== password && reg.test(email) === false) {
+    } else if (
+      confirmPassword !== password &&
+      reg.test(email.trim()) === false
+    ) {
       setErrorMessage(true);
       setInvalidEmail(true);
     } else if (
-      reg.test(email) === false &&
+      reg.test(email.trim()) === false &&
       regMobile.test(contactNo) === false
     ) {
       setInvalidEmail(true);
@@ -59,7 +62,7 @@ const SignUpForm = ({ signUpHandler }) => {
       setMobileInValidity(true);
     } else if (confirmPassword !== password) {
       setErrorMessage(true);
-    } else if (reg.test(email) === false) {
+    } else if (reg.test(email.trim()) === false) {
       setInvalidEmail(true);
     } else if (regMobile.test(contactNo) === false) {
       setMobileInValidity(true);

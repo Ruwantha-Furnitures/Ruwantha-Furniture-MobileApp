@@ -10,39 +10,51 @@ import SubHeader from "../../Header/SubHeader";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
+import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
+
+const mobileWidth = Dimensions.get("window").width;
+const mobileHeight = Dimensions.get("window").height;
 
 const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const mobileWidth = Dimensions.get("window").width;
-  const mobileHeight = Dimensions.get("window").height;
+  const [wrongPassword, setWrongPassword] = useState(false);
 
   const submitHandler = async () => {
-    if (password === confirmPassword) {
-      try {
-        const response = await axios.post(
-          `${API_URL}customer/passwordRecovery/resetPassword`,
-          {
-            code,
-            email,
-            password,
+    let regPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    setWrongPassword(false);
+    if (password === "" || password === "" || confirmPassword === "") {
+      errorMessageHandler("Please enter the required fields");
+    } else if (regPassword.test(password) === false) {
+      setWrongPassword(true);
+    } else {
+      if (password === confirmPassword) {
+        const email = await SecureStore.getItemAsync("user_email");
+        try {
+          const response = await axios.post(
+            `${API_URL}customer/passwordRecovery/resetPassword`,
+            {
+              code,
+              email,
+              password,
+            }
+          );
+          if (response.status === 200) {
+            navigation.navigate("Home");
           }
-        );
-        if (response.status === 200) {
-          navigation.navigate("Home");
+        } catch (error) {
+          errorMessageHandler(
+            "Entered code is incorrect, please enter the code that was sent to your email address"
+          );
         }
-      } catch (error) {
+      } else {
         errorMessageHandler(
-          "Entered code is incorrect, please enter the code that was sent to your email address"
+          "Entered two passwords does not match,with each other.please try again"
         );
       }
-    } else {
-      errorMessageHandler(
-        "Entered two passwords does not match,with each other.please try again"
-      );
     }
   };
 
@@ -66,6 +78,12 @@ const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
         placeholder="Enter Your New Password"
         type="password"
       />
+      {wrongPassword && (
+        <Text style={styles.errorMessagePassword}>
+          ** Use at least one lowercase,uppercase and digit.Minimum length is 6
+          characterss
+        </Text>
+      )}
       <Input
         value={confirmPassword}
         onChangeText={(password) => setConfirmPassword(password)}
@@ -100,6 +118,12 @@ const styles = StyleSheet.create({
   textContainer: {
     marginVertical: 15,
     marginHorizontal: 20,
+  },
+  errorMessagePassword: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 20,
+    width: mobileWidth - 60,
   },
 });
 export default ChangePasswordForm;

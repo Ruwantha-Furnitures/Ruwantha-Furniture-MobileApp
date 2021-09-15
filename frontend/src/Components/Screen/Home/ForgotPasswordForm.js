@@ -16,21 +16,31 @@ const fontScale = Dimensions.get("window").fontScale;
 const ForgotPassword = ({ navigation, errorMessageHandler }) => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
+  const [emailInvalidity, setEmailInvalidity] = useState(false);
 
   const deleteHandler = async () => {
-    try {
-      const response = await axios.post(`${API_URL}customer/passwordRecovery`, {
-        email,
-      });
+    setEmailInvalidity(false);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(email.trim()) === false) {
+      setEmailInvalidity(true);
+    } else {
+      try {
+        const response = await axios.post(
+          `${API_URL}customer/passwordRecovery`,
+          {
+            email,
+          }
+        );
 
-      if (response.status === 200) {
-        setShowModal((prevState) => !prevState);
-        navigation.navigate("Password Recovery", { email });
+        if (response.status === 200) {
+          setShowModal((prevState) => !prevState);
+          navigation.navigate("Password Recovery", { email });
+        }
+      } catch (error) {
+        errorMessageHandler(
+          "Entered email is not a registered email,please register and try again"
+        );
       }
-    } catch (error) {
-      errorMessageHandler(
-        "Entered email is not a registered email,please register and try again"
-      );
     }
   };
 
@@ -50,6 +60,11 @@ const ForgotPassword = ({ navigation, errorMessageHandler }) => {
         value={email}
         onChangeText={(email) => setEmail(email)}
       />
+      {emailInvalidity && (
+        <Text style={styles.errorMessage}>
+          Pleae enter a valid email address
+        </Text>
+      )}
       <View style={{ alignSelf: "center", marginVertical: 20 }}>
         <FormAppButton
           title="Recover Password"
@@ -113,6 +128,12 @@ const styles = StyleSheet.create({
   },
   mailIcon: {
     alignSelf: "center",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    alignSelf: "flex-start",
+    marginLeft: 25,
   },
 });
 export default ForgotPassword;

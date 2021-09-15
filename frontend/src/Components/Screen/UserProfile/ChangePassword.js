@@ -28,15 +28,20 @@ const ChangePasswordForm = ({ email, navigation }) => {
   const [errorStatus, setErrorStatus] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [currentPasswordMismatch, setCurrentPasswordMismatch] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
 
   const submitHandler = async () => {
+    let regPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     setInvalidPassword(false);
     setCurrentPasswordMismatch(false);
+    setWrongPassword(false);
     const email = await SecureStore.getItemAsync("user_email");
     if (password === "" || newPassword === "" || confirmPassword === "") {
       setErrorStatus(true);
+    } else if (regPassword.test(newPassword) === false) {
+      setWrongPassword(true);
     } else {
       if (newPassword === confirmPassword) {
         try {
@@ -127,6 +132,7 @@ const ChangePasswordForm = ({ email, navigation }) => {
       </View>
     </PopUpConfirmationModal>
   );
+
   return (
     <View style={{ marginTop: 30 }}>
       <Form width={mobileWidth - 40} height={400}>
@@ -147,6 +153,12 @@ const ChangePasswordForm = ({ email, navigation }) => {
           <Text style={styles.errorMessage}>
             Entered two new passwords does not match,with each other.please try
             again
+          </Text>
+        )}
+        {wrongPassword && (
+          <Text style={styles.errorMessagePassword}>
+            ** Use at least one lowercase,uppercase and digit.Minimum length is
+            6 characterss
           </Text>
         )}
         <Input
@@ -211,6 +223,12 @@ const styles = StyleSheet.create({
     color: "black",
   },
   errorMessage: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 20,
+    width: mobileWidth - 60,
+  },
+  errorMessagePassword: {
     color: "red",
     fontSize: 14,
     marginLeft: 20,

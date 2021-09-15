@@ -106,18 +106,6 @@ const DiscountProductPrice = ({
               size="lg"
               width={220}
               onPress={paymentHandler}
-              // onPress={() =>
-              //   navigation.navigate("StripeApp", {
-              //     userDetails: {
-              //       firstName,
-              //       lastName,
-              //       address,
-              //       telephoneNumber,
-              //       district,
-              //       selectdeliveryDetails,
-              //     },
-              //   })
-              // }
             />
           </View>
         </View>
@@ -147,7 +135,7 @@ const styles = StyleSheet.create({
   },
   productDetail: {
     flexDirection: "row",
-    marginLeft: 20,
+    marginLeft: 15,
     marginTop: 10,
   },
   productName: {
