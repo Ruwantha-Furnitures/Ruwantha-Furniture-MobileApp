@@ -1,5 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Dimensions,
+} from "react-native";
+
+const { fontScale } = Dimensions.get("window");
 const AppButton = ({ onPress, title, size, width }) => {
   const newStyle = {
     width,
@@ -17,7 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FB9F3C",
     borderRadius: 10,
     paddingVertical: 8,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
   },
   buttonMd: {
     backgroundColor: "#FB9F3C",
@@ -25,10 +33,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 2,
     elevation: 6,
-    width: 80,
   },
   textLg: {
-    fontSize: 15,
+    fontSize: 15 / fontScale,
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 8,
+    fontSize: 8 / fontScale,
     marginLeft: 10,
   },
 });

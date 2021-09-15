@@ -86,7 +86,7 @@ function Intro({ navigate }) {
         <View style={{ marginLeft: 10, marginTop: 7.5 }}>
           <AppButton
             title="View Products"
-            width={170}
+            width={cardWidth - imageWidth - 8}
             size="lg"
             onPress={() => navigate("Products")}
           />

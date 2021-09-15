@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import AppLink from "react-native-app-link";
+import * as Linking from "expo-linking";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
 import {
@@ -27,14 +29,6 @@ const Product = ({ item, navigate, addToCart }) => {
     setFirstLine(line);
   }, []);
 
-  // const starRating = console.log(item.rating);
-  // for (let i = 1; i <= 5; i++) {
-  //   if (i <= item.rating) {
-  //     return <AntDesign name="star" size={24} color="#FB9F3C" />;
-  //   } else {
-  //     return <AntDesign name="star" size={24} color="#E7E5E9" />;
-  //   }
-  // }
   const cartHandler = (item) => {
     console.log("insdie products product");
     console.log(item);
@@ -48,6 +42,7 @@ const Product = ({ item, navigate, addToCart }) => {
       },
     });
   };
+
   return (
     <Card width={cardWidth} height={205} ml={20} bg="#fff">
       <View style={styles.productContainer}>
@@ -98,10 +93,10 @@ const Product = ({ item, navigate, addToCart }) => {
             <AppButton
               title="Preview AR"
               width={80}
-              onPress={() => navigate("ProductsAR")}
+              onPress={() => Linking.openURL("https://expo.dev")}
             />
             {loginContext.userDetails.userToken !== null && (
-              <View style={{ marginLeft: 40 }}>
+              <View style={{ marginLeft: 25 }}>
                 <AppButton
                   width={80}
                   title="Add to cart"
@@ -138,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   productDescription: {
-    width: 225,
+    maxWidth: 185,
     marginLeft: 20,
     fontSize: 11.5,
   },

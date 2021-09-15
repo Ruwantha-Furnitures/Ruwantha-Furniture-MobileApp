@@ -3,9 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 const TermsConditionsModal = () => {
   return (
     <View style={styles.modal}>
-      <Text>
-        By Checking this you will be agreeing to our Terms & Conditions
-      </Text>
+      <Text style={styles.text}>I agree to the terms and conditions</Text>
     </View>
   );
 };
@@ -15,9 +13,9 @@ const styles = StyleSheet.create({
     width: 280,
     paddingVertical: 7.5,
     paddingHorizontal: 10,
-    borderRadius: 10,
-    borderColor: "black",
-    borderWidth: 1,
+  },
+  text: {
+    color: "blue",
   },
 });
 

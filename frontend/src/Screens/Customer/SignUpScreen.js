@@ -17,26 +17,50 @@ const SignUpScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let timer = setTimeout(() => setErrorMessage(""), 5 * 1000);
+    let timer = setTimeout(() => setErrorMessage(""), 6 * 1000);
     return () => {
       clearInterval(timer);
     };
   }, [errorMessage]);
 
   const signUpHandler = async (data) => {
-    try {
-      setIsLoading(true);
-      let response = await axios.post(`${API_URL}customer/signup`, {
-        data,
-      });
-      if (response.data.state === "Successful") {
-        navigation.navigate("Home");
-      } else {
-        setErrorMessage(response.data.message);
-        console.log(response.data.message);
+    const {
+      firstName,
+      lastName,
+      email,
+      address,
+      contactNo,
+      password,
+      isChecked,
+    } = data;
+    if (
+      lastName === "" ||
+      firstName === "" ||
+      email === "" ||
+      address === "" ||
+      contactNo === "" ||
+      password === ""
+    ) {
+      setErrorMessage("Please enter the required fields");
+    } else if (isChecked === false) {
+      setErrorMessage(
+        "Please agree to the terms and conditions to create the account"
+      );
+    } else {
+      try {
+        setIsLoading(true);
+        let response = await axios.post(`${API_URL}customer/signup`, {
+          data,
+        });
+        if (response.data.state === "Successful") {
+          navigation.navigate("Home");
+        } else {
+          setErrorMessage(response.data.message);
+          console.log(response.data.message);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 

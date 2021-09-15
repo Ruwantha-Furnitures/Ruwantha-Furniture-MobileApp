@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
     marginTop: 10,
     fontSize: 27,
-    marginLeft: 120,
+    alignSelf: "center",
     fontWeight: "bold",
     width: 250,
     color: "#FFF",
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   productDetail: {
     flexDirection: "row",
-    marginLeft: 20,
+    marginLeft: 15,
     marginTop: 10,
   },
   productName: {
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   checkoutButton: {
     alignSelf: "flex-end",
-    marginRight: 50,
+    marginRight: 75,
     marginTop: 20,
     marginBottom: 10,
   },

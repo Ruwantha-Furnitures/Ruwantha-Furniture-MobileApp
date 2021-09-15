@@ -62,7 +62,7 @@ const ViewProfile = ({ onChangeNav, userData, navigate }) => {
 
   return (
     <View style={styles.viewProfile}>
-      <Form width={mobileWidth - 40} height={520}>
+      <Form width={mobileWidth - 1} height={520}>
         <SubHeader title="User Profile" width={200} />
         <Input editable={false} value={firstName} type="email" />
         <Input editable={false} value={lastName} type="email" />
@@ -117,6 +117,7 @@ const ViewProfile = ({ onChangeNav, userData, navigate }) => {
 const styles = StyleSheet.create({
   viewProfile: {
     marginTop: 20,
+    marginLeft: -10,
   },
   closeIcon: {
     alignSelf: "flex-end",

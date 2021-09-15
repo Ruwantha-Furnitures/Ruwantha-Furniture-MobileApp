@@ -37,6 +37,7 @@ const {
 const {
   recoverPasswordController,
   resetPasswordController,
+  changePasswordController,
 } = require("../controllers/customer/forgotpassword.controller");
 
 router.post("/signup", SignUpController);
@@ -50,6 +51,7 @@ router.post("/purchaseOrders/feedback", provideCustomerFeedbackController);
 router.post("/message", messageController);
 router.post("/passwordRecovery", recoverPasswordController);
 router.post("/passwordRecovery/resetPassword", resetPasswordController);
+router.post("/changePassword", changePasswordController);
 router.put("/deleteProfile/:customerID/:accountID", DeleteProfileController);
 
 module.exports = { customerRouter: router };

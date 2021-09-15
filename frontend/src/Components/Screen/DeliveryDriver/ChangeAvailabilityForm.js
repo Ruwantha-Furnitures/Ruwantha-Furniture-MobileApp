@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     fontSize: 15,
     minWidth: mobileWidth / 2,
+    maxWidth: mobileWidth - 155,
     color: "grey",
   },
 

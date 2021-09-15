@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "../../UI/Form";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
 import SubHeader from "../../Header/SubHeader";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
+import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
+import { AntDesign } from "@expo/vector-icons";
 
 const mobileWidth = Dimensions.get("window").width;
+const fontScale = Dimensions.get("window").fontScale;
 
 const Contact = ({ contactUsHandler }) => {
   const [firstName, setFirstName] = useState("");
@@ -14,22 +17,47 @@ const Contact = ({ contactUsHandler }) => {
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
 
+  const [errorStatus, setErrorStatus] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+
   const submitHandler = () => {
-    const data = {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      contact_number: telephone,
-      details: description,
-    };
-    setFirstName("");
-    setLastName("");
-    setTelephone("");
-    setTelephone("");
-    setEmail("");
-    setDescription("");
-    contactUsHandler(data);
+    setInvalidEmail(false);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      telephone === "" ||
+      description === ""
+    ) {
+      setErrorStatus(true);
+    } else if (reg.test(email.trim()) === false) {
+      setInvalidEmail(true);
+    } else {
+      const data = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        contact_number: telephone,
+        details: description,
+      };
+      setFirstName("");
+      setLastName("");
+      setTelephone("");
+      setTelephone("");
+      setEmail("");
+      setDescription("");
+      contactUsHandler(data);
+    }
   };
+
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorStatus(false), 3 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorStatus]);
 
   return (
     <Form width={mobileWidth - 40} height={600}>
@@ -58,6 +86,11 @@ const Contact = ({ contactUsHandler }) => {
         onChangeText={(email) => setEmail(email)}
         value={email}
       />
+      {invalidEmail && (
+        <Text style={styles.errorMessage}>
+          Please enter a valid email address
+        </Text>
+      )}
       <Input
         placeholder="Description"
         name="textarea"
@@ -74,6 +107,14 @@ const Contact = ({ contactUsHandler }) => {
           width={110}
         />
       </View>
+      <PopUpConfirmationModal visible={errorStatus}>
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign name="exclamationcircle" size={24} color="red" />
+          <Text style={styles.confirmationText}>
+            Please enter the required fields
+          </Text>
+        </View>
+      </PopUpConfirmationModal>
     </Form>
   );
 };
@@ -83,6 +124,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     marginVertical: 20,
+  },
+
+  confirmationText: {
+    marginTop: 0,
+    fontWeight: "bold",
+    fontSize: 20 / fontScale,
+    marginLeft: 15,
+    marginRight: 5,
+    color: "#f40",
+  },
+
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 20,
+    width: 370,
   },
 });
 

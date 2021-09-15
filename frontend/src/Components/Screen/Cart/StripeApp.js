@@ -210,7 +210,7 @@ const StripeApp = ({ userDetails, navigation }) => {
           }}
         >
           <CardField
-            // placeholder={{ number: "4242 4242 4242" }}
+            placeholder={{ number: "4242 4242 4242" }}
             cardStyle={styles.card}
             style={styles.cardContainer}
             onCardChange={(cardDetails) => console.log(cardDetails)}
@@ -259,11 +259,11 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#E7E5E9",
     borderRadius: 20,
+    fontSize: 15 / fontScale,
   },
   cardContainer: {
     height: 50,
     backgroundColor: "#E7E5E9",
-    fontSize: 13 / fontScale,
     borderRadius: 20,
   },
   mailIcon: {
@@ -272,9 +272,9 @@ const styles = StyleSheet.create({
 
   confirmationText: {
     fontWeight: "bold",
-    fontSize: 33,
+    fontSize: 22 / fontScale,
     marginTop: 5,
-    marginLeft: 5,
+    marginLeft: 10,
     marginRight: 5,
   },
   confirmationTextTwo: {

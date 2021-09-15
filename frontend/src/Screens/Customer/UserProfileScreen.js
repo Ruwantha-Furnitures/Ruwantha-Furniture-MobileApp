@@ -15,6 +15,7 @@ import NavProfile from "../../Components/Screen/UserProfile/NavProfile";
 import ViewProfile from "../../Components/Screen/UserProfile/ViewProfile";
 import MyPurchases from "../../Components/Screen/UserProfile/MyPurchases";
 import EditProfile from "../../Components/Screen/UserProfile/EditProfile";
+import ChangePassword from "../../Components/Screen/UserProfile/ChangePassword";
 import { LoginContext } from "../../Components/Reducers/loginReducer";
 import { CartContext } from "../../Components/Reducers/cartReducer";
 import PopUpConfirmationModal from "../../Components/UI/PopUpConfirmationModal";
@@ -197,6 +198,12 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
             navigate={navigate}
           />
         )}
+        {currentView === "Edit Profile" && (
+          <EditProfile
+            userData={userData}
+            editProfileHandler={editProfileHandler}
+          />
+        )}
         {currentView === "My Purchases" && customerOrders.length > 0 && (
           <MyPurchases customerOrders={customerOrders} />
         )}
@@ -230,12 +237,7 @@ const UserProfileScreen = ({ navigation: { navigate } }) => {
             </Card>
           </View>
         )}
-        {currentView === "Edit Profile" && (
-          <EditProfile
-            userData={userData}
-            editProfileHandler={editProfileHandler}
-          />
-        )}
+        {currentView === "Change Password" && <ChangePassword />}
         <PopUpConfirmationModal visible={showModal}>
           <AntDesign
             name="closecircleo"

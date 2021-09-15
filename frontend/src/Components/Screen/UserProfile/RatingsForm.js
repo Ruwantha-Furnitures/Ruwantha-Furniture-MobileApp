@@ -1,14 +1,24 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import SubHeader from "../../Header/SubHeader";
 import Input from "../../UI/Input";
 import FormAppButton from "../../UI/FormAppButton";
 import { AntDesign } from "@expo/vector-icons";
 
+const fontScale = Dimensions.get("window").fontScale;
+const mobileWidth = Dimensions.get("window").width;
+
 const RatingsForm = ({ ratingFormHandler, feedbackHandler }) => {
   const [defaultRating, setDefaultRating] = useState(1);
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
   const [feedback, setFeedback] = useState("");
+  const [feedbackError, setFeedbackError] = useState(false);
 
   const getStartRating = () => {
     return (
@@ -26,6 +36,15 @@ const RatingsForm = ({ ratingFormHandler, feedbackHandler }) => {
         })}
       </View>
     );
+  };
+
+  const ratingHandler = () => {
+    setFeedbackError(false);
+    if (feedback === "") {
+      setFeedbackError(true);
+    } else {
+      feedbackHandler(defaultRating, feedback);
+    }
   };
 
   return (
@@ -48,12 +67,15 @@ const RatingsForm = ({ ratingFormHandler, feedbackHandler }) => {
         height={80}
         onChangeText={(feedback) => setFeedback(feedback)}
       />
+      {feedbackError && (
+        <Text style={styles.errorMessage}>Please provide feedback</Text>
+      )}
       <View
         style={{
           justifyContent: "center",
           marginRight: 30,
           flexDirection: "row",
-          marginTop: 3,
+          marginTop: 5,
         }}
       >
         <FormAppButton width={110} title="Cancel" onPress={ratingFormHandler} />
@@ -61,7 +83,7 @@ const RatingsForm = ({ ratingFormHandler, feedbackHandler }) => {
           width={110}
           type="Submit"
           title="Submit"
-          onPress={() => feedbackHandler(defaultRating, feedback)}
+          onPress={ratingHandler}
         />
       </View>
     </View>
@@ -105,6 +127,14 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     alignSelf: "center",
     marginVertical: 7,
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 25,
+    width: mobileWidth - 60,
+    marginBottom: 2,
+    marginTop: -2,
   },
 });
 
