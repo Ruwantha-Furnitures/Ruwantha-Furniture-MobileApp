@@ -83,6 +83,7 @@ const UserDetails = ({ districts, navigation }) => {
             onChangeText={(telephoneNumber) =>
               setTelephoneNumber(telephoneNumber)
             }
+            keyboard="telephone"
           />
         </React.Fragment>
         <React.Fragment>

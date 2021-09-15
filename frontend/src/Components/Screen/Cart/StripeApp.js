@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
 
   confirmationText: {
     fontWeight: "bold",
-    fontSize: 33,
+    fontSize: 28 / fontScale,
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,

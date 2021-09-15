@@ -30,7 +30,7 @@ const Input = ({
       editable={editable}
       numberOfLines={name === "textarea" ? 6 : 1}
       multiline={name === "textarea" ? true : false}
-      keyboardType={keyboard === "telephone" ? "phone-pad" : ""}
+      keyboardType={keyboard === "telephone" ? "phone-pad" : "default"}
     />
   );
 };

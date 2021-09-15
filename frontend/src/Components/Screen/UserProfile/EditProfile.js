@@ -4,6 +4,10 @@ import Form from "../../UI/Form";
 import SubHeader from "../../Header/SubHeader";
 import FormAppButton from "../../UI/FormAppButton";
 import Input from "../../UI/Input";
+import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
+import { AntDesign } from "@expo/vector-icons";
+
+const fontScale = Dimensions.get("window").fontScale;
 
 const EditProfile = ({ userData, editProfileHandler }) => {
   const [email, setEmail] = useState("");
@@ -11,6 +15,7 @@ const EditProfile = ({ userData, editProfileHandler }) => {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
+  const [errorStatus, setErrorStatus] = useState(false);
   const mobileWidth = Dimensions.get("window").width;
 
   useEffect(() => {
@@ -21,11 +26,27 @@ const EditProfile = ({ userData, editProfileHandler }) => {
       setAddress(() => userData.address);
       setTelephone(() => userData.telephone);
     }
-  }, [userData, submitHandler]);
+  }, [userData]);
 
   const submitHandler = () => {
-    editProfileHandler({ email, firstName, lastName, address, telephone });
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      address === "" ||
+      telephone === ""
+    ) {
+      setErrorStatus(true);
+    } else {
+      editProfileHandler({ email, firstName, lastName, address, telephone });
+    }
   };
+
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorStatus(false), 3 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorStatus]);
 
   return (
     <View style={styles.viewProfile}>
@@ -73,6 +94,14 @@ const EditProfile = ({ userData, editProfileHandler }) => {
           />
         </View>
       </Form>
+      <PopUpConfirmationModal visible={errorStatus}>
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign name="exclamationcircle" size={24} color="red" />
+          <Text style={styles.confirmationText}>
+            Please enter the required fields
+          </Text>
+        </View>
+      </PopUpConfirmationModal>
     </View>
   );
 };
@@ -81,6 +110,14 @@ const styles = StyleSheet.create({
   viewProfile: {
     marginTop: 20,
     marginLeft: -10,
+  },
+  confirmationText: {
+    marginTop: 0,
+    fontWeight: "bold",
+    fontSize: 20 / fontScale,
+    marginLeft: 15,
+    marginRight: 5,
+    color: "#f40",
   },
 });
 

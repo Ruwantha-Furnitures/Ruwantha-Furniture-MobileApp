@@ -3,8 +3,12 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { CartContext } from "../../Reducers/cartReducer";
 import Card from "../../UI/Card";
 import AppButton from "../../UI/AppButton";
+import PopUpConfirmationModal from "../../UI/PopUpConfirmationModal";
+import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
+
+const fontScale = Dimensions.get("window").fontScale;
 
 const DiscountProductPrice = ({
   navigation,
@@ -18,7 +22,38 @@ const DiscountProductPrice = ({
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
   const cartContext = useContext(CartContext);
+  const [errorStatus, setErrorStatus] = useState(false);
 
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorStatus(false), 3 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorStatus]);
+
+  const paymentHandler = () => {
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      address === "" ||
+      district === "" ||
+      telephoneNumber === "" ||
+      selectdeliveryDetails === ""
+    ) {
+      setErrorStatus(true);
+    } else {
+      navigation.navigate("StripeApp", {
+        userDetails: {
+          firstName,
+          lastName,
+          address,
+          telephoneNumber,
+          district,
+          selectdeliveryDetails,
+        },
+      });
+    }
+  };
   return (
     <View
       style={{
@@ -70,22 +105,31 @@ const DiscountProductPrice = ({
               title="Proceed To Payment"
               size="lg"
               width={220}
-              onPress={() =>
-                navigation.navigate("StripeApp", {
-                  userDetails: {
-                    firstName,
-                    lastName,
-                    address,
-                    telephoneNumber,
-                    district,
-                    selectdeliveryDetails,
-                  },
-                })
-              }
+              onPress={paymentHandler}
+              // onPress={() =>
+              //   navigation.navigate("StripeApp", {
+              //     userDetails: {
+              //       firstName,
+              //       lastName,
+              //       address,
+              //       telephoneNumber,
+              //       district,
+              //       selectdeliveryDetails,
+              //     },
+              //   })
+              // }
             />
           </View>
         </View>
       </Card>
+      <PopUpConfirmationModal visible={errorStatus}>
+        <View style={{ flexDirection: "row" }}>
+          <AntDesign name="exclamationcircle" size={24} color="red" />
+          <Text style={styles.confirmationText}>
+            Please enter the required fields
+          </Text>
+        </View>
+      </PopUpConfirmationModal>
     </View>
   );
 };
@@ -128,6 +172,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: "flex-end",
     marginRight: 80,
+  },
+
+  confirmationText: {
+    marginTop: 0,
+    fontWeight: "bold",
+    fontSize: 20 / fontScale,
+    marginLeft: 15,
+    marginRight: 5,
+    color: "#f40",
   },
 });
 

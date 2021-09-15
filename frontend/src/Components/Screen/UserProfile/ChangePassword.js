@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,39 +17,116 @@ import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import * as SecureStore from "expo-secure-store";
 
-const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
+const fontScale = Dimensions.get("window").fontScale;
+const mobileWidth = Dimensions.get("window").width;
+
+const ChangePasswordForm = ({ email, navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorStatus, setErrorStatus] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [currentPasswordMismatch, setCurrentPasswordMismatch] = useState(false);
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
 
   const submitHandler = async () => {
+    setInvalidPassword(false);
+    setCurrentPasswordMismatch(false);
     const email = await SecureStore.getItemAsync("user_email");
-    if (newPassword === confirmPassword) {
-      try {
-        const response = await axios.post(`${API_URL}customer/changePassword`, {
-          password,
-          newPassword,
-          email,
-        });
-        if (response.status === 200) {
-          setShowModal((prevState) => !prevState);
-          setPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
-        }
-      } catch (error) {
-        Alert.alert(error.message);
-      }
+    if (password === "" || newPassword === "" || confirmPassword === "") {
+      setErrorStatus(true);
     } else {
-      errorMessageHandler(
-        "Entered two new passwords does not match,with each other.please try again"
-      );
+      if (newPassword === confirmPassword) {
+        try {
+          const response = await axios.post(
+            `${API_URL}customer/changePassword`,
+            {
+              password,
+              newPassword,
+              email,
+            }
+          );
+          if (response.status === 200) {
+            setShowModal((prevState) => !prevState);
+            setPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+          }
+        } catch (error) {
+          setCurrentPasswordMismatch(true);
+        }
+      } else {
+        setInvalidPassword(true);
+      }
     }
   };
 
+  useEffect(() => {
+    let timer = setTimeout(() => setErrorStatus(false), 3 * 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [errorStatus]);
+
+  const passwordSuccessResponse = (
+    <PopUpConfirmationModal visible={showModal}>
+      <AntDesign
+        name="closecircleo"
+        size={24}
+        color="#F00"
+        style={styles.closeIcon}
+        onPress={() => setShowModal((prevState) => !prevState)}
+      />
+      <Text style={styles.confirmationTextTwo}>
+        Your Account Password has been successfully changed.
+      </Text>
+      <View style={{ alignSelf: "flex-end", marginTop: 20 }}>
+        <FormAppButton
+          title="OK"
+          type="Submit"
+          width={80}
+          onPress={() => setShowModal((prevState) => !prevState)}
+        />
+      </View>
+    </PopUpConfirmationModal>
+  );
+
+  const fieldsNotCompletedPopUp = (
+    <PopUpConfirmationModal visible={errorStatus}>
+      <View style={{ flexDirection: "row" }}>
+        <AntDesign name="exclamationcircle" size={24} color="red" />
+        <Text style={styles.confirmationText}>
+          Please enter the required fields
+        </Text>
+      </View>
+    </PopUpConfirmationModal>
+  );
+
+  const passwordMismatchPopUp = (
+    <PopUpConfirmationModal visible={currentPasswordMismatch}>
+      <AntDesign
+        name="closecircleo"
+        size={24}
+        color="#F00"
+        style={styles.closeIcon}
+        onPress={() => setCurrentPasswordMismatch((prevState) => !prevState)}
+      />
+      <Text style={styles.confirmationTextTwo}>
+        Your entered current password does not match with your existing
+        password.
+      </Text>
+      <View style={{ alignSelf: "flex-end", marginTop: 20 }}>
+        <FormAppButton
+          title="OK"
+          type="Submit"
+          width={80}
+          onPress={() => setCurrentPasswordMismatch((prevState) => !prevState)}
+        />
+      </View>
+    </PopUpConfirmationModal>
+  );
   return (
     <View style={{ marginTop: 30 }}>
       <Form width={mobileWidth - 40} height={400}>
@@ -66,6 +143,12 @@ const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
           placeholder="Enter Your New Password"
           type="password"
         />
+        {invalidPassword && (
+          <Text style={styles.errorMessage}>
+            Entered two new passwords does not match,with each other.please try
+            again
+          </Text>
+        )}
         <Input
           value={confirmPassword}
           onChangeText={(password) => setConfirmPassword(password)}
@@ -82,26 +165,9 @@ const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
           />
         </View>
       </Form>
-      <PopUpConfirmationModal visible={showModal}>
-        <AntDesign
-          name="closecircleo"
-          size={24}
-          color="#F00"
-          style={styles.closeIcon}
-          onPress={() => setShowModal((prevState) => !prevState)}
-        />
-        <Text style={styles.confirmationText}>
-          Your Account Password has been successfully changed.
-        </Text>
-        <View style={styles.btnContainer}>
-          <FormAppButton
-            title="OK"
-            type="Submit"
-            width={100}
-            onPress={() => setShowModal((prevState) => !prevState)}
-          />
-        </View>
-      </PopUpConfirmationModal>
+      {passwordSuccessResponse}
+      {fieldsNotCompletedPopUp}
+      {passwordMismatchPopUp}
     </View>
   );
 };
@@ -127,6 +193,28 @@ const styles = StyleSheet.create({
     marginTop: -18,
     marginRight: 5,
     marginBottom: 0,
+  },
+  confirmationText: {
+    marginTop: 0,
+    fontWeight: "bold",
+    fontSize: 20 / fontScale,
+    marginLeft: 15,
+    marginRight: 5,
+    color: "#f40",
+  },
+  confirmationTextTwo: {
+    marginTop: 0,
+    fontWeight: "bold",
+    fontSize: 18 / fontScale,
+    marginLeft: 15,
+    marginRight: 5,
+    color: "black",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    marginLeft: 20,
+    width: mobileWidth - 60,
   },
 });
 export default ChangePasswordForm;
