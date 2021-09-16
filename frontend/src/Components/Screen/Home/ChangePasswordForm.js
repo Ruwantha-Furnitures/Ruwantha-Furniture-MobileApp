@@ -32,7 +32,6 @@ const ChangePasswordForm = ({ email, navigation, errorMessageHandler }) => {
       setWrongPassword(true);
     } else {
       if (password === confirmPassword) {
-        const email = await SecureStore.getItemAsync("user_email");
         try {
           const response = await axios.post(
             `${API_URL}customer/passwordRecovery/resetPassword`,

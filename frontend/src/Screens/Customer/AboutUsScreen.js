@@ -124,7 +124,6 @@ const AboutUsScreen = ({ navigation: { navigate } }) => {
             Thank you for contacting us, Your message has been recorderd.
           </Text>
         </PopUpConfirmationModal>
-        <Map />
       </View>
     </ScrollView>
   );

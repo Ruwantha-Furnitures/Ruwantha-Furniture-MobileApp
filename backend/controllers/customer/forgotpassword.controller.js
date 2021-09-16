@@ -30,7 +30,6 @@ const recoverPasswordController = async (req, res) => {
 
 const resetPasswordController = async (req, res) => {
   const { code, password, email } = req.body;
-  console.log(email, code);
   let saltrounds = 10;
   try {
     const compare = await Token.findOne({ where: { email, token: code } });
@@ -52,6 +51,7 @@ const resetPasswordController = async (req, res) => {
       });
     } else {
       console.log("error");
+      console.log(error);
       res
         .status(500)
         .json({ message: "You have entered a wrong code, please try again!" });
