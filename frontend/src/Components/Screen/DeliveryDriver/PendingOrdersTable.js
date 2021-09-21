@@ -19,7 +19,7 @@ const PendingOrdersTable = ({ pendingOrders }) => {
         }}
       >
         <Grid>
-          <Col size={15}>
+          <Col size={17}>
             <Row style={styles.cellAddressCol}>
               <Text
                 style={{
@@ -35,7 +35,7 @@ const PendingOrdersTable = ({ pendingOrders }) => {
               </Row>
             ))}
           </Col>
-          <Col size={25}>
+          <Col size={30}>
             <Row style={styles.cellAddressCol}>
               <Text
                 style={{

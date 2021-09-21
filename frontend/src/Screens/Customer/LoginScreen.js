@@ -33,7 +33,6 @@ const LoginScreen = ({ navigation }) => {
       setErrorMessage("Please enter the required fields");
     } else {
       try {
-        console.log("login");
         setIsLoading(true);
         let response = await axios.post(`${API_URL}customer/login`, {
           data,
@@ -72,7 +71,6 @@ const LoginScreen = ({ navigation }) => {
             );
             const { deliveryDriverID, availability } =
               deliveryDriverIdResponse.data;
-            console.log(availability);
             setIsLoading(false);
             setErrorMessage("");
             await SecureStore.setItemAsync(

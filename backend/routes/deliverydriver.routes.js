@@ -5,7 +5,7 @@ const {
   getDeliveryDriverIdController,
   getDeliveryDriverDetailsController,
   updateDriverAvailabilityController,
-  getDriverDashboardInfoController,
+  addDriverController,
 } = require("../controllers/deliveryDriver/driverdetails.controller");
 
 const {
@@ -20,6 +20,7 @@ const {
 } = require("../controllers/deliveryDriver/driverorders.controller");
 
 //delivery driver details routes
+router.post("/", addDriverController);
 router.get("/login/:accID", getDeliveryDriverIdController);
 router.get("/driverDetails/:driverID", getDeliveryDriverDetailsController);
 router.put("/driverAvailability/:driverID", updateDriverAvailabilityController);

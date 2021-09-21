@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
 const UpdateProfileController = async (req, res) => {
-  console.log(req.body.data);
   const customerID = req.params.customerID;
   const { firstName, address, telephone, lastName } = req.body.data;
   try {
@@ -17,7 +16,6 @@ const UpdateProfileController = async (req, res) => {
       },
       { where: { id: customerID } }
     );
-    // res.json({});
     if (update >= 1) {
       res.json({
         status: "Successful",
@@ -29,7 +27,6 @@ const UpdateProfileController = async (req, res) => {
     } else {
       res.json({ status: "Unsuccessful" });
     }
-    // console.log(update + " updated");
   } catch (error) {
     console.log(error);
   }

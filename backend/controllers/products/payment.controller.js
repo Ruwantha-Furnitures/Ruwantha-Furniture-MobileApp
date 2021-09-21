@@ -8,8 +8,9 @@ const Payments = db.payments;
 
 const getAllDistrictsChargesController = async (req, res) => {
   try {
-    const deliveryCharges = await DeliveryCharges.findAll();
-    console.log(deliveryCharges);
+    const deliveryCharges = await DeliveryCharges.findAll({
+      order: [["area", "ASC"]],
+    });
     res.status(200).json({ deliveryCharges });
   } catch (error) {
     res.status(500).json({ message: "Error while retrieving payment Details" });
@@ -42,7 +43,6 @@ const shippingDetailsController = async (req, res) => {
 
 const paymentsStoreController = async (req, res) => {
   const { order_id, total_amounts } = req.body.paymentDetailsData;
-  console.log(req.body.paymentDetailsData);
   try {
     const paymentDetails = await Payments.create({ order_id, total_amounts });
     res.status(201).json({ message: "Your Payment Details has been add" });
@@ -58,7 +58,6 @@ const paymentIntentController = async (req, res) => {
       currency: "lkr",
       payment_method_types: ["card"],
     });
-    console.log(paymentIntent);
     const client_secret = paymentIntent.client_secret;
     res.status(200).json({ client_secret });
   } catch (error) {

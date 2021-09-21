@@ -8,7 +8,6 @@ const getAllProducts = async (req, res) => {
   const data = [];
   try {
     const product = await Product.findAll();
-    console.log(product.length);
     for (let i = 0; i < product.length; i++) {
       console.log(product[i].name);
       const {
@@ -35,12 +34,9 @@ const getAllProducts = async (req, res) => {
           const { rating_points } = ratingProducts[j];
           totalRating += rating_points;
         }
-        console.log(rating);
-        console.log(totalRating);
         rating = parseInt(totalRating / ratingProducts.length);
       }
       const type = category.name;
-      console.log(name);
       data.push({
         id,
         name,
@@ -61,8 +57,6 @@ const getAllProducts = async (req, res) => {
 };
 
 const getOneProduct = async (req, res) => {
-  console.log("Inside the product");
-  console.log(req.params.productId);
   try {
     const product = await Product.findOne({
       where: { id: req.params.productId },

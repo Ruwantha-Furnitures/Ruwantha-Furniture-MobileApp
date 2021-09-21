@@ -3,8 +3,6 @@ const Order = db.order;
 const SellProduct = db.sellProduct;
 const Product = db.product;
 const orderDetailsController = async (req, res) => {
-  console.log("order Called");
-  console.log(req.body.data);
   const { total_product_amount, customer_id, payment_method } = req.body.data;
   const paymentDetails = {
     total_product_amount,
@@ -14,13 +12,11 @@ const orderDetailsController = async (req, res) => {
   };
   try {
     const order = await Order.create(paymentDetails);
-    console.log(order);
     res.status(201).json({
       message: "Order has been created successfully",
       order_id: order.id,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -46,7 +42,6 @@ const sellProductsController = async (req, res) => {
       };
       products.push(productData);
     }
-    console.log(products);
     for (let i = 0; i < products.length; i++) {
       const { product_id, order_id, price, quantity, discount } = products[i];
       const sellProducts = await SellProduct.create({

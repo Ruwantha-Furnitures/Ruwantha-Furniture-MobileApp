@@ -45,13 +45,10 @@ const resetPasswordController = async (req, res) => {
             .status(200)
             .json({ message: "Your password has been reset successfully" });
         } catch (error) {
-          console.log(error);
           res.status(500).json({ message: "Please try again!" });
         }
       });
     } else {
-      console.log("error");
-      console.log(error);
       res
         .status(500)
         .json({ message: "You have entered a wrong code, please try again!" });
@@ -71,21 +68,31 @@ const changePasswordController = async (req, res) => {
     });
     const hashedPassword = account.password;
     const passwordMatched = await bcrypt.compare(password, hashedPassword);
+    const newPasswordMatched = await bcrypt.compare(
+      newPassword,
+      hashedPassword
+    );
     if (passwordMatched) {
-      bcrypt.hash(newPassword, saltrounds, async (err, hash) => {
-        const updatePassword = await Account.update(
-          { password: hash },
-          { where: { email } }
-        );
-        try {
-          res
-            .status(200)
-            .json({ message: "Your password has been changed successfully" });
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({ message: "Please try again!" });
-        }
-      });
+      if (newPasswordMatched) {
+        res.status(501).json({
+          message:
+            "Please Don't Include the your current password as your new password!",
+        });
+      } else {
+        bcrypt.hash(newPassword, saltrounds, async (err, hash) => {
+          const updatePassword = await Account.update(
+            { password: hash },
+            { where: { email } }
+          );
+          try {
+            res
+              .status(200)
+              .json({ message: "Your password has been changed successfully" });
+          } catch (error) {
+            res.status(500).json({ message: "Please try again!" });
+          }
+        });
+      }
     } else {
       res.status(500).json({ message: "Your entered password does not match" });
     }

@@ -32,7 +32,7 @@ const Contact = () => {
       details === ""
     ) {
       setErrorStatus(true);
-    } else if (reg.test(email) === false) {
+    } else if (reg.test(email.trim()) === false) {
       setInvalidEmail(true);
     } else {
       try {
