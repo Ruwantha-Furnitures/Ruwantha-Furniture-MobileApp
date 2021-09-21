@@ -1,10 +1,8 @@
 //driverdetails.controller.js file
 //path : backend/controllers/customer.driverdetails.controller.js
 
-
 const db = require("../../models");
 const DeliveryDriver = db.deliveryDriver;
-
 
 const getDeliveryDriverIdController = async (req, res) => {
   const { accID } = req.params;
@@ -14,17 +12,14 @@ const getDeliveryDriverIdController = async (req, res) => {
     });
     const deliveryDriverID = result.id;
     const availability = result.availability;
-    console.log(deliveryDriverID);
     res.status(200).json({ deliveryDriverID, availability });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-
 const getDeliveryDriverDetailsController = async (req, res) => {
   const { driverID } = req.params;
-  console.log(driverID);
   try {
     const deliveryDriverDetails = await DeliveryDriver.findOne({
       where: {
@@ -37,7 +32,6 @@ const getDeliveryDriverDetailsController = async (req, res) => {
   }
 };
 
-
 const updateDriverAvailabilityController = async (req, res) => {
   const { driverID } = req.params;
   const { availability } = req.body;
@@ -47,8 +41,6 @@ const updateDriverAvailabilityController = async (req, res) => {
   } else {
     availabilityStatus = 0;
   }
-  console.log(driverID);
-  console.log(availabilityStatus);
   try {
     const updateAvailability = await DeliveryDriver.update(
       {
@@ -68,8 +60,50 @@ const updateDriverAvailabilityController = async (req, res) => {
   }
 };
 
+//for the testing purposes
+const addDriverController = async (req, res) => {
+  const { firstName, lastName, email, password, contactNo, address } =
+    req.body.data;
+  const userlevel = 3;
+  const availability = 1;
+  try {
+    bcrypt.hash(password, 10, async (err, hash) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        //account Data for the account Table
+        const accountData = {
+          email,
+          password: hash,
+          user_level: userlevel,
+        };
+
+        const AccountDetails = await Account.create(accountData);
+        const aid = AccountDetails.id;
+        //driver data for the driver table
+        const driverData = {
+          first_name: firstName,
+          last_name: lastName,
+          telephone: contactNo,
+          availability,
+          account_id: aid,
+          address,
+        };
+
+        const DriverDetails = await DeliveryDriver.create(driverData);
+        if (DriverDetails) {
+          res.status(200).json({ message: "Driver account added" });
+        } else {
+          res.status(500).json({ message: "Driver account could not created" });
+        }
+      }
+    });
+  } catch (error) {}
+};
+
 module.exports = {
   getDeliveryDriverDetailsController,
   getDeliveryDriverIdController,
   updateDriverAvailabilityController,
+  addDriverController,
 };

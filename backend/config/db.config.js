@@ -1,7 +1,15 @@
 module.exports = {
-  HOST: "localhost",
+  HOST: "35.226.136.183",
   USER: "root",
-  PASSWORD: "",
+  PASSWORD: "TYPucsc123",
   DB: "armagic",
   dialect: "mysql",
 };
+
+// module.exports = {
+//   HOST: "localhost",
+//   USER: "root",
+//   PASSWORD: "",
+//   DB: "armagic",
+//   dialect: "mysql",
+// };

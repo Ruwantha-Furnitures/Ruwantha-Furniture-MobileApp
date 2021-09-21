@@ -1,6 +1,3 @@
-//driverorders.controller.js file
-//path : backend/controllers/customer.driverorders.controller.js
-
 const Op = require("sequelize").Op;
 const moment = require("moment");
 const db = require("../../models");
@@ -38,6 +35,7 @@ const getAllOrdersForDayController = async (req, res) => {
           },
         },
       });
+
       //if then only it will take the shipping details from the customer
       if (orderWithTwoDays) {
         const orderID = orderWithTwoDays.id;
@@ -61,7 +59,6 @@ const getAllOrdersForDayController = async (req, res) => {
     }
     res.status(200).json({ orderDetails });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: error });
   }
 };
@@ -69,7 +66,6 @@ const getAllOrdersForDayController = async (req, res) => {
 //getting more details about the order
 const getOneOrderDetailsController = async (req, res) => {
   const { orderID } = req.params;
-  console.log(orderID);
   const productContainer = [];
   try {
     const sellProduct = await SellProduct.findAll({
@@ -77,15 +73,12 @@ const getOneOrderDetailsController = async (req, res) => {
     });
     for (let i = 0; i < sellProduct.length; i++) {
       const productID = sellProduct[i].product_id;
-      console.log(productID);
       const { quantity, price, discount } = sellProduct[i];
-      console.log(sellProduct[i]);
       const product = await Product.findOne({ where: { id: productID } });
       const { name } = product;
       const itemPriceAfterDiscount = parseInt(price) - (price * discount) / 100;
       productContainer.push({ name, quantity, itemPriceAfterDiscount });
     }
-    console.log(productContainer);
     res.status(200).json({ productContainer });
   } catch (error) {
     res.status(500).json({ error: error });
@@ -104,15 +97,9 @@ const pendingOrderDetailsController = async (req, res) => {
         complete_status: 0,
       },
     });
-    console.log("pending");
-    console.log(pending);
     for (let i = 0; i < pending.length; i++) {
-      console.log(pending[i].order_id);
       let { order_id } = pending[i];
-      // const orders = await Order.findOne({ where: { id: order_id } });
-      // let {customer_id}=orders;
       const userData = await ShippingDetails.findOne({ where: { order_id } });
-      console.log(userData.first_name, userData.last_name);
       const { first_name, last_name, shipping_address, createdAt } = userData;
       const name = `${first_name} ${last_name}`;
       orderUsers.push({ name, shipping_address, createdAt, order_id });
@@ -148,23 +135,18 @@ const updateDeliveryStatusController = async (req, res) => {
 const todayAssignmentController = async (req, res) => {
   const { driverID } = req.params;
   const day = moment().date();
+
   try {
     const assignment = await Deliveries.findAll({
       where: {
         delivery_driver_id: driverID,
         request_status: 1,
-        // createdAt: { [Op.gt]: moment().format("YYYY-MM-DD 00:00") },
-        // createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
         createdAt: {
-          [Op.gt]: moment("01", "DD")
-            .add(day - 1, "days")
-            .toDate(),
-          [Op.lte]: moment("01", "DD").add(day, "days").toDate(),
+          [Op.gte]: moment("01", "DD").add(day, "days").toDate(),
         },
       },
     });
     const noAssignedToday = assignment.length;
-    console.log("result");
     res.status(200).json({ noAssignedToday });
   } catch (error) {
     res.status(500).json({ error: error });
@@ -182,10 +164,9 @@ const todayCompleteController = async (req, res) => {
         delivery_driver_id: driverID,
         complete_status: 1,
         createdAt: {
-          [Op.gt]: moment("01", "DD")
+          [Op.gte]: moment("01", "DD")
             .add(day - 1, "days")
             .toDate(),
-          [Op.lte]: moment("01", "DD").add(day, "days").toDate(),
         },
       },
     });
@@ -200,22 +181,18 @@ const todayCompleteController = async (req, res) => {
 const todayPendingOrderController = async (req, res) => {
   const { driverID } = req.params;
   const day = moment().date();
-
   try {
     const pending = await Deliveries.findAll({
       where: {
         delivery_driver_id: driverID,
         request_status: 0,
+        complete_status: 0,
         createdAt: {
-          [Op.gt]: moment("01", "DD")
-            .add(day - 1, "days")
-            .toDate(),
-          [Op.lte]: moment("01", "DD").add(day, "days").toDate(),
+          [Op.gte]: moment("01", "DD").add(day, "days").toDate(),
         },
       },
     });
-    console.log("pending");
-    console.log(pending);
+
     const noPendingToday = pending.length;
     res.status(200).json({ noPendingToday });
   } catch (error) {
@@ -226,7 +203,6 @@ const todayPendingOrderController = async (req, res) => {
 //get the completed orders in this month
 const monthlyCompletedOrderController = async (req, res) => {
   const { driverID } = req.params;
-  console.log(driverID);
   let month = moment().month();
   month += 1;
   try {
@@ -245,7 +221,6 @@ const monthlyCompletedOrderController = async (req, res) => {
     const noMonthlyCompleted = monthlyCompleted.length;
     res.status(200).json({ noMonthlyCompleted });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: error });
   }
 };

@@ -7,7 +7,6 @@ const JWT = require("jsonwebtoken");
 const { createTokens, validateTokens } = require("../../middleware/auth");
 
 const LoginController = async (req, res) => {
-  console.log("run");
   const { password, userEmail } = req.body.data;
   const data = { email: userEmail };
 
@@ -54,15 +53,12 @@ const LoginController = async (req, res) => {
 };
 
 const getCustomerIdContrller = async (req, res) => {
-  console.log("mmm");
   const accountId = parseInt(req.params.accID);
-  console.log(accountId);
   try {
     const response = await online_customer.findOne({
       where: { account_id: accountId },
     });
     const customerId = response.customer_id;
-    console.log(customerId);
     res.status(200).json({ customerId });
   } catch (error) {
     console.log(error);

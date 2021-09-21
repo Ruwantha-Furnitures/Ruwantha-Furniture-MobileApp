@@ -11,8 +11,6 @@ const Product = db.product;
 const getAllOrdersForDayController = async (req, res) => {
   const { driverID } = req.params;
   const day = moment().date();
-  console.log("day");
-  console.log(day);
   const orderDetails = [];
   try {
     //find all the deliveries assigned
@@ -60,7 +58,6 @@ const getAllOrdersForDayController = async (req, res) => {
     }
     res.status(200).json({ orderDetails });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: error });
   }
 };
@@ -68,7 +65,6 @@ const getAllOrdersForDayController = async (req, res) => {
 //getting more details about the order
 const getOneOrderDetailsController = async (req, res) => {
   const { orderID } = req.params;
-  console.log(orderID);
   const productContainer = [];
   try {
     const sellProduct = await SellProduct.findAll({
@@ -84,7 +80,6 @@ const getOneOrderDetailsController = async (req, res) => {
       const itemPriceAfterDiscount = (price * discount) / 100 + parseInt(price);
       productContainer.push({ name, quantity, itemPriceAfterDiscount });
     }
-    console.log(productContainer);
     res.status(200).json({ productContainer });
   } catch (error) {
     res.status(500).json({ error: error });
@@ -103,22 +98,17 @@ const pendingOrderDetailsController = async (req, res) => {
         complete_status: 0,
       },
     });
-    console.log("pending");
-    console.log(pending);
     for (let i = 0; i < pending.length; i++) {
-      console.log(pending[i].order_id);
       let { order_id } = pending[i];
       // const orders = await Order.findOne({ where: { id: order_id } });
       // let {customer_id}=orders;
       const userData = await ShippingDetails.findOne({ where: { order_id } });
-      console.log(userData.first_name, userData.last_name);
       const { first_name, last_name, shipping_address, createdAt } = userData;
       const name = `${first_name} ${last_name}`;
       orderUsers.push({ name, shipping_address, createdAt, order_id });
     }
     res.status(200).json({ orderUsers });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: error });
   }
 };
@@ -193,8 +183,6 @@ const todayPendingOrderController = async (req, res) => {
         createdAt: { [Op.lte]: moment().format("YYYY-MM-DD 23:59") },
       },
     });
-    console.log("pending");
-    console.log(pending);
     const noPendingToday = pending.length;
     res.status(200).json({ noPendingToday });
   } catch (error) {
@@ -205,7 +193,6 @@ const todayPendingOrderController = async (req, res) => {
 //get the completed orders in this month
 const monthlyCompletedOrderController = async (req, res) => {
   const { driverID } = req.params;
-  console.log(driverID);
   let month = moment().month();
   month += 1;
   try {
@@ -224,7 +211,6 @@ const monthlyCompletedOrderController = async (req, res) => {
     const noMonthlyCompleted = monthlyCompleted.length;
     res.status(200).json({ noMonthlyCompleted });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: error });
   }
 };

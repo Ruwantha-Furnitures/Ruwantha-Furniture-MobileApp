@@ -4,9 +4,7 @@ const Account = db.account;
 const OnlineCustomer = db.onlineCustomer;
 
 const ViewProfileController = async (req, res) => {
-  console.log("API Called");
   const customerID = req.params.customerID;
-  console.log(customerID);
   try {
     const result = await Customer.findOne({
       where: { id: customerID },
@@ -17,7 +15,6 @@ const ViewProfileController = async (req, res) => {
   } catch (error) {
     console.error(error);
   }
-  //   console.log(typeOf(req.body.accID));
 };
 
 module.exports = { ViewProfileController };

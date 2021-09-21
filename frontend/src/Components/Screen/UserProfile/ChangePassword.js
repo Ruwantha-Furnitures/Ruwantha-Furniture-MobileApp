@@ -28,6 +28,7 @@ const ChangePasswordForm = ({ email, navigation }) => {
   const [errorStatus, setErrorStatus] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [currentPasswordMismatch, setCurrentPasswordMismatch] = useState(false);
+  const [enterNewPassword, setEnterNewPassword] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
   const mobileWidth = Dimensions.get("window").width;
   const mobileHeight = Dimensions.get("window").height;
@@ -36,6 +37,7 @@ const ChangePasswordForm = ({ email, navigation }) => {
     let regPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     setInvalidPassword(false);
     setCurrentPasswordMismatch(false);
+    setEnterNewPassword(false);
     setWrongPassword(false);
     const email = await SecureStore.getItemAsync("user_email");
     if (password === "" || newPassword === "" || confirmPassword === "") {
@@ -60,7 +62,11 @@ const ChangePasswordForm = ({ email, navigation }) => {
             setConfirmPassword("");
           }
         } catch (error) {
-          setCurrentPasswordMismatch(true);
+          if (error.message === "Request failed with status code 501") {
+            setEnterNewPassword(true);
+          } else {
+            setCurrentPasswordMismatch(true);
+          }
         }
       } else {
         setInvalidPassword(true);
@@ -133,6 +139,30 @@ const ChangePasswordForm = ({ email, navigation }) => {
     </PopUpConfirmationModal>
   );
 
+  const sameNewCurPasswordPopup = (
+    <PopUpConfirmationModal visible={enterNewPassword}>
+      <AntDesign
+        name="closecircleo"
+        size={24}
+        color="#F00"
+        style={styles.closeIcon}
+        onPress={() => setEnterNewPassword((prevState) => !prevState)}
+      />
+      <Text style={styles.confirmationTextTwo}>
+        Please Don't Include your current password as your new password,enter a
+        different password!
+      </Text>
+      <View style={{ alignSelf: "flex-end", marginTop: 20 }}>
+        <FormAppButton
+          title="OK"
+          type="Submit"
+          width={80}
+          onPress={() => setEnterNewPassword((prevState) => !prevState)}
+        />
+      </View>
+    </PopUpConfirmationModal>
+  );
+
   return (
     <View style={{ marginTop: 30 }}>
       <Form width={mobileWidth - 40} height={400}>
@@ -180,6 +210,7 @@ const ChangePasswordForm = ({ email, navigation }) => {
       {passwordSuccessResponse}
       {fieldsNotCompletedPopUp}
       {passwordMismatchPopUp}
+      {sameNewCurPasswordPopup}
     </View>
   );
 };

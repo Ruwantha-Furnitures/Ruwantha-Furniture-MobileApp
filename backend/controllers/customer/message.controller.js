@@ -2,7 +2,6 @@ const db = require("../../models");
 const Message = db.messages;
 
 const messageController = async (req, res) => {
-  console.log(req.body);
   const { first_name, last_name, contact_number, email, details } = req.body;
 
   try {

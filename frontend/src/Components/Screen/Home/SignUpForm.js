@@ -37,7 +37,7 @@ const SignUpForm = ({ signUpHandler }) => {
     if (
       confirmPassword !== password &&
       reg.test(email.trim()) === false &&
-      regMobile.test(contactNo)
+      regMobile.test(contactNo) === false
     ) {
       setErrorMessage(true);
       setInvalidEmail(true);
