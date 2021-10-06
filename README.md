@@ -7,7 +7,7 @@
  Start the project(client) - npm start/yarn start(depends on the package manager you have) \
  Start the project(server)- npm run devStart 
 
-Group Members 
+Contributors
 
 A.P. Fernandopulle -18020232(Index No) \
 K.N.H. Fernando - 18020216(Index No)\
