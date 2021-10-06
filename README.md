@@ -7,8 +7,8 @@
  Start the project(client) - npm start/yarn start(depends on the package manager you have) \
  Start the project(server)- npm run devStart 
 
-Members 
+Group Members 
 
-A.P.Fernandopulle \
-K.N.H. Fernando\
-W.H.M. Gunathilaka
+A.P.Fernandopulle -18020232(Index No) \
+K.N.H. Fernando - 18020275(Index No)\
+W.H.M. Gunathilaka - 18020216(Index No)
