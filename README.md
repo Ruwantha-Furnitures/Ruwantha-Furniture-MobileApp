@@ -5,9 +5,9 @@
  Change the Directory(to run client) - cd Ruwantha-Furniture-MobileApp => cd frontend => npm install \
  Change the Directory(to run server) - cd Ruwantha-Furniture-MobileApp => cd backend => npm install \
  Start the project(client) - npm start/yarn start(depends on the package manager you have) \
- Start the project(server)- npm run devStart \
+ Start the project(server)- npm run devStart 
 
-Members \
+Members 
 
 A.P.Fernandopulle \
 K.N.H. Fernando\
