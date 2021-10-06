@@ -9,6 +9,6 @@
 
 Group Members 
 
-A.P.Fernandopulle -18020232(Index No) \
-K.N.H. Fernando - 18020275(Index No)\
-W.H.M. Gunathilaka - 18020216(Index No)
+A.P. Fernandopulle -18020232(Index No) \
+K.N.H. Fernando - 18020216(Index No)\
+W.H.M. Gunathilaka - 18020275(Index No)
