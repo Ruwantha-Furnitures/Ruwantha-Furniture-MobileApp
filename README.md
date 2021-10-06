@@ -1,6 +1,6 @@
 # Ruwantha-Furnitures-MobileApp
  
- To Download Expo on your machine  - npm install --global expo-cli(Beforehand should have npm on your machine)
+ To Download Expo on your machine  - npm install --global expo-cli(Beforehand should have npm on your machine) \n
  Clone the repo - git clone https://github.com/Ruwantha-Furnitures/Ruwantha-Furniture-MobileApp.git
  Change the Directory(to run client) - cd Ruwantha-Furniture-MobileApp => cd frontend => npm install
  Change the Directory(to run server) - cd Ruwantha-Furniture-MobileApp => cd backend => npm install
